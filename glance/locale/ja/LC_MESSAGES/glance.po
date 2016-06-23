@@ -1,0 +1,3199 @@
+# Translations template for glance.
+# Copyright (C) 2015 ORGANIZATION
+# This file is distributed under the same license as the glance project.
+#
+# Translators:
+# Tomoyuki KATO <tomo@dream.daynight.jp>, 2013
+# Akihiro Motoki <amotoki@gmail.com>, 2015. #zanata
+# OpenStack Infra <zanata@openstack.org>, 2015. #zanata
+# Tom Cocozzello <tjcocozz@us.ibm.com>, 2015. #zanata
+# Yuko Katabami <yukokatabami@gmail.com>, 2015. #zanata
+# Tsutomu Kimura <ebb0de2@jp.ibm.com>, 2016. #zanata
+# Yuta Hono <yuta.hono@ntt.com>, 2016. #zanata
+# 笹原 昌美 <ebb0de1@jp.ibm.com>, 2016. #zanata
+msgid ""
+msgstr ""
+"Project-Id-Version: glance 12.0.0.0rc2.dev7\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2016-03-29 18:17+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-03-30 04:55+0000\n"
+"Last-Translator: 笹原 昌美 <ebb0de1@jp.ibm.com>\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.0\n"
+"X-Generator: Zanata 3.7.3\n"
+"Language-Team: Japanese\n"
+
+#, python-format
+msgid "\t%s"
+msgstr "\t%s"
+
+#, python-format
+msgid "%(attribute)s have to be string"
+msgstr "%(attribute)s は文字列でなければなりません"
+
+#, python-format
+msgid "%(attribute)s is required"
+msgstr "%(attribute)s は必須です"
+
+#, python-format
+msgid "%(attribute)s may not be longer than %(length)i"
+msgstr "%(attribute)s を %(length)i より長くすることはできません"
+
+#, python-format
+msgid "%(attribute)s may not be shorter than %(length)i"
+msgstr "%(attribute)s を %(length)i より短くすることはできません"
+
+#, python-format
+msgid "%(attribute)s should match pattern %(pattern)s"
+msgstr "%(attribute)s はパターン %(pattern)s に一致していなければなりません"
+
+#, python-format
+msgid "%(cls)s exception was raised in the last rpc call: %(val)s"
+msgstr "最後の RPC 呼び出しで %(cls)s 例外が発生しました: %(val)s"
+
+#, python-format
+msgid "%(m_id)s not found in the member list of the image %(i_id)s."
+msgstr "イメージ %(i_id)s のメンバーリストで %(m_id)s が見つかりません。"
+
+#, python-format
+msgid "%(serv)s (pid %(pid)s) is running..."
+msgstr "%(serv)s (pid %(pid)s) が実行中..."
+
+#, python-format
+msgid "%(serv)s appears to already be running: %(pid)s"
+msgstr "%(serv)s は既に実行されている可能性があります: %(pid)s"
+
+#, python-format
+msgid ""
+"%(strategy)s is registered as a module twice. %(module)s is not being used."
+msgstr ""
+"%(strategy)s はモジュールとして 2 回登録されています。%(module)s は使用されて"
+"いません。"
+
+#, python-format
+msgid ""
+"%(task_id)s of %(task_type)s not configured properly. Could not load the "
+"filesystem store"
+msgstr ""
+"%(task_type)s の %(task_id)s が正しく設定されていません。ファイルシステムスト"
+"アをロードできませんでした。"
+
+#, python-format
+msgid ""
+"%(task_id)s of %(task_type)s not configured properly. Missing work dir: "
+"%(work_dir)s"
+msgstr ""
+"%(task_type)s の %(task_id)s が適切に設定されていません。作業ディレクトリー "
+"%(work_dir)s がありません"
+
+#, python-format
+msgid "%(verb)sing %(serv)s"
+msgstr "%(serv)s の %(verb)s 中"
+
+#, python-format
+msgid "%(verb)sing %(serv)s with %(conf)s"
+msgstr "%(conf)s を使用して %(serv)s を %(verb)s 中"
+
+#, python-format
+msgid ""
+"%s Please specify a host:port pair, where host is an IPv4 address, IPv6 "
+"address, hostname, or FQDN. If using an IPv6 address, enclose it in brackets "
+"separately from the port (i.e., \"[fe80::a:b:c]:9876\")."
+msgstr ""
+"%s host:port のペアを指定してください。host は IPv4 アドレス、IPv6 アドレス、"
+"ホスト名、または FQDN です。IPv6 アドレスを使用する場合は、アドレスを大括弧で"
+"囲んでポートと区別してください (例えば、\"[fe80::a:b:c]:9876\")。"
+
+#, python-format
+msgid "%s can't contain 4 byte unicode characters."
+msgstr "%s に 4 バイトの Unicode 文字が含まれていてはなりません。"
+
+#, python-format
+msgid "%s is already stopped"
+msgstr "%s は既に停止しています"
+
+#, python-format
+msgid "%s is stopped"
+msgstr "%s は停止しています"
+
+#, python-format
+msgid "'%(param)s' value out of range, must not exceed %(max)d"
+msgstr "'%(param)s の値が範囲外です。%(max)d を超えてはなりません"
+
+msgid ""
+"--os_auth_url option or OS_AUTH_URL environment variable required when "
+"keystone authentication strategy is enabled\n"
+msgstr ""
+"keystone 認証戦略が有効な場合は、--os_auth_url オプションまたはOS_AUTH_URL 環"
+"境変数が必要です\n"
+
+msgid "A body is not expected with this request."
+msgstr "この要求では本文は予期されません。"
+
+msgid ""
+"A list of artifacts that are allowed in the format name or name-version. "
+"Empty list means that any artifact can be loaded."
+msgstr ""
+"形式名または名前-バージョンで許可されていない成果物のリスト。空のリストは、ど"
+"の成果物もロード可能であることを意味します。"
+
+#, python-format
+msgid ""
+"A metadata definition object with name=%(object_name)s already exists in "
+"namespace=%(namespace_name)s."
+msgstr ""
+"name=%(object_name)s のメタデータ定義オブジェクトは、namespace="
+"%(namespace_name)s に既に存在します。"
+
+#, python-format
+msgid ""
+"A metadata definition property with name=%(property_name)s already exists in "
+"namespace=%(namespace_name)s."
+msgstr ""
+"name=%(property_name)s のメタデータ定義プロパティーは、namespace="
+"%(namespace_name)s に既に存在します。"
+
+#, python-format
+msgid ""
+"A metadata definition resource-type with name=%(resource_type_name)s already "
+"exists."
+msgstr ""
+"name=%(resource_type_name)s のメタデータ定義リソースタイプは、既に存在しま"
+"す。"
+
+#, python-format
+msgid ""
+"A metadata tag with name=%(name)s already exists in namespace="
+"%(namespace_name)s."
+msgstr ""
+"name=%(name)s のメタデータタグは既に namespace=%(namespace_name)s に存在しま"
+"す。"
+
+msgid "A set of URLs to access the image file kept in external store"
+msgstr ""
+"外部ストアに保持されているイメージファイルにアクセスするための一連の URL"
+
+msgid ""
+"AES key for encrypting store 'location' metadata. This includes, if used, "
+"Swift or S3 credentials. Should be set to a random string of length 16, 24 "
+"or 32 bytes"
+msgstr ""
+"ストア「ロケーション」メタデータを暗号化するための AES 鍵。この鍵を使用する場"
+"合は、Swift または S3 の資格情報が組み込まれます。長さが 16 バイト、24 バイ"
+"ト、または 32 バイトのランダム文字列に設定する必要があります。"
+
+msgid ""
+"Address to bind the server.  Useful when selecting a particular network "
+"interface."
+msgstr ""
+"サーバーをバインドするアドレス。特定のネットワークインターフェースを選択する"
+"ときに役立ちます。"
+
+msgid "Address to find the registry server."
+msgstr "レジストリーサーバーを検索するアドレス。"
+
+msgid ""
+"Allow unauthenticated users to access the API with read-only privileges. "
+"This only applies when using ContextMiddleware."
+msgstr ""
+"非認証ユーザーが、読み取り専用特権で API にアクセスできるようにします。これ"
+"は、ContextMiddleware の使用時にのみ適用されます。"
+
+#, python-format
+msgid "Allowed values %s are invalid under given validators"
+msgstr "許可値 %s は指定されたバリデーター下では無効です"
+
+msgid "Amount of disk space (in GB) required to boot image."
+msgstr "イメージのブートに必要なディスクスペースの量 (GB)"
+
+msgid "Amount of ram (in MB) required to boot image."
+msgstr "イメージのブートに必要な RAM の量 (MB)"
+
+msgid "An identifier for the image"
+msgstr "イメージの ID"
+
+msgid "An identifier for the image member (tenantId)"
+msgstr "イメージメンバーの ID (テナント ID)"
+
+msgid "An identifier for the owner of this task"
+msgstr "このタスクの所有者 ID"
+
+msgid "An identifier for the task"
+msgstr "タスクの ID"
+
+msgid "An image file url"
+msgstr "イメージファイルの URL"
+
+msgid "An image schema url"
+msgstr "イメージスキーマの URL"
+
+msgid "An image self url"
+msgstr "イメージ自体の URL"
+
+#, python-format
+msgid "An image with identifier %s already exists"
+msgstr "ID %s のイメージは既に存在します"
+
+msgid "An import task exception occurred"
+msgstr "インポートタスクの例外が発生しました"
+
+msgid "An object with the same identifier already exists."
+msgstr "同じ ID のオブジェクトが既に存在します。"
+
+msgid "An object with the same identifier is currently being operated on."
+msgstr "現在、同じ ID を持つオブジェクトが操作されています。"
+
+msgid "An object with the specified identifier was not found."
+msgstr "指定された ID を持つオブジェクトが見つかりませんでした。"
+
+msgid "An unknown exception occurred"
+msgstr "不明な例外が発生しました"
+
+msgid "An unknown task exception occurred"
+msgstr "不明なタスク例外が発生しました"
+
+#, python-format
+msgid "Array has no element at position %d"
+msgstr "アレイの位置 %d に要素がありません"
+
+msgid "Array property can't have item_type=Array"
+msgstr "配列型のプロパティーには item_type=Array を設定できません"
+
+#, python-format
+msgid "Artifact %s could not be deleted because it is in use: %s"
+msgstr "成果物 %s は使用中のため削除できませんでした: %s"
+
+#, python-format
+msgid "Artifact cannot change state from %(source)s to %(target)s"
+msgstr "成果物は状態を %(source)s から %(target)s に変更できません"
+
+#, python-format
+msgid "Artifact exceeds the storage quota: %s"
+msgstr "成果物がストレージクォータを超えています: %s"
+
+#, python-format
+msgid "Artifact has no property %(prop)s"
+msgstr "成果物にプロパティー %(prop)s がありません"
+
+#, python-format
+msgid "Artifact state cannot be changed from %(curr)s to %(to)s"
+msgstr "成果物状態を %(curr)s から %(to)s に変更できません"
+
+#, python-format
+msgid "Artifact storage media is full: %s"
+msgstr "成果物ストレージのメディアがフルです: %s"
+
+#, python-format
+msgid ""
+"Artifact type with name '%(name)s' and version '%(version)s' is not known"
+msgstr ""
+"名前が「%(name)s」でバージョンが「%(version)s」の成果物タイプは認識されていま"
+"せん"
+
+msgid "Artifact with a circular dependency can not be created"
+msgstr "循環依存関係を持つ成果物は作成できません"
+
+#, python-format
+msgid "Artifact with id=%(id)s is not accessible"
+msgstr "id=%(id)s の成果物はアクセス不可です"
+
+#, python-format
+msgid "Artifact with id=%(id)s was not found"
+msgstr "id=%(id)s の成果物が見つかりませんでした"
+
+msgid "Artifact with the specified type, name and version already exists"
+msgstr "指定されたタイプ、名前、およびバージョンの成果物は既に存在します"
+
+#, python-format
+msgid ""
+"Artifact with the specified type, name and version already has the direct "
+"dependency=%(dep)s"
+msgstr ""
+"指定されたタイプ、名前、およびバージョンの成果物には既に直接依存関係=%(dep)s "
+"があります"
+
+#, python-format
+msgid ""
+"Artifact with the specified type, name and version already has the "
+"transitive dependency=%(dep)s"
+msgstr ""
+"指定されたタイプ、名前、およびバージョンの成果物には既に推移依存関係=%(dep)s "
+"があります"
+
+msgid "Attempt to set readonly property"
+msgstr "読み取りプロパティーを設定しようとしました"
+
+msgid "Attempt to set value of immutable property"
+msgstr "不変プロパティーの値を設定しようとしました"
+
+#, python-format
+msgid "Attempt to upload duplicate image: %s"
+msgstr "重複したイメージのアップロードを試行します: %s"
+
+msgid "Attempted to update Location field for an image not in queued status."
+msgstr ""
+"待機状況になっていないイメージの「ロケーション」フィールドを更新しようとしま"
+"した。"
+
+#, python-format
+msgid "Attribute '%(property)s' is read-only."
+msgstr "属性 '%(property)s' は読み取り専用です。"
+
+#, python-format
+msgid "Attribute '%(property)s' is reserved."
+msgstr "属性 '%(property)s' は予約されています。"
+
+#, python-format
+msgid "Attribute '%s' is read-only."
+msgstr "属性 '%s' は読み取り専用です。"
+
+#, python-format
+msgid "Attribute '%s' is reserved."
+msgstr "属性 '%s' は予約されています。"
+
+msgid "Attribute container_format can be only replaced for a queued image."
+msgstr ""
+"キューに入れられたイメージについてのみ属性 container_format を置換できます。"
+
+msgid "Attribute disk_format can be only replaced for a queued image."
+msgstr ""
+"キューに入れられたイメージについてのみ属性 disk_format を置換できます。"
+
+msgid ""
+"Auth key for the user authenticating against the Swift authentication "
+"service. (deprecated)"
+msgstr "Swift 認証サービスに対して認証するユーザーの認証キー。(非推奨)"
+
+#, python-format
+msgid "Auth service at URL %(url)s not found."
+msgstr "URL %(url)s の認証サービスが見つかりません。"
+
+#, python-format
+msgid ""
+"Authentication error - the token may have expired during file upload. "
+"Deleting image data for %s."
+msgstr ""
+"認証エラー - トークンがファイルアップロード中に失効した可能性があります。 %s "
+"へのイメージデータを削除します。"
+
+msgid "Authorization failed."
+msgstr "許可が失敗しました。"
+
+msgid "Available categories:"
+msgstr "使用可能カテゴリー:"
+
+#, python-format
+msgid "Bad \"%s\" query filter format. Use ISO 8601 DateTime notation."
+msgstr ""
+"正しくない \"%s\" 照会フィルター形式。ISO 8601 DateTime 表記を使用してくださ"
+"い。"
+
+#, python-format
+msgid "Bad Command: %s"
+msgstr "正しくないコマンド: %s"
+
+#, python-format
+msgid "Bad header: %(header_name)s"
+msgstr "ヘッダーが正しくありません: %(header_name)s"
+
+#, python-format
+msgid "Bad value passed to filter %(filter)s got %(val)s"
+msgstr "正しくない値がフィルター %(filter)s に渡され、%(val)s が取得されました"
+
+#, python-format
+msgid "Badly formed S3 URI: %(uri)s"
+msgstr "S3 URI の形式が正しくありません: %(uri)s"
+
+#, python-format
+msgid "Badly formed credentials '%(creds)s' in Swift URI"
+msgstr "Swift URI 内の資格情報 '%(creds)s' の形式が正しくありません"
+
+msgid "Badly formed credentials in Swift URI."
+msgstr "Swift URI 内の資格情報の形式が正しくありません。"
+
+msgid "Base directory that the image cache uses."
+msgstr "イメージキャッシュで使用される基本ディレクトリー。"
+
+msgid "BinaryObject property cannot be declared mutable"
+msgstr "BinaryObject プロパティーは変更可能として宣言できません"
+
+#, python-format
+msgid "Blob %(name)s may not have multiple values"
+msgstr "Blob %(name)s には複数の値を設定できません"
+
+msgid "Blob size is not set"
+msgstr "Blob サイズが設定されていません"
+
+msgid "Body expected in request."
+msgstr "要求の本体が必要です。"
+
+msgid "Both file and legacy_image_id may not be specified at the same time"
+msgstr "file および legacy_image_id の両方を同時に指定することはできません"
+
+msgid "CA certificate file to use to verify connecting clients."
+msgstr "接続クライアントを検査するために使用される CA 証明書ファイル。"
+
+msgid "Cannot be a negative value"
+msgstr "負の値にすることはできません"
+
+msgid "Cannot be a negative value."
+msgstr "負の値にすることはできません。"
+
+#, python-format
+msgid "Cannot convert image %(key)s '%(value)s' to an integer."
+msgstr "イメージ %(key)s '%(value)s' を整数に変換できません。"
+
+msgid "Cannot declare artifact property with reserved name 'metadata'"
+msgstr "予約名「metadata」で成果物プロパティーを宣言することはできません"
+
+#, python-format
+msgid "Cannot load artifact '%(name)s'"
+msgstr "成果物 %(name)s をロードできません"
+
+msgid "Cannot remove last location in the image."
+msgstr "イメージ内の最後のロケーションは削除できません。"
+
+#, python-format
+msgid "Cannot save data for image %(image_id)s: %(error)s"
+msgstr "イメージ %(image_id)s のデータを保存できません: %(error)s"
+
+msgid "Cannot set locations to empty list."
+msgstr "空のリストにロケーションを設定することはできません。"
+
+msgid "Cannot specify 'max_size' explicitly"
+msgstr "「max_size」を明示的に指定することはできません"
+
+msgid "Cannot specify 'min_size' explicitly"
+msgstr "「min_size」を明示的に指定することはできません"
+
+msgid "Cannot upload to an unqueued image"
+msgstr "キューに入れられていないイメージに対してアップロードできません"
+
+#, python-format
+msgid "Cannot use this parameter with the operator %(op)s"
+msgstr "このパラメーターは演算子 %(op)s と併用できません"
+
+msgid "Certificate file to use when starting API server securely."
+msgstr "API サーバーを安全に始動するときに使用される証明書ファイル。"
+
+#, python-format
+msgid "Certificate format not supported: %s"
+msgstr "証明書の形式がサポートされません: %s"
+
+#, python-format
+msgid "Certificate is not valid after: %s UTC"
+msgstr "証明書は以下の時間以降には無効です: %s UTC"
+
+#, python-format
+msgid "Certificate is not valid before: %s UTC"
+msgstr "証明書は以下の時間以前には無効です: %s UTC"
+
+#, python-format
+msgid "Checksum verification failed. Aborted caching of image '%s'."
+msgstr ""
+"チェックサムの検証に失敗しました。イメージ '%s' のキャッシュを打ち切りまし"
+"た。"
+
+msgid "Client disconnected before sending all data to backend"
+msgstr "すべてのデータをバックエンドへ送信する前にクライアントが切断されました"
+
+msgid "Command not found"
+msgstr "コマンドが見つかりません"
+
+msgid "Configuration option was not valid"
+msgstr "構成オプションが無効でした"
+
+#, python-format
+msgid "Connect error/bad request to Auth service at URL %(url)s."
+msgstr "接続エラー/URL %(url)s の認証サービスに対する正しくない要求。"
+
+#, python-format
+msgid "Constructed URL: %s"
+msgstr "URL を構成しました: %s"
+
+msgid "Container format is not specified."
+msgstr "コンテナーフォーマットが指定されていません。"
+
+msgid "Content-Type must be application/octet-stream"
+msgstr "Content-Type は application/octet-stream でなければなりません"
+
+#, python-format
+msgid "Corrupt image download for image %(image_id)s"
+msgstr "イメージ %(image_id)s のイメージダウンロードが壊れています"
+
+#, python-format
+msgid "Could not bind to %(host)s:%(port)s after trying for 30 seconds"
+msgstr "30 秒間の試行後に %(host)s:%(port)s にバインドできませんでした"
+
+msgid "Could not find OVF file in OVA archive file."
+msgstr "OVA アーカイブファイル内に OVF ファイルが見つかりませんでした。"
+
+#, python-format
+msgid "Could not find metadata object %s"
+msgstr "メタデータオブジェクト %s が見つかりませんでした"
+
+#, python-format
+msgid "Could not find metadata tag %s"
+msgstr "メタデータタグ %s が見つかりませんでした"
+
+#, python-format
+msgid "Could not find namespace %s"
+msgstr "名前空間 %s が見つかりませんでした"
+
+#, python-format
+msgid "Could not find property %s"
+msgstr "プロパティー %s が見つかりませんでした"
+
+msgid "Could not find required configuration option"
+msgstr "必要な設定オプションが見つかりませんでした"
+
+#, python-format
+msgid "Could not find task %s"
+msgstr "タスク %s が見つかりませんでした"
+
+#, python-format
+msgid "Could not update image: %s"
+msgstr "イメージを更新できませんでした: %s"
+
+msgid "Currently, OVA packages containing multiple disk are not supported."
+msgstr "現在、複数のディスクを含む OVA パッケージはサポートされません。"
+
+msgid "Custom validators list should contain tuples '(function, message)'"
+msgstr ""
+"カスタムバリデーターリストにはタプル '(function, message)' が含まれていなけれ"
+"ばなりません"
+
+#, python-format
+msgid "Data for image_id not found: %s"
+msgstr "image_id のデータが見つかりません: %s"
+
+msgid "Data supplied was not valid."
+msgstr "指定されたデータが無効でした。"
+
+msgid "Date and time of image member creation"
+msgstr "イメージメンバーの作成日時"
+
+msgid "Date and time of image registration"
+msgstr "イメージ登録日時"
+
+msgid "Date and time of last modification of image member"
+msgstr "イメージメンバーの最終変更日時"
+
+msgid "Date and time of namespace creation"
+msgstr "名前空間の作成日時"
+
+msgid "Date and time of object creation"
+msgstr "オブジェクトの作成日時"
+
+msgid "Date and time of resource type association"
+msgstr "リソースタイプ関連付けの日時"
+
+msgid "Date and time of tag creation"
+msgstr "タグの作成日時"
+
+msgid "Date and time of the last image modification"
+msgstr "イメージの最終変更日時"
+
+msgid "Date and time of the last namespace modification"
+msgstr "名前空間の最終変更日時"
+
+msgid "Date and time of the last object modification"
+msgstr "オブジェクトの最終変更日時"
+
+msgid "Date and time of the last resource type association modification"
+msgstr "リソースタイプ関連付けの最終変更日時"
+
+msgid "Date and time of the last tag modification"
+msgstr "タグの最終変更日時"
+
+msgid "Datetime when this resource was created"
+msgstr "このリソースが作成された日時"
+
+msgid "Datetime when this resource was updated"
+msgstr "このリソースが更新された日時"
+
+msgid "Datetime when this resource would be subject to removal"
+msgstr "このリソースが削除される日時"
+
+msgid ""
+"Default value for the number of items returned by a request if not specified "
+"explicitly in the request"
+msgstr ""
+"要求内で明示的に指定されていない場合に、要求によって返される項目数のデフォル"
+"ト値"
+
+msgid "Default value is invalid"
+msgstr "デフォルト値が無効です"
+
+#, python-format
+msgid "Denying attempt to upload artifact because it exceeds the quota: %s"
+msgstr ""
+"成果物のアップロードを試みましたが、クォータを超えるため拒否されます: %s "
+
+#, python-format
+msgid "Denying attempt to upload image because it exceeds the quota: %s"
+msgstr ""
+"イメージをアップロードしようとしましたが、割り当て量を超えてしまうため、拒否"
+"されています: %s"
+
+#, python-format
+msgid "Denying attempt to upload image larger than %d bytes."
+msgstr "%d バイトより大きいイメージのアップロード試行を拒否しています。"
+
+#, python-format
+msgid "Dependency property '%s' has to be deleted first"
+msgstr "依存関係のプロパティー '%s' は最初に宣言される必要があります"
+
+msgid "Dependency relations cannot be mutable"
+msgstr "依存関係は変更可能にはできません"
+
+msgid "Deploy the v1 OpenStack Images API."
+msgstr "v1 OpenStack イメージ API をデプロイしてください。"
+
+msgid "Deploy the v1 OpenStack Registry API."
+msgstr "v1 OpenStack レジストリー API をデプロイします。"
+
+msgid "Deploy the v2 OpenStack Images API."
+msgstr "v2 OpenStack イメージ API をデプロイしてください。"
+
+msgid "Deploy the v2 OpenStack Registry API."
+msgstr "v2 OpenStack レジストリー API をデプロイします。"
+
+msgid "Descriptive name for the image"
+msgstr "イメージの記述名"
+
+msgid "Dictionary contains unexpected key(s)"
+msgstr "ディクショナリーに予期しないキーが含まれています"
+
+msgid "Dictionary size is greater than maximum"
+msgstr "ディクショナリーサイズが最大を上回っています"
+
+msgid "Dictionary size is less than minimum"
+msgstr "ディクショナリーサイズが最小を下回っています"
+
+msgid ""
+"Digest algorithm which will be used for digital signature. Use the command "
+"\"openssl list-message-digest-algorithms\" to get the available algorithms "
+"supported by the version of OpenSSL on the platform. Examples are \"sha1\", "
+"\"sha256\", \"sha512\", etc."
+msgstr ""
+"デジタル署名に使用されるダイジェストアルゴリズム。コマンド \"openssl list-"
+"message-digest-algorithms\" を使用して、プラットフォーム上の OpenSSL のバー"
+"ジョンでサポートされる使用可能なアルゴリズムを取得します。例として "
+"\"sha1\"、\"sha256\"、\"sha512\" などがあります。"
+
+msgid "Disk format is not specified."
+msgstr "ディスクフォーマットが指定されていません。"
+
+msgid "Does not match pattern"
+msgstr "パターンに一致しません"
+
+#, python-format
+msgid ""
+"Driver %(driver_name)s could not be configured correctly. Reason: %(reason)s"
+msgstr ""
+"ドライバー %(driver_name)s を正しく設定できませんでした。理由: %(reason)s"
+
+msgid "Either a file or a legacy_image_id has to be specified"
+msgstr "file または legacy_image_id のいずれかを指定する必要があります"
+
+msgid ""
+"Error decoding your request. Either the URL or the request body contained "
+"characters that could not be decoded by Glance"
+msgstr ""
+"要求のデコードのエラー。URL または要求本文に Glance でデコードできない文字が"
+"含まれていました。"
+
+#, python-format
+msgid "Error fetching members of image %(image_id)s: %(inner_msg)s"
+msgstr "イメージ %(image_id)s のメンバーの取得中のエラー: %(inner_msg)s"
+
+msgid "Error in store configuration. Adding artifacts to store is disabled."
+msgstr ""
+"ストア設定にエラーがあります。ストアへの成果物の追加が無効になっています。"
+
+msgid "Error in store configuration. Adding images to store is disabled."
+msgstr ""
+"ストア設定にエラーがあります。ストアへのイメージの追加が無効になっています。"
+
+msgid "Error occurred while creating the verifier"
+msgstr "ベリファイヤーの作成中にエラーが発生しました"
+
+msgid "Error occurred while verifying the signature"
+msgstr "シグニチャーの検証中にエラーが発生しました"
+
+msgid "Expected a member in the form: {\"member\": \"image_id\"}"
+msgstr "次の形式でメンバーを予期: {\"member\": \"image_id\"}"
+
+msgid "Expected a status in the form: {\"status\": \"status\"}"
+msgstr "次の形式で状態を予期: {\"status\": \"status\"}"
+
+msgid "External source should not be empty"
+msgstr "外部ソースは空であってはなりません"
+
+#, python-format
+msgid "External sources are not supported: '%s'"
+msgstr "外部ソースはサポートされていません:  '%s'"
+
+#, python-format
+msgid "Failed to activate image. Got error: %s"
+msgstr "イメージのアクティブ化に失敗しました。受け取ったエラー: %s"
+
+#, python-format
+msgid "Failed to add image metadata. Got error: %s"
+msgstr "イメージメタデータを追加できませんでした。受け取ったエラー: %s"
+
+#, python-format
+msgid "Failed to find artifact %(artifact_id)s to delete"
+msgstr "削除する成果物 %(artifact_id)s が見つかりませんでした"
+
+#, python-format
+msgid "Failed to find image %(image_id)s to delete"
+msgstr "削除するイメージ %(image_id)s が見つかりませんでした"
+
+#, python-format
+msgid "Failed to find image to delete: %s"
+msgstr "削除するイメージが見つかりませんでした: %s"
+
+#, python-format
+msgid "Failed to find image to update: %s"
+msgstr "更新するイメージが見つかりませんでした: %s"
+
+#, python-format
+msgid "Failed to find resource type %(resourcetype)s to delete"
+msgstr "削除するリソースタイプ %(resourcetype)s が見つかりませんでした"
+
+#, python-format
+msgid "Failed to initialize the image cache database. Got error: %s"
+msgstr ""
+"イメージキャッシュデータベースを初期化できませんでした。受け取ったエラー: %s"
+
+#, python-format
+msgid "Failed to read %s from config"
+msgstr "設定から %s を読み取ることができませんでした"
+
+#, python-format
+msgid "Failed to reserve image. Got error: %s"
+msgstr "イメージを予約できませんでした。受け取ったエラー: %s"
+
+#, python-format
+msgid "Failed to update image metadata. Got error: %s"
+msgstr "イメージメタデータを更新できませんでした。エラー: %s"
+
+#, python-format
+msgid "Failed to upload image %s"
+msgstr "イメージ %s をアップロードできませんでした"
+
+#, python-format
+msgid ""
+"Failed to upload image data for image %(image_id)s due to HTTP error: "
+"%(error)s"
+msgstr ""
+"HTTP エラーが発生したため、イメージ %(image_id)s のイメージデータのアップロー"
+"ドに失敗しました: %(error)s"
+
+#, python-format
+msgid ""
+"Failed to upload image data for image %(image_id)s due to internal error: "
+"%(error)s"
+msgstr ""
+"内部エラーが発生したため、イメージ %(image_id)s のイメージデータをアップロー"
+"ドできませんでした: %(error)s"
+
+#, python-format
+msgid "File %(path)s has invalid backing file %(bfile)s, aborting."
+msgstr ""
+"ファイル %(path)s に無効なバッキングファイル %(bfile)s があります。打ち切りま"
+"す。"
+
+msgid ""
+"File based imports are not allowed. Please use a non-local source of image "
+"data."
+msgstr ""
+"ファイルベースのインポートは許可されません。イメージデータの非ローカルソース"
+"を使用してください。"
+
+msgid "File too large"
+msgstr "ファイルが大きすぎます"
+
+msgid "File too small"
+msgstr "ファイルが小さすぎます"
+
+msgid "Forbidden image access"
+msgstr "イメージにアクセスする権限がありません"
+
+#, python-format
+msgid "Forbidden to delete a %s image."
+msgstr "%s イメージの削除は禁止されています。"
+
+#, python-format
+msgid "Forbidden to delete image: %s"
+msgstr "イメージの削除は禁止されています: %s"
+
+#, python-format
+msgid "Forbidden to modify '%(key)s' of %(status)s image."
+msgstr "%(status)s イメージの '%(key)s' を変更することは禁止されています。"
+
+#, python-format
+msgid "Forbidden to modify '%s' of image."
+msgstr "イメージの '%s' を変更することは禁止されています。"
+
+msgid "Forbidden to reserve image."
+msgstr "イメージの予約は禁止されています。"
+
+msgid "Forbidden to update deleted image."
+msgstr "削除されたイメージの更新は禁止されています。"
+
+#, python-format
+msgid "Forbidden to update image: %s"
+msgstr "イメージの更新は禁止されています: %s"
+
+#, python-format
+msgid "Forbidden upload attempt: %s"
+msgstr "禁止されているアップロードの試行: %s"
+
+#, python-format
+msgid "Forbidding request, metadata definition namespace=%s is not visible."
+msgstr "要求は禁止されています。メタデータ定義 namespace=%s を表示できません"
+
+#, python-format
+msgid "Forbidding request, task %s is not visible"
+msgstr "要求を禁止しています。タスク %s は表示されません"
+
+msgid "Format of the container"
+msgstr "コンテナーの形式"
+
+msgid "Format of the disk"
+msgstr "ディスクの形式"
+
+#, python-format
+msgid "Get blob %(name)s data failed: %(err)s."
+msgstr "blob %(name)s のデータを取得できませんでした: %(err)s。"
+
+#, python-format
+msgid "Get image %(id)s data failed: %(err)s."
+msgstr "イメージ %(id)s のデータを取得できませんでした: %(err)s。"
+
+msgid "Glance client not installed"
+msgstr "Glance クライアントがインストールされていません"
+
+#, python-format
+msgid "Host \"%s\" is not valid."
+msgstr "ホスト \"%s\" が無効です。"
+
+#, python-format
+msgid "Host and port \"%s\" is not valid."
+msgstr "ホストおよびポート \"%s\" が無効です。"
+
+msgid ""
+"Human-readable informative message only included when appropriate (usually "
+"on failure)"
+msgstr ""
+"適切な場合 (通常は障害発生時) にのみ、人間が読み取れる情報メッセージが含まれ"
+"ます"
+
+msgid "If False doesn't trace SQL requests."
+msgstr "False が SQL 要求をトレースしない場合。"
+
+msgid "If False fully disable profiling feature."
+msgstr "False がプロファイル作成機能を完全に無効にする場合。"
+
+msgid ""
+"If False, server will return the header \"Connection: close\", If True, "
+"server will return \"Connection: Keep-Alive\" in its responses. In order to "
+"close the client socket connection explicitly after the response is sent and "
+"read successfully by the client, you simply have to set this option to False "
+"when you create a wsgi server."
+msgstr ""
+"False の場合、サーバーはヘッダー「Connection: close」を返します。True の場"
+"合、サーバーは応答として「Connection: Keep-Alive」を返します。応答が送信さ"
+"れ、クライアントによって正常に読み取られた後でクライアントソケット接続を明示"
+"的に閉じるには、wsgi サーバーの作成時にこのオプションを False に設定します。"
+
+msgid "If true, image will not be deletable."
+msgstr "true の場合、イメージは削除可能になりません。"
+
+msgid "If true, namespace will not be deletable."
+msgstr "true の場合、名前空間は削除可能になりません。"
+
+#, python-format
+msgid "Image %(id)s could not be deleted because it is in use: %(exc)s"
+msgstr "イメージ %(id)s は使用中のため削除できませんでした: %(exc)s"
+
+#, python-format
+msgid "Image %(id)s not found"
+msgstr "イメージ %(id)s が見つかりません"
+
+#, python-format
+msgid ""
+"Image %(image_id)s could not be found after upload. The image may have been "
+"deleted during the upload: %(error)s"
+msgstr ""
+"アップロード後にイメージ %(image_id)s が見つかりませんでした。このイメージは"
+"アップロード中に削除された可能性があります: %(error)s"
+
+#, python-format
+msgid "Image %(image_id)s is protected and cannot be deleted."
+msgstr "イメージ %(image_id)s は保護されているため、削除できません。"
+
+#, python-format
+msgid ""
+"Image %s could not be found after upload. The image may have been deleted "
+"during the upload, cleaning up the chunks uploaded."
+msgstr ""
+"アップロード後にイメージ %s が見つかりませんでした。イメージはアップロード中"
+"に削除された可能性があります。アップロードされたチャンクをクリーンアップ中で"
+"す。"
+
+#, python-format
+msgid ""
+"Image %s could not be found after upload. The image may have been deleted "
+"during the upload."
+msgstr ""
+"アップロード後にイメージ %s が見つかりませんでした。このイメージはアップロー"
+"ド中に削除された可能性があります。"
+
+#, python-format
+msgid "Image %s is deactivated"
+msgstr "イメージ %s は非アクティブ化されています"
+
+#, python-format
+msgid "Image %s is not active"
+msgstr "イメージ %s はアクティブではありません"
+
+#, python-format
+msgid "Image %s not found."
+msgstr "イメージ %s が見つかりません。"
+
+#, python-format
+msgid "Image exceeds the storage quota: %s"
+msgstr "イメージがストレージクォータを超えています: %s"
+
+msgid "Image id is required."
+msgstr "イメージ ID が必要です。"
+
+msgid "Image is protected"
+msgstr "イメージは保護されています"
+
+#, python-format
+msgid "Image member limit exceeded for image %(id)s: %(e)s:"
+msgstr "イメージ %(id)s のメンバー数がイメージメンバー上限を超えました: %(e)s:"
+
+#, python-format
+msgid "Image name too long: %d"
+msgstr "イメージ名が長すぎます: %d"
+
+msgid "Image operation conflicts"
+msgstr "イメージ操作が競合しています"
+
+#, python-format
+msgid ""
+"Image status transition from %(cur_status)s to %(new_status)s is not allowed"
+msgstr ""
+"%(cur_status)s から %(new_status)s へのイメージのステータス移行は許可されませ"
+"ん"
+
+#, python-format
+msgid "Image storage media is full: %s"
+msgstr "イメージストレージのメディアがフルです: %s"
+
+#, python-format
+msgid "Image tag limit exceeded for image %(id)s: %(e)s:"
+msgstr "イメージ %(id)s のイメージタグ上限を超えました: %(e)s:"
+
+#, python-format
+msgid "Image upload problem: %s"
+msgstr "イメージのアップロード問題: %s"
+
+#, python-format
+msgid "Image with identifier %s already exists!"
+msgstr "ID %s のイメージは既に存在します。"
+
+#, python-format
+msgid "Image with identifier %s has been deleted."
+msgstr "ID %s のイメージが削除されました。"
+
+#, python-format
+msgid "Image with identifier %s not found"
+msgstr "ID %s のイメージが見つかりません"
+
+#, python-format
+msgid "Image with the given id %(image_id)s was not found"
+msgstr "指定された ID %(image_id)s を持つイメージが見つかりませんでした"
+
+#, python-format
+msgid ""
+"Incorrect auth strategy, expected \"%(expected)s\" but received "
+"\"%(received)s\""
+msgstr ""
+"認証ストラテジーが誤っています。\"%(expected)s\" が必要ですが、\"%(received)s"
+"\" を受け取りました"
+
+#, python-format
+msgid "Incorrect request: %s"
+msgstr "正しくない要求: %s"
+
+msgid "Index is out of range"
+msgstr "インデックスは範囲外です"
+
+msgid "Index is required"
+msgstr "インデックスが必要です"
+
+#, python-format
+msgid "Input does not contain '%(key)s' field"
+msgstr "入力に '%(key)s' フィールドが含まれていません"
+
+#, python-format
+msgid "Insufficient permissions on artifact storage media: %s"
+msgstr "成果物ストレージのメディアに対する許可が不十分です: %s"
+
+#, python-format
+msgid "Insufficient permissions on image storage media: %s"
+msgstr "イメージストレージのメディアに対する許可が不十分です: %s"
+
+#, python-format
+msgid "Invalid Content-Type for work with %s"
+msgstr "%s の作業に対して無効な Content-Type"
+
+#, python-format
+msgid "Invalid JSON pointer for this resource: '/%s'"
+msgstr "このリソースの JSON ポインターは無効です: '/%s'"
+
+#, python-format
+msgid "Invalid certificate format: %s"
+msgstr "無効な証明書の形式: %s"
+
+#, python-format
+msgid "Invalid checksum '%s': can't exceed 32 characters"
+msgstr "無効なチェックサム '%s': 32文字を超えることはできません"
+
+msgid "Invalid configuration in glance-swift conf file."
+msgstr "glance-swift 設定ファイルの設定が無効です。"
+
+msgid "Invalid configuration in property protection file."
+msgstr "プロパティー保護ファイルで設定が無効です。"
+
+#, python-format
+msgid "Invalid container format '%s' for image."
+msgstr "コンテナー形式 '%s' はイメージには無効です。"
+
+#, python-format
+msgid "Invalid content type %(content_type)s"
+msgstr "コンテンツタイプ %(content_type)s が無効です"
+
+msgid "Invalid dict property type"
+msgstr "ディクショナリープロパティータイプが無効です"
+
+msgid "Invalid dict property type specification"
+msgstr "ディクショナリープロパティータイプ指定が無効です"
+
+#, python-format
+msgid "Invalid disk format '%s' for image."
+msgstr "ディスク形式 '%s' はイメージには無効です。"
+
+#, python-format
+msgid "Invalid filter value %s. The quote is not closed."
+msgstr "無効なフィルター値 %s。引用符が組みになっていません。"
+
+#, python-format
+msgid ""
+"Invalid filter value %s. There is no comma after closing quotation mark."
+msgstr "無効なフィルター値 %s。終了引用符の後にコンマがありません。"
+
+#, python-format
+msgid ""
+"Invalid filter value %s. There is no comma before opening quotation mark."
+msgstr "無効なフィルター値 %s。開始引用符の前にコンマがありません。"
+
+#, python-format
+msgid "Invalid headers \"Content-Type\": %s"
+msgstr "無効なヘッダー \"Content-Type\": %s"
+
+msgid "Invalid image id format"
+msgstr "イメージ ID の形式が無効です"
+
+msgid "Invalid item type specification"
+msgstr "項目タイプ指定が無効です"
+
+#, python-format
+msgid "Invalid json body: %s"
+msgstr "無効な JSON 本文: %s"
+
+msgid "Invalid jsonpatch request"
+msgstr "jsonpatch 要求が無効です"
+
+#, fuzzy
+msgid "Invalid location"
+msgstr "無効なロケーション"
+
+#, python-format
+msgid "Invalid location %s"
+msgstr "無効なロケーション %s"
+
+#, python-format
+msgid "Invalid location: %s"
+msgstr "無効なロケーション: %s"
+
+#, python-format
+msgid ""
+"Invalid location_strategy option: %(name)s. The valid strategy option(s) "
+"is(are): %(strategies)s"
+msgstr ""
+"location_strategy オプションが無効です: %(name)s。有効なストラテジーオプショ"
+"ン: %(strategies)s"
+
+#, fuzzy
+msgid "Invalid locations"
+msgstr "無効なロケーション"
+
+#, python-format
+msgid "Invalid locations: %s"
+msgstr "無効なロケーション: %s"
+
+msgid "Invalid marker format"
+msgstr "マーカーフォーマットが無効です"
+
+msgid "Invalid marker. Image could not be found."
+msgstr "無効なマーカーです。イメージが見つかりませんでした。"
+
+#, python-format
+msgid "Invalid mask_gen_algorithm: %s"
+msgstr "無効な mask_gen_algorithm: %s"
+
+#, python-format
+msgid "Invalid membership association: %s"
+msgstr "無効なメンバーシップの関連付け: %s"
+
+msgid ""
+"Invalid mix of disk and container formats. When setting a disk or container "
+"format to one of 'aki', 'ari', or 'ami', the container and disk formats must "
+"match."
+msgstr ""
+"ディスクとコンテナーの形式が無効な形で混在しています。ディスクまたはコンテ"
+"ナーの形式を 'aki'、'ari'、または 'ami' のいずれかに設定するときは、コンテ"
+"ナーとディスクの形式が一致していなければなりません。"
+
+#, python-format
+msgid ""
+"Invalid operation: `%(op)s`. It must be one of the following: %(available)s."
+msgstr ""
+"無効な操作: `%(op)s`。以下のいずれかでなければなりません: %(available)s。"
+
+msgid "Invalid position for adding a location."
+msgstr "ロケーションの追加位置が無効です。"
+
+msgid "Invalid position for removing a location."
+msgstr "ロケーション削除位置が無効です。"
+
+msgid "Invalid property definition"
+msgstr "プロパティー定義が無効です"
+
+#, python-format
+msgid "Invalid pss_salt_length: %s"
+msgstr "無効な pss_salt_length: %s"
+
+#, python-format
+msgid "Invalid public key type for signature key type: %s"
+msgstr "シグニチャーの鍵タイプの無効な公開鍵: %s"
+
+msgid "Invalid reference list specification"
+msgstr "参照リスト指定が無効です"
+
+msgid "Invalid referenced type"
+msgstr "参照されたタイプが無効です"
+
+msgid "Invalid request PATCH for work with blob"
+msgstr "blob の作業に対して無効な要求 PATCH"
+
+msgid "Invalid service catalog json."
+msgstr "無効なサービスカタログ JSON ファイル。"
+
+#, python-format
+msgid "Invalid signature hash method: %s"
+msgstr "無効なシグニチャーハッシュメソッド: %s"
+
+#, python-format
+msgid "Invalid signature key type: %s"
+msgstr "無効なシグニチャーの鍵タイプ: %s"
+
+#, python-format
+msgid "Invalid sort direction: %s"
+msgstr "無効なソート方向: %s"
+
+#, python-format
+msgid ""
+"Invalid sort key: %(sort_key)s. If type version is not set it must be one of "
+"the following: %(available)s."
+msgstr ""
+"無効なソートキー: %(sort_key)s。タイプのバージョンが設定されていない場合、以"
+"下のいずれでなければなりません: %(available)s。"
+
+#, python-format
+msgid ""
+"Invalid sort key: %(sort_key)s. It must be one of the following: "
+"%(available)s."
+msgstr ""
+"ソートキー %(sort_key)s は無効です。 %(available)s のいずれかでなければなりま"
+"せん。"
+
+#, python-format
+msgid "Invalid sort key: %(sort_key)s. You cannot sort by this property"
+msgstr ""
+"無効なソートキー: %(sort_key)s。このプロパティーによるソートはできません"
+
+#, fuzzy, python-format
+msgid "Invalid status value: %s"
+msgstr "状況値が無効です: %s"
+
+#, python-format
+msgid "Invalid status: %s"
+msgstr "無効な状況: %s"
+
+#, python-format
+msgid "Invalid time format for %s."
+msgstr "%s に対する無効な時刻フォーマット。"
+
+msgid "Invalid type definition"
+msgstr "タイプ定義が無効です"
+
+#, python-format
+msgid "Invalid type value: %s"
+msgstr "タイプ値が無効です: %s"
+
+#, python-format
+msgid ""
+"Invalid update. It would result in a duplicate metadata definition namespace "
+"with the same name of %s"
+msgstr ""
+"無効な更新です。結果として、同じ名前 %s でメタデータ定義名前空間が重複しま"
+"す。"
+
+#, python-format
+msgid ""
+"Invalid update. It would result in a duplicate metadata definition object "
+"with the same name=%(name)s  in namespace=%(namespace_name)s."
+msgstr ""
+"無効な更新です。結果として、同じ name=%(name)s で、namespace="
+"%(namespace_name)s でメタデータ定義オブジェクトが重複します。"
+
+#, python-format
+msgid ""
+"Invalid update. It would result in a duplicate metadata definition object "
+"with the same name=%(name)s in namespace=%(namespace_name)s."
+msgstr ""
+"無効な更新です。結果として、同じ name=%(name)s で、namespace="
+"%(namespace_name)s でメタデータ定義オブジェクトが重複します。"
+
+#, python-format
+msgid ""
+"Invalid update. It would result in a duplicate metadata definition property "
+"with the same name=%(name)s in namespace=%(namespace_name)s."
+msgstr ""
+"無効な更新です。結果として、同じ name=%(name)s で、namespace="
+"%(namespace_name)s でメタデータ定義プロパティーが重複します。"
+
+#, python-format
+msgid "Invalid value '%(value)s' for parameter '%(param)s': %(extra_msg)s"
+msgstr "パラメーター '%(param)s' の値 '%(value)s' が無効です: %(extra_msg)s"
+
+#, python-format
+msgid "Invalid value for option %(option)s: %(value)s"
+msgstr "オプション %(option)s の値が無効です: %(value)s"
+
+#, python-format
+msgid "Invalid visibility value: %s"
+msgstr "無効な可視性の値: %s"
+
+msgid "Is not allowed value"
+msgstr "許可値ではありません"
+
+#, python-format
+msgid ""
+"It appears that the eventlet module has been imported prior to setting "
+"%s='yes'. It is currently necessary to disable eventlet.greendns if using "
+"ipv6 since eventlet.greendns currently breaks with ipv6 addresses. Please "
+"ensure that eventlet is not imported prior to this being set."
+msgstr ""
+"%s='yes' を設定する前に eventlet モジュールがインポートされた可能性がありま"
+"す。eventlet.greendns は現在 IPv6 アドレスに準拠していないため、ipv6 を使用し"
+"ている場合は eventlet.greendns を無効にする必要があります。この設定を行う前"
+"に eventlet をインポートしないようにしてください。"
+
+msgid "It's invalid to provide multiple image sources."
+msgstr "イメージソースの複数指定は無効です。"
+
+msgid "It's not allowed to add locations if locations are invisible."
+msgstr "ロケーションが表示されない場合、ロケーションを追加できません。"
+
+msgid "It's not allowed to remove locations if locations are invisible."
+msgstr "ロケーションが表示されない場合、ロケーションを削除できません。"
+
+msgid "It's not allowed to update locations if locations are invisible."
+msgstr "ロケーションが表示されない場合、ロケーションを更新できません。"
+
+msgid "Items have to be unique"
+msgstr "項目は固有でなければなりません"
+
+msgid ""
+"Json path should start with a '/', end with no '/', no 2 subsequent '/' are "
+"allowed."
+msgstr ""
+"Json パスの先頭は「/」でなければならず、末尾は「/」であってはなりません。後続"
+"の 2 つの「/」は使用できません。"
+
+msgid "Legacy image was not found"
+msgstr "レガシーイメージが見つかりませんでした"
+
+msgid "Length  is greater than maximum"
+msgstr "長さが最大値を超えています"
+
+msgid "Length is less than minimum"
+msgstr "長さが最小値を下回っています"
+
+msgid "Limit param must be an integer"
+msgstr "Limit パラメーターは整数でなければなりません"
+
+msgid "Limit param must be positive"
+msgstr "Limit パラメーターは正の値でなければなりません"
+
+#, python-format
+msgid "Limit param must not be higher than %d"
+msgstr "Limit パラメーターは %d 以上であってはなりません"
+
+msgid "Limits request ID length."
+msgstr "要求 ID の長さを制限します。"
+
+msgid "List definitions may hot have defaults"
+msgstr "リスト定義にデフォルトがない可能性があります"
+
+msgid "List of strings related to the image"
+msgstr "イメージに関連する文字列のリスト"
+
+msgid "List size is greater than maximum"
+msgstr "リストサイズが最大を上回っています"
+
+msgid "List size is less than minimum"
+msgstr "リストサイズが最小を下回っています"
+
+msgid "Loop time between checking for new items to schedule for delete."
+msgstr "新しい項目の削除スケジュールを検査するときのループ時間。"
+
+#, python-format
+msgid "Malformed Content-Range header: %s"
+msgstr "コンテンツ範囲ヘッダーの形式が正しくありません: %s"
+
+msgid "Malformed JSON in request body."
+msgstr "要求本体の JSON の形式が誤りです。"
+
+msgid "Max string length may not exceed 255 characters"
+msgstr "最大文字列長を 255 文字より大きくすることはできません"
+
+msgid "Maximal age is count of days since epoch."
+msgstr "最長存続時間は、エポック以降の日数です。"
+
+msgid ""
+"Maximum line size of message headers to be accepted. max_header_line may "
+"need to be increased when using large tokens (typically those generated by "
+"the Keystone v3 API with big service catalogs"
+msgstr ""
+"受け入れられるメッセージヘッダーの最大行サイズ。大きなトークン (通常は、"
+"Keystone v3 API で大きなサービスカタログを使用して生成されるトークン) を使用"
+"するときは max_header_line を増やさなければならない場合があります。"
+
+msgid ""
+"Maximum number of image members per image. Negative values evaluate to "
+"unlimited."
+msgstr ""
+"イメージあたりの最大イメージメンバー数。負の値は無制限値に評価されます。 "
+
+msgid ""
+"Maximum number of locations allowed on an image. Negative values evaluate to "
+"unlimited."
+msgstr ""
+"1 つのイメージに許可される最大ロケーション数。負の値は無制限値に評価されま"
+"す。"
+
+msgid ""
+"Maximum number of properties allowed on an image. Negative values evaluate "
+"to unlimited."
+msgstr ""
+"1 つのイメージに許可される最大プロパティー数。負の値は無制限値に評価されま"
+"す。"
+
+msgid ""
+"Maximum number of tags allowed on an image. Negative values evaluate to "
+"unlimited."
+msgstr ""
+"1 つのイメージに許可される最大タグ数。負の値は無制限値に評価されます。 "
+
+msgid "Maximum permissible number of items that could be returned by a request"
+msgstr "要求によって返されることが可能な最大許容項目数"
+
+#, python-format
+msgid "Maximum redirects (%(redirects)s) was exceeded."
+msgstr "最大リダイレクト数 (%(redirects)s) を超えました。"
+
+msgid ""
+"Maximum size of image a user can upload in bytes. Defaults to 1099511627776 "
+"bytes (1 TB).WARNING: this value should only be increased after careful "
+"consideration and must be set to a value under 8 EB (9223372036854775808)."
+msgstr ""
+"ユーザーがアップロードできるイメージの最大サイズ (バイト)。デフォルトは"
+"1099511627776 バイト (1 TB) です。警告: この値を増加する場合は慎重な検討が必"
+"要であり、8 EB (9223372036854775808) より小さい値に設定する必要があります。"
+
+#, python-format
+msgid "Member %(member_id)s is duplicated for image %(image_id)s"
+msgstr "イメージ %(image_id)s のメンバー %(member_id)s が重複しています"
+
+msgid "Member can't be empty"
+msgstr "「メンバー」は空にできません"
+
+msgid "Member to be added not specified"
+msgstr "追加するメンバーが指定されていません"
+
+msgid "Membership could not be found."
+msgstr "メンバーシップが見つかりませんでした。"
+
+#, python-format
+msgid ""
+"Metadata definition namespace %(namespace)s is protected and cannot be "
+"deleted."
+msgstr ""
+"メタデータ定義名前空間 %(namespace)s は保護されており、削除できません。"
+
+#, python-format
+msgid "Metadata definition namespace not found for id=%s"
+msgstr "id=%s のメタデータ定義名前空間が見つかりません"
+
+#, python-format
+msgid "Metadata definition namespace=%(namespace_name)swas not found."
+msgstr "メタデータ定義 namespace=%(namespace_name)s が見つかりませんでした。"
+
+#, python-format
+msgid ""
+"Metadata definition object %(object_name)s is protected and cannot be "
+"deleted."
+msgstr ""
+"メタデータ定義オブジェクト %(object_name)s は保護されており、削除できません。"
+
+#, python-format
+msgid "Metadata definition object not found for id=%s"
+msgstr "id=%s のメタデータ定義オブジェクトが見つかりません"
+
+#, python-format
+msgid ""
+"Metadata definition property %(property_name)s is protected and cannot be "
+"deleted."
+msgstr ""
+"メタデータ定義プロパティー %(property_name)s は保護されており、削除できませ"
+"ん。"
+
+#, python-format
+msgid "Metadata definition property not found for id=%s"
+msgstr "id=%s のメタデータ定義プロパティーが見つかりません"
+
+#, python-format
+msgid ""
+"Metadata definition resource-type %(resource_type_name)s is a seeded-system "
+"type and cannot be deleted."
+msgstr ""
+"メタデータ定義リソースタイプ %(resource_type_name)s はシードシステムタイプで"
+"あり、削除できません。"
+
+#, python-format
+msgid ""
+"Metadata definition resource-type-association %(resource_type)s is protected "
+"and cannot be deleted."
+msgstr ""
+"メタデータ定義リソースタイプ関連付け %(resource_type)s は保護されており、削除"
+"できません。"
+
+#, python-format
+msgid ""
+"Metadata definition tag %(tag_name)s is protected and cannot be deleted."
+msgstr "メタデータ定義タグ %(tag_name)s は保護されており、削除できません。"
+
+#, python-format
+msgid "Metadata definition tag not found for id=%s"
+msgstr "id=%s のメタデータ定義タグが見つかりません"
+
+msgid "Min string length may not be negative"
+msgstr "最小文字列長は負にはできません"
+
+msgid "Minimal rows limit is 1."
+msgstr "最少行数制限は 1 です。"
+
+#, python-format
+msgid "Missing required credential: %(required)s"
+msgstr "必須の資格情報がありません: %(required)s"
+
+#, python-format
+msgid ""
+"Multiple 'image' service matches for region %(region)s. This generally means "
+"that a region is required and you have not supplied one."
+msgstr ""
+"領域 %(region)s に対して複数の「イメージ」サービスが一致します。これは一般"
+"に、領域が必要であるのに、領域を指定していないことを意味します。"
+
+msgid "Must supply a positive, non-zero value for age."
+msgstr "存続期間にはゼロ以外の正の値を指定してください。"
+
+msgid "Name of the paste configuration file."
+msgstr "paste 設定ファイルの名前。"
+
+#, python-format
+msgid "No artifact found with ID %s"
+msgstr "ID が %s の成果物が見つかりません"
+
+msgid "No authenticated user"
+msgstr "認証されていないユーザー"
+
+#, python-format
+msgid "No image found with ID %s"
+msgstr "ID が %s であるイメージは見つかりません"
+
+#, python-format
+msgid "No location found with ID %(loc)s from image %(img)s"
+msgstr "イメージ %(img)s 内で ID が %(loc)s のロケーションは見つかりません"
+
+msgid "No permission to share that image"
+msgstr "そのイメージを共有する許可がありません"
+
+#, python-format
+msgid "No plugin for '%(name)s' has been loaded"
+msgstr "「%(name)s」のプラグインがロードされませんでした"
+
+msgid "No property to access"
+msgstr "アクセスするプロパティーがありません"
+
+#, python-format
+msgid "No such key '%s' in a dict"
+msgstr "辞書にはそのような鍵 '%s' はありません"
+
+#, python-format
+msgid "Not a blob property '%s'"
+msgstr "blob プロパティー '%s' ではありません"
+
+msgid "Not a downloadable entity"
+msgstr "ダウンロード可能なエンティティーではありません"
+
+msgid "Not a list property"
+msgstr "リストプロパティーではありません"
+
+#, python-format
+msgid "Not a list property '%s'"
+msgstr "リストプロパティー '%s' ではありません"
+
+msgid "Not a valid value type"
+msgstr "有効な値タイプではありません"
+
+#, python-format
+msgid "Not all dependencies are in '%s' state"
+msgstr "一部の依存関係が '%s' 状態にあります"
+
+#, python-format
+msgid "Not allowed to create members for image %s."
+msgstr "イメージ %s のメンバーの作成は許可されていません。"
+
+#, python-format
+msgid "Not allowed to deactivate image in status '%s'"
+msgstr "状況が「%s」であるイメージの非アクティブ化は許可されていません"
+
+#, python-format
+msgid "Not allowed to delete members for image %s."
+msgstr "イメージ %s のメンバーの削除は許可されていません。"
+
+#, python-format
+msgid "Not allowed to delete tags for image %s."
+msgstr "イメージ %s のタグの削除は許可されていません。"
+
+#, python-format
+msgid "Not allowed to list members for image %s."
+msgstr "イメージ %s のメンバーのリストは許可されていません。"
+
+#, python-format
+msgid "Not allowed to reactivate image in status '%s'"
+msgstr "状況が「%s」であるイメージの再アクティブ化は許可されていません"
+
+#, python-format
+msgid "Not allowed to update members for image %s."
+msgstr "イメージ %s のメンバーの更新は許可されていません。"
+
+#, python-format
+msgid "Not allowed to update tags for image %s."
+msgstr "イメージ %s のタグの更新は許可されていません。"
+
+#, python-format
+msgid "Not allowed to upload image data for image %(image_id)s: %(error)s"
+msgstr ""
+"イメージ %(image_id)s ではイメージデータのアップロードは許可されません: "
+"%(error)s"
+
+#, python-format
+msgid "Not an array idx '%s'"
+msgstr "アレイインデックス '%s' ではありません"
+
+msgid "Number of sort dirs does not match the number of sort keys"
+msgstr "ソート方向の数がソートキーの数に一致しません"
+
+msgid "OVA extract is limited to admin"
+msgstr "OVA 抽出が実行できるのは管理者のみです"
+
+msgid ""
+"OVF metadata of interest was not specified in ovf-metadata.json config file. "
+"Please set \"cim_pasd\" to a list of interested "
+"CIM_ProcessorAllocationSettingData properties."
+msgstr ""
+"目的の OVF メタデータは ovf-metadata.json 設定ファイルに指定されませんでし"
+"た。\"cim_pasd\" を目的の CIM_ProcessorAllocationSettingData プロパティーのリ"
+"ストに指定してください。"
+
+msgid "OVF properties config file \"ovf-metadata.json\" was not found."
+msgstr ""
+"OVF プロパティーの設定ファイル \"ovf-metadata.json\" が見つかりませんでした。"
+
+msgid "Old and new sorting syntax cannot be combined"
+msgstr "新旧のソート構文を結合することはできません"
+
+msgid "Only list indexes are allowed for blob lists"
+msgstr "blob リストで許可されるのはリストインデックスのみです"
+
+#, python-format
+msgid "Operation \"%s\" requires a member named \"value\"."
+msgstr "操作 \"%s\" には \"value\" という名前のメンバーが必要です。"
+
+msgid ""
+"Operation objects must contain exactly one member named \"add\", \"remove\", "
+"or \"replace\"."
+msgstr ""
+"操作オブジェクトには、\"add\"、\"remove\"、または \"replace\" という名前のメ"
+"ンバーを正確に 1 つだけ含める必要があります。"
+
+msgid ""
+"Operation objects must contain only one member named \"add\", \"remove\", or "
+"\"replace\"."
+msgstr ""
+"操作オブジェクトには、\"add\"、\"remove\"、または \"replace\" という名前のメ"
+"ンバーを 1 つしか含められません。"
+
+msgid "Operations must be JSON objects."
+msgstr "操作は JSON オブジェクトでなければなりません。"
+
+#, python-format
+msgid "Operator %(op)s is not supported"
+msgstr "演算子 %(op)s はサポートされていません"
+
+#, fuzzy, python-format
+msgid "Original locations is not empty: %s"
+msgstr "元のロケーションは空ではありません: %s"
+
+msgid "Owner can't be updated by non admin."
+msgstr "管理者以外は所有者を更新できません。"
+
+msgid "Owner must be specified to create a tag."
+msgstr "タグを作成するには、所有者を指定する必要があります。"
+
+msgid "Owner of the image"
+msgstr "イメージの所有者"
+
+msgid "Owner of the namespace."
+msgstr "名前空間の所有者。"
+
+msgid "Param values can't contain 4 byte unicode."
+msgstr "Param 値に 4 バイトの Unicode が含まれていてはなりません。"
+
+msgid ""
+"Partial name of a pipeline in your paste configuration file with the service "
+"name removed. For example, if your paste section name is [pipeline:glance-"
+"api-keystone] use the value \"keystone\""
+msgstr ""
+"paste 設定ファイル内のパイプラインの名前の一部 (サービス名を含む) が削除され"
+"ました。例えば、貼り付けセクション名が [pipeline:glance-api-keystone] である"
+"場合は、値 \"keystone\" を使用します。"
+
+msgid "Path to the directory where json metadata files are stored"
+msgstr "JSON メタデータファイルが保管されるディレクトリーのパス"
+
+#, python-format
+msgid "Plugin name '%(plugin)s' should match artifact typename '%(name)s'"
+msgstr ""
+"プラグイン名「%(plugin)s」は成果物タイプ名「%(name)s」に一致している必要があ"
+"ります"
+
+#, python-format
+msgid "Pointer `%s` contains \"~\" not part of a recognized escape sequence."
+msgstr ""
+"ポインター `%s` に、認識されているエスケープシーケンスの一部ではない \"~\" が"
+"含まれています。"
+
+#, python-format
+msgid "Pointer `%s` contains adjacent \"/\"."
+msgstr "ポインター `%s` に隣接する \"/\" が含まれています。"
+
+#, python-format
+msgid "Pointer `%s` does not contains valid token."
+msgstr "ポインター `%s` に有効なトークンが含まれていません。"
+
+#, python-format
+msgid "Pointer `%s` does not start with \"/\"."
+msgstr "ポインター `%s` の先頭が \"/\" ではありません。"
+
+#, python-format
+msgid "Pointer `%s` end with \"/\"."
+msgstr "ポインター `%s` の末尾が \"/\" です。"
+
+msgid ""
+"Pointer contains '~' which is not part of a recognized escape sequence [~0, "
+"~1]."
+msgstr ""
+"ポインターに、認識されているエスケープシーケンス [~0, ~1] の一部ではない「~」"
+"が含まれています。"
+
+#, python-format
+msgid "Port \"%s\" is not valid."
+msgstr "ポート \"%s\" が無効です。"
+
+msgid "Port the registry server is listening on."
+msgstr "レジストリーサーバーが listen しているポート。"
+
+#, python-format
+msgid "Prerelease numeric component is too large (%d characters max)"
+msgstr "プレリリース数値コンポーネントが大きすぎます (最大文字数 %d)"
+
+msgid "Private key file to use when starting API server securely."
+msgstr "API サーバーを安全に始動するときに使用される秘密鍵ファイル。"
+
+#, python-format
+msgid "Process %d not running"
+msgstr "プロセス %d は実行されていません"
+
+#, python-format
+msgid "Properties %s must be set prior to saving data."
+msgstr "データの保存前にプロパティー %s を設定する必要があります。"
+
+#, python-format
+msgid ""
+"Property %(property_name)s does not start with the expected resource type "
+"association prefix of '%(prefix)s'."
+msgstr ""
+"プロパティー %(property_name)s の先頭が、想定されるリソースタイプ関連付けのプ"
+"レフィックス \"%(prefix)s\" ではありません。"
+
+#, python-format
+msgid "Property %s already present."
+msgstr "プロパティー %s は既に存在しています。"
+
+#, python-format
+msgid "Property %s does not exist."
+msgstr "プロパティー %s は存在しません。"
+
+#, python-format
+msgid "Property %s may not be removed."
+msgstr "プロパティー %s は削除できません。"
+
+#, python-format
+msgid "Property %s must be set prior to saving data."
+msgstr "データの保存前にプロパティー %s を設定する必要があります。"
+
+#, python-format
+msgid "Property '%(name)s' may not have value '%(val)s': %(msg)s"
+msgstr "プロパティー「%(name)s」に値「%(val)s」がない可能性があります: %(msg)s"
+
+#, python-format
+msgid "Property '%s' is protected"
+msgstr "プロパティー '%s' は保護されています"
+
+msgid "Property names can't contain 4 byte unicode."
+msgstr "プロパティー名に 4 バイトの Unicode が含まれていてはなりません。"
+
+#, python-format
+msgid ""
+"Property protection on operation %(operation)s for rule %(rule)s is not "
+"found. No role will be allowed to perform this operation."
+msgstr ""
+"ルール %(rule)s の操作 %(operation)s に対するプロパティー保護が見つかりませ"
+"ん。どの役割もこの操作の実行を許可されません。"
+
+#, python-format
+msgid "Property's %(prop)s value has not been found"
+msgstr "プロパティーの %(prop)s 値が見つかりませんでした"
+
+#, python-format
+msgid ""
+"Provided image size must match the stored image size. (provided size: "
+"%(ps)d, stored size: %(ss)d)"
+msgstr ""
+"指定するイメージのサイズは、保管されているイメージのサイズと一致しなければな"
+"りません。(指定サイズ: %(ps)d、保管サイズ: %(ss)d)"
+
+#, python-format
+msgid "Provided object does not match schema '%(schema)s': %(reason)s"
+msgstr ""
+"指定されたオブジェクトがスキーマ '%(schema)s' と一致しません: %(reason)s"
+
+#, python-format
+msgid "Provided status of task is unsupported: %(status)s"
+msgstr "指定されたタスク状況はサポートされていません: %(status)s"
+
+#, python-format
+msgid "Provided type of task is unsupported: %(type)s"
+msgstr "指定されたタスクタイプはサポートされていません: %(type)s"
+
+msgid "Provides a user friendly description of the namespace."
+msgstr "分かりやすい名前空間の説明が提供されます。"
+
+msgid "Public images do not have members."
+msgstr "パブリックイメージにはメンバーがありません。"
+
+msgid ""
+"Public url to use for versions endpoint. The default is None, which will use "
+"the request's host_url attribute to populate the URL base. If Glance is "
+"operating behind a proxy, you will want to change this to represent the "
+"proxy's URL."
+msgstr ""
+"バージョンエンドポイントに使用するパブリック URL。デフォルトは「なし」で、こ"
+"の場合は、要求の host_url 属性を使用して URL ベースにデータを追加します。"
+"Glance がプロキシーの背後で作動している場合は、この値をプロキシーの URL を表"
+"すように変更してください。"
+
+msgid "Python module path of data access API"
+msgstr "データアクセス API の Python モジュールパス"
+
+msgid "Received invalid HTTP redirect."
+msgstr "無効な HTTP リダイレクトを受け取りました。"
+
+#, python-format
+msgid "Redirecting to %(uri)s for authorization."
+msgstr "許可のために %(uri)s にリダイレクトしています。"
+
+#, python-format
+msgid "Registry service can't use %s"
+msgstr "レジストリーサービスでは %s を使用できません"
+
+#, python-format
+msgid "Registry was not configured correctly on API server. Reason: %(reason)s"
+msgstr ""
+"レジストリーが API サーバーで正しく設定されていませんでした。理由: %(reason)s"
+
+#, python-format
+msgid "Relation %(name)s may not have multiple values"
+msgstr "関係 %(name)s には複数の値を設定できません"
+
+#, python-format
+msgid "Reload of %(serv)s not supported"
+msgstr "%(serv)s の再ロードはサポートされていません"
+
+#, python-format
+msgid "Reloading %(serv)s (pid %(pid)s) with signal(%(sig)s)"
+msgstr "%(serv)s (pid %(pid)s) をシグナル (%(sig)s) により再ロード中"
+
+#, python-format
+msgid "Removing stale pid file %s"
+msgstr "失効した pid ファイル %s を削除中"
+
+msgid "Request body must be a JSON array of operation objects."
+msgstr "要求本文は、操作オブジェクトの JSON 配列でなければなりません。"
+
+msgid "Request must be a list of commands"
+msgstr "要求はコマンドのリストである必要があります"
+
+msgid ""
+"Required image properties for signature verification do not exist. Cannot "
+"verify signature."
+msgstr ""
+"シグニチャーの検証に必要なイメージプロパティーが存在しません。シグニチャーを"
+"検証できません。"
+
+#, python-format
+msgid "Required store %s is invalid"
+msgstr "必須のストア %s が無効です"
+
+msgid ""
+"Resource type names should be aligned with Heat resource types whenever "
+"possible: http://docs.openstack.org/developer/heat/template_guide/openstack."
+"html"
+msgstr ""
+"可能であれば、リソースタイプ名を Heat リソースタイプと位置合わせします。"
+"http://docs.openstack.org/developer/heat/template_guide/openstack.html"
+
+msgid "Response from Keystone does not contain a Glance endpoint."
+msgstr "Keystone からの応答に Glance エンドポイントが含まれていません。"
+
+msgid "Role used to identify an authenticated user as administrator."
+msgstr "認証ユーザーを管理者として識別するために使用される役割。"
+
+msgid ""
+"Run as a long-running process. When not specified (the default) run the "
+"scrub operation once and then exits. When specified do not exit and run "
+"scrub on wakeup_time interval as specified in the config."
+msgstr ""
+"長期実行プロセスとして実行してください。指定されない場合 (デフォルト)、修正操"
+"作を一度実行してから終了します。指定されている場合、終了せずに、設定に指定さ"
+"れている wakeup_time 間隔で修正を実行します。"
+
+msgid "Scope of image accessibility"
+msgstr "イメージのアクセス可能性の範囲"
+
+msgid "Scope of namespace accessibility."
+msgstr "名前空間アクセシビリティーの範囲。"
+
+msgid ""
+"Secret key to use to sign Glance API and Glance Registry services tracing "
+"messages."
+msgstr ""
+"メッセージをトレースする Glance API サービスおよび Glance レジストリーサービ"
+"スの署名に使用する秘密鍵。"
+
+#, python-format
+msgid "Server %(serv)s is stopped"
+msgstr "サーバー %(serv)s は停止しています"
+
+#, python-format
+msgid "Server worker creation failed: %(reason)s."
+msgstr "サーバーワーカーの作成に失敗しました: %(reason)s"
+
+msgid ""
+"Set a system wide quota for every user. This value is the total capacity "
+"that a user can use across all storage systems. A value of 0 means unlimited."
+"Optional unit can be specified for the value. Accepted units are B, KB, MB, "
+"GB and TB representing Bytes, KiloBytes, MegaBytes, GigaBytes and TeraBytes "
+"respectively. If no unit is specified then Bytes is assumed. Note that there "
+"should not be any space between value and unit and units are case sensitive."
+msgstr ""
+"システム全体の割り当て量をユーザーごとに設定します。この値は、ユーザーがすべ"
+"てのストレージシステムで使用できる総容量です。0 の値は無制限を意味します。値"
+"にオプションの単位を指定できます。使用できる単位は B、KB、MB、GB、および TB "
+"です (それぞれ、バイト、キロバイト、メガバイト、ギガバイト、およびテラバイト"
+"を表します)。単位を指定しない場合は、バイトが想定されます。値と単位の間にス"
+"ペースを入れてはならないこと、および単位には大/小文字の区別があることに注意し"
+"てください。"
+
+#, python-format
+msgid "Show level %(shl)s is not supported in this operation"
+msgstr "表示レベル %(shl)s はこの操作ではサポートされていません"
+
+msgid "Signature verification failed"
+msgstr "シグニチャーの検証が失敗しました"
+
+msgid "Signature verification failed."
+msgstr "シグニチャーの検証が失敗しました。"
+
+msgid "Size of image file in bytes"
+msgstr "イメージファイルのサイズ (バイト)"
+
+msgid ""
+"Some resource types allow more than one key / value pair per instance.  For "
+"example, Cinder allows user and image metadata on volumes. Only the image "
+"properties metadata is evaluated by Nova (scheduling or drivers). This "
+"property allows a namespace target to remove the ambiguity."
+msgstr ""
+"一部のリソースタイプでは、インスタンスごとに複数のキー/値のペアが許可されてい"
+"ます。例えば、Cinder はボリューム上のユーザーおよびイメージメタデータを許可し"
+"ています。イメージプロパティーメタデータのみ、Nova (スケジュールまたはドライ"
+"バー) によって評価されます。このプロパティーによって、名前空間ターゲットから"
+"あいまいさを排除できます。"
+
+msgid "Sort direction supplied was not valid."
+msgstr "指定されたソート方向が無効でした。"
+
+msgid "Sort key supplied was not valid."
+msgstr "指定されたソートキーが無効でした。"
+
+msgid ""
+"Specifies the prefix to use for the given resource type. Any properties in "
+"the namespace should be prefixed with this prefix when being applied to the "
+"specified resource type. Must include prefix separator (e.g. a colon :)."
+msgstr ""
+"指定されたリソースタイプに使用するプレフィックスを指定します。名前空間にある"
+"プロパティーはすべて、指定されたリソースタイプに適用されるときに、このプレ"
+"フィックスが先頭に付けられます。コロン (:) などのプレフィックス区切り文字を組"
+"み込む必要があります。"
+
+msgid "Specifies which task executor to be used to run the task scripts."
+msgstr "タスクスクリプトの実行に使用されるタスク実行プログラムを指定します。"
+
+msgid "Status must be \"pending\", \"accepted\" or \"rejected\"."
+msgstr "状況は、\"保留中\"、\"受諾\"、または\"拒否\" でなければなりません。"
+
+msgid "Status not specified"
+msgstr "状況が指定されていません"
+
+msgid "Status of the image"
+msgstr "イメージの状態"
+
+#, python-format
+msgid "Status transition from %(cur_status)s to %(new_status)s is not allowed"
+msgstr "%(cur_status)s から %(new_status)s への状況遷移は許可されません"
+
+#, python-format
+msgid "Stopping %(serv)s (pid %(pid)s) with signal(%(sig)s)"
+msgstr "%(serv)s (pid %(pid)s) をシグナル (%(sig)s) により停止中"
+
+#, python-format
+msgid "Store for image_id not found: %s"
+msgstr "image_id のストアが見つかりません: %s"
+
+#, python-format
+msgid "Store for scheme %s not found"
+msgstr "スキーマ %s のストアが見つかりません"
+
+#, python-format
+msgid ""
+"Supplied %(attr)s (%(supplied)s) and %(attr)s generated from uploaded image "
+"(%(actual)s) did not match. Setting image status to 'killed'."
+msgstr ""
+"指定された %(attr)s (%(supplied)s) とアップロードされたイメージ (%(actual)s) "
+"から生成された %(attr)s が一致していませんでした。イメージの状況を「強制終了"
+"済み」に設定します。"
+
+msgid "Supported values for the 'container_format' image attribute"
+msgstr "'container_format' イメージ属性に対してサポートされる値"
+
+msgid "Supported values for the 'disk_format' image attribute"
+msgstr "'disk_format' イメージ属性に対してサポートされる値"
+
+#, python-format
+msgid "Suppressed respawn as %(serv)s was %(rsn)s."
+msgstr "%(serv)s として抑制された再作成は %(rsn)s でした。"
+
+msgid "System SIGHUP signal received."
+msgstr "システム SIGHUP シグナルを受信しました。"
+
+#, python-format
+msgid "Task '%s' is required"
+msgstr "タスク '%s' が必要です"
+
+msgid "Task does not exist"
+msgstr "タスクが存在しません"
+
+msgid "Task failed due to Internal Error"
+msgstr "内部エラーが原因でタスクが失敗しました"
+
+msgid "Task was not configured properly"
+msgstr "タスクが正しく設定されませんでした"
+
+#, python-format
+msgid "Task with the given id %(task_id)s was not found"
+msgstr "指定された id %(task_id)s のタスクは見つかりませんでした"
+
+msgid "The \"changes-since\" filter is no longer available on v2."
+msgstr "\"changes-since\" フィルターは v2 上で使用できなくなりました。"
+
+#, python-format
+msgid "The CA file you specified %s does not exist"
+msgstr "指定した CA ファイル %s は存在しません"
+
+#, python-format
+msgid ""
+"The Image %(image_id)s object being created by this task %(task_id)s, is no "
+"longer in valid status for further processing."
+msgstr ""
+"このタスク %(task_id)s で作成されているイメージ %(image_id)s オブジェクトは以"
+"降の処理に有効な状況ではなくなりました。"
+
+msgid "The Store URI was malformed."
+msgstr "ストア URI の形式に誤りがありました。"
+
+msgid ""
+"The URL to the keystone service. If \"use_user_token\" is not in effect and "
+"using keystone auth, then URL of keystone can be specified."
+msgstr ""
+"keystone サービスの URL。\"use_user_token\" が無効で、keystone 認証を使用して"
+"いる場合、keystone の URL を指定できます。"
+
+msgid ""
+"The address where the Swift authentication service is listening.(deprecated)"
+msgstr "Swift 認証サービスが listen しているアドレス。(非推奨)"
+
+msgid ""
+"The administrators password. If \"use_user_token\" is not in effect, then "
+"admin credentials can be specified."
+msgstr ""
+"管理者パスワード。\"use_user_token\" が無効であれば、管理資格情報を指定できま"
+"す。"
+
+msgid ""
+"The administrators user name. If \"use_user_token\" is not in effect, then "
+"admin credentials can be specified."
+msgstr ""
+"管理者ユーザー名。\"use_user_token\" が無効であれば、管理資格情報を指定できま"
+"す。"
+
+msgid "The amount of time in seconds to delay before performing a delete."
+msgstr "削除を実行するまでの遅延時間 (秒)。"
+
+msgid ""
+"The amount of time to let an incomplete image remain in the cache, before "
+"the cache cleaner, if running, will remove the incomplete image."
+msgstr ""
+"キャッシュクリーナー (実行されている場合) が不完全なイメージを削除する前に、"
+"そのイメージがキャッシュ内に残ることができる時間。"
+
+msgid ""
+"The backlog value that will be used when creating the TCP listener socket."
+msgstr "TCP リスナーソケットの作成時に使用されるバックログ値。"
+
+#, python-format
+msgid "The cert file you specified %s does not exist"
+msgstr "指定した証明書ファイル %s は存在しません"
+
+msgid "The config file that has the swift account(s)configs."
+msgstr "swift アカウント設定が指定されている設定ファイル。"
+
+msgid "The current status of this task"
+msgstr "このタスクの現行状況"
+
+#, python-format
+msgid ""
+"The device housing the image cache directory %(image_cache_dir)s does not "
+"support xattr. It is likely you need to edit your fstab and add the "
+"user_xattr option to the appropriate line for the device housing the cache "
+"directory."
+msgstr ""
+"イメージキャッシュディレクトリー %(image_cache_dir)s が格納されているデバイス"
+"では xattr はサポートされません。fstab を編集して、キャッシュディレクトリーが"
+"格納されているデバイスの該当する行に user_xattr オプションを追加しなければな"
+"らない可能性があります。"
+
+msgid "The driver to use for image cache management."
+msgstr "イメージキャッシュ管理に使用されるドライバー。"
+
+#, python-format
+msgid "The format of the version %s is not valid. Use semver notation"
+msgstr "バージョン %s の形式が無効です。semver 表記を使用してください"
+
+msgid ""
+"The format to which images will be automatically converted. When using the "
+"RBD backend, this should be set to 'raw'"
+msgstr ""
+"自動的に変換されるイメージの変換後の形式。RBD バックエンドを使用する場合、こ"
+"の形式は 'raw' に設定する必要があります"
+
+#, python-format
+msgid ""
+"The given uri is not valid. Please specify a valid uri from the following "
+"list of supported uri %(supported)s"
+msgstr ""
+"指定した URI が無効です。次のサポートされている URI のリストから、有効な URI "
+"を指定してください: %(supported)s"
+
+msgid "The hostname/IP of the pydev process listening for debug connections"
+msgstr "デバッグ接続を listen する pydev プロセスのホスト名/IP"
+
+#, python-format
+msgid ""
+"The image %s is already present on the slave, but our check for it did not "
+"find it. This indicates that we do not have permissions to see all the "
+"images on the slave server."
+msgstr ""
+"イメージ %s は既にスレーブ上にありますが、検査では見つかりませんでした。これ"
+"は、スレーブサーバー上のすべてのイメージを表示する許可を持っていないことを示"
+"します。"
+
+#, python-format
+msgid "The incoming artifact blob is too large: %s"
+msgstr "入力成果物の blob が大きすぎます: %s"
+
+#, python-format
+msgid "The incoming image is too large: %s"
+msgstr "入力イメージが大きすぎます: %s"
+
+#, python-format
+msgid "The key file you specified %s does not exist"
+msgstr "指定した鍵ファイル %s は存在しません"
+
+#, python-format
+msgid ""
+"The limit has been exceeded on the number of allowed image locations. "
+"Attempted: %(attempted)s, Maximum: %(maximum)s"
+msgstr ""
+"許可されるイメージロケーション数の制限を超えました。試行: %(attempted)s、最"
+"大: %(maximum)s"
+
+#, python-format
+msgid ""
+"The limit has been exceeded on the number of allowed image members for this "
+"image. Attempted: %(attempted)s, Maximum: %(maximum)s"
+msgstr ""
+"このイメージに対して許可されるイメージメンバー数の制限を超えました。試行: "
+"%(attempted)s、最大: %(maximum)s"
+
+#, python-format
+msgid ""
+"The limit has been exceeded on the number of allowed image properties. "
+"Attempted: %(attempted)s, Maximum: %(maximum)s"
+msgstr ""
+"許可されるイメージプロパティー数の制限を超えました。試行: %(attempted)s、最"
+"大: %(maximum)s"
+
+#, python-format
+msgid ""
+"The limit has been exceeded on the number of allowed image properties. "
+"Attempted: %(num)s, Maximum: %(quota)s"
+msgstr ""
+"許可されるイメージプロパティー数の制限を超えました。試行: %(num)s、最大: "
+"%(quota)s"
+
+#, python-format
+msgid ""
+"The limit has been exceeded on the number of allowed image tags. Attempted: "
+"%(attempted)s, Maximum: %(maximum)s"
+msgstr ""
+"許可されるイメージタグ数の制限を超えました。試行: %(attempted)s、最大: "
+"%(maximum)s"
+
+#, python-format
+msgid "The location %(location)s already exists"
+msgstr "ロケーション %(location)s は既に存在します"
+
+#, python-format
+msgid "The location data has an invalid ID: %d"
+msgstr "ロケーションデータの ID が無効です: %d"
+
+msgid ""
+"The location of the property protection file.This file contains the rules "
+"for property protections and the roles/policies associated with it. If this "
+"config value is not specified, by default, property protections won't be "
+"enforced. If a value is specified and the file is not found, then the glance-"
+"api service will not start."
+msgstr ""
+"プロパティー保護ファイルのロケーション。このファイルには、プロパティー保護に"
+"関するルールと、それに関連付けられた役割/ポリシーが含まれています。この設定値"
+"が指定されていない場合、デフォルトでは、プロパティー保護は実施されません。値"
+"が指定されていてもファイルが見つからない場合、glance-api サービスは開始されま"
+"せん。"
+
+#, python-format
+msgid ""
+"The metadata definition %(record_type)s with name=%(record_name)s not "
+"deleted. Other records still refer to it."
+msgstr ""
+"name=%(record_name)s のメタデータ定義 %(record_type)s は削除されていません。"
+"他のレコードがまだこのメタデータ定義を参照しています。"
+
+#, python-format
+msgid "The metadata definition namespace=%(namespace_name)s already exists."
+msgstr "メタデータ定義 namespace=%(namespace_name)s は既に存在します。"
+
+#, python-format
+msgid ""
+"The metadata definition object with name=%(object_name)s was not found in "
+"namespace=%(namespace_name)s."
+msgstr ""
+"name=%(object_name)s のメタデータ定義オブジェクトが、namespace="
+"%(namespace_name)s に見つかりませんでした。"
+
+#, python-format
+msgid ""
+"The metadata definition property with name=%(property_name)s was not found "
+"in namespace=%(namespace_name)s."
+msgstr ""
+"name=%(property_name)s のメタデータ定義プロパティーは、namespace="
+"%(namespace_name)s に見つかりませんでした。"
+
+#, python-format
+msgid ""
+"The metadata definition resource-type association of resource-type="
+"%(resource_type_name)s to namespace=%(namespace_name)s already exists."
+msgstr ""
+"resource-type=%(resource_type_name)s の、namespace=%(namespace_name)s へのメ"
+"タデータ定義リソースタイプ関連付けは、既に存在します。"
+
+#, python-format
+msgid ""
+"The metadata definition resource-type association of resource-type="
+"%(resource_type_name)s to namespace=%(namespace_name)s, was not found."
+msgstr ""
+"resource-type=%(resource_type_name)s の、namespace=%(namespace_name)s へのメ"
+"タデータ定義リソースタイプ関連付けが見つかりませんでした。"
+
+#, python-format
+msgid ""
+"The metadata definition resource-type with name=%(resource_type_name)s, was "
+"not found."
+msgstr ""
+"name=%(resource_type_name)s のメタデータ定義リソースタイプが見つかりませんで"
+"した。"
+
+#, python-format
+msgid ""
+"The metadata definition tag with name=%(name)s was not found in namespace="
+"%(namespace_name)s."
+msgstr ""
+"name=%(name)s のメタデータ定義タグが namespace=%(namespace_name)s に見つかり"
+"ませんでした。"
+
+msgid "The mode in which the engine will run. Can be 'serial' or 'parallel'."
+msgstr ""
+"エンジンが実行されるモード。「serial」または「parallel」を指定できます。"
+
+msgid ""
+"The number of child process workers that will be created to service "
+"requests. The default will be equal to the number of CPUs available."
+msgstr ""
+"要求を処理するために作成される子プロセスワーカーの数。デフォルトは、使用可能"
+"な CPU の数と等しくなります。"
+
+msgid ""
+"The number of parallel activities executed at the same time by the engine. "
+"The value can be greater than one when the engine mode is 'parallel'."
+msgstr ""
+"エンジンで同時に実行されるパラレルアクティビティーの数。エンジンモードが"
+"「parallel」の場合は、値を 1 より大きくすることができます。"
+
+msgid "The parameters required by task, JSON blob"
+msgstr "タスクによって要求されるパラメーター、JSON blob"
+
+msgid ""
+"The path to the cert file to use in SSL connections to the registry server, "
+"if any. Alternately, you may set the GLANCE_CLIENT_CERT_FILE environment "
+"variable to a filepath of the CA cert file"
+msgstr ""
+"レジストリーサーバーへの SSL 接続で使用する証明書ファイルへのパス (存在する場"
+"合)。または、GLANCE_CLIENT_CERT_FILE 環境変数に CA 証明書ファイルへのファイル"
+"パスを設定することもできます。"
+
+msgid ""
+"The path to the certifying authority cert file to use in SSL connections to "
+"the registry server, if any. Alternately, you may set the "
+"GLANCE_CLIENT_CA_FILE environment variable to a filepath of the CA cert file."
+msgstr ""
+"レジストリーサーバーへの SSL 接続で使用する認証局証明書ファイルへのパス(存在"
+"する場合)。または、GLANCE_CLIENT_CA_FILE 環境変数に CA 証明書ファイルへのファ"
+"イルパスを設定することもできます。"
+
+msgid ""
+"The path to the key file to use in SSL connections to the registry server, "
+"if any. Alternately, you may set the GLANCE_CLIENT_KEY_FILE environment "
+"variable to a filepath of the key file"
+msgstr ""
+"レジストリーサーバーへの SSL 接続で使用する鍵ファイルへのパス (存在する場"
+"合)。または、GLANCE_CLIENT_KEY_FILE 環境変数に鍵ファイルへのファイルパスを設"
+"定することもできます。"
+
+msgid ""
+"The path to the sqlite file database that will be used for image cache "
+"management."
+msgstr "イメージキャッシュ管理に使用される sqlite ファイルデータベースのパス。"
+
+msgid ""
+"The period of time, in seconds, that the API server will wait for a registry "
+"request to complete. A value of 0 implies no timeout."
+msgstr ""
+"API サーバーがレジストリー要求の完了を待機する期間 (秒)。値 0 は、タイムアウ"
+"トなしを示します。"
+
+msgid "The port on which a pydev process is listening for connections."
+msgstr "pydev プロセスが接続を listen するポート。"
+
+msgid "The port on which the server will listen."
+msgstr "サーバーが listen するポート。"
+
+msgid ""
+"The protocol to use for communication with the registry server.  Either http "
+"or https."
+msgstr ""
+"レジストリーサーバーとの通信に使用されるプロトコル。http または https のいず"
+"れか。"
+
+#, python-format
+msgid "The provided body %(body)s is invalid under given schema: %(schema)s"
+msgstr "指定された本体 %(body)s は指定のスキーマ %(schema)s 下では無効です"
+
+msgid "The provided image is too large."
+msgstr "指定されたイメージが大きすぎます。"
+
+#, python-format
+msgid "The provided path '%(path)s' is invalid: %(explanation)s"
+msgstr "指定されたパス「%(path)s」は無効です: %(explanation)s"
+
+msgid ""
+"The reference to the default swift account/backing store parameters to use "
+"for adding new images."
+msgstr ""
+"新規イメージを追加するために使用するデフォルトの swift アカウント/バッキング"
+"ストアパラメーターへの参照。"
+
+msgid ""
+"The region for the authentication service. If \"use_user_token\" is not in "
+"effect and using keystone auth, then region name can be specified."
+msgstr ""
+"認証サービスの領域。\"use_user_token\" が無効で、keystone 認証を使用している"
+"場合、領域名を指定できます。"
+
+msgid "The request returned 500 Internal Server Error."
+msgstr "要求で「500 Internal Server Error」が返されました。"
+
+msgid ""
+"The request returned 503 Service Unavailable. This generally occurs on "
+"service overload or other transient outage."
+msgstr ""
+"要求で「503 Service Unavailable」が返されました。これは一般に、サービスの過負"
+"荷または他の一時的な障害時に起こります。"
+
+#, python-format
+msgid ""
+"The request returned a 302 Multiple Choices. This generally means that you "
+"have not included a version indicator in a request URI.\n"
+"\n"
+"The body of response returned:\n"
+"%(body)s"
+msgstr ""
+"要求が「302 Multiple Choices」を返しました。これは通常、要求 URI にバージョン"
+"標識を含めなかったことを意味します。\n"
+"\n"
+"返された応答の本体:\n"
+"%(body)s"
+
+#, python-format
+msgid ""
+"The request returned a 413 Request Entity Too Large. This generally means "
+"that rate limiting or a quota threshold was breached.\n"
+"\n"
+"The response body:\n"
+"%(body)s"
+msgstr ""
+"要求で「413 Request Entity Too Large」が返されました。これは一般に、速度制限"
+"または割り当て量のしきい値に違反したことを意味します。\n"
+"\n"
+"応答本体:\n"
+"%(body)s"
+
+#, python-format
+msgid ""
+"The request returned an unexpected status: %(status)s.\n"
+"\n"
+"The response body:\n"
+"%(body)s"
+msgstr ""
+"要求で予期しない状況が返されました: %(status)s。\n"
+"\n"
+"応答本体:\n"
+"%(body)s"
+
+msgid ""
+"The requested image has been deactivated. Image data download is forbidden."
+msgstr ""
+"要求されたイメージは非アクティブ化されています。イメージデータのダウンロード"
+"は禁止されています。"
+
+msgid "The result of current task, JSON blob"
+msgstr "現行タスクの結果、JSON blob"
+
+msgid "The signature data was not properly encoded using base64"
+msgstr ""
+"このシグニチャーデータは base64 を使用して適切にエンコードされませんでした"
+
+#, python-format
+msgid ""
+"The size of the data %(image_size)s will exceed the limit. %(remaining)s "
+"bytes remaining."
+msgstr ""
+"データのサイズ %(image_size)s が制限を超えます。%(remaining)s バイト残されて"
+"います。"
+
+msgid ""
+"The size of thread pool to be used for scrubbing images. The default is one, "
+"which signifies serial scrubbing. Any value above one indicates the max "
+"number of images that may be scrubbed in parallel."
+msgstr ""
+"イメージのスクラブに使用されるスレッドプールのサイズ。デフォルトはシリアルス"
+"クラブを示す 1 です。1 より大きい値はすべて、並行してスクラブが行われるイメー"
+"ジの最大数を示します。"
+
+#, python-format
+msgid "The specified member %s could not be found"
+msgstr "指定されたメンバー %s は見つかりませんでした"
+
+#, python-format
+msgid "The specified metadata object %s could not be found"
+msgstr "指定されたメタデータオブジェクト %s は見つかりませんでした"
+
+#, python-format
+msgid "The specified metadata tag %s could not be found"
+msgstr "指定されたメタデータタグ %s が見つかりませんでした"
+
+#, python-format
+msgid "The specified namespace %s could not be found"
+msgstr "指定された名前空間 %s は見つかりませんでした"
+
+#, python-format
+msgid "The specified property %s could not be found"
+msgstr "指定されたプロパティー %s は見つかりませんでした"
+
+#, python-format
+msgid "The specified resource type %s could not be found "
+msgstr "指定されたリソースタイプ %s は見つかりませんでした"
+
+msgid ""
+"The status of deleted image location can only be set to 'pending_delete' or "
+"'deleted'"
+msgstr ""
+"削除されたイメージロケーションの状況は「pending_delete」または「deleted」にの"
+"み設定できます"
+
+msgid ""
+"The status of deleted image location can only be set to 'pending_delete' or "
+"'deleted'."
+msgstr ""
+"削除されたイメージロケーションの状況は「pending_delete」または「deleted」にの"
+"み設定できます。"
+
+msgid "The status of this image member"
+msgstr "このイメージメンバーの状況"
+
+msgid ""
+"The store names to use to get store preference order. The name must be "
+"registered by one of the stores defined by the 'stores' config option. This "
+"option will be applied when you using 'store_type' option as image location "
+"strategy defined by the 'location_strategy' config option."
+msgstr ""
+"ストア優先順序を取得するために使用するストア名。この名前は、「stores」設定オ"
+"プションで定義されたストアの 1 つによって登録されていなければなりません。この"
+"オプションは、「location_strategy」設定オプションで定義されたイメージロケー"
+"ションストラテジーとして「store_type」オプションを使用する場合に適用されま"
+"す。"
+
+msgid ""
+"The strategy to use for authentication. If \"use_user_token\" is not in "
+"effect, then auth strategy can be specified."
+msgstr ""
+"認証に使用されるストラテジー。\"use_user_token\" が無効であれば、認証ストラテ"
+"ジーを指定できます。"
+
+#, python-format
+msgid ""
+"The target member %(member_id)s is already associated with image "
+"%(image_id)s."
+msgstr ""
+"ターゲットメンバー %(member_id)s はイメージ %(image_id)s に既に関連付けられて"
+"います。"
+
+msgid ""
+"The tenant name of the administrative user. If \"use_user_token\" is not in "
+"effect, then admin tenant name can be specified."
+msgstr ""
+"管理ユーザーのテナント名。\"use_user_token\" が無効であれば、管理テナント名を"
+"指定できます。"
+
+msgid "The type of task represented by this content"
+msgstr "このコンテンツによって表されるタスクのタイプ"
+
+msgid "The unique namespace text."
+msgstr "固有の名前空間テキスト。"
+
+msgid ""
+"The upper limit (the maximum size of accumulated cache in bytes) beyond "
+"which the cache pruner, if running, starts cleaning the image cache."
+msgstr ""
+"この値を超えるとキャッシュプルーナー (実行されている場合) がイメージキャッ"
+"シュのクリーニングを開始する上限値 (累積キャッシュの最大サイズ (バイト))。"
+
+msgid "The user friendly name for the namespace. Used by UI if available."
+msgstr "名前空間の分かりやすい名前。存在する場合は、UI によって使用されます。"
+
+msgid ""
+"The user to authenticate against the Swift authentication service "
+"(deprecated)"
+msgstr "Swift 認証サービスに対して認証するユーザー (非推奨)"
+
+msgid ""
+"The value for the socket option TCP_KEEPIDLE.  This is the time in seconds "
+"that the connection must be idle before TCP starts sending keepalive probes."
+msgstr ""
+"ソケットオプション TCP_KEEPIDLE の値。これは、TCP でキープアライブプローブの"
+"送信が開始される前に接続がアイドルでなければならない時間 (秒) です。"
+
+#, python-format
+msgid ""
+"There is a problem with your %(error_key_name)s %(error_filename)s.  Please "
+"verify it.  Error: %(ioe)s"
+msgstr ""
+"%(error_key_name)s %(error_filename)s に関して問題があります。確認してくださ"
+"い。エラー: %(ioe)s"
+
+#, python-format
+msgid ""
+"There is a problem with your %(error_key_name)s %(error_filename)s.  Please "
+"verify it. OpenSSL error: %(ce)s"
+msgstr ""
+"%(error_key_name)s %(error_filename)s に関して問題があります。確認してくださ"
+"い。OpenSSL エラー: %(ce)s"
+
+#, python-format
+msgid ""
+"There is a problem with your key pair.  Please verify that cert "
+"%(cert_file)s and key %(key_file)s belong together.  OpenSSL error %(ce)s"
+msgstr ""
+"ご使用の鍵ペアに関して問題があります。証明書 %(cert_file)s と鍵 %(key_file)s "
+"がペアになっていることを確認してください。OpenSSL エラー %(ce)s"
+
+msgid "There was an error configuring the client."
+msgstr "クライアントの設定中にエラーが発生しました。"
+
+msgid "There was an error connecting to a server"
+msgstr "サーバーへの接続中にエラーが発生しました"
+
+msgid ""
+"This config value indicates whether \"roles\" or \"policies\" are used in "
+"the property protection file."
+msgstr ""
+"この設定値は、プロパティー保護ファイルで \"roles\" と \"policies\" のどちらが"
+"使用されるかを示します。"
+
+msgid ""
+"This operation is currently not permitted on Glance Tasks. They are auto "
+"deleted after reaching the time based on their expires_at property."
+msgstr ""
+"この操作は、Glance タスクでは現在許可されていません。これらのタスクは、"
+"expires_at プロパティーに基づき、時間に達すると自動的に削除されます。"
+
+msgid "This operation is currently not permitted on Glance images details."
+msgstr "この操作は、Glance イメージの詳細では現在許可されていません。"
+
+msgid ""
+"This value sets what strategy will be used to determine the image location "
+"order. Currently two strategies are packaged with Glance 'location_order' "
+"and 'store_type'."
+msgstr ""
+"この値は、イメージ location order を決定するために使用されるストラテジーを設"
+"定するものです。現在、Glance には、'location_order' および 'store_type' とい"
+"う 2 つのストラテジーがパッケージされています。"
+
+msgid ""
+"Time in hours for which a task lives after, either succeeding or failing"
+msgstr "成功または失敗の後でタスクが存続する時間 (時)"
+
+msgid ""
+"Timeout for client connections' socket operations. If an incoming connection "
+"is idle for this number of seconds it will be closed. A value of '0' means "
+"wait forever."
+msgstr ""
+"クライアント接続のソケット操作のタイムアウト時間。提供される接続がこの秒数の"
+"間アイドル状態にある場合、接続は終了します。値が '0' の場合、待機時間に制限が"
+"ないことを指します。"
+
+msgid "Too few arguments."
+msgstr "引数が少なすぎます。"
+
+msgid "Too few locations"
+msgstr "ロケーションが少なすぎます"
+
+msgid "Too many locations"
+msgstr "ロケーションが多すぎます"
+
+#, python-format
+msgid "Total size is %(size)d bytes across %(img_count)d images"
+msgstr "合計サイズは %(size)d バイト (イメージ数: %(img_count)d) です"
+
+msgid "Turn on/off delayed delete."
+msgstr "遅延した削除をオン/オフにします。"
+
+msgid "Type version has to be a valid semver string"
+msgstr "タイプバージョンは有効な semver 文字列でなければなりません"
+
+msgid ""
+"URI cannot contain more than one occurrence of a scheme.If you have "
+"specified a URI like swift://user:pass@http://authurl.com/v1/container/obj, "
+"you need to change it to use the swift+http:// scheme, like so: swift+http://"
+"user:pass@authurl.com/v1/container/obj"
+msgstr ""
+"URI に複数回、スキームを指定することはできません。swift://user:pass@http://"
+"authurl.com/v1/container/obj のような URI を指定した場合は、次のように、swift"
+"+http:// スキームを使用するよう変更する必要があります。swift+http://user:"
+"pass@authurl.com/v1/container/obj"
+
+msgid "URL to access the image file kept in external store"
+msgstr "外部ストアに保持されているイメージファイルにアクセスするための URL"
+
+msgid "Unable to PUT to non-empty collection"
+msgstr "空でないコレクションに PUT することができません"
+
+#, python-format
+msgid ""
+"Unable to create pid file %(pid)s.  Running as non-root?\n"
+"Falling back to a temp file, you can stop %(service)s service using:\n"
+"  %(file)s %(server)s stop --pid-file %(fb)s"
+msgstr ""
+"pid ファイル %(pid)s を作成できません。非ルートとして実行しますか?\n"
+"一時ファイルにフォールバック中。次を使用して %(service)s サービスを\n"
+"停止できます:  %(file)s %(server)s stop --pid-file %(fb)s"
+
+#, python-format
+msgid "Unable to filter by unknown operator '%s'."
+msgstr "不明な演算子 '%s' によってフィルター処理を行うことができません。"
+
+msgid "Unable to filter on a range with a non-numeric value."
+msgstr "非数値を含む範囲ではフィルタリングできません。"
+
+msgid "Unable to filter on a unknown operator."
+msgstr "不明な演算子に対してフィルター処理を行うことができません。"
+
+msgid "Unable to filter using the specified operator."
+msgstr "指定された演算子を使用してフィルター処理ができません。"
+
+msgid "Unable to filter using the specified range."
+msgstr "指定された範囲ではフィルタリングできません。"
+
+#, python-format
+msgid "Unable to find '%s' in JSON Schema change"
+msgstr "JSON スキーマの変更で '%s' が見つかりません"
+
+#, python-format
+msgid ""
+"Unable to find `op` in JSON Schema change. It must be one of the following: "
+"%(available)s."
+msgstr ""
+"JSON スキーマの変更で `op` が見つかりません。以下のいずれかでなければなりませ"
+"ん: %(available)s。"
+
+msgid "Unable to get legacy image"
+msgstr "レガシーイメージを取得できません"
+
+msgid "Unable to increase file descriptor limit.  Running as non-root?"
+msgstr "ファイル記述子制限を増加できません。非ルートとして実行しますか?"
+
+#, python-format
+msgid ""
+"Unable to load %(app_name)s from configuration file %(conf_file)s.\n"
+"Got: %(e)r"
+msgstr ""
+"設定ファイル %(conf_file)s から %(app_name)s をロードできません。\n"
+"受け取ったエラー: %(e)r"
+
+#, python-format
+msgid "Unable to load schema: %(reason)s"
+msgstr "スキーマをロードできません: %(reason)s"
+
+#, python-format
+msgid "Unable to locate paste config file for %s."
+msgstr "%s の paste 設定ファイルが見つかりません。"
+
+msgid "Unable to modify collection in immutable or readonly property"
+msgstr ""
+"不変プロパティーまたは読み取り専用プロパティー内のコレクションは変更できませ"
+"ん"
+
+#, python-format
+msgid "Unable to retrieve certificate with ID: %s"
+msgstr "以下の ID の証明書を取得できません: %s"
+
+msgid "Unable to retrieve request id from context"
+msgstr "コンテキストから要求 ID を取得できません"
+
+msgid "Unable to specify artifact type explicitly"
+msgstr "アーティファクトタイプは、明示的には指定できません"
+
+msgid "Unable to specify artifact type version explicitly"
+msgstr "アーティファクトタイプのバージョンは、明示的には指定できません"
+
+msgid "Unable to specify version if multiple types are possible"
+msgstr "複数のタイプが指定可能な場合はバージョンを指定できません"
+
+msgid "Unable to specify version if type is not specified"
+msgstr "タイプが指定されていない場合はバージョンを指定できません"
+
+#, python-format
+msgid "Unable to upload duplicate image data for image%(image_id)s: %(error)s"
+msgstr ""
+"イメージ %(image_id)s の重複イメージデータはアップロードできません: %(error)s"
+
+msgid ""
+"Unable to verify signature since the algorithm is unsupported on this system"
+msgstr ""
+"このアルゴリズムはこのシステムでサポートされないため、シグニチャーを検証でき"
+"ません"
+
+#, python-format
+msgid "Unable to verify signature: %(reason)s"
+msgstr "シグニチャーを検証できません: %(reason)s"
+
+msgid "Unauthorized image access"
+msgstr "許可されていないイメージアクセス"
+
+msgid "Unexpected body type. Expected list/dict."
+msgstr "予期しない本文タイプ。予期されたのはリストまたは辞書です。"
+
+#, python-format
+msgid "Unexpected response: %s"
+msgstr "予期しない応答: %s"
+
+#, python-format
+msgid "Unknown auth strategy '%s'"
+msgstr "不明な認証ストラテジー '%s'"
+
+#, python-format
+msgid "Unknown command: %s"
+msgstr "不明なコマンド: %s"
+
+msgid "Unknown sort direction, must be 'desc' or 'asc'"
+msgstr "ソート方向が不明です。'desc' または 'asc' でなければなりません"
+
+msgid "Unrecognized JSON Schema draft version"
+msgstr "認識されない JSON スキーマのドラフトバージョン"
+
+msgid "Unrecognized changes-since value"
+msgstr "認識されない changes-since 値"
+
+#, python-format
+msgid "Unsupported sort_dir. Acceptable values: %s"
+msgstr "サポートされない sort_dir です。許容値: %s"
+
+#, python-format
+msgid "Unsupported sort_key. Acceptable values: %s"
+msgstr "サポートされない sort_key です。許容値: %s"
+
+#, python-format
+msgid "Value %(value)d out of range, must not exceed %(max)d"
+msgstr "値 %(value)d は範囲外です。%(max)d を超えてはなりません"
+
+msgid "Value is greater than maximum"
+msgstr "値が最大値を超えています"
+
+msgid "Value is less than minimum"
+msgstr "値が最小値を下回っています"
+
+msgid "Value is required"
+msgstr "値が必要です"
+
+#, python-format
+msgid "Version component is too large (%d max)"
+msgstr "バージョンコンポーネントが大きすぎます (最大 %d)"
+
+#, python-format
+msgid "Version is invalid: %(reason)s"
+msgstr "バージョンが無効です: %(reason)s"
+
+msgid "Virtual size of image in bytes"
+msgstr "イメージの仮想サイズ (バイト)"
+
+msgid "Visibility must be either \"public\" or \"private\""
+msgstr "可視性は「public」または「private」のいずれかでなければなりません"
+
+#, python-format
+msgid "Waited 15 seconds for pid %(pid)s (%(file)s) to die; giving up"
+msgstr "pid %(pid)s (%(file)s) が停止するまで 15 秒お待ちください。中断中です"
+
+msgid ""
+"When false, no artifacts can be loaded regardless of available_plugins. When "
+"true, artifacts can be loaded."
+msgstr ""
+"False の場合、available_plugins とは無関係に、成果物はロードできません。True "
+"の場合、成果物はロード可能です。"
+
+msgid ""
+"When running server in SSL mode, you must specify both a cert_file and "
+"key_file option value in your configuration file"
+msgstr ""
+"サーバーを SSL モードで実行する場合は、cert_file オプション値と key_file オプ"
+"ション値の両方を設定ファイルに指定する必要があります"
+
+msgid ""
+"When true, this option sets the owner of an image to be the tenant. "
+"Otherwise, the owner of the  image will be the authenticated user issuing "
+"the request."
+msgstr ""
+"該当する場合は、このオプションによって、イメージの所有者がテナントに設定され"
+"ます。該当しない場合は、イメージの所有者が、要求を発行する認証ユーザーになり"
+"ます。"
+
+msgid ""
+"When using SSL in connections to the registry server, do not require "
+"validation via a certifying authority. This is the registry's equivalent of "
+"specifying --insecure on the command line using glanceclient for the API."
+msgstr ""
+"レジストリーサーバーへの接続で SSL を使用する場合、認証局による検証は不要で"
+"す。これは、レジストリーで API に対して glanceclient を使用してコマンド行に "
+"--insecure を指定することと同等です。"
+
+msgid ""
+"Whether to allow users to specify image properties beyond what the image "
+"schema provides"
+msgstr ""
+"イメージスキーマが提供する内容以外のイメージプロパティーを指定することを、"
+"ユーザーに許可するかどうか"
+
+msgid ""
+"Whether to include the backend image locations in image properties. For "
+"example, if using the file system store a URL of \"file:///path/to/image\" "
+"will be returned to the user in the 'direct_url' meta-data field. Revealing "
+"storage location can be a security risk, so use this setting with caution! "
+"Setting this to true overrides the show_image_direct_url option."
+msgstr ""
+"イメージプロパティーにバックエンドイメージロケーションを含めるかどうか。例え"
+"ば、ファイルシステムストアを使用している場合は、URL \"file:///path/to/image"
+"\" が \"direct_url\" メタデータフィールド内のユーザーに返されます。ストレージ"
+"ロケーションを公開するとセキュリティーリスクを招くおそれがあるため、この設定"
+"の使用には注意が必要です。これを true に設定すると show_image_direct_url オプ"
+"ションがオーバーライドされます。"
+
+msgid ""
+"Whether to include the backend image storage location in image properties. "
+"Revealing storage location can be a security risk, so use this setting with "
+"caution!"
+msgstr ""
+"イメージプロパティーにバックエンドイメージストレージロケーションを含めるかど"
+"うか。ストレージロケーションを明らかにするとセキュリティーリスクを招くおそれ"
+"があるため、この設定は慎重に使用してください。"
+
+msgid ""
+"Whether to pass through headers containing user and tenant information when "
+"making requests to the registry. This allows the registry to use the context "
+"middleware without keystonemiddleware's auth_token middleware, removing "
+"calls to the keystone auth service. It is recommended that when using this "
+"option, secure communication between glance api and glance registry is "
+"ensured by means other than auth_token middleware."
+msgstr ""
+"レジストリーに対して要求を行うときに、ユーザーおよびテナントの情報が含まれた"
+"ヘッダーをパススルーするかどうか。ヘッダーをパススルーすると、レジストリー"
+"は、keystonemiddleware の auth_token ミドルウェアなしでコンテキストミドルウェ"
+"アを使用できるようになり、keystone 認証サービスが呼び出されなくなります。この"
+"オプションを使用するときは、auth_token ミドルウェア以外の方法で glance api と"
+"glance レジストリー間の通信が安全に行われるようにしてください。"
+
+msgid ""
+"Whether to pass through the user token when making requests to the registry. "
+"To prevent failures with token expiration during big files upload, it is "
+"recommended to set this parameter to False.If \"use_user_token\" is not in "
+"effect, then admin credentials can be specified."
+msgstr ""
+"レジストリーに対して要求を行うときに、ユーザートークンをパススルーするかどう"
+"か。サイズの大きなファイルのアップロード中のトークンの有効期限切れに伴う障害"
+"を防ぐために、このパラメーターは False に設定することが推奨されま"
+"す。\"use_user_token\" が無効である場合は、管理者のクレデンシャルを指定できま"
+"す。"
+
+msgid ""
+"Work dir for asynchronous task operations. The directory set here will be "
+"used to operate over images - normally before they are imported in the "
+"destination store. When providing work dir, make sure enough space is "
+"provided for concurrent tasks to run efficiently without running out of "
+"space. A rough estimation can be done by multiplying the number of "
+"`max_workers` - or the N of workers running - by an average image size (e.g "
+"500MB). The image size estimation should be done based on the average size "
+"in your deployment. Note that depending on the tasks running you may need to "
+"multiply this number by some factor depending on what the task does. For "
+"example, you may want to double the available size if image conversion is "
+"enabled. All this being said, remember these are just estimations and you "
+"should do them based on the worst case scenario and be prepared to act in "
+"case they were wrong."
+msgstr ""
+"非同期タスク操作用の作業ディレクトリー。ここで設定されるディレクトリーはイ"
+"メージでの操作 (通常、イメージが宛先ストアにインポートされる前の操作) に使用"
+"されます。作業ディレクトリーを指定する場合は、並行タスクがスペースを使い果た"
+"すことなく効率的に実行されるように、十分なスペースを確保してください。"
+"「max_workers」数 (または実行中ワーカー数) に平均イメージサイズ(例えば "
+"500MB) を乗算することによって、概算を行うことができます。イメージサイズの見積"
+"もりは、デプロイメントでの平均サイズに基づいて行う必要があります。実行中のタ"
+"スクによっては、この数値に、タスクの実行内容に応じた何らかの係数を乗算する必"
+"要があることに注意してください。例えば、イメージ変換が有効になっている場合"
+"は、使用可能なサイズを 2 倍にする必要が生じることがあります。ただし、これらは"
+"見積もりにすぎず、最悪のシナリオを想定して見積もりを行う必要があり、見積もり"
+"が間違っている場合の対策を準備しておく必要があることを覚えておいてください。"
+
+#, python-format
+msgid "Wrong command structure: %s"
+msgstr "正しくないコマンド構造: %s"
+
+msgid "You are not authenticated."
+msgstr "認証されていません。"
+
+msgid "You are not authorized to complete this action."
+msgstr "このアクションの実行を許可されていません。"
+
+#, python-format
+msgid "You are not authorized to lookup image %s."
+msgstr "イメージ %s を調べる権限がありません。"
+
+#, python-format
+msgid "You are not authorized to lookup the members of the image %s."
+msgstr "イメージ %s のメンバーを調べる権限がありません。"
+
+#, python-format
+msgid "You are not permitted to create a tag in the namespace owned by '%s'"
+msgstr "'%s' が所有する名前空間でのタグの作成は許可されていません"
+
+msgid "You are not permitted to create image members for the image."
+msgstr "そのイメージのイメージメンバーの作成は許可されていません。"
+
+#, python-format
+msgid "You are not permitted to create images owned by '%s'."
+msgstr "'%s' によって所有されているイメージの作成は許可されていません。"
+
+#, python-format
+msgid "You are not permitted to create namespace owned by '%s'"
+msgstr "'%s' によって所有される名前空間の作成は許可されません"
+
+#, python-format
+msgid "You are not permitted to create object owned by '%s'"
+msgstr "'%s' によって所有されるオブジェクトの作成は許可されません"
+
+#, python-format
+msgid "You are not permitted to create property owned by '%s'"
+msgstr "'%s' によって所有されるプロパティーの作成は許可されません"
+
+#, python-format
+msgid "You are not permitted to create resource_type owned by '%s'"
+msgstr "'%s' によって所有される resource_type の作成は許可されません"
+
+#, python-format
+msgid "You are not permitted to create this task with owner as: %s"
+msgstr "所有者 %s を使用してこのタスクを作成することは許可されません"
+
+msgid "You are not permitted to deactivate this image."
+msgstr "このイメージの非アクティブ化は許可されていません。"
+
+msgid "You are not permitted to delete this image."
+msgstr "このイメージの削除は許可されていません。"
+
+msgid "You are not permitted to delete this meta_resource_type."
+msgstr "この meta_resource_type の削除は許可されません。"
+
+msgid "You are not permitted to delete this namespace."
+msgstr "この名前空間の削除は許可されません。"
+
+msgid "You are not permitted to delete this object."
+msgstr "このオブジェクトの削除は許可されません。"
+
+msgid "You are not permitted to delete this property."
+msgstr "このプロパティーの削除は許可されません。"
+
+msgid "You are not permitted to delete this tag."
+msgstr "このタグの削除は許可されていません。"
+
+#, python-format
+msgid "You are not permitted to modify '%(attr)s' on this %(resource)s."
+msgstr "この %(resource)s 上の '%(attr)s' の変更は許可されません。"
+
+#, python-format
+msgid "You are not permitted to modify '%s' on this image."
+msgstr "このイメージ上の '%s' の変更は許可されません。"
+
+msgid "You are not permitted to modify locations for this image."
+msgstr "このイメージのロケーションの変更は許可されていません。"
+
+msgid "You are not permitted to modify tags on this image."
+msgstr "このイメージ上のタグの変更は許可されていません。"
+
+msgid "You are not permitted to modify this image."
+msgstr "このイメージの変更は許可されていません。"
+
+msgid "You are not permitted to reactivate this image."
+msgstr "このイメージの再アクティブ化は許可されていません。"
+
+msgid "You are not permitted to set status on this task."
+msgstr "このタスクに関する状況を設定することは許可されません。"
+
+msgid "You are not permitted to update this namespace."
+msgstr "この名前空間の更新は許可されません。"
+
+msgid "You are not permitted to update this object."
+msgstr "このオブジェクトの更新は許可されません。"
+
+msgid "You are not permitted to update this property."
+msgstr "このプロパティーの更新は許可されません。"
+
+msgid "You are not permitted to update this tag."
+msgstr "このタグの更新は許可されていません。"
+
+msgid "You are not permitted to upload data for this image."
+msgstr "このイメージのデータのアップロードは許可されていません。"
+
+#, python-format
+msgid "You cannot add image member for %s"
+msgstr "%s のイメージメンバーを追加できません"
+
+#, python-format
+msgid "You cannot delete image member for %s"
+msgstr "%s のイメージメンバーを削除できません"
+
+#, python-format
+msgid "You cannot get image member for %s"
+msgstr "%s のイメージメンバーを取得できません"
+
+#, python-format
+msgid "You cannot update image member %s"
+msgstr "イメージメンバー %s を更新できません"
+
+msgid "You do not own this image"
+msgstr "このイメージを所有していません"
+
+msgid ""
+"You have selected to use SSL in connecting, and you have supplied a cert, "
+"however you have failed to supply either a key_file parameter or set the "
+"GLANCE_CLIENT_KEY_FILE environ variable"
+msgstr ""
+"接続時に SSL を使用するよう選択し、証明書を指定しましたが、key_file パラメー"
+"ターを指定しなかったか、GLANCE_CLIENT_KEY_FILE 環境変数を設定しませんでした"
+
+msgid ""
+"You have selected to use SSL in connecting, and you have supplied a key, "
+"however you have failed to supply either a cert_file parameter or set the "
+"GLANCE_CLIENT_CERT_FILE environ variable"
+msgstr ""
+"接続時に SSL を使用するよう選択し、鍵を指定しましたが、cert_file パラメーター"
+"を指定しなかったか、GLANCE_CLIENT_CERT_FILE 環境変数を設定しませんでした"
+
+msgid ""
+"^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-"
+"fA-F]){12}$"
+msgstr ""
+"^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-"
+"fA-F]){12}$"
+
+#, python-format
+msgid "__init__() got unexpected keyword argument '%s'"
+msgstr "__init__() で予期しないキーワード引数 '%s' が得られました"
+
+#, python-format
+msgid ""
+"cannot transition from %(current)s to %(next)s in update (wanted from_state="
+"%(from)s)"
+msgstr ""
+"更新で %(current)s から %(next)s に移行できません (from_state=%(from)s が必"
+"要)"
+
+#, python-format
+msgid "custom properties (%(props)s) conflict with base properties"
+msgstr "カスタムプロパティー (%(props)s) が基本プロパティーと競合しています"
+
+msgid "eventlet 'poll' nor 'selects' hubs are available on this platform"
+msgstr ""
+"このプラットフォームでは eventlet の「poll」ハブも「selects」ハブも使用できま"
+"せん"
+
+msgid "is_public must be None, True, or False"
+msgstr "is_public は、None、True、または False でなければなりません"
+
+msgid "limit param must be an integer"
+msgstr "limit パラメーターは整数でなければなりません"
+
+msgid "limit param must be positive"
+msgstr "limit パラメーターは正でなければなりません"
+
+#, python-format
+msgid "location: %s data lost"
+msgstr "ロケーション: %s データが失われました"
+
+msgid "md5 hash of image contents."
+msgstr "イメージコンテンツの MD5 ハッシュ。"
+
+#, python-format
+msgid "new_image() got unexpected keywords %s"
+msgstr "new_image() で予期しないキーワード %s が得られました"
+
+msgid "protected must be True, or False"
+msgstr "protected は True または False でなければなりません"
+
+#, python-format
+msgid "unable to launch %(serv)s. Got error: %(e)s"
+msgstr "%(serv)s を起動できません。受け取ったエラー: %(e)s"
+
+#, python-format
+msgid "x-openstack-request-id is too long, max size %s"
+msgstr "x-openstack-request-id が長すぎます。最大サイズは %s です"

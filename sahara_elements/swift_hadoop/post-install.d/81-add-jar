@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ "${DIB_DEBUG_TRACE:-0}" -gt 0 ]; then
+    set -x
+fi
+set -eu
+set -o pipefail
+
+HDFS_LIB_DIR=${DIB_HDFS_LIB_DIR:-"/usr/share/hadoop/lib"}
+SWIFT_LIB_URI="http://sahara-files.mirantis.com/hadoop-swift/hadoop-swift-latest.jar"
+HADOOP_SWIFT_JAR_NAME=${DIB_HADOOP_SWIFT_JAR_NAME:-"hadoop-swift.jar"}
+
+if [ -z "${swift_url:-}" ]; then
+    wget -O $HDFS_LIB_DIR/$HADOOP_SWIFT_JAR_NAME $SWIFT_LIB_URI
+else
+    wget -O $HDFS_LIB_DIR/$HADOOP_SWIFT_JAR_NAME $swift_url
+fi
+
+if [ $? -ne 0 ]; then
+    echo -e "Could not download Swift Hadoop FS implementation.\nAborting"
+    exit 1
+fi
+
+chmod 0644 $HDFS_LIB_DIR/$HADOOP_SWIFT_JAR_NAME

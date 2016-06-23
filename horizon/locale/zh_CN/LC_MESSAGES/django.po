@@ -1,0 +1,420 @@
+# Linda <duleish@cn.ibm.com>, 2016. #zanata
+msgid ""
+msgstr ""
+"Project-Id-Version: horizon 9.0.1.dev16\n"
+"Report-Msgid-Bugs-To: https://bugs.launchpad.net/openstack-i18n/\n"
+"POT-Creation-Date: 2016-05-12 02:15+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-05-02 03:47+0000\n"
+"Last-Translator: liujunpeng <liujunpeng@inspur.com>\n"
+"Language-Team: Chinese (China)\n"
+"Language: zh-CN\n"
+"X-Generator: Zanata 3.7.3\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#, python-format
+msgid ""
+"\n"
+"                Login as different user or go back to <a href=\"%(home_url)s"
+"\">home page</a>\n"
+"              "
+msgstr ""
+"\n"
+"                使用其他用户登录或返回至<a href=\"%(home_url)s\">首页</a>\n"
+"              "
+
+#, python-format
+msgid ""
+"\n"
+"                Used <span> %(used)s </span>(No Limit)\n"
+"              "
+msgstr ""
+"\n"
+"                已用 <span> %(used)s </span>（无限制）\n"
+"              "
+
+#, python-format
+msgid ""
+"\n"
+"                Used <span> %(used)s </span>of<span> %(available)s </span>\n"
+"              "
+msgstr ""
+"\n"
+"                已用 <span> %(used)s </span>，可用 <span> %(available)s </"
+"span>\n"
+"              "
+
+#, python-format
+msgid ""
+"\n"
+"      <label>From:</label> %(start)s"
+msgstr ""
+"\n"
+"<label>开始时间：</label> %(start)s"
+
+#, python-format
+msgid ""
+"\n"
+"      <label>To:</label>%(end)s"
+msgstr ""
+"\n"
+"<label>结束时间：</label>%(end)s"
+
+msgid ""
+"\n"
+"      If you are not sure which authentication method to use, contact your "
+"administrator.\n"
+"    "
+msgstr ""
+"\n"
+"如果您不确定使用哪种认证方式，请联系管理员。\n"
+" "
+
+#, python-format
+msgctxt "past"
+msgid "%(action)s %(data_type)s"
+msgstr "%(action)s %(data_type)s"
+
+#, python-format
+msgctxt "present"
+msgid "%(action)s %(data_type)s"
+msgstr "%(action)s %(data_type)s"
+
+#, python-format
+msgid "%(action)s: %(objs)s"
+msgstr "%(action)s：%(objs)s"
+
+#, python-format
+msgid "%(context_name)s:"
+msgstr "%(context_name)s："
+
+#, python-format
+msgid "%(name)s: %(error)s"
+msgstr "%(name)s：%(error)s"
+
+#, python-format
+msgid "%(size)d Byte"
+msgid_plural "%(size)d Bytes"
+msgstr[0] "%(size)d 字节"
+
+#, python-format
+msgid "%s GB"
+msgstr "%s GB"
+
+#, python-format
+msgid "%s KB"
+msgstr "%s KB"
+
+#, python-format
+msgid "%s MB"
+msgstr "%s MB"
+
+#, python-format
+msgid "%s PB"
+msgstr "%s PB"
+
+#, python-format
+msgid "%s TB"
+msgstr "%s TB"
+
+#, python-format
+msgid "%s completed successfully."
+msgstr "%s 成功完成。"
+
+#, python-format
+msgid "%s did not complete."
+msgstr "%s 没有完成。"
+
+msgid "&laquo;&nbsp;Prev"
+msgstr "&laquo;&nbsp;上一页"
+
+msgid "(No Limit)"
+msgstr "（无限制）"
+
+msgid "-"
+msgstr "-"
+
+msgid "0 Bytes"
+msgstr "0 字节"
+
+#, python-format
+msgid "A %(resource)s with the name \"%(name)s\" already exists."
+msgstr "已经存在名为“%(name)s”的 %(resource)s。"
+
+msgid "Actions"
+msgstr "操作"
+
+msgid "Active Instances:"
+msgstr "活动的实例："
+
+msgid "Active RAM:"
+msgstr "活动的 RAM："
+
+msgid "Add a row"
+msgstr "增加一行"
+
+msgid "All available"
+msgstr "所有可用成员"
+
+msgid "Available"
+msgstr "可用"
+
+msgid "Back"
+msgstr "返回"
+
+#. Translators: test code, don't really have to translate
+msgid "Batch Item"
+msgid_plural "Batch Items"
+msgstr[0] "Batch Item"
+
+#. Translators: test code, don't really have to translate
+msgid "Batched Item"
+msgid_plural "Batched Items"
+msgstr[0] "Batched Item"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Connect"
+msgstr "连接"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Deleted"
+msgstr "已删除"
+
+#, python-format
+msgid "Displaying %(content_items)s item"
+msgid_plural "Displaying %(content_items)s items"
+msgstr[0] "正在显示 %(content_items)s 项"
+
+#, python-format
+msgid "Displaying %(counter)s item"
+msgid_plural "Displaying %(counter)s items"
+msgstr[0] "正在显示 %(counter)s 个项"
+
+#, python-format
+msgid "Displaying %(nav_items)s item"
+msgid_plural "Displaying %(nav_items)s items"
+msgstr[0] "正在显示 %(nav_items)s 个项"
+
+#. Translators: test code, don't really have to translate
+msgid "Down Item"
+msgid_plural "Down Items"
+msgstr[0] "Down Item"
+
+#. Translators: test code, don't really have to translate
+msgid "Downed Item"
+msgid_plural "Downed Items"
+msgstr[0] "Downed Item"
+
+#, python-format
+msgid "Error processing message json file '%(path)s': %(exception)s"
+msgstr "处理 json 消息文件“%(path)s”时出错：%(exception)s"
+
+msgid "Error: "
+msgstr "错误："
+
+msgid "Fake"
+msgstr "伪造"
+
+msgid "Filter"
+msgstr "过滤"
+
+msgid "Horizon"
+msgstr "Horizon"
+
+msgid "Incorrect format for IP address"
+msgstr "IP 地址格式不对"
+
+msgid "Info: "
+msgstr "信息："
+
+msgid "Invalid metadata entry. Use comma-separated key=value pairs"
+msgstr "无效的元数据条目。请使用逗号分隔的 key=value 对"
+
+msgid "Invalid subnet mask"
+msgstr "无效的子网掩码"
+
+msgid "Invalid version for IP address"
+msgstr "无效的 IP 地址版本"
+
+msgid "Limit Summary"
+msgstr "上限摘要"
+
+msgid "Log in"
+msgstr "登录"
+
+msgid "Login"
+msgstr "登录"
+
+msgid "Members"
+msgstr "成员"
+
+#, python-format
+msgid "Message json file '%(path)s' is malformed. %(exception)s"
+msgstr "json 消息文件“%(path)s”格式不对：%(exception)s"
+
+msgid "More Actions"
+msgstr "更多操作"
+
+msgid "Navigation Item"
+msgstr "导航条目"
+
+msgid "Never"
+msgstr "从不"
+
+msgid "Next"
+msgstr "下一步"
+
+msgid "Next&nbsp;&raquo;"
+msgstr "下一页&nbsp;&raquo;"
+
+msgid "No items to display."
+msgstr "没有要显示的条目。"
+
+#, python-format
+msgid "No match returned for the id \"%s\"."
+msgstr "没有返回标识“%s”匹配项。"
+
+msgid "No members."
+msgstr "没有成员。"
+
+msgid "None available."
+msgstr "没有可用成员。"
+
+msgid "Not a valid IP protocol number"
+msgstr "不是一个有效的 IP 协议号"
+
+msgid "Not a valid port number"
+msgstr "不是一个有效的端口号"
+
+msgid "One colon allowed in port range"
+msgstr "端口范围只能使用一个冒号"
+
+msgid "Other"
+msgstr "其他"
+
+msgid "Password is not accepted"
+msgstr "密码不符合要求"
+
+msgid "Please log in to continue."
+msgstr "请登录以继续。"
+
+msgid "Please select a row before taking that action."
+msgstr "请在执行操作前选择一行。"
+
+msgid "Processing..."
+msgstr "正在处理..."
+
+msgid "Save"
+msgstr "保存"
+
+#, python-format
+msgid "Select a %s to browse."
+msgstr "请选择要浏览的 %s。"
+
+msgid "Select a period of time to query its usage:"
+msgstr "选择一段时间来查询其用量："
+
+#. Translators: test code, don't really have to translate
+msgid "Sell Puppy"
+msgid_plural "Sell Puppies"
+msgstr[0] "Sell Puppy"
+
+msgid "Sign In"
+msgstr "登录"
+
+#. Translators: test code, don't really have to translate
+msgid "Sold Puppy"
+msgid_plural "Sold Puppies"
+msgstr[0] "Sold Puppy"
+
+msgid "Submit"
+msgstr "提交"
+
+msgid "Success: "
+msgstr "成功："
+
+msgid "Summary"
+msgstr "概要"
+
+#, python-format
+msgid "The attribute %(attr)s doesn't exist on %(obj)s."
+msgstr "%(obj)s 上不存在 %(attr)s 属性。"
+
+msgid "The date should be in YYYY-mm-dd format."
+msgstr "日期应该是 YYYY-mm-dd 格式。"
+
+msgid "The string may only contain ASCII printable characters."
+msgstr "字符串只能包含 ASCII 可显示字符。"
+
+#, python-format
+msgid ""
+"The value of %(resource)s is %(name)s inside the template. When launching a "
+"stack from this interface, the value must start with \"http://\" or "
+"\"https://\""
+msgstr ""
+"在模板中，%(resource)s 的值是 %(name)s。当从此接口启动栈时，值必须"
+"以“http://”或“https://”开头。"
+
+msgid "This Period's GB-Hours:"
+msgstr "此周期内的 GB-小时数："
+
+msgid "This Period's RAM-Hours:"
+msgstr "此周期内的 RAM-小时数："
+
+msgid "This Period's VCPU-Hours:"
+msgstr "此周期内的 VCPU-小时数："
+
+msgid "This action cannot be undone."
+msgstr "此操作无法撤销。"
+
+#, python-format
+msgid "Unable to %(action)s: %(objs)s"
+msgstr "无法执行 %(action)s：%(objs)s"
+
+msgid "Unauthorized. Please try logging in again."
+msgstr "未授权。请尝试重新登录。"
+
+#, python-format
+msgid "Unauthorized: %s"
+msgstr "未授权：%s"
+
+#. Translators: test code, don't really have to translate
+msgid "Up Item"
+msgid_plural "Up Items"
+msgstr[0] "Up Item"
+
+msgid "Update Item"
+msgid_plural "Update Items"
+msgstr[0] "更新条目"
+
+msgid "Updated Item"
+msgid_plural "Updated Items"
+msgstr[0] "条目已更新"
+
+#. Translators: test code, don't really have to translate
+msgid "Upped Item"
+msgid_plural "Upped Items"
+msgstr[0] "Upped Item"
+
+msgid "Usage Summary"
+msgstr "使用情况摘要"
+
+msgid "Warning: "
+msgstr "警告："
+
+#, python-format
+msgid "You are not allowed to %(action)s: %(objs)s"
+msgstr "不允许执行 %(action)s：%(objs)s"
+
+#, python-format
+msgid "You are not authorized to access %s"
+msgstr "您无权访问 %s"
+
+msgid "You do not have permission to access the resource:"
+msgstr "您没有权限访问该资源："

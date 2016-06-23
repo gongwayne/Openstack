@@ -1,0 +1,94 @@
+#!/bin/bash
+
+if [ "${DIB_DEBUG_TRACE:-0}" -gt 0 ]; then
+    set -x
+fi
+set -eu
+set -o pipefail
+
+if [ "$DISTRO_NAME" = "ubuntu" ]; then
+    export DEBIAN_FRONTEND=noninteractive
+    export RUNLEVEL=1
+fi
+
+# Install the rest of CDH unless a limited HDFS install was requested
+if [ -z "${DIB_CDH_HDFS_ONLY:-}" ]; then
+    install-packages \
+        cloudera-manager-agent \
+        cloudera-manager-daemons \
+        cloudera-manager-server \
+        cloudera-manager-server-db-2 \
+        hadoop-hdfs-secondarynamenode \
+        hadoop-mapreduce \
+        hadoop-mapreduce-historyserver \
+        hadoop-yarn-nodemanager \
+        hadoop-yarn-resourcemanager \
+        hbase \
+        hive-hcatalog \
+        hive-metastore \
+        hive-server2 \
+        hive-webhcat-server \
+        hue \
+        oozie \
+        oracle-j2sdk1.7 \
+        spark-core \
+        zookeeper
+
+    if [ $DIB_CDH_VERSION \> "5.0" ]; then
+        # CDH5.0 does not have below packages.
+        install-packages \
+            flume-ng \
+            hadoop-kms \
+            hbase-solr \
+            impala \
+            impala-server \
+            impala-state-store \
+            impala-catalog \
+            impala-shell \
+            keytrustee-keyprovider \
+            sentry \
+            solr-server \
+            solr-doc \
+            search \
+            spark-history-server \
+            sqoop2
+    fi
+fi
+
+HADOOP_OPENSTACK_5_5_0_URL="https://repository.cloudera.com/artifactory/repo/org/apache/hadoop/hadoop-openstack/2.6.0-cdh5.5.0/hadoop-openstack-2.6.0-cdh5.5.0.jar"
+HADOOP_OPENSTACK_5_4_0_URL="https://repository.cloudera.com/artifactory/repo/org/apache/hadoop/hadoop-openstack/2.6.0-cdh5.4.0/hadoop-openstack-2.6.0-cdh5.4.0.jar"
+HADOOP_OPENSTACK_5_3_0_URL="https://repository.cloudera.com/artifactory/repo/org/apache/hadoop/hadoop-openstack/2.5.0-cdh5.3.0/hadoop-openstack-2.5.0-cdh5.3.0.jar"
+HADOOP_OPENSTACK_5_0_0_URL="https://repository.cloudera.com/artifactory/repo/org/apache/hadoop/hadoop-openstack/2.3.0-cdh5.0.0/hadoop-openstack-2.3.0-cdh5.0.0.jar"
+
+dest=/usr/lib/hadoop-mapreduce/hadoop-openstack.jar
+case "$DIB_CDH_VERSION" in
+    5.0)
+        wget -O $dest $HADOOP_OPENSTACK_5_0_0_URL
+        ;;
+    5.3)
+        wget -O $dest $HADOOP_OPENSTACK_5_3_0_URL
+        ;;
+    5.4)
+        wget -O $dest $HADOOP_OPENSTACK_5_4_0_URL
+        if [ -z "${DIB_CDH_HDFS_ONLY:-}" ]; then
+            # Create links to keep backward version support.
+            ln -s /usr/lib/oozie/oozie-sharelib-yarn /usr/lib/oozie/oozie-sharelib-yarn.tar.gz
+            ln -s /usr/lib/oozie/oozie-sharelib-mr1 /usr/lib/oozie/oozie-sharelib-mr1.tar.gz
+            ln -s /usr/lib/oozie/oozie-sharelib-yarn.tar.gz /usr/lib/oozie/oozie-sharelib.tar.gz
+        fi
+        ;;
+    5.5)
+        wget -O $dest $HADOOP_OPENSTACK_5_5_0_URL
+        # Create links to keep backward version support.
+        ln -s /usr/lib/oozie/oozie-sharelib-yarn /usr/lib/oozie/oozie-sharelib-yarn.tar.gz
+        ln -s /usr/lib/oozie/oozie-sharelib-mr1 /usr/lib/oozie/oozie-sharelib-mr1.tar.gz
+        ln -s /usr/lib/oozie/oozie-sharelib-yarn.tar.gz /usr/lib/oozie/oozie-sharelib.tar.gz
+        ;;
+    *)
+        echo "Unhandled version $DIB_CDH_VERSION for hadoop-openstack.jar"
+        exit 1
+esac
+
+if [ "$DISTRO_NAME" = "ubuntu" ]; then
+    unset RUNLEVEL
+fi

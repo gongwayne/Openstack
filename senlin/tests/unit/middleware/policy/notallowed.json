@@ -1,0 +1,10 @@
+{
+    "deny_everybody": "!",
+
+    "clusters:index": "!",
+    "clusters:create": "!",
+    "clusters:delete": "!",
+    "clusters:get": "!",
+    "clusters:action": "!",
+    "clusters:update": "!"
+}

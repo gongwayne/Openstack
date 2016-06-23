@@ -1,0 +1,135 @@
+# Copyright (c) 2014 Mirantis, Inc.
+#
+#    Licensed under the Apache License, Version 2.0 (the "License"); you may
+#    not use this file except in compliance with the License. You may obtain
+#    a copy of the License at
+#
+#         http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+#    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+#    License for the specific language governing permissions and limitations
+#    under the License.
+
+
+import sys
+
+import six
+
+from murano.dsl import context_manager
+from murano.dsl import dsl
+from murano.dsl import dsl_exception
+from murano.dsl import executor
+from murano.dsl import helpers
+from murano.dsl import murano_object
+from murano.dsl import serializer
+from murano.dsl import yaql_integration
+from murano.engine import execution_session
+from murano.engine.system import yaql_functions
+from murano.tests.unit.dsl.foundation import object_model
+
+
+class TestContextManager(context_manager.ContextManager):
+    def __init__(self, functions):
+        self.__functions = functions
+
+    def create_root_context(self, runtime_version):
+        root_context = super(TestContextManager, self).create_root_context(
+            runtime_version)
+        context = helpers.link_contexts(
+            root_context, yaql_functions.get_context(runtime_version))
+        context = context.create_child_context()
+        for name, func in six.iteritems(self.__functions):
+            context.register_function(func, name)
+        return context
+
+
+class Runner(object):
+    class DslObjectWrapper(object):
+        def __init__(self, obj, runner):
+            self._runner = runner
+            if isinstance(obj, six.string_types):
+                self._object_id = obj
+            elif isinstance(obj, (object_model.Object, object_model.Ref)):
+                self._object_id = obj.id
+            elif isinstance(obj, murano_object.MuranoObject):
+                self._object_id = obj.object_id
+            else:
+                raise ValueError(
+                    'obj must be object ID string, MuranoObject or one of '
+                    'object_model helper classes (Object, Ref)')
+            self._preserve_exception = False
+
+        def __getattr__(self, item):
+            def call(*args, **kwargs):
+                return self._runner._execute(
+                    item, self._object_id, *args, **kwargs)
+            if item.startswith('test'):
+                return call
+
+    def __init__(self, model, package_loader, functions):
+        if isinstance(model, six.string_types):
+            model = object_model.Object(model)
+        model = object_model.build_model(model)
+        if 'Objects' not in model:
+            model = {'Objects': model}
+
+        self.executor = executor.MuranoDslExecutor(
+            package_loader, TestContextManager(functions),
+            execution_session.ExecutionSession())
+        self._root = self.executor.load(model).object
+
+    def _execute(self, name, object_id, *args, **kwargs):
+        obj = self.executor.object_store.get(object_id)
+        try:
+            final_args = []
+            final_kwargs = {}
+            for arg in args:
+                if isinstance(arg, object_model.Object):
+                    arg = object_model.build_model(arg)
+                final_args.append(arg)
+            for name, arg in six.iteritems(kwargs):
+                if isinstance(arg, object_model.Object):
+                    arg = object_model.build_model(arg)
+                final_kwargs[name] = arg
+            runtime_version = obj.type.package.runtime_version
+            yaql_engine = yaql_integration.choose_yaql_engine(runtime_version)
+            return dsl.to_mutable(obj.type.invoke(
+                name, self.executor, obj, tuple(final_args), final_kwargs),
+                yaql_engine)
+        except dsl_exception.MuranoPlException as e:
+            if not self.preserve_exception:
+                original_exception = getattr(e, 'original_exception', None)
+                if original_exception and not isinstance(
+                        original_exception, dsl_exception.MuranoPlException):
+                    exc_traceback = getattr(
+                        e, 'original_traceback', None) or sys.exc_info()[2]
+                    six.reraise(
+                        type(original_exception),
+                        original_exception,
+                        exc_traceback)
+            raise
+
+    def __getattr__(self, item):
+        if item.startswith('test'):
+            return getattr(Runner.DslObjectWrapper(self._root, self), item)
+
+    def on(self, obj):
+        return Runner.DslObjectWrapper(obj, self)
+
+    @property
+    def root(self):
+        return self._root
+
+    @property
+    def serialized_model(self):
+        return serializer.serialize_model(self._root, self.executor)[0]
+
+    @property
+    def preserve_exception(self):
+        return self._preserve_exception
+
+    @preserve_exception.setter
+    def preserve_exception(self, value):
+        self._preserve_exception = value

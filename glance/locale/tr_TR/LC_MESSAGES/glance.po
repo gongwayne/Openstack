@@ -1,0 +1,2783 @@
+# Translations template for glance.
+# Copyright (C) 2015 ORGANIZATION
+# This file is distributed under the same license as the glance project.
+#
+# Translators:
+# Andreas Jaeger <jaegerandi@gmail.com>, 2015
+# OpenStack Infra <zanata@openstack.org>, 2015. #zanata
+msgid ""
+msgstr ""
+"Project-Id-Version: glance 12.0.0.0b4.dev41\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2016-03-12 00:22+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-09-04 12:45+0000\n"
+"Last-Translator: openstackjenkins <jenkins@openstack.org>\n"
+"Language: tr-TR\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.0\n"
+"X-Generator: Zanata 3.7.3\n"
+"Language-Team: Turkish (Turkey)\n"
+
+#, python-format
+msgid "\t%s"
+msgstr "\t%s"
+
+#, python-format
+msgid "%(attribute)s have to be string"
+msgstr "%(attribute)s karakter dizisi olmalıdır"
+
+#, python-format
+msgid "%(attribute)s is required"
+msgstr "%(attribute)s gereklidir"
+
+#, python-format
+msgid "%(attribute)s may not be longer than %(length)i"
+msgstr "%(attribute)s %(length)i'den daha uzun olmayabilir"
+
+#, python-format
+msgid "%(attribute)s may not be shorter than %(length)i"
+msgstr "%(attribute)s %(length)i'den daha kısa olmayabilir"
+
+#, python-format
+msgid "%(attribute)s should match pattern %(pattern)s"
+msgstr "%(attribute)s %(pattern)s şablonu ile eşleşmelidir"
+
+#, python-format
+msgid "%(cls)s exception was raised in the last rpc call: %(val)s"
+msgstr "Son rpc çağrısında %(cls)s istisnası oluştu: %(val)s"
+
+#, python-format
+msgid "%(serv)s (pid %(pid)s) is running..."
+msgstr "%(serv)s (pid %(pid)s) çalıştırılıyor..."
+
+#, python-format
+msgid "%(serv)s appears to already be running: %(pid)s"
+msgstr "%(serv)s çalışıyor görünüyor: %(pid)s"
+
+#, python-format
+msgid ""
+"%(strategy)s is registered as a module twice. %(module)s is not being used."
+msgstr ""
+"%(strategy)s bir birim olarak iki kez kaydedildi. %(module)s kullanılmıyor."
+
+#, python-format
+msgid ""
+"%(task_id)s of %(task_type)s not configured properly. Could not load the "
+"filesystem store"
+msgstr ""
+"%(task_type)s görev türündeki %(task_id)s düzgün bir şekilde "
+"yapılandırılamadı. Dosya sistem deposuna yüklenemedi"
+
+#, python-format
+msgid ""
+"%(task_id)s of %(task_type)s not configured properly. Missing work dir: "
+"%(work_dir)s"
+msgstr ""
+"%(task_type)s görev türündeki %(task_id)s düzgün bir şekilde "
+"yapılandırılamadı. Eksik çalışma dizini: %(work_dir)s"
+
+#, python-format
+msgid "%(verb)sing %(serv)s"
+msgstr "%(verb)sing %(serv)s"
+
+#, python-format
+msgid "%(verb)sing %(serv)s with %(conf)s"
+msgstr "%(conf)s ile %(verb)sing %(serv)s"
+
+#, python-format
+msgid ""
+"%s Please specify a host:port pair, where host is an IPv4 address, IPv6 "
+"address, hostname, or FQDN. If using an IPv6 address, enclose it in brackets "
+"separately from the port (i.e., \"[fe80::a:b:c]:9876\")."
+msgstr ""
+"%s Lütfen istemcinin bir IPv4, IPv6 adresi, makine adı ya da FQDN olduğu bir "
+"istemci:bağlantı noktası çifti belirtin. Eğer IPv6 kullanılırsa, bağlantı "
+"noktasından ayrı parantez içine alın (örneğin, \"[fe80::a:b:c]:9876\")."
+
+#, python-format
+msgid "%s can't contain 4 byte unicode characters."
+msgstr "%s 4 bayt unicode karakterler içeremez."
+
+#, python-format
+msgid "%s is already stopped"
+msgstr "%s zaten durdurulmuş"
+
+#, python-format
+msgid "%s is stopped"
+msgstr "%s durduruldu"
+
+#, python-format
+msgid "'%(param)s' value out of range, must not exceed %(max)d"
+msgstr "'%(param)s' değeri aralık dışında, %(max)d değerini geçmemelidir"
+
+msgid ""
+"--os_auth_url option or OS_AUTH_URL environment variable required when "
+"keystone authentication strategy is enabled\n"
+msgstr ""
+"--os_auth_url seçeneği ya da OS_AUTH_URL ortam değişkeni, keystone kimlik "
+"doğrulama stratejisi etkinken gereklidir\n"
+
+msgid ""
+"A list of artifacts that are allowed in the format name or name-version. "
+"Empty list means that any artifact can be loaded."
+msgstr ""
+"Biçim adı ve ad-sürümünde izin verilen ürünlerin listesi. Boş liste her ürün "
+"yüklenebilir anlamına gelir."
+
+#, python-format
+msgid ""
+"A metadata definition object with name=%(object_name)s already exists in "
+"namespace=%(namespace_name)s."
+msgstr ""
+"Ad=%(object_name)s ile bir metadata tanım nesnesi ad alanında="
+"%(namespace_name)s zaten var."
+
+#, python-format
+msgid ""
+"A metadata definition property with name=%(property_name)s already exists in "
+"namespace=%(namespace_name)s."
+msgstr ""
+"Ad=%(property_name)s ile bir metadata tanım özelliği ad alanında="
+"%(namespace_name)s  zaten mevcut."
+
+#, python-format
+msgid ""
+"A metadata definition resource-type with name=%(resource_type_name)s already "
+"exists."
+msgstr ""
+"Ad=%(resource_type_name)s ile bir metadata tanım kaynak-türü zaten mevcut."
+
+#, python-format
+msgid ""
+"A metadata tag with name=%(name)s already exists in namespace="
+"%(namespace_name)s."
+msgstr ""
+"Ad=%(name)s ile bir metadata etiketi ad alanında=%(namespace_name)s zaten "
+"mevcut."
+
+msgid "A set of URLs to access the image file kept in external store"
+msgstr "Harici depoda tutulan imaj dosyasına erişilecek URL kümesi"
+
+msgid ""
+"AES key for encrypting store 'location' metadata. This includes, if used, "
+"Swift or S3 credentials. Should be set to a random string of length 16, 24 "
+"or 32 bytes"
+msgstr ""
+"Depo 'location' metadatasını şifrelemek için AES anahtarı. Bu, eğer "
+"kullanılırsa, Swift ya da S3 kimlik bilgilerini içerir. 16, 24 ya da 32 bayt "
+"uzunluğunda rastgele bir karakter dizisi ayarlanmış olmalıdır"
+
+msgid ""
+"Address to bind the server.  Useful when selecting a particular network "
+"interface."
+msgstr ""
+"Sunucuya bağlanılacak adres.  Belli bir ağ arayüzü seçerken kullanışlıdır."
+
+msgid "Address to find the registry server."
+msgstr "Kayıt sunucusunu bulmak için adres."
+
+msgid ""
+"Allow unauthenticated users to access the API with read-only privileges. "
+"This only applies when using ContextMiddleware."
+msgstr ""
+"Kimlik doğrulaması yapılamamış kullanıcıların API'lere salt okunur haklarla "
+"erişmesine izin ver. Bu sadece ContextMiddleware kullanılırken uygulanır."
+
+#, python-format
+msgid "Allowed values %s are invalid under given validators"
+msgstr "İzin verilen değerler %s verilen doğrulayıcılar altında geçersizdir"
+
+msgid "Amount of disk space (in GB) required to boot image."
+msgstr "İmajı ön yüklemek için gereken disk alanı miktarı (GB olarak)."
+
+msgid "Amount of ram (in MB) required to boot image."
+msgstr "İmaj ön yüklemesi için gereken (MB olarak) bellek miktarı."
+
+msgid "An identifier for the image"
+msgstr "İmaj için bir tanımlayıcı"
+
+msgid "An identifier for the image member (tenantId)"
+msgstr "İmaj üyesi için bir tanımlayıcı (tenantId)"
+
+msgid "An identifier for the owner of this task"
+msgstr "Görevin sahibi için bir tanımlayıcı"
+
+msgid "An identifier for the task"
+msgstr "Görev için bir tanımlayıcı"
+
+#, python-format
+msgid "An image with identifier %s already exists"
+msgstr "%s belirteçli imaj zaten var"
+
+msgid "An object with the same identifier already exists."
+msgstr "Aynı tanımlayıcı ile bir nesne zaten mevcut."
+
+msgid "An object with the same identifier is currently being operated on."
+msgstr "Aynı tanımlayıcıya sahip bir nesne şu anda işleniyor."
+
+msgid "An object with the specified identifier was not found."
+msgstr "Belirtilen tanımlayıcı ile bir nesne bulunamadı."
+
+msgid "An unknown exception occurred"
+msgstr "Bilinmeyen olağandışı bir durum oluştu"
+
+msgid "An unknown task exception occurred"
+msgstr "Bilinmeyen bir görev olağandışı durumu oluştu"
+
+#, python-format
+msgid "Array has no element at position %d"
+msgstr "Dizi %d konumunda öge içermez"
+
+msgid "Array property can't have item_type=Array"
+msgstr "Dizi özelliği item_type=Array olamaz"
+
+#, python-format
+msgid "Artifact %s could not be deleted because it is in use: %s"
+msgstr "Ürün %s kullanımda olduğundan dolayı silinemez: %s"
+
+#, python-format
+msgid "Artifact cannot change state from %(source)s to %(target)s"
+msgstr "Ürün durumunu %(source)s kaynağından %(target)s hedefine değiştiremez"
+
+#, python-format
+msgid "Artifact has no property %(prop)s"
+msgstr "Ürün %(prop)s özelliğine sahip değil"
+
+#, python-format
+msgid "Artifact state cannot be changed from %(curr)s to %(to)s"
+msgstr "Ürün durumu %(curr)s durumundan %(to)s durumuna değiştirilemez"
+
+#, python-format
+msgid ""
+"Artifact type with name '%(name)s' and version '%(version)s' is not known"
+msgstr "'%(name)s' ad ve '%(version)s' sürümdeki ürün bilinmiyor"
+
+msgid "Artifact with a circular dependency can not be created"
+msgstr "Döngüsel bağımlılık ile ürün oluşturulamaz"
+
+#, python-format
+msgid "Artifact with id=%(id)s is not accessible"
+msgstr "id=%(id)s ile ürün erişilebilir değil"
+
+#, python-format
+msgid "Artifact with id=%(id)s was not found"
+msgstr "id=%(id)s ile ürün bulunamadı"
+
+msgid "Artifact with the specified type, name and version already exists"
+msgstr "Belirtilen tür, ad ve sürümde ürün zaten var"
+
+#, python-format
+msgid ""
+"Artifact with the specified type, name and version already has the direct "
+"dependency=%(dep)s"
+msgstr ""
+"Belirtilen tür, ad ve sürümde ürün zaten doğrudan bağımlılığa=%(dep)s sahip"
+
+#, python-format
+msgid ""
+"Artifact with the specified type, name and version already has the "
+"transitive dependency=%(dep)s"
+msgstr ""
+"Belirtilen tür, ad ve sürümdeki ürün, zaten geçişli bağımlılığa=%(dep)s sahip"
+
+msgid "Attempt to set readonly property"
+msgstr "Salt okunur özellik ayarlamayı dene"
+
+msgid "Attempt to set value of immutable property"
+msgstr "Değişmez özelliğin değerini ayarlamaya çalışın"
+
+#, python-format
+msgid "Attempt to upload duplicate image: %s"
+msgstr "Çift imaj yüklemeyi dene: %s"
+
+msgid "Attempted to update Location field for an image not in queued status."
+msgstr ""
+"Durumu kuyruğa alınmış olmayan bir imaj için Konum alanı güncellemesi "
+"denendi."
+
+#, python-format
+msgid "Attribute '%(property)s' is read-only."
+msgstr "'%(property)s' özniteliği salt okunurdur."
+
+#, python-format
+msgid "Attribute '%(property)s' is reserved."
+msgstr "'%(property)s' özniteliği ayrılmıştır."
+
+#, python-format
+msgid "Attribute '%s' is read-only."
+msgstr "'%s' özniteliği salt okunurdur."
+
+#, python-format
+msgid "Attribute '%s' is reserved."
+msgstr "'%s' özniteliği ayrılmıştır."
+
+msgid "Attribute container_format can be only replaced for a queued image."
+msgstr ""
+"container_format özniteliği sadece kuyruğa alınmış bir imaj için "
+"değiştirilebilir."
+
+msgid "Attribute disk_format can be only replaced for a queued image."
+msgstr ""
+"disk_format özniteliği sadece kuyruğa alınmış bir imaj için değiştirilebilir."
+
+msgid ""
+"Auth key for the user authenticating against the Swift authentication "
+"service. (deprecated)"
+msgstr ""
+"Swift kimlik doğrulama servisine dayalı kullanıcı doğrulama için yetkili "
+"anahtar. (önerilmiyor)"
+
+#, python-format
+msgid "Auth service at URL %(url)s not found."
+msgstr "%(url)s URL'inde kimlik doğrulama servisi bulunamadı."
+
+msgid "Authorization failed."
+msgstr "Yetkilendirme başarısız oldu."
+
+msgid "Available categories:"
+msgstr "Kullanılabilir kategoriler:"
+
+#, python-format
+msgid "Bad Command: %s"
+msgstr "Hatalı Komut: %s"
+
+#, python-format
+msgid "Bad header: %(header_name)s"
+msgstr "Kötü başlık: %(header_name)s"
+
+#, python-format
+msgid "Bad value passed to filter %(filter)s got %(val)s"
+msgstr "%(filter)s süzgecine geçirilen hatalı değer %(val)s var"
+
+#, python-format
+msgid "Badly formed S3 URI: %(uri)s"
+msgstr "Hatalı oluşturulmuş S3 URI: %(uri)s"
+
+#, python-format
+msgid "Badly formed credentials '%(creds)s' in Swift URI"
+msgstr "Swift URI içinde hatalı oluşturulmuş kimlik bilgileri '%(creds)s'"
+
+msgid "Badly formed credentials in Swift URI."
+msgstr "Swift URI içinde hatalı oluşturulmuş kimlik bilgileri."
+
+#, python-format
+msgid "Blob %(name)s may not have multiple values"
+msgstr "Blob %(name)s birden çok değeri olmayabilir"
+
+msgid "Blob size is not set"
+msgstr "Blob boyutu ayarlı değil"
+
+msgid "Body expected in request."
+msgstr "İstekte beklenen vücut."
+
+msgid "Both file and legacy_image_id may not be specified at the same time"
+msgstr "Aynı anda hem dosya hem de legacy_image_id belirtilemeyebilir"
+
+msgid "CA certificate file to use to verify connecting clients."
+msgstr ""
+"Bağlanan istemcileri doğrulamak için kullanılacak CA sertifika dosyası."
+
+msgid "Cannot be a negative value"
+msgstr "Negatif bir değer olamaz"
+
+msgid "Cannot be a negative value."
+msgstr "Negatif bir değer olamaz."
+
+#, python-format
+msgid "Cannot convert image %(key)s '%(value)s' to an integer."
+msgstr "%(key)s '%(value)s' imaj değeri bir tam sayıya dönüştürülemez."
+
+msgid "Cannot declare artifact property with reserved name 'metadata'"
+msgstr "Ayrılmış ad 'metadata' ile ürün özelliği ifade edilemez"
+
+#, python-format
+msgid "Cannot load artifact '%(name)s'"
+msgstr "'%(name)s' ürünü yüklenemez"
+
+#, python-format
+msgid "Cannot save data for image %(image_id)s: %(error)s"
+msgstr "%(image_id)s imajı için veri kaydedilemiyor: %(error)s"
+
+msgid "Cannot specify 'max_size' explicitly"
+msgstr "'max_size' Açıkça belirtilemez"
+
+msgid "Cannot specify 'min_size' explicitly"
+msgstr "'min_size' açıkça belirtilemez"
+
+msgid "Cannot upload to an unqueued image"
+msgstr "Kuyruğa alınmamış imaj yüklenemez"
+
+#, python-format
+msgid "Cannot use this parameter with the operator %(op)s"
+msgstr "%(op)s operatörü ile bu parametreler kullanılamaz"
+
+msgid "Certificate file to use when starting API server securely."
+msgstr "API sunucusu güvenli başlatılırken kullanılacak sertifika dosyası."
+
+#, python-format
+msgid "Checksum verification failed. Aborted caching of image '%s'."
+msgstr ""
+"Sağlama doğrulama başarısız oldu. '%s' imajını önbelleğe alma işlemi "
+"durduruldu."
+
+msgid "Client disconnected before sending all data to backend"
+msgstr ""
+"İstemci tüm verileri art alanda çalışan uygulamaya göndermeden önce "
+"bağlantıyı kesti"
+
+msgid "Command not found"
+msgstr "Komut bulunamadı"
+
+msgid "Configuration option was not valid"
+msgstr "Yapılandırma seçeneği geçerli değildi."
+
+#, python-format
+msgid "Connect error/bad request to Auth service at URL %(url)s."
+msgstr ""
+"%(url)s URL'indeki kimlik doğrulama servisine bağlantı hatası/hatalı istek."
+
+#, python-format
+msgid "Constructed URL: %s"
+msgstr "URL inşa edildi: %s"
+
+msgid "Container format is not specified."
+msgstr "Kap biçimi belirtilmemiş."
+
+msgid "Content-Type must be application/octet-stream"
+msgstr "İçerik-Türü uygulama/sekiz bitli bayt akışı olmalıdır"
+
+#, python-format
+msgid "Corrupt image download for image %(image_id)s"
+msgstr "%(image_id)s imajı için bozuk imaj indir"
+
+#, python-format
+msgid "Could not bind to %(host)s:%(port)s after trying for 30 seconds"
+msgstr "30 saniyelik denemeden sonra %(host)s:%(port)s bağlanamadı"
+
+#, python-format
+msgid "Could not find metadata object %s"
+msgstr "Metadata nesnesi %s bulunamadı"
+
+#, python-format
+msgid "Could not find metadata tag %s"
+msgstr "%s metadata etiketi bulunamadı"
+
+#, python-format
+msgid "Could not find namespace %s"
+msgstr "%s ad alanı bulunamadı"
+
+#, python-format
+msgid "Could not find property %s"
+msgstr "%s özelliği bulunamadı"
+
+msgid "Could not find required configuration option"
+msgstr "Gerekli yapılandırma seçeneği bulunamadı"
+
+#, python-format
+msgid "Could not find task %s"
+msgstr "%s görevi bulunamadı"
+
+#, python-format
+msgid "Could not update image: %s"
+msgstr "İmaj güncellenemiyor: %s"
+
+msgid "Custom validators list should contain tuples '(function, message)'"
+msgstr ""
+"Özel doğrulayıcılar listesi birden çok öge içermelidir '(function, message)'"
+
+msgid "Data supplied was not valid."
+msgstr "Sağlanan veri geçersizdir."
+
+msgid "Date and time of image member creation"
+msgstr "İmaj üyesi oluşturma tarih ve saati"
+
+msgid "Date and time of last modification of image member"
+msgstr "İmaj üyesi son değişiklik tarih ve saati"
+
+msgid "Datetime when this resource was created"
+msgstr "Bu kaynak oluşturulduğundaki tarih saat"
+
+msgid "Datetime when this resource was updated"
+msgstr "Bu kaynak güncellendiğindeki tarih saat"
+
+msgid "Datetime when this resource would be subject to removal"
+msgstr "Bu kaynağın kaldırılacağı tarih zaman"
+
+msgid ""
+"Default value for the number of items returned by a request if not specified "
+"explicitly in the request"
+msgstr ""
+"Eğer istekte açıkça belirtilmediyse, bir istekten dönen öge sayısı için "
+"öntanımlı değer"
+
+msgid "Default value is invalid"
+msgstr "Öntanımlı değer geçersizdir"
+
+#, python-format
+msgid "Denying attempt to upload artifact because it exceeds the quota: %s"
+msgstr "Ürün yükleme girişimi kota aşıldığından dolayı reddediliyor: %s"
+
+#, python-format
+msgid "Denying attempt to upload image because it exceeds the quota: %s"
+msgstr "İmaj yükleme girişimi kotayı aştığından dolayı reddediliyor: %s"
+
+#, python-format
+msgid "Denying attempt to upload image larger than %d bytes."
+msgstr "%d bayttan büyük bir imajın yükleme girişimi reddediliyor."
+
+#, python-format
+msgid "Dependency property '%s' has to be deleted first"
+msgstr "İlk önce '%s' bağımlılık özelliğinin silinmesi gerekir"
+
+msgid "Dependency relations cannot be mutable"
+msgstr "Bağımlılık ilişkileri değişken olamaz"
+
+msgid "Deploy the v1 OpenStack Images API."
+msgstr "v1 OpenStack İmajları API dağıt."
+
+msgid "Deploy the v1 OpenStack Registry API."
+msgstr "v1 OpenStack Kayıt Defteri API dağıt."
+
+msgid "Deploy the v2 OpenStack Images API."
+msgstr "v2 OpenStack İmajları API dağıt."
+
+msgid "Deploy the v2 OpenStack Registry API."
+msgstr "v2 OpenStack Kayıt Defteri API dağıt."
+
+msgid "Descriptive name for the image"
+msgstr "İmaj için açıklayıcı ad"
+
+msgid "Dictionary contains unexpected key(s)"
+msgstr "Sözlük beklenmeyen anahtar(lar) içerir"
+
+msgid "Dictionary size is greater than maximum"
+msgstr "Sözlük boyutu azami değerden daha büyüktür"
+
+msgid "Dictionary size is less than minimum"
+msgstr "Sözlük boyutu asgari değerden daha azdır"
+
+msgid "Disk format is not specified."
+msgstr "Disk biçimi belirtilmemiş."
+
+msgid "Does not match pattern"
+msgstr "Desen eşleşmez"
+
+#, python-format
+msgid ""
+"Driver %(driver_name)s could not be configured correctly. Reason: %(reason)s"
+msgstr ""
+"%(driver_name)s sürücüsü düzgün bir şekilde yapılandırılamadı. Nedeni: "
+"%(reason)s"
+
+msgid "Either a file or a legacy_image_id has to be specified"
+msgstr "Ya bir dosya ya da legacy_image_id belirtilmesi gerekir"
+
+msgid "Error in store configuration. Adding images to store is disabled."
+msgstr ""
+"Depolama yapılandırmasında hata. Depolamak için imaj ekleme devre dışıdır."
+
+#, python-format
+msgid "External sources are not supported: '%s'"
+msgstr "Harici kaynaklar desteklenmiyor: '%s'"
+
+#, python-format
+msgid "Failed to activate image. Got error: %s"
+msgstr "İmaj etkinleştirme işlemi başarısız oldu. Alınan hata: %s"
+
+#, python-format
+msgid "Failed to add image metadata. Got error: %s"
+msgstr "İmaj metadata ekleme işlemi başarısız oldu. Alınan hata: %s"
+
+#, python-format
+msgid "Failed to find artifact %(artifact_id)s to delete"
+msgstr "Silinecek %(artifact_id)s ürünü bulunamadı"
+
+#, python-format
+msgid "Failed to find image %(image_id)s to delete"
+msgstr "Silinecek %(image_id)s imajını bulma işlemi başarısız oldu"
+
+#, python-format
+msgid "Failed to find image to delete: %s"
+msgstr "Silinecek imaj bulunamadı: %s"
+
+#, python-format
+msgid "Failed to find image to update: %s"
+msgstr "Güncellenecek imaj bulma işlemi başarısız oldu: %s"
+
+#, python-format
+msgid "Failed to find resource type %(resourcetype)s to delete"
+msgstr "Silinecek %(resourcetype)s kaynak türü bulma işlemi başarısız oldu"
+
+#, python-format
+msgid "Failed to initialize the image cache database. Got error: %s"
+msgstr "İmaj önbellek veritabanı başlatılamadı. Alınan hata: %s"
+
+#, python-format
+msgid "Failed to read %s from config"
+msgstr "Yapılandırmadan %s okunamadı"
+
+#, python-format
+msgid "Failed to reserve image. Got error: %s"
+msgstr "İmaj ayırma işlemi başarısız oldu. Alınan hata: %s"
+
+#, python-format
+msgid "Failed to update image metadata. Got error: %s"
+msgstr "İmaj metadata güncelleme işlemi başarısız oldu: Alınan hata: %s"
+
+#, python-format
+msgid "Failed to upload image %s"
+msgstr "%s imajı yükleme işlemi başarısız oldu"
+
+#, python-format
+msgid ""
+"Failed to upload image data for image %(image_id)s due to HTTP error: "
+"%(error)s"
+msgstr ""
+"HTTP hatası nedeniyle %(image_id)s imajı için imaj verisi yüklenemedi: "
+"%(error)s"
+
+#, python-format
+msgid ""
+"Failed to upload image data for image %(image_id)s due to internal error: "
+"%(error)s"
+msgstr ""
+"Dahili hata nedeniyle %(image_id)s imajı için imaj verisi yüklenemedi: "
+"%(error)s"
+
+msgid ""
+"File based imports are not allowed. Please use a non-local source of image "
+"data."
+msgstr ""
+"Dosya tabanlı içeri aktarmlara izin verilmez. Lütfen imaj verilerinin yerel "
+"olmayan bir kaynağını kullanın."
+
+msgid "File too large"
+msgstr "Dosya çok büyük"
+
+msgid "File too small"
+msgstr "Dosya çok küçük"
+
+#, python-format
+msgid "Forbidden to delete a %s image."
+msgstr "%s imajını silmek yasak."
+
+#, python-format
+msgid "Forbidden to delete image: %s"
+msgstr "İmaj silmek yasak: %s"
+
+msgid "Forbidden to reserve image."
+msgstr "İmaj ayırmak yasak."
+
+msgid "Forbidden to update deleted image."
+msgstr "Silinen imajın güncellenmesi yasak."
+
+#, python-format
+msgid "Forbidden to update image: %s"
+msgstr "İmaj güncellemek yasak: %s"
+
+#, python-format
+msgid "Forbidden upload attempt: %s"
+msgstr "Yükleme girişimi yasak: %s"
+
+#, python-format
+msgid "Forbidding request, metadata definition namespace=%s is not visible."
+msgstr "Yasak istek, üstveri tanım ad alanı=%s görünür değil."
+
+#, python-format
+msgid "Forbidding request, task %s is not visible"
+msgstr "Yasak istek, %s görevi görünür değil"
+
+msgid "Format of the container"
+msgstr "Kabın biçimi"
+
+msgid "Format of the disk"
+msgstr "Diskin biçimi"
+
+#, python-format
+msgid "Get blob %(name)s data failed: %(err)s."
+msgstr "blob %(name)s verisi alma işlemi başarısız oldu: %(err)s."
+
+#, python-format
+msgid "Get image %(id)s data failed: %(err)s."
+msgstr "%(id)s imaj verisi alınamadı: %(err)s."
+
+#, python-format
+msgid "Host \"%s\" is not valid."
+msgstr "İstemci \"%s\" geçersizdir."
+
+#, python-format
+msgid "Host and port \"%s\" is not valid."
+msgstr "İstemci ve bağlantı noktası \"%s\" geçersizdir."
+
+msgid ""
+"Human-readable informative message only included when appropriate (usually "
+"on failure)"
+msgstr ""
+"Okunabilir bilgilendirme iletisi sadece uygun olduğunda (genellikle "
+"başarısızlıkta) dahildir"
+
+msgid "If False doesn't trace SQL requests."
+msgstr "Eğer Yanlışsa SQL istekleri izlenmez."
+
+msgid "If False fully disable profiling feature."
+msgstr "Eğer Yanlışsa, profil özelliği tamamen devre dışı. "
+
+msgid ""
+"If False, server will return the header \"Connection: close\", If True, "
+"server will return \"Connection: Keep-Alive\" in its responses. In order to "
+"close the client socket connection explicitly after the response is sent and "
+"read successfully by the client, you simply have to set this option to False "
+"when you create a wsgi server."
+msgstr ""
+"Sunucu, eğer Yanlışsa, \"Bağlantı: kapat\" başlığını, eğer Doğruysa, "
+"\"Bağlantı: Aktif\" yanıtını döndürecek. Yanıt gönderildikten ve istemci "
+"tarafından başarılı bir şekilde okunduktan sonra, istemci soket bağlantısını "
+"açıkça kapatmak için, bir wsgi sunucusu oluştururken bu seçeneği sadece "
+"Yanlış olarak ayarlamanız gerekir."
+
+msgid "If true, image will not be deletable."
+msgstr "Eğer seçiliyse, imaj silinemeyecektir."
+
+msgid "If true, namespace will not be deletable."
+msgstr "Eğer seçiliyse, ad alanı silinemeyecektir."
+
+#, python-format
+msgid "Image %(id)s could not be deleted because it is in use: %(exc)s"
+msgstr "%(id)s imajı kullanımda olduğundan dolayı silinemedi: %(exc)s"
+
+#, python-format
+msgid "Image %(id)s not found"
+msgstr "%(id)s imajı bulunamadı"
+
+#, python-format
+msgid ""
+"Image %(image_id)s could not be found after upload. The image may have been "
+"deleted during the upload: %(error)s"
+msgstr ""
+"%(image_id)s imajı yüklemeden sonra bulunamadı. İmaj yükleme sırasında "
+"silinmiş olabilir: %(error)s"
+
+#, python-format
+msgid "Image %(image_id)s is protected and cannot be deleted."
+msgstr "%(image_id)s imajı korumalıdır ve silinemez."
+
+#, python-format
+msgid ""
+"Image %s could not be found after upload. The image may have been deleted "
+"during the upload, cleaning up the chunks uploaded."
+msgstr ""
+"%s imajı yüklendikten sonra bulunamadı. İmaj yükleme sırasında silinmiş, "
+"yüklenen parçalar temizlenmiş olabilir."
+
+#, python-format
+msgid "Image %s is deactivated"
+msgstr "%s imajı devrede değil"
+
+#, python-format
+msgid "Image %s is not active"
+msgstr "%s imajı etkin değil"
+
+#, python-format
+msgid "Image %s not found."
+msgstr "%s imajı bulunamadı."
+
+#, python-format
+msgid "Image exceeds the storage quota: %s"
+msgstr "İmaj depolama kotasını aşar: %s"
+
+msgid "Image id is required."
+msgstr "İmaj kimliği gereklidir."
+
+msgid "Image is protected"
+msgstr "İmaj korumalıdır"
+
+#, python-format
+msgid "Image member limit exceeded for image %(id)s: %(e)s:"
+msgstr "%(id)s imajı için üye sınırı aşıldı: %(e)s:"
+
+#, python-format
+msgid "Image name too long: %d"
+msgstr "İmaj adı çok uzun: %d"
+
+msgid "Image operation conflicts"
+msgstr "İmaj işlem çatışmaları"
+
+#, python-format
+msgid ""
+"Image status transition from %(cur_status)s to %(new_status)s is not allowed"
+msgstr ""
+"%(cur_status)s durumundan %(new_status)s durumuna imaj durum geçişine izin "
+"verilmez"
+
+#, python-format
+msgid "Image storage media is full: %s"
+msgstr "İmaj depolama ortamı dolu: %s"
+
+#, python-format
+msgid "Image tag limit exceeded for image %(id)s: %(e)s:"
+msgstr "%(id)s imajı için etiket sınırı aşıldı: %(e)s:"
+
+#, python-format
+msgid "Image upload problem: %s"
+msgstr "İmaj yükleme sorunu: %s"
+
+#, python-format
+msgid "Image with identifier %s already exists!"
+msgstr "%s tanımlayıcısı ile imaj zaten mevcut!"
+
+#, python-format
+msgid "Image with identifier %s has been deleted."
+msgstr "%s tanımlayıcılı imaj silindi."
+
+#, python-format
+msgid "Image with identifier %s not found"
+msgstr "%s tanımlayıcısı ile imaj bulunamadı"
+
+#, python-format
+msgid "Image with the given id %(image_id)s was not found"
+msgstr "Verilen %(image_id)s ile imaj bulunamadı"
+
+#, python-format
+msgid ""
+"Incorrect auth strategy, expected \"%(expected)s\" but received "
+"\"%(received)s\""
+msgstr ""
+"Hatalı yetki stratejisi, beklenen değer, \"%(expected)s\" ancak alınan "
+"değer, \"%(received)s\""
+
+#, python-format
+msgid "Incorrect request: %s"
+msgstr "Hatalı istek: %s"
+
+msgid "Index is out of range"
+msgstr "İndis aralık dışındadır"
+
+msgid "Index is required"
+msgstr "İndis gereklidir"
+
+#, python-format
+msgid "Input does not contain '%(key)s' field"
+msgstr "Girdi '%(key)s' alanı içermez"
+
+#, python-format
+msgid "Insufficient permissions on image storage media: %s"
+msgstr "İmaj depolama ortamında yetersiz izinler: %s"
+
+#, python-format
+msgid "Invalid JSON pointer for this resource: '/%s'"
+msgstr "Bu kaynak için geçersiz JSON işaretçisi: '/%s'"
+
+#, python-format
+msgid "Invalid checksum '%s': can't exceed 32 characters"
+msgstr "Geçersiz sağlama '%s': 32 karakterden uzun olamaz"
+
+msgid "Invalid configuration in glance-swift conf file."
+msgstr "glance-swift yapılandır dosyasında geçersiz yapılandırma."
+
+msgid "Invalid configuration in property protection file."
+msgstr "Özellik koruma dosyasında geçersiz yapılandırma."
+
+#, python-format
+msgid "Invalid container format '%s' for image."
+msgstr "İmaj için geçersiz kap biçimi '%s'."
+
+#, python-format
+msgid "Invalid content type %(content_type)s"
+msgstr "Geçersiz içerik türü %(content_type)s"
+
+msgid "Invalid dict property type"
+msgstr "Geçersiz sözlük özellik türü"
+
+msgid "Invalid dict property type specification"
+msgstr "Geçersiz sözlük özellik türü belirtimi"
+
+#, python-format
+msgid "Invalid disk format '%s' for image."
+msgstr "İmaj için geçersiz disk biçimi '%s'."
+
+msgid "Invalid image id format"
+msgstr "Geçersiz imaj id biçimi"
+
+msgid "Invalid item type specification"
+msgstr "Geçersiz öge türü belirtimi"
+
+#, python-format
+msgid "Invalid json body: %s"
+msgstr "Geçersiz json gövdesi: %s"
+
+msgid "Invalid jsonpatch request"
+msgstr "Geçersiz jsonpatch isteği"
+
+msgid "Invalid location"
+msgstr "Geçersiz konum"
+
+#, python-format
+msgid "Invalid location %s"
+msgstr "Geçersiz konum %s"
+
+#, python-format
+msgid "Invalid location: %s"
+msgstr "Geçersiz konum: %s"
+
+#, python-format
+msgid ""
+"Invalid location_strategy option: %(name)s. The valid strategy option(s) "
+"is(are): %(strategies)s"
+msgstr ""
+"Geçersiz location_strategy seçeneği: %(name)s. Geçerli strateji "
+"seçenek(leri): %(strategies)s"
+
+msgid "Invalid locations"
+msgstr "Geçersiz konumlar"
+
+#, python-format
+msgid "Invalid locations: %s"
+msgstr "Geçersiz konumlar: %s"
+
+msgid "Invalid marker format"
+msgstr "Geçersiz işaretçi biçimi"
+
+msgid "Invalid marker. Image could not be found."
+msgstr "Geçersiz işaretçi. İmaj bulunamadı."
+
+#, python-format
+msgid "Invalid membership association: %s"
+msgstr "Geçersiz üyelik ilişkisi: %s"
+
+msgid ""
+"Invalid mix of disk and container formats. When setting a disk or container "
+"format to one of 'aki', 'ari', or 'ami', the container and disk formats must "
+"match."
+msgstr ""
+"Geçersiz disk ve kap biçimleri karışımı. Bir disk ya da kap biçimi 'aki', "
+"'ari' ya da 'ami' biçimlerinden biri olarak ayarlanırsa, kap ve disk biçimi "
+"eşleşmelidir."
+
+#, python-format
+msgid ""
+"Invalid operation: `%(op)s`. It must be one of the following: %(available)s."
+msgstr ""
+"Geçersiz işlem: `%(op)s`. Şu seçeneklerden biri olmalıdır: %(available)s."
+
+msgid "Invalid position for adding a location."
+msgstr "Yer eklemek için geçersiz konum."
+
+msgid "Invalid position for removing a location."
+msgstr "Yer kaldırmak için geçersiz konum."
+
+msgid "Invalid property definition"
+msgstr "Geçersiz özellik tanımı"
+
+msgid "Invalid reference list specification"
+msgstr "Geçersiz kaynak listesi belirtimi"
+
+msgid "Invalid referenced type"
+msgstr "Geçersiz kaynak türü"
+
+msgid "Invalid service catalog json."
+msgstr "Geçersiz json servis katalogu."
+
+#, python-format
+msgid "Invalid sort direction: %s"
+msgstr "Geçersiz sıralama yönü: %s"
+
+#, python-format
+msgid ""
+"Invalid sort key: %(sort_key)s. If type version is not set it must be one of "
+"the following: %(available)s."
+msgstr ""
+"Geçersiz sıralama anahtarı: %(sort_key)s. Eğer tür sürümü ayarlanmazsa, "
+"şunlardan biri olmalıdır: %(available)s."
+
+#, python-format
+msgid ""
+"Invalid sort key: %(sort_key)s. It must be one of the following: "
+"%(available)s."
+msgstr ""
+"Geçersiz sıralama anahtarı: %(sort_key)s. Şu seçeneklerden biri olmalıdır: "
+"%(available)s."
+
+#, python-format
+msgid "Invalid sort key: %(sort_key)s. You cannot sort by this property"
+msgstr ""
+"Geçersiz sıralama anahtarı: %(sort_key)s. Bu özelliklere göre "
+"sıralayamazsınız"
+
+#, python-format
+msgid "Invalid status value: %s"
+msgstr "Geçersiz durum değeri: %s"
+
+#, python-format
+msgid "Invalid status: %s"
+msgstr "Geçersiz durum: %s"
+
+msgid "Invalid type definition"
+msgstr "Geçersiz tür tanımı"
+
+#, python-format
+msgid "Invalid type value: %s"
+msgstr "Geçersiz tür değeri: %s"
+
+#, python-format
+msgid ""
+"Invalid update. It would result in a duplicate metadata definition namespace "
+"with the same name of %s"
+msgstr ""
+"Geçersiz güncelleme. Aynı %s adıyla çift metadata tanım ad alanı ile "
+"sonuçlanır"
+
+#, python-format
+msgid ""
+"Invalid update. It would result in a duplicate metadata definition object "
+"with the same name=%(name)s  in namespace=%(namespace_name)s."
+msgstr ""
+"Geçersiz güncelleme. Ad alanı=%(namespace_name)s içinde  aynı ad=%(name)s "
+"ile çift metadata tanım nesnesi olmasına neden olacaktır."
+
+#, python-format
+msgid ""
+"Invalid update. It would result in a duplicate metadata definition object "
+"with the same name=%(name)s in namespace=%(namespace_name)s."
+msgstr ""
+"Geçersiz güncelleme. Ad alanında=%(namespace_name)s aynı ad=%(name)s ile "
+"çift metadata tanım nesnesi ile sonuçlanır."
+
+#, python-format
+msgid ""
+"Invalid update. It would result in a duplicate metadata definition property "
+"with the same name=%(name)s in namespace=%(namespace_name)s."
+msgstr ""
+"Geçersiz güncelleme. Ad alanı=%(namespace_name)s içinde aynı ad=%(name)s ile "
+"çift metadata tanım özelliği olmasına neden olacaktır."
+
+#, python-format
+msgid "Invalid value '%(value)s' for parameter '%(param)s': %(extra_msg)s"
+msgstr ""
+"'%(param)s' parametresi için '%(value)s' geçersiz değeri: %(extra_msg)s"
+
+#, python-format
+msgid "Invalid value for option %(option)s: %(value)s"
+msgstr "%(option)s seçeneği için geçersiz değer: %(value)s"
+
+#, python-format
+msgid "Invalid visibility value: %s"
+msgstr "Geçersiz görünürlük değeri: %s"
+
+msgid "Is not allowed value"
+msgstr "Değere izin verilmez"
+
+#, python-format
+msgid ""
+"It appears that the eventlet module has been imported prior to setting "
+"%s='yes'. It is currently necessary to disable eventlet.greendns if using "
+"ipv6 since eventlet.greendns currently breaks with ipv6 addresses. Please "
+"ensure that eventlet is not imported prior to this being set."
+msgstr ""
+"Eventlet modülü %s='yes' ayarından önce içeri aktarılmış görünüyor. Eğer "
+"eventlet.greendns ipv6 adresleriyle ilişkiyi kestiğinden beri ipv6 "
+"kullanılıyorsa, şu anda eventlet.greendns'i devre dışı bırakmanız gerekir. "
+"Lütfen eventlet modülünün bu ayardan önce içeri aktarılmadığından emin olun."
+
+msgid "It's invalid to provide multiple image sources."
+msgstr "Birden fazla imaj kaynağı sağlamak için geçersizdir."
+
+msgid "Items have to be unique"
+msgstr "Ögeler eşsiz olmalıdır"
+
+msgid ""
+"Json path should start with a '/', end with no '/', no 2 subsequent '/' are "
+"allowed."
+msgstr ""
+"Json yolu '/' ile başlamalı, '/' ile sonlanmamalıdır, 2 sonraki '/' izin "
+"verilmez."
+
+msgid "Legacy image was not found"
+msgstr "Eski imaj bulunamadı"
+
+msgid "Length  is greater than maximum"
+msgstr "Uzunluk  azami değerden daha büyüktür"
+
+msgid "Length is less than minimum"
+msgstr "Uzunluk asgari değerden daha küçüktür"
+
+msgid "Limit param must be an integer"
+msgstr "Sınır parametresi bir tam sayı olmalıdır"
+
+msgid "Limit param must be positive"
+msgstr "Sınır parametresi pozitif olmalıdır"
+
+#, python-format
+msgid "Limit param must not be higher than %d"
+msgstr "Sınır parametresi %d değerinden daha yüksek olmamalıdır"
+
+msgid "List definitions may hot have defaults"
+msgstr "Liste tanımları öntanımlılar olmayabilir"
+
+msgid "List of strings related to the image"
+msgstr "İmaj ile ilgili karakter dizilerinin listesi"
+
+msgid "List size is greater than maximum"
+msgstr "Liste boyutu azami değerden daha büyüktür"
+
+msgid "List size is less than minimum"
+msgstr "Liste boyutu asgari değerden daha azdır"
+
+msgid "Loop time between checking for new items to schedule for delete."
+msgstr "Silmek için planlanan yeni ögelerin kontrolü arasındaki döngü süresi."
+
+#, python-format
+msgid "Malformed Content-Range header: %s"
+msgstr "Bozuk İçerik-Aralık başlığı: %s"
+
+msgid "Malformed JSON in request body."
+msgstr "İstek gövdesinde bozuk JSON."
+
+msgid "Max string length may not exceed 255 characters"
+msgstr "Azami karakter dizisi uzunluğu  255 karakter sınırını aşmayabilir"
+
+msgid ""
+"Maximum line size of message headers to be accepted. max_header_line may "
+"need to be increased when using large tokens (typically those generated by "
+"the Keystone v3 API with big service catalogs"
+msgstr ""
+"İleti başlığının kabul edilebilir azami satır boyutu. Büyük jetonlar (tipik "
+"olarak büyük servis katalogları ile Keystone v3 API tarafından oluşturulur) "
+"kullanılırken, max_header_line değişkeninin arttırılması gerekebilir"
+
+msgid ""
+"Maximum number of image members per image. Negative values evaluate to "
+"unlimited."
+msgstr ""
+"İmaj başına üyelerin azami sayısı. Negatif değerler sınırsız olarak "
+"değerlendirilir."
+
+msgid ""
+"Maximum number of locations allowed on an image. Negative values evaluate to "
+"unlimited."
+msgstr ""
+"Bir imaj üzerinde izin verilen azami konum sayısı. Negatif değerler sınırsız "
+"olarak değerlendirilir."
+
+msgid ""
+"Maximum number of properties allowed on an image. Negative values evaluate "
+"to unlimited."
+msgstr ""
+"Bir imaj üzerinde izin verilen azami özellik sayısı. Negatif değerler "
+"sınırsız olarak değerlendirilir."
+
+msgid ""
+"Maximum number of tags allowed on an image. Negative values evaluate to "
+"unlimited."
+msgstr ""
+"Bir imaj üzerinde izin verilen azami etiket sayısı. Negatif değerler "
+"sınırsız olarak değerlendirilir."
+
+msgid "Maximum permissible number of items that could be returned by a request"
+msgstr ""
+"Bir istek tarafından geri döndürülebilen ögelerin izin verilebilir azami "
+"sayısı"
+
+#, python-format
+msgid "Maximum redirects (%(redirects)s) was exceeded."
+msgstr "Yeniden yönlendirmelerin sınırı (%(redirects)s) aşıldı."
+
+msgid ""
+"Maximum size of image a user can upload in bytes. Defaults to 1099511627776 "
+"bytes (1 TB).WARNING: this value should only be increased after careful "
+"consideration and must be set to a value under 8 EB (9223372036854775808)."
+msgstr ""
+"Bir kullanıcının bayt cinsinde yükleyebileceği azami imaj boyutu. Öntanımlı "
+"olarak 1099511627776 bayt (1 TB). UYARI: bu değer sadece dikkatli bir "
+"değerlendirmeden sonra arttırılmalı ve 8 EB (9223372036854775808) altında "
+"bir değere ayarlanmalıdır."
+
+#, python-format
+msgid "Member %(member_id)s is duplicated for image %(image_id)s"
+msgstr "Üye %(member_id)s %(image_id)s imajı için çoğaltıldı"
+
+msgid "Member can't be empty"
+msgstr "Üye boş olamaz"
+
+msgid "Member to be added not specified"
+msgstr "Eklenecek üye belirtilmemiş"
+
+msgid "Membership could not be found."
+msgstr "Üyelik bulunamadı."
+
+#, python-format
+msgid ""
+"Metadata definition namespace %(namespace)s is protected and cannot be "
+"deleted."
+msgstr "Metadata tanım ad alanı %(namespace)s korumalıdır ve silinemez."
+
+#, python-format
+msgid "Metadata definition namespace not found for id=%s"
+msgstr "id=%s için metadata tanım ad alanı bulunamadı"
+
+#, python-format
+msgid "Metadata definition namespace=%(namespace_name)swas not found."
+msgstr "Metadata tanım ad alanı=%(namespace_name)s bulunamadı."
+
+#, python-format
+msgid ""
+"Metadata definition object %(object_name)s is protected and cannot be "
+"deleted."
+msgstr "Metadata tanım nesnesi %(object_name)s korumalıdır ve silinemez."
+
+#, python-format
+msgid "Metadata definition object not found for id=%s"
+msgstr "id=%s için metadata tanım nesnesi bulunamadı"
+
+#, python-format
+msgid ""
+"Metadata definition property %(property_name)s is protected and cannot be "
+"deleted."
+msgstr "Metadata tanım özelliği %(property_name)s korumalıdır ve silinemez."
+
+#, python-format
+msgid "Metadata definition property not found for id=%s"
+msgstr "id=%s için metadata tanım özelliği bulunamadı"
+
+#, python-format
+msgid ""
+"Metadata definition resource-type %(resource_type_name)s is a seeded-system "
+"type and cannot be deleted."
+msgstr ""
+" %(resource_type_name)s metadata tanım kaynak-türü sınıflanmış bir sistem "
+"türüdür ve silinemez."
+
+#, python-format
+msgid ""
+"Metadata definition resource-type-association %(resource_type)s is protected "
+"and cannot be deleted."
+msgstr ""
+"Metadata tanım kaynak-tür-ilişkisi %(resource_type)s korumalıdır ve "
+"silinemez."
+
+#, python-format
+msgid ""
+"Metadata definition tag %(tag_name)s is protected and cannot be deleted."
+msgstr "Metadata tanım etiketi %(tag_name)s korumalıdır ve silinemez."
+
+#, python-format
+msgid "Metadata definition tag not found for id=%s"
+msgstr "id=%s için metadata tanım etiketi bulunamadı"
+
+msgid "Min string length may not be negative"
+msgstr "Asgari karakter dizisi uzunluğu negatif olmayabilir"
+
+#, python-format
+msgid "Missing required credential: %(required)s"
+msgstr "Gerekli olan kimlik eksik: %(required)s"
+
+#, python-format
+msgid ""
+"Multiple 'image' service matches for region %(region)s. This generally means "
+"that a region is required and you have not supplied one."
+msgstr ""
+"%(region)s bölgesi için birden fazla 'image' servisi eşleşir. Bu genellikle, "
+"bir bölgenin gerekli olduğu ve sağlamadığınız anlamına gelir."
+
+msgid "Name of the paste configuration file."
+msgstr "Yapıştırma yapılandırma dosyanızın adı."
+
+#, python-format
+msgid "No artifact found with ID %s"
+msgstr "%s ile ürün bulunamadı"
+
+msgid "No authenticated user"
+msgstr "Kimlik denetimi yapılmamış kullanıcı"
+
+#, python-format
+msgid "No image found with ID %s"
+msgstr "%s bilgileri ile hiçbir imaj bulunamadı"
+
+#, python-format
+msgid "No location found with ID %(loc)s from image %(img)s"
+msgstr "%(img)s imajından %(loc)s bilgisi ile hiçbir konum bulunamadı"
+
+msgid "No permission to share that image"
+msgstr "Bu imajı paylaşma izni yok"
+
+#, python-format
+msgid "No plugin for '%(name)s' has been loaded"
+msgstr "'%(name)s' için hiçbir eklenti yüklenmemişti"
+
+msgid "No property to access"
+msgstr "Erişilecek özellik yok"
+
+#, python-format
+msgid "No such key '%s' in a dict"
+msgstr "Sözlük içinde '%s' anahtarı yoktur"
+
+#, python-format
+msgid "Not a blob property '%s'"
+msgstr "'%s' bir blob özelliği değil"
+
+msgid "Not a downloadable entity"
+msgstr "İndirilebilir bir varlık değil"
+
+msgid "Not a list property"
+msgstr "Bir liste özelliği değil"
+
+#, python-format
+msgid "Not a list property '%s'"
+msgstr "'%s' bir liste özelliği değil"
+
+msgid "Not a valid value type"
+msgstr "Geçerli bir değer türü değildir"
+
+#, python-format
+msgid "Not all dependencies are in '%s' state"
+msgstr "Bütün bağımlılıklar '%s' durumunda değildir"
+
+#, python-format
+msgid "Not allowed to create members for image %s."
+msgstr "%s imajı için üye oluşturulmasına izin verilmedi."
+
+#, python-format
+msgid "Not allowed to deactivate image in status '%s'"
+msgstr "'%s' durumundaki imajın etkinliğini kaldırmaya izin verilmez"
+
+#, python-format
+msgid "Not allowed to delete members for image %s."
+msgstr "%s imajı için üyelerin silinmesine izin verilmedi."
+
+#, python-format
+msgid "Not allowed to delete tags for image %s."
+msgstr "%s imajı için etiketlerin silinmesine izin verilmedi."
+
+#, python-format
+msgid "Not allowed to list members for image %s."
+msgstr "%s imajı için üyelerin listelenmesine izin verilmedi."
+
+#, python-format
+msgid "Not allowed to reactivate image in status '%s'"
+msgstr "'%s' durumundaki imajı yeniden etkinleştirmeye izin verilmez"
+
+#, python-format
+msgid "Not allowed to update members for image %s."
+msgstr "%s imajı için üyelerin güncellenmesine izin verilmedi."
+
+#, python-format
+msgid "Not allowed to update tags for image %s."
+msgstr "%s imajı için etiketlerin güncellenmesine izin verilmez."
+
+#, python-format
+msgid "Not allowed to upload image data for image %(image_id)s: %(error)s"
+msgstr ""
+"%(image_id)s imajı için imaj verisi yüklenmesine izin verilmedi: %(error)s"
+
+#, python-format
+msgid "Not an array idx '%s'"
+msgstr "'%s' bir dizi idx değildir"
+
+msgid "Number of sort dirs does not match the number of sort keys"
+msgstr ""
+"Sıralama dizinlerinin sayısı, sıralama anahtarlarının sayısıyla eşleşmez"
+
+msgid "Old and new sorting syntax cannot be combined"
+msgstr "Eski ve yeni sıralama sözdizimi birleştirilemez"
+
+msgid "Only list indexes are allowed for blob lists"
+msgstr "Blob listeleri için sadece liste indislerine izin verilir"
+
+#, python-format
+msgid "Operation \"%s\" requires a member named \"value\"."
+msgstr "\"%s\" işlemi \"değer\" olarak adlandırılan bir üye ister."
+
+msgid ""
+"Operation objects must contain exactly one member named \"add\", \"remove\", "
+"or \"replace\"."
+msgstr ""
+"İşlem nesneleri \"ekle\", \"kaldır\" ya da \"değiştir\" olarak adlandırılan "
+"tam olarak bir üye içermelidir."
+
+msgid ""
+"Operation objects must contain only one member named \"add\", \"remove\", or "
+"\"replace\"."
+msgstr ""
+"İşlem nesneleri, \"ekle\", \"kaldır\" ya da \"değiştir\" olarak adlandırılan "
+"sadece bir üye içermelidir."
+
+msgid "Operations must be JSON objects."
+msgstr "İşlemler JSON nesnesi olmalıdır."
+
+#, python-format
+msgid "Operator %(op)s is not supported"
+msgstr "Operatör %(op)s desteklenmiyor"
+
+#, python-format
+msgid "Original locations is not empty: %s"
+msgstr "Özgün konumlar boş değil: %s"
+
+msgid "Owner must be specified to create a tag."
+msgstr "Etiket oluşturmak için sahibi belirtilmelidir."
+
+msgid "Owner of the image"
+msgstr "İmajın sahibi"
+
+msgid "Owner of the namespace."
+msgstr "Ad alanı sahibi."
+
+msgid "Param values can't contain 4 byte unicode."
+msgstr "Param değerleri 4 bayt unikod içermez."
+
+msgid ""
+"Partial name of a pipeline in your paste configuration file with the service "
+"name removed. For example, if your paste section name is [pipeline:glance-"
+"api-keystone] use the value \"keystone\""
+msgstr ""
+"Servis adı ile yapıştırma yapılandırma dosyanızdaki iletişim hattının "
+"parçalı adı kaldırıldı. Örnek, eğer yapıştırma bölüm adınız [pipeline:glance-"
+"api-keystone] ise \"keystone\" değerini kullan"
+
+msgid "Path to the directory where json metadata files are stored"
+msgstr "Json metadata dosyalarının depolandığı dizin yolu"
+
+#, python-format
+msgid "Plugin name '%(plugin)s' should match artifact typename '%(name)s'"
+msgstr "Eklenti adı '%(plugin)s' ile ürün tür adı '%(name)s' eşleşmelidir"
+
+#, python-format
+msgid "Pointer `%s` contains \"~\" not part of a recognized escape sequence."
+msgstr ""
+"`%s` işaretçisi tanınmayan bir vazgeçme dizisinin parçası olmayan \"~\" "
+"içerir."
+
+#, python-format
+msgid "Pointer `%s` contains adjacent \"/\"."
+msgstr "`%s` işaretçisi bitişik \"/\" içerir."
+
+#, python-format
+msgid "Pointer `%s` does not contains valid token."
+msgstr "`%s`işaretçisi geçerli jeton içermez."
+
+#, python-format
+msgid "Pointer `%s` does not start with \"/\"."
+msgstr "`%s` işaretçisi \"/\" ile başlamaz."
+
+#, python-format
+msgid "Pointer `%s` end with \"/\"."
+msgstr "`%s` işaretçisi \"/\" ile sonlanır."
+
+msgid ""
+"Pointer contains '~' which is not part of a recognized escape sequence [~0, "
+"~1]."
+msgstr "İşaretçi tanınmış [~0, ~1]  kaçış dizisi parçası olmayan '~' içerir."
+
+#, python-format
+msgid "Port \"%s\" is not valid."
+msgstr "Bağlantı noktası \"%s\" geçersizdir."
+
+msgid "Port the registry server is listening on."
+msgstr "Kayıt sunucusunun üzerinde dinlediği bağlantı noktası."
+
+#, python-format
+msgid "Prerelease numeric component is too large (%d characters max)"
+msgstr "Önsürüm sayısal bileşeni çok büyük (en fazla %d karakter)"
+
+msgid "Private key file to use when starting API server securely."
+msgstr "API sunucusu güvenli başlatılırken kullanılacak özel anahtar dosyası."
+
+#, python-format
+msgid "Process %d not running"
+msgstr "%d süreci çalışmıyor"
+
+#, python-format
+msgid "Properties %s must be set prior to saving data."
+msgstr "%s özellikleri veri kaydetmeden önce ayarlanmış olmalıdır."
+
+#, python-format
+msgid ""
+"Property %(property_name)s does not start with the expected resource type "
+"association prefix of '%(prefix)s'."
+msgstr ""
+"%(property_name)s özelliği beklenen kaynak tür ilişkilendirme ön eki "
+"'%(prefix)s' ile başlamaz."
+
+#, python-format
+msgid "Property %s already present."
+msgstr "Özellik %s zaten mevcut."
+
+#, python-format
+msgid "Property %s does not exist."
+msgstr "Özellik %s mevcut değil."
+
+#, python-format
+msgid "Property %s may not be removed."
+msgstr "Özellik %s kaldırılamayabilir."
+
+#, python-format
+msgid "Property %s must be set prior to saving data."
+msgstr "%s özelliği veri kaydetmeden önce ayarlanmış olmalıdır."
+
+#, python-format
+msgid "Property '%(name)s' may not have value '%(val)s': %(msg)s"
+msgstr "'%(name)s' özelliği '%(val)s' değerine sahip olmayabilir: %(msg)s"
+
+#, python-format
+msgid "Property '%s' is protected"
+msgstr "'%s' özelliği korumalıdır"
+
+msgid "Property names can't contain 4 byte unicode."
+msgstr "Özellik adları 4 bayt unicode içeremez."
+
+#, python-format
+msgid ""
+"Property protection on operation %(operation)s for rule %(rule)s is not "
+"found. No role will be allowed to perform this operation."
+msgstr ""
+"%(rule)s kuralı için %(operation)s işleminde özellik koruma bulunamadı. Bu "
+"işlemi gerçekleştirmek için hiçbir role izin verilmeyecektir."
+
+#, python-format
+msgid "Property's %(prop)s value has not been found"
+msgstr "Özelliklerin %(prop)s değeri bulunamadı"
+
+#, python-format
+msgid ""
+"Provided image size must match the stored image size. (provided size: "
+"%(ps)d, stored size: %(ss)d)"
+msgstr ""
+"Sağlanan imaj boyutu depolanan imaj boyutu ile eşleşmelidir. (sağlanan "
+"boyut: %(ps)d, depolanan boyut: %(ss)d)"
+
+#, python-format
+msgid "Provided object does not match schema '%(schema)s': %(reason)s"
+msgstr "Sağlanan nesne '%(schema)s' şeması ile eşleşmez: %(reason)s"
+
+#, python-format
+msgid "Provided status of task is unsupported: %(status)s"
+msgstr "Sağlanan görev durumu desteklenmiyor: %(status)s"
+
+#, python-format
+msgid "Provided type of task is unsupported: %(type)s"
+msgstr "Sağlanan görev türü desteklenmiyor: %(type)s"
+
+msgid "Provides a user friendly description of the namespace."
+msgstr "Ad alanı için kullanıcı dostu bir açıklama sağlar."
+
+msgid "Public images do not have members."
+msgstr "Ortak imajlar üyelere sahip değil."
+
+msgid ""
+"Public url to use for versions endpoint. The default is None, which will use "
+"the request's host_url attribute to populate the URL base. If Glance is "
+"operating behind a proxy, you will want to change this to represent the "
+"proxy's URL."
+msgstr ""
+"Sürüm uç noktaları için kullanılacak ortak url. Öntanımlı olan Hiçbiri, URL "
+"tabanını doldurmak için isteğin host_url özniteliğini kullanacak. Eğer "
+"Glance bir vekil sunucu arkasında işletiliyorsa, vekil sunucunun URL'ini "
+"gösterecek şekilde değiştirmek isteyeceksiniz."
+
+msgid "Python module path of data access API"
+msgstr "Veri erişim API'sinin Python modül yolu"
+
+msgid "Received invalid HTTP redirect."
+msgstr "Geçersiz HTTP yeniden yönlendirme isteği alındı."
+
+#, python-format
+msgid "Redirecting to %(uri)s for authorization."
+msgstr "Yetkilendirme için %(uri)s adresine yeniden yönlendiriliyor."
+
+#, python-format
+msgid "Registry service can't use %s"
+msgstr "Kayıt defteri servisi %s kullanamaz"
+
+#, python-format
+msgid "Registry was not configured correctly on API server. Reason: %(reason)s"
+msgstr ""
+"Kayıt defteri API sunucusunda doğru bir şekilde yapılandırılamadı. Nedeni: "
+"%(reason)s"
+
+#, python-format
+msgid "Relation %(name)s may not have multiple values"
+msgstr "%(name)s bağlantısının birden çok değeri olmayabilir"
+
+#, python-format
+msgid "Reload of %(serv)s not supported"
+msgstr "%(serv)s yeniden yükleme desteklenmiyor"
+
+#, python-format
+msgid "Reloading %(serv)s (pid %(pid)s) with signal(%(sig)s)"
+msgstr "(%(sig)s) sinyali ile %(serv)s (pid %(pid)s) yeniden yükleniyor"
+
+#, python-format
+msgid "Removing stale pid file %s"
+msgstr "Bozuk pid dosyası %s kaldırılıyor"
+
+msgid "Request body must be a JSON array of operation objects."
+msgstr "İstek vücudu işlem nesnelerinin bir JSON dizisi olmalıdır."
+
+msgid "Request must be a list of commands"
+msgstr "İstek komutların bir listesi olmalıdır"
+
+#, python-format
+msgid "Required store %s is invalid"
+msgstr "İstenen depo %s geçersizdir"
+
+msgid ""
+"Resource type names should be aligned with Heat resource types whenever "
+"possible: http://docs.openstack.org/developer/heat/template_guide/openstack."
+"html"
+msgstr ""
+"Kaynak tür adları her fırsatta, Heat kaynak türleri ile hizalanmalıdır: "
+"http://docs.openstack.org/developer/heat/template_guide/openstack.html"
+
+msgid "Response from Keystone does not contain a Glance endpoint."
+msgstr "Keystone yanıtı bir Glance uç noktası içermiyor."
+
+msgid "Role used to identify an authenticated user as administrator."
+msgstr ""
+"Rol, kimliği doğrulanmış bir kullanıcıyı yönetici olarak belirlemek için "
+"kullanılır."
+
+msgid ""
+"Run as a long-running process. When not specified (the default) run the "
+"scrub operation once and then exits. When specified do not exit and run "
+"scrub on wakeup_time interval as specified in the config."
+msgstr ""
+"Uzun sürecek bir işlem olarak çalıştır. Belirtilmezse (öntanımlı) iptal "
+"işlemi bir kez çalıştırılır ve sonrasında çıkar. Eğer belirtilirse, çıkmaz "
+"ve yapılandırma ayarında belirtilen wakeup_time aralığında çalıştırılır."
+
+msgid "Scope of image accessibility"
+msgstr "İmaj erişilebilirlik kapsamı"
+
+msgid "Scope of namespace accessibility."
+msgstr "Ad alanı erişebilirlik kapsamı."
+
+#, python-format
+msgid "Server %(serv)s is stopped"
+msgstr "Sunucu %(serv)s durdurulur"
+
+#, python-format
+msgid "Server worker creation failed: %(reason)s."
+msgstr "Sunucu işçisi oluşturma işlemi başarısız oldu: %(reason)s."
+
+msgid ""
+"Set a system wide quota for every user. This value is the total capacity "
+"that a user can use across all storage systems. A value of 0 means unlimited."
+"Optional unit can be specified for the value. Accepted units are B, KB, MB, "
+"GB and TB representing Bytes, KiloBytes, MegaBytes, GigaBytes and TeraBytes "
+"respectively. If no unit is specified then Bytes is assumed. Note that there "
+"should not be any space between value and unit and units are case sensitive."
+msgstr ""
+"Her kullanıcı için geniş bir sistem kotası ayarla. Bu değer, bir "
+"kullanıcının bütün depolama sistemlerinde kullanabileceği toplam "
+"kapasitedir. 0 değerinin anlamı, limitsizdir. Değer için isteğe bağlı birim "
+"belirtilebilir. Beklenen birimler B, KB, MB, GB ve TB, sırasıyla bayt, "
+"KiloBayt, MegaBayt, GigaBayt ve TeraBayttır. Eğer birim belirtilmezse, Bayt "
+"varsayılır. Değer ve birim arasında boşluk olmaması gerektiğine ve "
+"birimlerin küçük/büyük harf duyarlı olmasına dikkat edin."
+
+#, python-format
+msgid "Show level %(shl)s is not supported in this operation"
+msgstr "Bu işlemde %(shl)s seviyesi gösterme desteklenmez"
+
+msgid ""
+"Some resource types allow more than one key / value pair per instance.  For "
+"example, Cinder allows user and image metadata on volumes. Only the image "
+"properties metadata is evaluated by Nova (scheduling or drivers). This "
+"property allows a namespace target to remove the ambiguity."
+msgstr ""
+"Bazı kaynak türleri her sunucu başına birden fazla anahtar / değer çiftine "
+"izin verir.  Örneğin, Cinder mantıksal sürücü üzerinde kullanıcı ve imaj "
+"metadatalarına izin verir. Sadece imaj özellikleri metadataları Nova ile "
+"değerlendirilir (zamanlama ya da sürücüler). Bu özellik belirsizliği "
+"kaldırmak için bir ad alanı hedefine olanak sağlar."
+
+msgid "Sort direction supplied was not valid."
+msgstr "Sağlanan sıralama yönü geçersizdir."
+
+msgid "Sort key supplied was not valid."
+msgstr "Sağlanan sıralama anahtarı geçersizdir."
+
+msgid ""
+"Specifies the prefix to use for the given resource type. Any properties in "
+"the namespace should be prefixed with this prefix when being applied to the "
+"specified resource type. Must include prefix separator (e.g. a colon :)."
+msgstr ""
+"Verilen kaynak türü için kullanılacak öneki belirtir. Ad alanındaki her "
+"özellik belirtilen kaynak türüne uygulanırken önek eklenmelidir. Önek "
+"ayıracı içermelidir (örneğin; :)."
+
+msgid "Specifies which task executor to be used to run the task scripts."
+msgstr ""
+"Görev betiklerini çalıştırmak için kullanılacak görev yürütücüsünü belirtir."
+
+msgid "Status must be \"pending\", \"accepted\" or \"rejected\"."
+msgstr "Durum \"bekliyor\", \"kabul edildi\" ya da \"reddedildi\" olmalıdır."
+
+msgid "Status not specified"
+msgstr "Durum belirtilmemiş"
+
+#, python-format
+msgid "Status transition from %(cur_status)s to %(new_status)s is not allowed"
+msgstr ""
+"%(cur_status)s mevcut durumundan %(new_status)s yeni duruma geçişe izin "
+"verilmez"
+
+#, python-format
+msgid "Stopping %(serv)s (pid %(pid)s) with signal(%(sig)s)"
+msgstr "(%(sig)s) sinyali ile %(serv)s (pid %(pid)s) durduruluyor"
+
+#, python-format
+msgid "Store for image_id not found: %s"
+msgstr "image_id için depo bulunamadı: %s"
+
+#, python-format
+msgid "Store for scheme %s not found"
+msgstr "%s şeması için depo bulunamadı"
+
+#, python-format
+msgid ""
+"Supplied %(attr)s (%(supplied)s) and %(attr)s generated from uploaded image "
+"(%(actual)s) did not match. Setting image status to 'killed'."
+msgstr ""
+"Verilen %(attr)s (%(supplied)s) ve yüklenen imajdan (%(actual)s) oluşturulan "
+"%(attr)s uyuşmadı. Görüntü durumu ayarlama 'killed'."
+
+msgid "Supported values for the 'container_format' image attribute"
+msgstr "'container_format' imaj özniteliği için desteklenen değerler"
+
+msgid "Supported values for the 'disk_format' image attribute"
+msgstr "'disk_format' imaj özniteliği için desteklenen değerler"
+
+#, python-format
+msgid "Suppressed respawn as %(serv)s was %(rsn)s."
+msgstr "%(serv)s olarak yeniden oluşturulması durdurulan, %(rsn)s idi."
+
+msgid "System SIGHUP signal received."
+msgstr "Sistem SIGHUP sinyali aldı."
+
+#, python-format
+msgid "Task '%s' is required"
+msgstr "'%s' görevi gereklidir"
+
+msgid "Task does not exist"
+msgstr "Görev mevcut değil"
+
+msgid "Task failed due to Internal Error"
+msgstr "Görev Dahili Hata nedeniyle başarısız oldu"
+
+msgid "Task was not configured properly"
+msgstr "Görev düzgün bir şekilde yapılandırılmadı."
+
+#, python-format
+msgid "Task with the given id %(task_id)s was not found"
+msgstr "Verilen %(task_id)s ile görev bulunamadı"
+
+msgid "The \"changes-since\" filter is no longer available on v2."
+msgstr ""
+"\"belli bir zamandan sonraki değişiklikler\" süzgeci v2 sürümünde artık "
+"mevcut değil."
+
+#, python-format
+msgid "The CA file you specified %s does not exist"
+msgstr "Belirtilen %s CA dosyası mevcut değil"
+
+#, python-format
+msgid ""
+"The Image %(image_id)s object being created by this task %(task_id)s, is no "
+"longer in valid status for further processing."
+msgstr ""
+"%(task_id)s görevi ile oluşturulan %(image_id)s imaj nesnesi, artık ileri "
+"işlem için geçerli durumda değildir."
+
+msgid "The Store URI was malformed."
+msgstr "Depo URI'si bozulmuş."
+
+msgid ""
+"The URL to the keystone service. If \"use_user_token\" is not in effect and "
+"using keystone auth, then URL of keystone can be specified."
+msgstr ""
+"Keystone hizmeti için URL. Eğer \"use_user_token\" yürürlükte değilse ve "
+"keystone kimlik doğrulaması kullanılıyorsa, o zaman keystone URL'i "
+"belirtilebilir."
+
+msgid ""
+"The address where the Swift authentication service is listening.(deprecated)"
+msgstr "Swift kimlik doğrulama servisinin dinlediği adres.(önerilmiyor)"
+
+msgid ""
+"The administrators password. If \"use_user_token\" is not in effect, then "
+"admin credentials can be specified."
+msgstr ""
+"Yönetici parolası. Eğer \"use_user_token\" yürürlükte değilse, o zaman "
+"yönetici kimlik bilgileri belirtilebilir."
+
+msgid ""
+"The administrators user name. If \"use_user_token\" is not in effect, then "
+"admin credentials can be specified."
+msgstr ""
+"Yönetici kullanıcı adı. Eğer \"use_user_token\" yürürlükte değilse, o zaman "
+"yönetici kimlik bilgileri belirtilebilir."
+
+msgid "The amount of time in seconds to delay before performing a delete."
+msgstr "Bir silme işlemi gerçekleşmeden önce saniye cinsinden gecikme miktarı."
+
+msgid ""
+"The backlog value that will be used when creating the TCP listener socket."
+msgstr "TCP dinleyici soket oluştururken kullanılacak hizmet bekleyen değeri."
+
+#, python-format
+msgid "The cert file you specified %s does not exist"
+msgstr "Belirtilen %s sertifika dosyası mevcut değil"
+
+msgid "The config file that has the swift account(s)configs."
+msgstr "Swift hesap(ları) yapılandırmalarına sahip yapılandırma dosyası."
+
+msgid "The current status of this task"
+msgstr "Görevin şu anki durumu"
+
+#, python-format
+msgid ""
+"The device housing the image cache directory %(image_cache_dir)s does not "
+"support xattr. It is likely you need to edit your fstab and add the "
+"user_xattr option to the appropriate line for the device housing the cache "
+"directory."
+msgstr ""
+"İmaj önbellek dizininin %(image_cache_dir)s yer aldığı aygıt xattr "
+"desteklemiyor. Önbellek dizini içeren aygıt için fstab düzenlemeniz ve uygun "
+"satıra user_xattr seçeneği eklemeniz gerekebilir."
+
+msgid "The driver to use for image cache management."
+msgstr "İmaj önbellek yönetimi için kullanılacak sürücü."
+
+#, python-format
+msgid ""
+"The given uri is not valid. Please specify a valid uri from the following "
+"list of supported uri %(supported)s"
+msgstr ""
+"Verilen uri geçersizdir. Lütfen, desteklenen uri listesinden %(supported)s "
+"geçerli bir uri belirtin"
+
+msgid "The hostname/IP of the pydev process listening for debug connections"
+msgstr "Hata ayıklama bağlantıları için pydev süreç dinleme makine adı/IP"
+
+#, python-format
+msgid ""
+"The image %s is already present on the slave, but our check for it did not "
+"find it. This indicates that we do not have permissions to see all the "
+"images on the slave server."
+msgstr ""
+"%s imajı zaten köle üzerinde mevcut, fakat kontrol ettiğimizde bulamadık. Bu "
+"da, köle sunucular üzerindeki bütün imajları görmeye iznimizin olmadığını "
+"gösterir."
+
+#, python-format
+msgid "The incoming image is too large: %s"
+msgstr "Gelen imaj çok büyük: %s"
+
+#, python-format
+msgid "The key file you specified %s does not exist"
+msgstr "Belirttiğiniz %s anahtar dosyası mevcut değil"
+
+#, python-format
+msgid ""
+"The limit has been exceeded on the number of allowed image locations. "
+"Attempted: %(attempted)s, Maximum: %(maximum)s"
+msgstr ""
+"İzin verilen imaj konumlarının sayı sınırı aşıldı.Denenen: %(attempted)s, "
+"Azami: %(maximum)s"
+
+#, python-format
+msgid ""
+"The limit has been exceeded on the number of allowed image members for this "
+"image. Attempted: %(attempted)s, Maximum: %(maximum)s"
+msgstr ""
+"Bu imaj için izin verilen imaj üye sınırı aşıldı.Denenen: %(attempted)s, En "
+"fazla: %(maximum)s"
+
+#, python-format
+msgid ""
+"The limit has been exceeded on the number of allowed image properties. "
+"Attempted: %(attempted)s, Maximum: %(maximum)s"
+msgstr ""
+"İzin verilen imaj özelliklerinin sayı sınırı aşıldı.Denenen: %(attempted)s, "
+"Azami: %(maximum)s"
+
+#, python-format
+msgid ""
+"The limit has been exceeded on the number of allowed image properties. "
+"Attempted: %(num)s, Maximum: %(quota)s"
+msgstr ""
+"İmaj özelliklerinde izin verilen sınır aşıldı.Denenen: %(num)s, En fazla: "
+"%(quota)s"
+
+#, python-format
+msgid ""
+"The limit has been exceeded on the number of allowed image tags. Attempted: "
+"%(attempted)s, Maximum: %(maximum)s"
+msgstr ""
+"İzin verilen imaj etiketlerinin sayı sınırı aşıldı.Denenen: %(attempted)s, "
+"Azami: %(maximum)s"
+
+#, python-format
+msgid "The location %(location)s already exists"
+msgstr "%(location)s konumu zaten mevcut"
+
+#, python-format
+msgid "The location data has an invalid ID: %d"
+msgstr "Konum verisi geçersiz bir kimliğe sahip: %d"
+
+msgid ""
+"The location of the property protection file.This file contains the rules "
+"for property protections and the roles/policies associated with it. If this "
+"config value is not specified, by default, property protections won't be "
+"enforced. If a value is specified and the file is not found, then the glance-"
+"api service will not start."
+msgstr ""
+"Özellik koruma dosyasının konumu. Bu dosya özellik korumaları ve bunlarla "
+"ilişkilendirilmiş rol/ilkeler için kurallar içerir. Eğer yapılandırma değeri "
+"belirtilmemişse, öntanımlı olarak, özellik korumaları zorunlu olmayacaktır. "
+"Eğer bir değer belirtilirse ve dosya bulunamazsa, o zaman glance-api servisi "
+"başlamayacak."
+
+#, python-format
+msgid ""
+"The metadata definition %(record_type)s with name=%(record_name)s not "
+"deleted. Other records still refer to it."
+msgstr ""
+"Ad=%(record_name)s ile metadata tanımı %(record_type)s silinebilir değil. "
+"Diğer kayıtlar hala onu gösteriyor."
+
+#, python-format
+msgid "The metadata definition namespace=%(namespace_name)s already exists."
+msgstr "Metadata tanım ad alanı=%(namespace_name)s zaten mevcut."
+
+#, python-format
+msgid ""
+"The metadata definition object with name=%(object_name)s was not found in "
+"namespace=%(namespace_name)s."
+msgstr ""
+"Ad=%(object_name)s ile metadata tanım nesnesi ad alanında=%(namespace_name)s "
+"bulunamadı."
+
+#, python-format
+msgid ""
+"The metadata definition property with name=%(property_name)s was not found "
+"in namespace=%(namespace_name)s."
+msgstr ""
+"Ad=%(property_name)s ile metadata tanım özelliği ad alanında="
+"%(namespace_name)s bulunamadı."
+
+#, python-format
+msgid ""
+"The metadata definition resource-type association of resource-type="
+"%(resource_type_name)s to namespace=%(namespace_name)s already exists."
+msgstr ""
+"Ad alanına=%(namespace_name)s kaynak türünün=%(resource_type_name)s metadata "
+"tanım kaynak tür ilişkisi zaten mevcut."
+
+#, python-format
+msgid ""
+"The metadata definition resource-type association of resource-type="
+"%(resource_type_name)s to namespace=%(namespace_name)s, was not found."
+msgstr ""
+"Kaynak türünün=%(resource_type_name)s ad alanında=%(namespace_name)s, "
+"metadata tanım kaynak-tür ilişkisi bulunamadı."
+
+#, python-format
+msgid ""
+"The metadata definition resource-type with name=%(resource_type_name)s, was "
+"not found."
+msgstr "Ad=%(resource_type_name)s ile metadata tanım kaynak-türü bulunamadı."
+
+#, python-format
+msgid ""
+"The metadata definition tag with name=%(name)s was not found in namespace="
+"%(namespace_name)s."
+msgstr ""
+"Ad=%(name)s ile metadata tanım etiketi ad alanında=%(namespace_name)s "
+"bulunamadı."
+
+msgid "The mode in which the engine will run. Can be 'serial' or 'parallel'."
+msgstr "Motorun çalıştırılacağı kip. 'serial' ya da 'parallel' olabilir."
+
+msgid ""
+"The number of child process workers that will be created to service "
+"requests. The default will be equal to the number of CPUs available."
+msgstr ""
+"Servis istekleri için oluşturulacak alt süreç işçilerinin sayısı. Öntanımlı "
+"olarak kullanılabilir CPU sayısına eşit olacaktır."
+
+msgid ""
+"The number of parallel activities executed at the same time by the engine. "
+"The value can be greater than one when the engine mode is 'parallel'."
+msgstr ""
+"Motor tarafından aynı anda yürütülen paralel etkinlik sayısı. Bu değer motor "
+"kipi 'parallel' iken birden büyük olabilir."
+
+msgid "The parameters required by task, JSON blob"
+msgstr "JSON blob, görev tarafından istenen parameteler"
+
+msgid ""
+"The path to the cert file to use in SSL connections to the registry server, "
+"if any. Alternately, you may set the GLANCE_CLIENT_CERT_FILE environment "
+"variable to a filepath of the CA cert file"
+msgstr ""
+"Varsa, kayıt defteri sunucusuna SSL bağlantısında kullanılacak sertifika "
+"dosya yolu. Alternatif olarak, CA sertifika dosyasının dosya yolu için "
+"GLANCE_CLIENT_CERT_FILE ortam değişkeni ayarlayabilirsiniz"
+
+msgid ""
+"The path to the certifying authority cert file to use in SSL connections to "
+"the registry server, if any. Alternately, you may set the "
+"GLANCE_CLIENT_CA_FILE environment variable to a filepath of the CA cert file."
+msgstr ""
+"Varsa, kayıt defteri sunucusuna SSL bağlantısında kullanılacak yetki "
+"onaylama sertifika dosyasının yolu. Alternatif olarak, CA sertifika "
+"dosyasının yolu için GLANCE_CLIENT_CA_FILE ortam değişkenini "
+"ayarlayabilirsiniz."
+
+msgid ""
+"The path to the key file to use in SSL connections to the registry server, "
+"if any. Alternately, you may set the GLANCE_CLIENT_KEY_FILE environment "
+"variable to a filepath of the key file"
+msgstr ""
+"Varsa, kayıt defteri sunucusuna SSL bağlantısında kullanılacak anahtar dosya "
+"yolu. Alternatif olarak, anahtar dosyasının dosya yolu için "
+"GLANCE_CLIENT_KEY_FILE ortam değişkeni ayarlayabilirsiniz"
+
+msgid ""
+"The path to the sqlite file database that will be used for image cache "
+"management."
+msgstr "İmaj önbellek yönetimi için kullanılacak sqlite dosya veritabanı yolu."
+
+msgid ""
+"The period of time, in seconds, that the API server will wait for a registry "
+"request to complete. A value of 0 implies no timeout."
+msgstr ""
+"Bir kayıt defteri isteğinin tamamlanması için API sunucusunun bekleyeceği "
+"saniye cinsinden zaman aralığı. 0 değeri zaman aşımı olmadığını ifade eder."
+
+msgid "The port on which a pydev process is listening for connections."
+msgstr "Pydev sürecindeki bağlantı noktası bağlantılar için dinliyor."
+
+msgid "The port on which the server will listen."
+msgstr "Sunucu üzerindeki bağlantı noktası dinleyecek."
+
+msgid ""
+"The protocol to use for communication with the registry server.  Either http "
+"or https."
+msgstr ""
+"Kayıt defteri sunucusu ile iletişim için kullanılacak protokol.  Ya http ya "
+"da https."
+
+#, python-format
+msgid "The provided body %(body)s is invalid under given schema: %(schema)s"
+msgstr "Verilen şema altında: %(schema)s sağlanan %(body)s gövdesi geçersizdir"
+
+msgid "The provided image is too large."
+msgstr "Getirilen imaj çok büyük."
+
+#, python-format
+msgid "The provided path '%(path)s' is invalid: %(explanation)s"
+msgstr "Sağlanan yol '%(path)s' geçersizdir: %(explanation)s"
+
+msgid ""
+"The reference to the default swift account/backing store parameters to use "
+"for adding new images."
+msgstr ""
+"Yeni imajlar eklemek için kullanılacak öntanımlı swift hesap/yedekleme "
+"deposu parametrelerine referans."
+
+msgid ""
+"The region for the authentication service. If \"use_user_token\" is not in "
+"effect and using keystone auth, then region name can be specified."
+msgstr ""
+"Kimlik doğrulama servisi için bölge. Eğer \"use_user_token\" yürürlükte "
+"değilse ve keystone kimlik doğrulaması kullanılıyorsa, bölge adı "
+"belirtilebilir."
+
+msgid "The request returned 500 Internal Server Error."
+msgstr "İstek geri 500 İç Sunucu Hatası döndürdü."
+
+msgid ""
+"The request returned 503 Service Unavailable. This generally occurs on "
+"service overload or other transient outage."
+msgstr ""
+"İstek 503 Hizmet Kullanılamıyor kodu döndürdü. Bu genellikle, hizmetin aşırı "
+"yük altında olduğu ya da geçici kesintiler oluştuğu  anlamına gelir."
+
+#, python-format
+msgid ""
+"The request returned a 302 Multiple Choices. This generally means that you "
+"have not included a version indicator in a request URI.\n"
+"\n"
+"The body of response returned:\n"
+"%(body)s"
+msgstr ""
+"İstek 302 Çok Seçenek kodu döndürdü. Bu genellikle, istek URI'sinin bir "
+"sürüm göstergesi içermediği anlamına gelir.\n"
+"\n"
+"Dönen yanıtın gövdesi:\n"
+"%(body)s"
+
+#, python-format
+msgid ""
+"The request returned a 413 Request Entity Too Large. This generally means "
+"that rate limiting or a quota threshold was breached.\n"
+"\n"
+"The response body:\n"
+"%(body)s"
+msgstr ""
+"İstek 413 Girilen Veri Çok Büyük kodu döndürdü. Bu genellikle, hız "
+"sınırlayıcı ya da kota eşiği ihlali anlamına gelir.\n"
+"\n"
+"Yanıt gövdesi:\n"
+"%(body)s"
+
+#, python-format
+msgid ""
+"The request returned an unexpected status: %(status)s.\n"
+"\n"
+"The response body:\n"
+"%(body)s"
+msgstr ""
+"İstek beklenmeyen bir durum döndürdü: %(status)s.\n"
+"\n"
+"Yanıt:\n"
+"%(body)s"
+
+msgid ""
+"The requested image has been deactivated. Image data download is forbidden."
+msgstr "İstenen imaj devrede değil. İmaj verisi indirmek yasak."
+
+msgid "The result of current task, JSON blob"
+msgstr "Şu anki görevin sonucu, JSON blob"
+
+#, python-format
+msgid ""
+"The size of the data %(image_size)s will exceed the limit. %(remaining)s "
+"bytes remaining."
+msgstr "%(image_size)s veri boyutu sınırı aşacak. Kalan bayt %(remaining)s "
+
+#, python-format
+msgid "The specified member %s could not be found"
+msgstr "Belirtilen üye %s bulunamadı"
+
+#, python-format
+msgid "The specified metadata object %s could not be found"
+msgstr "Belirtilen metadata nesnesi %s bulunamadı"
+
+#, python-format
+msgid "The specified metadata tag %s could not be found"
+msgstr "Belirtilen metadata etiketi %s bulunamadı"
+
+#, python-format
+msgid "The specified namespace %s could not be found"
+msgstr "Belirtilen ad alanı %s bulunamadı"
+
+#, python-format
+msgid "The specified property %s could not be found"
+msgstr "Belirtilen özellik %s bulunamadı"
+
+#, python-format
+msgid "The specified resource type %s could not be found "
+msgstr "Belirtilen kaynak türü %s bulunamadı "
+
+msgid ""
+"The status of deleted image location can only be set to 'pending_delete' or "
+"'deleted'"
+msgstr ""
+"Silinen imaj konumunun durumu sadece 'pending_delete' ya da 'deleted' olarak "
+"ayarlanabilir"
+
+msgid ""
+"The status of deleted image location can only be set to 'pending_delete' or "
+"'deleted'."
+msgstr ""
+"Silinen imaj konum durumu sadece 'pending_delete' ya da 'deleted' olarak "
+"ayarlanabilir."
+
+msgid "The status of this image member"
+msgstr "Bu imaj üyesinin durumu"
+
+msgid ""
+"The store names to use to get store preference order. The name must be "
+"registered by one of the stores defined by the 'stores' config option. This "
+"option will be applied when you using 'store_type' option as image location "
+"strategy defined by the 'location_strategy' config option."
+msgstr ""
+"Depo tercih sırasını almak için kullanılacak depo adları. Ad, 'stores' "
+"yapılandırma seçeneği tarafından tanımlanan depolardan biri olarak "
+"kaydedilmelidir. Bu seçenek, 'store_type' seçeneğini, 'location_strategy' "
+"yapılandırma seçeneği tarafından tanımlanan imaj konum stratejisi olarak "
+"kullanırken uygulanacaktır."
+
+msgid ""
+"The strategy to use for authentication. If \"use_user_token\" is not in "
+"effect, then auth strategy can be specified."
+msgstr ""
+"Kimlik doğrulama için kullanılacak strateji. Eğer \"use_user_token\" "
+"yürürlükte değilse, o zaman kimlik doğrulama stratejisi belirtilebilir."
+
+#, python-format
+msgid ""
+"The target member %(member_id)s is already associated with image "
+"%(image_id)s."
+msgstr ""
+"Hedef üye %(member_id)s, %(image_id)s imajı ile zaten ilişkilendirilmiştir."
+
+msgid ""
+"The tenant name of the administrative user. If \"use_user_token\" is not in "
+"effect, then admin tenant name can be specified."
+msgstr ""
+"İdari kullaıcının kiracı adı. Eğer \"use_user_token\" yürürlükte değilse, o "
+"zaman yönetici kiracı adı belirtilebilir."
+
+msgid "The type of task represented by this content"
+msgstr "Bu içerik ile sunulan görev türü"
+
+msgid "The unique namespace text."
+msgstr "Eşsiz ad alanı metni."
+
+msgid "The user friendly name for the namespace. Used by UI if available."
+msgstr ""
+"Kullanıcı dostu ad alanı adı. Eğer mevcut ise, kullanıcı arayüzü tarafından "
+"kullanılır."
+
+msgid ""
+"The user to authenticate against the Swift authentication service "
+"(deprecated)"
+msgstr ""
+"Swift kimlik doğrulama servisine dayalı doğrulanacak kullanıcı(önerilmiyor)"
+
+msgid ""
+"The value for the socket option TCP_KEEPIDLE.  This is the time in seconds "
+"that the connection must be idle before TCP starts sending keepalive probes."
+msgstr ""
+"TCP_KEEPIDLE soket seçeneği için değer.  Bu TCP canlı mı araştırma istekleri "
+"göndermeye başlamadan önce bağlantının boşta olması gereken saniye cinsinden "
+"süredir."
+
+#, python-format
+msgid ""
+"There is a problem with your %(error_key_name)s %(error_filename)s.  Please "
+"verify it.  Error: %(ioe)s"
+msgstr ""
+"%(error_key_name)s %(error_filename)s ile ilgili bir sorun var.  Lütfen "
+"doğrulayın.  Hata: %(ioe)s"
+
+#, python-format
+msgid ""
+"There is a problem with your %(error_key_name)s %(error_filename)s.  Please "
+"verify it. OpenSSL error: %(ce)s"
+msgstr ""
+"%(error_key_name)s %(error_filename)s ile ilgili bir sorun var.  Lütfen "
+"doğrulayın. OpenSSL hatası: %(ce)s"
+
+#, python-format
+msgid ""
+"There is a problem with your key pair.  Please verify that cert "
+"%(cert_file)s and key %(key_file)s belong together.  OpenSSL error %(ce)s"
+msgstr ""
+"Anahtar çiftiniz ile ilgili bir sorun var.  Lütfen sertifika %(cert_file)s "
+"ve anahtarın %(key_file)s birbirine ait olduğunu doğrulayın.  OpenSSL hatası "
+"%(ce)s"
+
+msgid "There was an error configuring the client."
+msgstr "İstemci yapılandırılırken bir hata meydana geldi."
+
+msgid "There was an error connecting to a server"
+msgstr "Sunucuya bağlanırken bir hata meydana geldi"
+
+msgid ""
+"This config value indicates whether \"roles\" or \"policies\" are used in "
+"the property protection file."
+msgstr ""
+"Yapılandırma değeri özellik koruma dosyasında \"roller\" ya da \"ilkeler\" "
+"kullanılıp kullanılmadığını gösterir."
+
+msgid ""
+"This operation is currently not permitted on Glance Tasks. They are auto "
+"deleted after reaching the time based on their expires_at property."
+msgstr ""
+"Şu anda Glance Görevleri üzerinde bu işleme izin verilmiyor. Onlar "
+"expires_at özellikliğine göre süreleri dolduktan sonra otomatik silinirler."
+
+msgid "This operation is currently not permitted on Glance images details."
+msgstr "Bu işleme şu anda Glance imaj ayrıntılarında izin verilmez."
+
+msgid ""
+"This value sets what strategy will be used to determine the image location "
+"order. Currently two strategies are packaged with Glance 'location_order' "
+"and 'store_type'."
+msgstr ""
+"Bu değer imaj konum sırası tespiti için kullanılacak stratejiyi ayarlar. Şu "
+"anda iki strateji Glance 'location_order' ve 'store_type' ile paketlenir."
+
+msgid ""
+"Time in hours for which a task lives after, either succeeding or failing"
+msgstr ""
+"Bir görevin başarılı ya da başarısız olarak sonuçlanmasından sonra saat "
+"olarak yaşayacağı süre"
+
+msgid ""
+"Timeout for client connections' socket operations. If an incoming connection "
+"is idle for this number of seconds it will be closed. A value of '0' means "
+"wait forever."
+msgstr ""
+"İstemci bağlantılarının soket işlemleri için zaman aşımı. Eğer gelen bir "
+"bağlantı bu süre boyunca boştaysa, kapatılacaktır. '0' değerinin anlamı "
+"sonsuza kadar beklemesidir."
+
+msgid "Too few arguments."
+msgstr "Çok fazla değişken."
+
+msgid "Too few locations"
+msgstr "Çok az konum"
+
+msgid "Too many locations"
+msgstr "Çok fazla konum"
+
+#, python-format
+msgid "Total size is %(size)d bytes across %(img_count)d images"
+msgstr "%(img_count)d imajlarında toplam boyut %(size)d"
+
+msgid "Turn on/off delayed delete."
+msgstr "Gecikmiş silme aç/kapat."
+
+msgid "Type version has to be a valid semver string"
+msgstr "Tür sürümü geçerli bir semver karakter dizisi olmalıdır"
+
+msgid ""
+"URI cannot contain more than one occurrence of a scheme.If you have "
+"specified a URI like swift://user:pass@http://authurl.com/v1/container/obj, "
+"you need to change it to use the swift+http:// scheme, like so: swift+http://"
+"user:pass@authurl.com/v1/container/obj"
+msgstr ""
+"URI bir şemanın birden fazla olayını içeremez. Eğer URI'yi swift://user:"
+"pass@http://authurl.com/v1/container/obj gibi belirttiyseniz, swift+http:// "
+"şemasını kullanmak için onu değiştirmeniz gerekir, şu şekilde: swift+http://"
+"user:pass@authurl.com/v1/container/obj"
+
+msgid "Unable to PUT to non-empty collection"
+msgstr "Boş olmayan koleksiyona PUT işlemi yapılamadı"
+
+#, python-format
+msgid ""
+"Unable to create pid file %(pid)s.  Running as non-root?\n"
+"Falling back to a temp file, you can stop %(service)s service using:\n"
+"  %(file)s %(server)s stop --pid-file %(fb)s"
+msgstr ""
+"Pid dosyası %(pid)s oluşturulamadı.  Root olmadan çalıştırılsın mı?\n"
+"Geçici bir dosyaya geri düşüyor, şu komutları kullanarak %(service)s "
+"servisini durdurabilirsiniz:\n"
+"  %(file)s %(server)s stop --pid-file %(fb)s"
+
+msgid "Unable to filter on a range with a non-numeric value."
+msgstr "Sayısal olmayan değer ile bir aralıkta süzme yapılamadı."
+
+msgid "Unable to filter using the specified range."
+msgstr "Belirtilen aralık kullanılarak süzme yapılamadı."
+
+#, python-format
+msgid "Unable to find '%s' in JSON Schema change"
+msgstr "JSON Şema değişikliğinde '%s' bulunamadı"
+
+#, python-format
+msgid ""
+"Unable to find `op` in JSON Schema change. It must be one of the following: "
+"%(available)s."
+msgstr ""
+"JSON Şema değişikliğinde `op` bulunamadı. Şu seçeneklerden biri olmalıdır: "
+"%(available)s."
+
+msgid "Unable to get legacy image"
+msgstr "Eski imaj alınamadı"
+
+msgid "Unable to increase file descriptor limit.  Running as non-root?"
+msgstr "Dosya tanıtıcı sınır arttırılamadı.  Root olmadan çalıştırılsın mı?"
+
+#, python-format
+msgid ""
+"Unable to load %(app_name)s from configuration file %(conf_file)s.\n"
+"Got: %(e)r"
+msgstr ""
+"%(conf_file)s yapılandırma dosyasından %(app_name)s uygulaması yüklenemedi.\n"
+"Alınan: %(e)r"
+
+#, python-format
+msgid "Unable to load schema: %(reason)s"
+msgstr "Şema yüklenemedi: %(reason)s"
+
+#, python-format
+msgid "Unable to locate paste config file for %s."
+msgstr "%s için yapıştırma yapılandırma dosyası yerleştirilemedi."
+
+msgid "Unable to modify collection in immutable or readonly property"
+msgstr "Değişmez ya da salt okunur özellikteki koleksiyon değiştirilemedi"
+
+msgid "Unable to retrieve request id from context"
+msgstr "İçerikten istek bilgisi alınamadı"
+
+msgid "Unable to specify artifact type explicitly"
+msgstr "Ürün türü açıkça belirtilemedi"
+
+msgid "Unable to specify artifact type version explicitly"
+msgstr "Ürün türünün sürümü açıkça belirtilemedi"
+
+msgid "Unable to specify version if multiple types are possible"
+msgstr "Birden fazla tür olduğundan sürüm belirtilemedi"
+
+msgid "Unable to specify version if type is not specified"
+msgstr "Eğer türü belirtilmediyse, sürümü belirlenemez"
+
+#, python-format
+msgid "Unable to upload duplicate image data for image%(image_id)s: %(error)s"
+msgstr "%(image_id)s imajı için çift imaj verisi yüklenemedi: %(error)s"
+
+msgid "Unauthorized image access"
+msgstr "Yetkisiz imaj erişimi"
+
+#, python-format
+msgid "Unexpected response: %s"
+msgstr "Beklenmeyen yanıt: %s"
+
+#, python-format
+msgid "Unknown auth strategy '%s'"
+msgstr "Bilinmeyen kimlik doğrulama stratejisi '%s'"
+
+#, python-format
+msgid "Unknown command: %s"
+msgstr "Bilinmeyen komut: %s"
+
+msgid "Unknown sort direction, must be 'desc' or 'asc'"
+msgstr "Bilinmeyen sıralama yönü, 'desc' or 'asc' olmalıdır"
+
+msgid "Unrecognized JSON Schema draft version"
+msgstr "Tanınmayan JSON Şeması taslak sürümü"
+
+msgid "Unrecognized changes-since value"
+msgstr "Belli bir zamandan sonraki tanınmayan değişiklik değeri"
+
+#, python-format
+msgid "Unsupported sort_dir. Acceptable values: %s"
+msgstr "Desteklenmeyen sort_dir. Kabul edilen değerler: %s"
+
+#, python-format
+msgid "Unsupported sort_key. Acceptable values: %s"
+msgstr "Desteklenmeyen sort_key. Kabul edilen değerler: %s"
+
+#, python-format
+msgid "Value %(value)d out of range, must not exceed %(max)d"
+msgstr "%(value)d değeri aralık dışında, %(max)d değerini geçmemelidir"
+
+msgid "Value is greater than maximum"
+msgstr "Değer azami değerden daha büyüktür"
+
+msgid "Value is less than minimum"
+msgstr "Değer asgari değerden azdır"
+
+msgid "Value is required"
+msgstr "Değer gereklidir"
+
+#, python-format
+msgid "Version component is too large (%d max)"
+msgstr "Sürüm bileşeni çok büyük (en fazla %d)"
+
+#, python-format
+msgid "Version is invalid: %(reason)s"
+msgstr "Sürüm geçersizdir: %(reason)s"
+
+msgid "Visibility must be either \"public\" or \"private\""
+msgstr "Görünürlük ya \"ortak\" ya da \"özel\" olmalıdır"
+
+#, python-format
+msgid "Waited 15 seconds for pid %(pid)s (%(file)s) to die; giving up"
+msgstr ""
+"%(pid)s (%(file)s) pid'i öldürmek için 15 saniye beklendi; vazgeçiliyor"
+
+msgid ""
+"When false, no artifacts can be loaded regardless of available_plugins. When "
+"true, artifacts can be loaded."
+msgstr ""
+"Yanlışken, hiçbir ürün available_plugins dikkate alınmadan yüklenemez. "
+"Doğruyken, ürünler yüklenebilir."
+
+msgid ""
+"When running server in SSL mode, you must specify both a cert_file and "
+"key_file option value in your configuration file"
+msgstr ""
+"Sunucu SSL kipte çalışırken, cert_file ve key_file değerlerinin ikisinide "
+"yapılandırma dosyanızda belirtmelisiniz"
+
+msgid ""
+"When true, this option sets the owner of an image to be the tenant. "
+"Otherwise, the owner of the  image will be the authenticated user issuing "
+"the request."
+msgstr ""
+"Seçildiğinde, bu seçenek bir imajın sahibini kiracı olacak şekilde ayarlar."
+"Diğer bir deyişle,  imajın sahibi, isteği bildiren ve kimliği doğrulanmış "
+"kişi olacaktır."
+
+msgid ""
+"When using SSL in connections to the registry server, do not require "
+"validation via a certifying authority. This is the registry's equivalent of "
+"specifying --insecure on the command line using glanceclient for the API."
+msgstr ""
+"Kayıt defteri sunucusuna bağlantı sırasında SSL kullanılırsa, bir onaylama "
+"otoritesi yoluyla doğrulama gerekmez. API için glanceclient kullanarak komut "
+"satırında --insecure belirtilmesi, kayıt defterine eşdeğerdir."
+
+msgid ""
+"Whether to allow users to specify image properties beyond what the image "
+"schema provides"
+msgstr ""
+"İmaj şema sağlayıcılarının haricinde imaj özelliklerinin belirtilmesinde "
+"kullanıcılara izin verilip verilmemesi"
+
+msgid ""
+"Whether to include the backend image storage location in image properties. "
+"Revealing storage location can be a security risk, so use this setting with "
+"caution!"
+msgstr ""
+"İmaj özelliklerinin, art alanda çalışan imaj depolama konumunu içerip "
+"içermemesi. Depolama konumunu açığa çıkarmak güvenlik tehlikesi "
+"oluşturabilir, bu yüzden bu ayarı dikkatli kullanın!"
+
+msgid ""
+"Whether to pass through headers containing user and tenant information when "
+"making requests to the registry. This allows the registry to use the context "
+"middleware without keystonemiddleware's auth_token middleware, removing "
+"calls to the keystone auth service. It is recommended that when using this "
+"option, secure communication between glance api and glance registry is "
+"ensured by means other than auth_token middleware."
+msgstr ""
+"Kayıt defteri sunucusuna istek yaparken kiracı bilgisi ve kullanıcı içeren "
+"başlığın geçirilip geçirilmemesi. Bu kayıt defteri sunucusunun "
+"keystonemiddleware auth_token katmanı olmadan içerik katmanını kullanmasına, "
+"keystone kimlik doğrulama servisine çağrıların kaldırılmasına izin verir. Bu "
+"seçenek kullanılırken, glance-api ve glance kayıt defteri arasında "
+"auth_token katmanı dışında başka bir yol ile güvenli iletişim sağlanır."
+
+msgid ""
+"Whether to pass through the user token when making requests to the registry. "
+"To prevent failures with token expiration during big files upload, it is "
+"recommended to set this parameter to False.If \"use_user_token\" is not in "
+"effect, then admin credentials can be specified."
+msgstr ""
+"Kayıt defteri sunucusuna istek yaparken kullanıcı jetonunun geçirilip "
+"geçirilmemesi. Büyük dosyaların yüklenmesi sırasında jetonun süresinin sona "
+"ermesi ile oluşacak hataları engellemek için, bu parametrenin seçilmemiş "
+"olarak ayarlanması önerilir. Eğer \"use_user_token\" yürürlükte değilse, o "
+"zaman yönetici kimlik bilgileri belirtilebilir."
+
+msgid ""
+"Work dir for asynchronous task operations. The directory set here will be "
+"used to operate over images - normally before they are imported in the "
+"destination store. When providing work dir, make sure enough space is "
+"provided for concurrent tasks to run efficiently without running out of "
+"space. A rough estimation can be done by multiplying the number of "
+"`max_workers` - or the N of workers running - by an average image size (e.g "
+"500MB). The image size estimation should be done based on the average size "
+"in your deployment. Note that depending on the tasks running you may need to "
+"multiply this number by some factor depending on what the task does. For "
+"example, you may want to double the available size if image conversion is "
+"enabled. All this being said, remember these are just estimations and you "
+"should do them based on the worst case scenario and be prepared to act in "
+"case they were wrong."
+msgstr ""
+"Eşzamansız görev işlemleri için çalışma dizini. Burada ayarlanan dizin, "
+"imajları işlemek için kullanılacaktır - normalde hedef depoya aktarılmadan "
+"önce. Çalışma dizini sağlanırken, eşzamanlı görevleri verimli bir şekilde "
+"çalıştırmak için yeterli alan sağladığınıza emin olun. Kabaca bir tahmin "
+"`max_workers` sayısı - ya da N çalışan işçi - ortalama imaj boyutu ile "
+"çarpılarak yapılabilir (örneğin 500MB). İmaj boyutu tahmini, dağıtımınızdaki "
+"ortalama boyuta göre yapılmalıdır. Görevin çalışmasına bağlı olarak, göreve "
+"bağlı bazı katsayılar ile bu sayıyı çarpmanızın gerekebileceğini unutmayın. "
+"Örnek olarak, eğer imaj dönüştürme etkinse, kullanılabilir boyutun iki "
+"katını isteyebilirsiniz. Bu söylenenlerin tümünün sadece tahmin olduğunu "
+"unutmamalı ve tahminleri en kötü senaryoya göre yapmalısınız ve hatalı "
+"durumlar için hazır olmalısınız."
+
+#, python-format
+msgid "Wrong command structure: %s"
+msgstr "Hatalı komut yapısı: %s"
+
+msgid "You are not authenticated."
+msgstr "Kimliğiniz doğrulanamadı."
+
+msgid "You are not authorized to complete this action."
+msgstr "Bu eylemi tamamlamak için yetkili değilsiniz."
+
+#, python-format
+msgid "You are not permitted to create a tag in the namespace owned by '%s'"
+msgstr "'%s''ye ait ad alanında bir etiket oluşturma izniniz yok"
+
+msgid "You are not permitted to create image members for the image."
+msgstr "İmaj için üye oluşturma izniniz yok."
+
+#, python-format
+msgid "You are not permitted to create images owned by '%s'."
+msgstr "'%s''ye ait imaj oluşturma izniniz yok."
+
+#, python-format
+msgid "You are not permitted to create namespace owned by '%s'"
+msgstr "'%s''ye ait ad alanı oluşturma izniniz yok"
+
+#, python-format
+msgid "You are not permitted to create object owned by '%s'"
+msgstr "'%s''ye ait nesne oluşturma izniniz yok"
+
+#, python-format
+msgid "You are not permitted to create property owned by '%s'"
+msgstr "'%s''ye ait özellik oluşturma izniniz yok."
+
+#, python-format
+msgid "You are not permitted to create resource_type owned by '%s'"
+msgstr "'%s''ye ait resource_type oluşturma izniniz yok."
+
+#, python-format
+msgid "You are not permitted to create this task with owner as: %s"
+msgstr "Sahibi olarak bu görevi oluşturma izniniz yok: %s"
+
+msgid "You are not permitted to delete this image."
+msgstr "Bu imajı silme izniniz yok."
+
+msgid "You are not permitted to delete this meta_resource_type."
+msgstr "meta_resource_type silme izniniz yok."
+
+msgid "You are not permitted to delete this namespace."
+msgstr "Bu ad alanını silme izniniz yok."
+
+msgid "You are not permitted to delete this object."
+msgstr "Bu nesneyi silme izniniz yok."
+
+msgid "You are not permitted to delete this property."
+msgstr "Bu özelliği silme izniniz yok."
+
+msgid "You are not permitted to delete this tag."
+msgstr "Bu etiketi silme izniniz yok."
+
+#, python-format
+msgid "You are not permitted to modify '%(attr)s' on this %(resource)s."
+msgstr "Bu %(resource)s üzerinde '%(attr)s' değiştirme izniniz yok."
+
+#, python-format
+msgid "You are not permitted to modify '%s' on this image."
+msgstr "Bu imajda '%s' değiştirme izniniz yok."
+
+msgid "You are not permitted to modify locations for this image."
+msgstr "Bu imajın konumunu değiştirme izniniz yok."
+
+msgid "You are not permitted to modify tags on this image."
+msgstr "Bu imaj üzerindeki etiketleri değiştirme izniniz yok."
+
+msgid "You are not permitted to modify this image."
+msgstr "Bu imajı değiştirme izniniz yok."
+
+msgid "You are not permitted to set status on this task."
+msgstr "Bu görev üzerinde durum ayarlama izniniz yok."
+
+msgid "You are not permitted to update this namespace."
+msgstr "Bu ad alanını güncelleme izniniz yok."
+
+msgid "You are not permitted to update this object."
+msgstr "Bu nesneyi güncelleme izniniz yok."
+
+msgid "You are not permitted to update this property."
+msgstr "Bu özelliği güncelleme izniniz yok."
+
+msgid "You are not permitted to update this tag."
+msgstr "Bu etiketi güncelleme izniniz yok."
+
+msgid "You are not permitted to upload data for this image."
+msgstr "Bu imaj için veri yükleme izniniz yok."
+
+#, python-format
+msgid "You cannot add image member for %s"
+msgstr "%s için imaj üyesi ekleyemiyorsunuz"
+
+#, python-format
+msgid "You cannot delete image member for %s"
+msgstr "%s için imaj üyesini silemiyorsunuz"
+
+#, python-format
+msgid "You cannot get image member for %s"
+msgstr "%s için imaj üyesini alamıyorsunuz"
+
+#, python-format
+msgid "You cannot update image member %s"
+msgstr "%s imaj üyesini güncelleyemiyorsunuz"
+
+msgid "You do not own this image"
+msgstr "Bu imajın sahibi değilsiniz"
+
+msgid ""
+"You have selected to use SSL in connecting, and you have supplied a cert, "
+"however you have failed to supply either a key_file parameter or set the "
+"GLANCE_CLIENT_KEY_FILE environ variable"
+msgstr ""
+"Bağlanırken SSL kullanmayı seçtiniz ve bir sertifika sağladınız, ancak ya "
+"key_file parametresi sağlamayı ya da GLANCE_CLIENT_KEY_FILE değişkeni "
+"ayarlama işlemini başaramadınız."
+
+msgid ""
+"You have selected to use SSL in connecting, and you have supplied a key, "
+"however you have failed to supply either a cert_file parameter or set the "
+"GLANCE_CLIENT_CERT_FILE environ variable"
+msgstr ""
+"Bağlanırken SSL kullanmayı seçtiniz ve bir anahtar sağladınız, ancak ya "
+"cert_file parametresi sağlamayı ya da GLANCE_CLIENT_CERT_FILE değişkeni "
+"ayarlama işlemini başaramadınız."
+
+msgid ""
+"^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-"
+"fA-F]){12}$"
+msgstr ""
+"^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-"
+"fA-F]){12}$"
+
+#, python-format
+msgid "__init__() got unexpected keyword argument '%s'"
+msgstr "__init__() beklenmeyen anahtar sözcük değişkeni '%s' aldı"
+
+#, python-format
+msgid ""
+"cannot transition from %(current)s to %(next)s in update (wanted from_state="
+"%(from)s)"
+msgstr ""
+"güncellemede (istenen from_state=%(from)s), %(current)s mevcut durumundan "
+"%(next)s sonrakine geçiş olamaz "
+
+#, python-format
+msgid "custom properties (%(props)s) conflict with base properties"
+msgstr "özel özellikler (%(props)s) temel özellikler ile çatışır"
+
+msgid "eventlet 'poll' nor 'selects' hubs are available on this platform"
+msgstr ""
+"bu platformda eventlet 'poll' ya da 'selects' havuzları kullanılabilirdir"
+
+msgid "is_public must be None, True, or False"
+msgstr "is_public Hiçbiri, Doğru ya da Yanlış olmalıdır"
+
+msgid "limit param must be an integer"
+msgstr "Sınır parametresi tam sayı olmak zorunda"
+
+msgid "limit param must be positive"
+msgstr "Sınır parametresi pozitif olmak zorunda"
+
+#, python-format
+msgid "location: %s data lost"
+msgstr "konum: %s verisi kayıp"
+
+#, python-format
+msgid "new_image() got unexpected keywords %s"
+msgstr "new_image() beklenmeyen anahtar sözcük %s aldı"
+
+msgid "protected must be True, or False"
+msgstr "korumalı Doğru ya da Yanlış olmalıdır"
+
+#, python-format
+msgid "unable to launch %(serv)s. Got error: %(e)s"
+msgstr "%(serv)s başlatılamadı. Alınan hata: %(e)s"

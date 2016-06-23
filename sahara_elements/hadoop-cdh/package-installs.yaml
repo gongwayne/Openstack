@@ -1,0 +1,4 @@
+wget:
+  phase: pre-install.d
+hadoop-hdfs-namenode:
+hadoop-hdfs-datanode:
