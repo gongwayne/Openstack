@@ -23,13 +23,13 @@ from sahara.tests.unit import testutils as tu
 class GeneralUtilsTest(testtools.TestCase):
     def setUp(self):
         super(GeneralUtilsTest, self).setUp()
-        i1 = tu.make_inst_dict('i1', 'master')
+        i1 = tu.make_inst_dict('i1', 'main')
         i2 = tu.make_inst_dict('i2', 'worker1')
         i3 = tu.make_inst_dict('i3', 'worker2')
         i4 = tu.make_inst_dict('i4', 'worker3')
         i5 = tu.make_inst_dict('i5', 'sn')
 
-        ng1 = tu.make_ng_dict("master", "f1", ["jt", "nn"], 1, [i1])
+        ng1 = tu.make_ng_dict("main", "f1", ["jt", "nn"], 1, [i1])
         ng2 = tu.make_ng_dict("workers", "f1", ["tt", "dn"], 3,
                               [i2, i3, i4])
         ng3 = tu.make_ng_dict("sn", "f1", ["dn"], 1, [i5])

@@ -41,7 +41,7 @@ SAMPLE_CLUSTER_DICT = {
     },
     'node_groups': [
         {
-            'name': 'master',
+            'name': 'main',
             'id': 'some_id'
         },
         {
@@ -165,7 +165,7 @@ class TestResource(testtools.TestCase):
 
         self.assertEqual('test-cluster', cluster.name)
 
-        self.assertEqual('master', cluster.node_groups[0].name)
+        self.assertEqual('main', cluster.node_groups[0].name)
         self.assertIsInstance(cluster.node_groups[0], r.NodeGroupResource)
         self.assertEqual('test-cluster', cluster.node_groups[0].cluster.name)
 

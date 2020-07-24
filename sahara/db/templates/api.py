@@ -212,11 +212,11 @@ def add_config_section_for_template(template):
 
     Corresponding section names may be of the following forms:
 
-    <template_name>, example "hdp-2.0.6-master"
+    <template_name>, example "hdp-2.0.6-main"
     This is useful when a template naming convention is being used,
     so that the template name is already unambiguous
 
-    <plugin_name>_<hadoop_version>_<template_name>, example "hdp_2.0.6_master"
+    <plugin_name>_<hadoop_version>_<template_name>, example "hdp_2.0.6_main"
     This can be used if there is a name collision between templates
 
     <plugin_name>_<hadoop_version>, example "hdp_2.0.6"

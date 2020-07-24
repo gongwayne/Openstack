@@ -69,7 +69,7 @@ class Manager(manager.Manager):
                 self.app.configuration_manager.save_configuration(
                     config_contents)
 
-        elif cluster_config['instance_type'] not in ["member", "master"]:
+        elif cluster_config['instance_type'] not in ["member", "main"]:
             raise RuntimeError(_("Bad cluster configuration: instance type "
                                "given as %s.") %
                                cluster_config['instance_type'])

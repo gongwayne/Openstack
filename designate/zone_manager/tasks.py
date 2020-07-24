@@ -218,7 +218,7 @@ class PeriodicSecondaryRefreshTask(PeriodicTask):
         ctxt.all_tenants = True
 
         # each zone can have a different refresh / expire etc interval defined
-        # in the SOA at the source / master servers
+        # in the SOA at the source / main servers
         criterion = {
             "type": "SECONDARY"
         }

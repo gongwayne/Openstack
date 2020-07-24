@@ -47,7 +47,7 @@ class PowerDNSBackend(base.Backend):
         opts = copy.deepcopy(options.database_opts)
 
         # Strip connection options
-        discard_opts = ('sqlite_db', 'connection', 'slave_connection')
+        discard_opts = ('sqlite_db', 'connection', 'subordinate_connection')
         opts = [opt for opt in opts if opt.name not in discard_opts]
 
         return [(group, opts,)]
@@ -123,14 +123,14 @@ class PowerDNSBackend(base.Backend):
         try:
             self.session.begin()
 
-            def _parse_master(master):
-                return '%s:%d' % (master.host, master.port)
-            masters = six.moves.map(_parse_master, self.masters)
+            def _parse_main(main):
+                return '%s:%d' % (main.host, main.port)
+            mains = six.moves.map(_parse_main, self.mains)
 
             domain_values = {
                 'designate_id': zone['id'],
                 'name': zone['name'].rstrip('.'),
-                'master': ','.join(masters),
+                'main': ','.join(mains),
                 'type': 'SLAVE',
                 'account': context.tenant
             }

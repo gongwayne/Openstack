@@ -27,7 +27,7 @@ class TestBayConductorWithK8s(base.TestCase):
         self.baymodel_dict = {
             'image_id': 'image_id',
             'flavor_id': 'flavor_id',
-            'master_flavor_id': 'master_flavor_id',
+            'main_flavor_id': 'main_flavor_id',
             'keypair_id': 'keypair_id',
             'dns_nameserver': 'dns_nameserver',
             'external_network_id': 'external_network_id',
@@ -53,9 +53,9 @@ class TestBayConductorWithK8s(base.TestCase):
             'api_address': '172.17.2.3',
             'node_addresses': ['172.17.2.4'],
             'node_count': 1,
-            'master_count': 1,
+            'main_count': 1,
             'discovery_url': 'https://discovery.etcd.io/test',
-            'master_addresses': ['172.17.2.18'],
+            'main_addresses': ['172.17.2.18'],
             'ca_cert_ref': 'http://barbican/v1/containers/xx-xx-xx-xx',
             'magnum_cert_ref': 'http://barbican/v1/containers/xx-xx-xx-xx',
             'trustee_username': 'fake_trustee',
@@ -107,10 +107,10 @@ class TestBayConductorWithK8s(base.TestCase):
             'flavor_id': 'minion_flavor',
             'docker_volume_size': 'docker_volume_size',
             'network_driver': 'network_driver',
-            'master_flavor_id': 'master_flavor',
+            'main_flavor_id': 'main_flavor',
             'apiserver_port': '',
             'node_count': 'number_of_minions',
-            'master_count': 'number_of_masters',
+            'main_count': 'number_of_mains',
             'discovery_url': 'discovery_url',
             'labels': {'flannel_network_cidr': '10.101.0.0/16',
                        'flannel_network_subnetlen': '26',
@@ -130,9 +130,9 @@ class TestBayConductorWithK8s(base.TestCase):
             'dns_nameserver': 'dns_nameserver',
             'server_image': 'image_id',
             'minion_flavor': 'flavor_id',
-            'master_flavor': 'master_flavor_id',
+            'main_flavor': 'main_flavor_id',
             'number_of_minions': 1,
-            'number_of_masters': 1,
+            'number_of_mains': 1,
             'docker_volume_size': 20,
             'discovery_url': 'https://discovery.etcd.io/test',
             'flannel_network_cidr': '10.101.0.0/16',
@@ -178,9 +178,9 @@ class TestBayConductorWithK8s(base.TestCase):
             'dns_nameserver': 'dns_nameserver',
             'server_image': 'image_id',
             'minion_flavor': 'flavor_id',
-            'master_flavor': 'master_flavor_id',
+            'main_flavor': 'main_flavor_id',
             'number_of_minions': 1,
-            'number_of_masters': 1,
+            'number_of_mains': 1,
             'network_driver': 'network_driver',
             'discovery_url': 'https://discovery.etcd.io/test',
             'http_proxy': 'http_proxy',
@@ -223,9 +223,9 @@ class TestBayConductorWithK8s(base.TestCase):
             'dns_nameserver': 'dns_nameserver',
             'server_image': 'image_id',
             'minion_flavor': 'flavor_id',
-            'master_flavor': 'master_flavor_id',
+            'main_flavor': 'main_flavor_id',
             'number_of_minions': 1,
-            'number_of_masters': 1,
+            'number_of_mains': 1,
             'network_driver': 'network_driver',
             'discovery_url': 'http://tokentest/h1/h2/h3',
             'http_proxy': 'http_proxy',
@@ -277,12 +277,12 @@ class TestBayConductorWithK8s(base.TestCase):
             missing_attr='docker_volume_size')
 
     @patch('magnum.objects.BayModel.get_by_uuid')
-    def test_extract_template_definition_without_master_flavor(
+    def test_extract_template_definition_without_main_flavor(
             self,
             mock_objects_baymodel_get_by_uuid):
         self._test_extract_template_definition(
             mock_objects_baymodel_get_by_uuid,
-            missing_attr='master_flavor_id')
+            missing_attr='main_flavor_id')
 
     @patch('magnum.objects.BayModel.get_by_uuid')
     def test_extract_template_definition_without_apiserver_port(
@@ -301,12 +301,12 @@ class TestBayConductorWithK8s(base.TestCase):
             missing_attr='node_count')
 
     @patch('magnum.objects.BayModel.get_by_uuid')
-    def test_extract_template_definition_without_master_count(
+    def test_extract_template_definition_without_main_count(
             self,
             mock_objects_baymodel_get_by_uuid):
         self._test_extract_template_definition(
             mock_objects_baymodel_get_by_uuid,
-            missing_attr='master_count')
+            missing_attr='main_count')
 
     @patch('requests.get')
     @patch('magnum.objects.BayModel.get_by_uuid')
@@ -335,10 +335,10 @@ class TestBayConductorWithK8s(base.TestCase):
             'external_network': 'external_network_id',
             'dns_nameserver': 'dns_nameserver',
             'server_image': 'image_id',
-            'master_flavor': 'master_flavor_id',
+            'main_flavor': 'main_flavor_id',
             'minion_flavor': 'flavor_id',
             'number_of_minions': 1,
-            'number_of_masters': 1,
+            'number_of_mains': 1,
             'network_driver': 'network_driver',
             'docker_volume_size': 20,
             'discovery_url': 'https://address/token',

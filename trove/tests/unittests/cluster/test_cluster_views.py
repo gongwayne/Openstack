@@ -44,8 +44,8 @@ class ClusterViewTest(trove_testtools.TestCase):
         self.cluster.instances[0].flavor_id = '123'
         self.cluster.instances[0].volume = Mock()
         self.cluster.instances[0].volume.size = 1
-        self.cluster.instances[0].slave_of_id = None
-        self.cluster.instances[0].slaves = None
+        self.cluster.instances[0].subordinate_of_id = None
+        self.cluster.instances[0].subordinates = None
 
     def tearDown(self):
         super(ClusterViewTest, self).tearDown()
@@ -125,8 +125,8 @@ class ClusterInstanceDetailViewTest(trove_testtools.TestCase):
         self.instance.volume_used = '3'
         self.instance.root_password = 'iloveyou'
         self.instance.get_visible_ip_addresses = lambda: ["1.2.3.4"]
-        self.instance.slave_of_id = None
-        self.instance.slaves = None
+        self.instance.subordinate_of_id = None
+        self.instance.subordinates = None
 
     def tearDown(self):
         super(ClusterInstanceDetailViewTest, self).tearDown()

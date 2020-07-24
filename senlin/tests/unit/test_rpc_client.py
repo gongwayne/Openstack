@@ -319,7 +319,7 @@ class EngineRpcAPITestCase(base.SenlinTestCase):
             'identity': 'a-cluster',
             'name': 'new-name',
             'profile_id': 'new_profile',
-            'role': 'master',
+            'role': 'main',
             'metadata': {'key': 'value'}
         }
         self._test_engine_api('node_update', 'call', **kwargs)

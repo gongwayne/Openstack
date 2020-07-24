@@ -117,7 +117,7 @@ class ClouderaUtilsV540(cu.ClouderaUtils):
         if self.pu.get_spark_historyserver(cluster):
             cm_cluster.create_service(self.SPARK_SERVICE_NAME,
                                       SPARK_SERVICE_TYPE)
-        if self.pu.get_hbase_master(cluster):
+        if self.pu.get_hbase_main(cluster):
             cm_cluster.create_service(self.HBASE_SERVICE_NAME,
                                       HBASE_SERVICE_TYPE)
         if len(self.pu.get_flumes(cluster)) > 0:
@@ -182,7 +182,7 @@ class ClouderaUtilsV540(cu.ClouderaUtils):
             spark.update_config(self._get_configs(SPARK_SERVICE_TYPE,
                                                   cluster=cluster))
 
-        if self.pu.get_hbase_master(cluster):
+        if self.pu.get_hbase_main(cluster):
             hbase = cm_cluster.get_service(self.HBASE_SERVICE_NAME)
             hbase.update_config(self._get_configs(HBASE_SERVICE_TYPE,
                                                   cluster=cluster))

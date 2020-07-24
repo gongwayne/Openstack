@@ -27,31 +27,31 @@ from sahara.utils import poll_utils
 from sahara.utils import remote
 
 
-@cpo.event_wrapper(True, step=_("Decommission %s") % "Slaves")
-def decommission_sl(master, inst_to_be_deleted, survived_inst):
+@cpo.event_wrapper(True, step=_("Decommission %s") % "Subordinates")
+def decommission_sl(main, inst_to_be_deleted, survived_inst):
     if survived_inst is not None:
-        slavenames = []
-        for slave in survived_inst:
-            slavenames.append(slave.hostname())
-        slaves_content = c_helper.generate_spark_slaves_configs(slavenames)
+        subordinatenames = []
+        for subordinate in survived_inst:
+            subordinatenames.append(subordinate.hostname())
+        subordinates_content = c_helper.generate_spark_subordinates_configs(subordinatenames)
     else:
-        slaves_content = "\n"
+        subordinates_content = "\n"
 
-    cluster = master.cluster
+    cluster = main.cluster
     sp_home = utils.get_config_value_or_default("Spark", "Spark home", cluster)
-    r_master = remote.get_remote(master)
-    run.stop_spark(r_master, sp_home)
+    r_main = remote.get_remote(main)
+    run.stop_spark(r_main, sp_home)
 
-    # write new slave file to master
-    files = {os.path.join(sp_home, 'conf/slaves'): slaves_content}
-    r_master.write_files_to(files)
+    # write new subordinate file to main
+    files = {os.path.join(sp_home, 'conf/subordinates'): subordinates_content}
+    r_main.write_files_to(files)
 
-    # write new slaves file to each survived slave as well
+    # write new subordinates file to each survived subordinate as well
     for i in survived_inst:
         with remote.get_remote(i) as r:
             r.write_files_to(files)
 
-    run.start_spark_master(r_master, sp_home)
+    run.start_spark_main(r_main, sp_home)
 
 
 def _is_decommissioned(r, inst_to_be_deleted):

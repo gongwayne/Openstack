@@ -51,8 +51,8 @@ class TestIpLinkSupport(base.BaseTestCase):
                                    [ rate TXRATE ] ]
                                    [ spoofchk { on | off} ] ]
                                    [ state { auto | enable | disable} ] ]
-                          [ master DEVICE ]
-                          [ nomaster ]
+                          [ main DEVICE ]
+                          [ nomain ]
        ip link show [ DEVICE | group GROUP ] [up]
 
 TYPE := { vlan | veth | vcan | dummy | ifb | macvlan | macvtap |

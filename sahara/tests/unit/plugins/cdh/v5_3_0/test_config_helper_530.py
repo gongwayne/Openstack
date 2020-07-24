@@ -47,7 +47,7 @@ json_files = [
     'zookeeper-service.json',
     'zookeeper-server.json',
     'hbase-service.json',
-    'hbase-master.json',
+    'hbase-main.json',
     'hbase-regionserver.json',
     'flume-service.json',
     'flume-agent.json',

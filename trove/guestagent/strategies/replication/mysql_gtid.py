@@ -35,24 +35,24 @@ LOG = logging.getLogger(__name__)
 class MysqlGTIDReplication(mysql_base.MysqlReplicationBase):
     """MySql Replication coordinated by GTIDs."""
 
-    class UnableToDetermineLastMasterGTID(exception.TroveError):
-        message = _("Unable to determine last GTID executed on master "
+    class UnableToDetermineLastMainGTID(exception.TroveError):
+        message = _("Unable to determine last GTID executed on main "
                     "(from file %(binlog_file)s).")
 
-    def connect_to_master(self, service, snapshot):
+    def connect_to_main(self, service, snapshot):
         if 'dataset' in snapshot:
-            # pull the last executed GTID from the master via
+            # pull the last executed GTID from the main via
             # the xtrabackup metadata file. If that value is
             # provided we need to set the gtid_purged variable
             # before executing the CHANGE MASTER TO command
-            last_gtid = self._read_last_master_gtid()
+            last_gtid = self._read_last_main_gtid()
             if last_gtid:
                 set_gtid_cmd = "SET GLOBAL gtid_purged='%s'" % last_gtid
                 service.execute_on_client(set_gtid_cmd)
 
         logging_config = snapshot['log_position']
-        LOG.debug("connect_to_master %s" % logging_config['replication_user'])
-        change_master_cmd = (
+        LOG.debug("connect_to_main %s" % logging_config['replication_user'])
+        change_main_cmd = (
             "CHANGE MASTER TO MASTER_HOST='%(host)s', "
             "MASTER_PORT=%(port)s, "
             "MASTER_USER='%(user)s', "
@@ -60,19 +60,19 @@ class MysqlGTIDReplication(mysql_base.MysqlReplicationBase):
             "MASTER_AUTO_POSITION=1, "
             "MASTER_CONNECT_RETRY=15" %
             {
-                'host': snapshot['master']['host'],
-                'port': snapshot['master']['port'],
+                'host': snapshot['main']['host'],
+                'port': snapshot['main']['port'],
                 'user': logging_config['replication_user']['name'],
                 'password': logging_config['replication_user']['password']
             })
-        service.execute_on_client(change_master_cmd)
-        service.start_slave()
+        service.execute_on_client(change_main_cmd)
+        service.start_subordinate()
 
-    def _read_last_master_gtid(self):
+    def _read_last_main_gtid(self):
         INFO_FILE = ('%s/xtrabackup_binlog_info' % MySqlApp.get_data_dir())
         LOG.info(_("Setting read permissions on %s") % INFO_FILE)
         operating_system.chmod(INFO_FILE, FileMode.ADD_READ_ALL, as_root=True)
-        LOG.info(_("Reading last master GTID from %s") % INFO_FILE)
+        LOG.info(_("Reading last main GTID from %s") % INFO_FILE)
         try:
             with open(INFO_FILE, 'rb') as f:
                 row = csv.reader(f, delimiter='\t',
@@ -80,5 +80,5 @@ class MysqlGTIDReplication(mysql_base.MysqlReplicationBase):
                 return row[2]
         except (IOError, IndexError) as ex:
             LOG.exception(ex)
-            raise self.UnableToDetermineLastMasterGTID(
+            raise self.UnableToDetermineLastMainGTID(
                 {'binlog_file': INFO_FILE})

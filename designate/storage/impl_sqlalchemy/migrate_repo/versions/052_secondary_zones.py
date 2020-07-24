@@ -26,7 +26,7 @@ from designate.sqlalchemy.types import UUID
 
 meta = MetaData()
 
-ZONE_ATTRIBUTE_KEYS = ('master',)
+ZONE_ATTRIBUTE_KEYS = ('main',)
 
 ZONE_TYPES = ('PRIMARY', 'SECONDARY')
 

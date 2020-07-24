@@ -60,9 +60,9 @@ pxe_opts = [
                help=_("ironic-conductor node's TFTP root path. The "
                       "ironic-conductor must have read/write access to this "
                       "path.")),
-    cfg.StrOpt('tftp_master_path',
-               default='/tftpboot/master_images',
-               help=_('On ironic-conductor node, directory where master TFTP '
+    cfg.StrOpt('tftp_main_path',
+               default='/tftpboot/main_images',
+               help=_('On ironic-conductor node, directory where main TFTP '
                       'images are stored on disk. '
                       'Setting to <None> disables image caching.')),
     # NOTE(dekehn): Additional boot files options may be created in the event
@@ -335,7 +335,7 @@ def validate_boot_parameters_for_trusted_boot(node):
 class TFTPImageCache(image_cache.ImageCache):
     def __init__(self):
         super(TFTPImageCache, self).__init__(
-            CONF.pxe.tftp_master_path,
+            CONF.pxe.tftp_main_path,
             # MiB -> B
             cache_size=CONF.pxe.image_cache_size * 1024 * 1024,
             # min -> sec

@@ -986,7 +986,7 @@ class CentralZoneTestCase(CentralBasic):
             name='example.org.',
             tenant_id='2',
             type='SECONDARY',
-            masters=[RoObject(host='10.0.0.1', port=53)],
+            mains=[RoObject(host='10.0.0.1', port=53)],
             serial=1,
         )
         with fx_mdns_api:

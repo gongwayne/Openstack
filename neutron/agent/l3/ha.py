@@ -101,7 +101,7 @@ class AgentMixin(object):
         state_change_server.run()
 
     def _calculate_batch_duration(self):
-        # Slave becomes the master after not hearing from it 3 times
+        # Subordinate becomes the main after not hearing from it 3 times
         detection_time = self.conf.ha_vrrp_advert_int * 3
 
         # Keepalived takes a couple of seconds to configure the VIPs
@@ -134,7 +134,7 @@ class AgentMixin(object):
         # include any IPv6 subnet, enable the gateway interface to accept
         # Router Advts from upstream router for default route.
         ex_gw_port_id = ri.ex_gw_port and ri.ex_gw_port['id']
-        if state == 'master' and ex_gw_port_id and ri.use_ipv6:
+        if state == 'main' and ex_gw_port_id and ri.use_ipv6:
             gateway_ips = ri._get_external_gw_ips(ri.ex_gw_port)
             if not ri.is_v6_gateway_set(gateway_ips):
                 interface_name = ri.get_external_device_name(ex_gw_port_id)
@@ -145,7 +145,7 @@ class AgentMixin(object):
                 ri.driver.configure_ipv6_ra(namespace, interface_name)
 
     def _update_metadata_proxy(self, ri, router_id, state):
-        if state == 'master':
+        if state == 'main':
             LOG.debug('Spawning metadata proxy for router %s', router_id)
             self.metadata_driver.spawn_monitored_metadata_proxy(
                 self.process_monitor, ri.ns_name, self.conf.metadata_port,
@@ -156,15 +156,15 @@ class AgentMixin(object):
                 self.process_monitor, ri.router_id, self.conf)
 
     def _update_radvd_daemon(self, ri, state):
-        # Radvd has to be spawned only on the Master HA Router. If there are
+        # Radvd has to be spawned only on the Main HA Router. If there are
         # any state transitions, we enable/disable radvd accordingly.
-        if state == 'master':
+        if state == 'main':
             ri.enable_radvd()
         else:
             ri.disable_radvd()
 
     def notify_server(self, batched_events):
-        translation_map = {'master': 'active',
+        translation_map = {'main': 'active',
                            'backup': 'standby',
                            'fault': 'standby'}
         translated_states = dict((router_id, translation_map[state]) for

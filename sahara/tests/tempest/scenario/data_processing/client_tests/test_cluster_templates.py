@@ -31,7 +31,7 @@ class ClusterTemplateTest(base.BaseDataProcessingTest):
         full_cluster_template = self.cluster_template.copy()
         full_cluster_template['node_groups'] = [
             {
-                'name': 'master-node',
+                'name': 'main-node',
                 'flavor_id': TEMPEST_CONF.compute.flavor_ref,
                 'node_processes': ['namenode'],
                 'count': 1

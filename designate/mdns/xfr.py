@@ -30,7 +30,7 @@ class XFRMixin(object):
     Utility mixin that holds common methods for XFR functionality.
     """
     def zone_sync(self, context, zone, servers=None):
-        servers = servers or zone.masters
+        servers = servers or zone.mains
         servers = servers.to_list()
 
         timeout = cfg.CONF["service:mdns"].xfr_timeout

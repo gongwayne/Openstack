@@ -31,8 +31,8 @@ class Replication(Strategy):
         super(Replication, self).__init__()
 
     @abc.abstractmethod
-    def get_master_ref(self, service, snapshot_info):
-        """Get reference to master site for replication strategy."""
+    def get_main_ref(self, service, snapshot_info):
+        """Get reference to main site for replication strategy."""
 
     def backup_required_for_replication(self):
         """Indicates whether a backup is required for replication."""
@@ -41,24 +41,24 @@ class Replication(Strategy):
     @abc.abstractmethod
     def snapshot_for_replication(self, context, service, location,
                                  snapshot_info):
-        """Capture snapshot of master db."""
+        """Capture snapshot of main db."""
 
     @abc.abstractmethod
-    def enable_as_master(self, service, master_config):
-        """Configure underlying database to act as master for replication."""
+    def enable_as_main(self, service, main_config):
+        """Configure underlying database to act as main for replication."""
 
     @abc.abstractmethod
-    def enable_as_slave(self, service, snapshot, slave_config):
-        """Configure underlying database as a slave of the given master."""
+    def enable_as_subordinate(self, service, snapshot, subordinate_config):
+        """Configure underlying database as a subordinate of the given main."""
 
     @abc.abstractmethod
-    def detach_slave(self, service, for_failover):
-        """Turn off replication on a slave site."""
+    def detach_subordinate(self, service, for_failover):
+        """Turn off replication on a subordinate site."""
 
     @abc.abstractmethod
     def cleanup_source_on_replica_detach(self, service, replica_info):
         """Clean up the source on the detach of a replica."""
 
     @abc.abstractmethod
-    def demote_master(self, service):
-        """Turn off replication on a master site."""
+    def demote_main(self, service):
+        """Turn off replication on a main site."""

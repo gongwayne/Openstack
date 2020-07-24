@@ -11,7 +11,7 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations
 # under the License.
-"""add master count to bay
+"""add main count to bay
 
 Revision ID: 14328d6a57e3
 Revises: 53882537ac57
@@ -29,4 +29,4 @@ import sqlalchemy as sa
 
 def upgrade():
     op.add_column('bay',
-                  sa.Column('master_count', sa.Integer(), nullable=True))
+                  sa.Column('main_count', sa.Integer(), nullable=True))

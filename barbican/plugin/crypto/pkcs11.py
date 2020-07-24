@@ -445,14 +445,14 @@ class PKCS11(object):
         return pt
 
     def generate_key(self, key_length, session, key_label=None,
-                     encrypt=False, sign=False, wrap=False, master_key=False):
+                     encrypt=False, sign=False, wrap=False, main_key=False):
         if not encrypt and not sign and not wrap:
             raise P11CryptoPluginException()
-        if master_key and not key_label:
-            raise ValueError(u._("key_label must be set for master_keys"))
+        if main_key and not key_label:
+            raise ValueError(u._("key_label must be set for main_keys"))
 
-        token = True if master_key else False
-        extractable = False if master_key else True
+        token = True if main_key else False
+        extractable = False if main_key else True
 
         ck_attributes = [
             Attribute(CKA_CLASS, CKO_SECRET_KEY),
@@ -469,7 +469,7 @@ class PKCS11(object):
             Attribute(CKA_UNWRAP, wrap),
             Attribute(CKA_EXTRACTABLE, extractable)
         ]
-        if master_key:
+        if main_key:
             ck_attributes.append(Attribute(CKA_LABEL, key_label))
         ck_attributes = self._build_attributes(ck_attributes)
         mech = self.ffi.new("CK_MECHANISM *")

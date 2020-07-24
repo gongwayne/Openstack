@@ -29,7 +29,7 @@ class TestBayConductorWithSwarm(base.TestCase):
         self.baymodel_dict = {
             'image_id': 'image_id',
             'flavor_id': 'flavor_id',
-            'master_flavor_id': 'master_flavor_id',
+            'main_flavor_id': 'main_flavor_id',
             'keypair_id': 'keypair_id',
             'dns_nameserver': 'dns_nameserver',
             'docker_volume_size': 20,
@@ -54,7 +54,7 @@ class TestBayConductorWithSwarm(base.TestCase):
             'stack_id': 'xx-xx-xx-xx',
             'api_address': '172.17.2.3',
             'node_addresses': ['172.17.2.4'],
-            'master_count': 1,
+            'main_count': 1,
             'node_count': 1,
             'discovery_url': 'https://discovery.test.io/123456789',
             'trustee_username': 'fake_trustee',
@@ -92,9 +92,9 @@ class TestBayConductorWithSwarm(base.TestCase):
             'external_network': 'external_network_id',
             'dns_nameserver': 'dns_nameserver',
             'server_image': 'image_id',
-            'master_flavor': 'master_flavor_id',
+            'main_flavor': 'main_flavor_id',
             'node_flavor': 'flavor_id',
-            'number_of_masters': 1,
+            'number_of_mains': 1,
             'number_of_nodes': 1,
             'docker_volume_size': 20,
             'discovery_url': 'https://discovery.test.io/123456789',
@@ -126,7 +126,7 @@ class TestBayConductorWithSwarm(base.TestCase):
         not_required = ['image_id', 'flavor_id', 'dns_nameserver',
                         'docker_volume_size', 'fixed_network', 'http_proxy',
                         'https_proxy', 'no_proxy', 'network_driver',
-                        'master_flavor_id']
+                        'main_flavor_id']
         for key in not_required:
             self.baymodel_dict[key] = None
         self.bay_dict['discovery_url'] = 'https://discovery.etcd.io/test'
@@ -142,7 +142,7 @@ class TestBayConductorWithSwarm(base.TestCase):
         expected = {
             'ssh_key_name': 'keypair_id',
             'external_network': 'external_network_id',
-            'number_of_masters': 1,
+            'number_of_mains': 1,
             'number_of_nodes': 1,
             'discovery_url': 'https://discovery.etcd.io/test',
             'user_token': 'fake_token',

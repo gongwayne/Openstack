@@ -58,8 +58,8 @@ SPARK_CONFS = {
                 'priority': 2,
             },
             {
-                'name': 'Master port',
-                'description': 'Start the master on a different port'
+                'name': 'Main port',
+                'description': 'Start the main on a different port'
                 ' (default: 7077)',
                 'default': '7077',
                 'priority': 2,
@@ -72,8 +72,8 @@ SPARK_CONFS = {
                 'priority': 2,
             },
             {
-                'name': 'Master webui port',
-                'description': 'Port for the master web UI (default: 8080)',
+                'name': 'Main webui port',
+                'description': 'Port for the main web UI (default: 8080)',
                 'default': '8080',
                 'priority': 1,
             },
@@ -313,27 +313,27 @@ def _get_spark_opt_default(opt_name):
 def generate_spark_env_configs(cluster):
     configs = []
 
-    # master configuration
-    sp_master = utils.get_instance(cluster, "master")
-    configs.append('SPARK_MASTER_IP=' + sp_master.hostname())
+    # main configuration
+    sp_main = utils.get_instance(cluster, "main")
+    configs.append('SPARK_MASTER_IP=' + sp_main.hostname())
 
     # point to the hadoop conf dir so that Spark can read things
     # like the swift configuration without having to copy core-site
     # to /opt/spark/conf
     configs.append('HADOOP_CONF_DIR=' + HADOOP_CONF_DIR)
 
-    masterport = utils.get_config_value_or_default("Spark",
-                                                   "Master port",
+    mainport = utils.get_config_value_or_default("Spark",
+                                                   "Main port",
                                                    cluster)
-    if masterport and masterport != _get_spark_opt_default("Master port"):
-        configs.append('SPARK_MASTER_PORT=' + str(masterport))
+    if mainport and mainport != _get_spark_opt_default("Main port"):
+        configs.append('SPARK_MASTER_PORT=' + str(mainport))
 
-    masterwebport = utils.get_config_value_or_default("Spark",
-                                                      "Master webui port",
+    mainwebport = utils.get_config_value_or_default("Spark",
+                                                      "Main webui port",
                                                       cluster)
-    if (masterwebport and
-            masterwebport != _get_spark_opt_default("Master webui port")):
-        configs.append('SPARK_MASTER_WEBUI_PORT=' + str(masterwebport))
+    if (mainwebport and
+            mainwebport != _get_spark_opt_default("Main webui port")):
+        configs.append('SPARK_MASTER_WEBUI_PORT=' + str(mainwebport))
 
     # configuration for workers
     workercores = utils.get_config_value_or_default("Spark",
@@ -372,7 +372,7 @@ def generate_spark_env_configs(cluster):
 
 
 # workernames need to be a list of woker names
-def generate_spark_slaves_configs(workernames):
+def generate_spark_subordinates_configs(workernames):
     return '\n'.join(workernames)
 
 

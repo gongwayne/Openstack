@@ -40,10 +40,10 @@ class MysqlBinlogReplication(mysql_base.MysqlReplicationBase):
         message = _("Unable to determine binlog position "
                     "(from file %(binlog_file)s).")
 
-    def connect_to_master(self, service, snapshot):
+    def connect_to_main(self, service, snapshot):
         logging_config = snapshot['log_position']
         logging_config.update(self._read_log_position())
-        change_master_cmd = (
+        change_main_cmd = (
             "CHANGE MASTER TO MASTER_HOST='%(host)s', "
             "MASTER_PORT=%(port)s, "
             "MASTER_USER='%(user)s', "
@@ -52,15 +52,15 @@ class MysqlBinlogReplication(mysql_base.MysqlReplicationBase):
             "MASTER_LOG_POS=%(log_pos)s, "
             "MASTER_CONNECT_RETRY=15" %
             {
-                'host': snapshot['master']['host'],
-                'port': snapshot['master']['port'],
+                'host': snapshot['main']['host'],
+                'port': snapshot['main']['port'],
                 'user': logging_config['replication_user']['name'],
                 'password': logging_config['replication_user']['password'],
                 'log_file': logging_config['log_file'],
                 'log_pos': logging_config['log_position']
             })
-        service.execute_on_client(change_master_cmd)
-        service.start_slave()
+        service.execute_on_client(change_main_cmd)
+        service.start_subordinate()
 
     def _read_log_position(self):
         INFO_FILE = ('%s/xtrabackup_binlog_info' % MySqlApp.get_data_dir())

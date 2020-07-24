@@ -141,7 +141,7 @@ class Manager(manager.Manager):
     def get_replication_snapshot(self, context, snapshot_info,
                                  replica_source_config=None):
         LOG.debug("Getting replication snapshot.")
-        self.replication.enable_as_master(self._app, replica_source_config)
+        self.replication.enable_as_main(self._app, replica_source_config)
 
         snapshot_id, log_position = self.replication.snapshot_for_replication(
             context, self._app, None, snapshot_info)
@@ -156,20 +156,20 @@ class Manager(manager.Manager):
                 'snapshot_id': snapshot_id
             },
             'replication_strategy': self.replication_strategy,
-            'master': self.replication.get_master_ref(self._app,
+            'main': self.replication.get_main_ref(self._app,
                                                       snapshot_info),
             'log_position': log_position
         }
 
         return replication_snapshot
 
-    def enable_as_master(self, context, replica_source_config):
-        LOG.debug("Calling enable_as_master.")
-        self.replication.enable_as_master(self._app, replica_source_config)
+    def enable_as_main(self, context, replica_source_config):
+        LOG.debug("Calling enable_as_main.")
+        self.replication.enable_as_main(self._app, replica_source_config)
 
     def detach_replica(self, context, for_failover=False):
         LOG.debug("Detaching replica.")
-        replica_info = self.replication.detach_slave(self._app, for_failover)
+        replica_info = self.replication.detach_subordinate(self._app, for_failover)
         return replica_info
 
     def get_replica_context(self, context):
@@ -177,20 +177,20 @@ class Manager(manager.Manager):
         replica_info = self.replication.get_replica_context(self._app)
         return replica_info
 
-    def _validate_slave_for_replication(self, context, replica_info):
+    def _validate_subordinate_for_replication(self, context, replica_info):
         if replica_info['replication_strategy'] != self.replication_strategy:
             raise exception.IncompatibleReplicationStrategy(
                 replica_info.update({
                     'guest_strategy': self.replication_strategy
                 }))
 
-    def attach_replica(self, context, replica_info, slave_config):
+    def attach_replica(self, context, replica_info, subordinate_config):
         LOG.debug("Attaching replica.")
         try:
             if 'replication_strategy' in replica_info:
-                self._validate_slave_for_replication(context, replica_info)
-            self.replication.enable_as_slave(self._app, replica_info,
-                                             slave_config)
+                self._validate_subordinate_for_replication(context, replica_info)
+            self.replication.enable_as_subordinate(self._app, replica_info,
+                                             subordinate_config)
         except Exception:
             LOG.exception("Error enabling replication.")
             raise
@@ -202,9 +202,9 @@ class Manager(manager.Manager):
     def _get_repl_info(self):
         return self._app.admin.get_info('replication')
 
-    def _get_master_host(self):
-        slave_info = self._get_repl_info()
-        return slave_info and slave_info['master_host'] or None
+    def _get_main_host(self):
+        subordinate_info = self._get_repl_info()
+        return subordinate_info and subordinate_info['main_host'] or None
 
     def _get_repl_offset(self):
         repl_info = self._get_repl_info()
@@ -215,9 +215,9 @@ class Manager(manager.Manager):
         return int(offset)
 
     def get_last_txn(self, context):
-        master_host = self._get_master_host()
+        main_host = self._get_main_host()
         repl_offset = self._get_repl_offset()
-        return master_host, repl_offset
+        return main_host, repl_offset
 
     def get_latest_txn_id(self, context):
         LOG.info(_("Retrieving latest repl offset."))
@@ -242,9 +242,9 @@ class Manager(manager.Manager):
         self.replication.cleanup_source_on_replica_detach(self._app,
                                                           replica_info)
 
-    def demote_replication_master(self, context):
+    def demote_replication_main(self, context):
         LOG.debug("Demoting replica source.")
-        self.replication.demote_master(self._app)
+        self.replication.demote_main(self._app)
 
     def cluster_meet(self, context, ip, port):
         LOG.debug("Executing cluster_meet to join node to cluster.")

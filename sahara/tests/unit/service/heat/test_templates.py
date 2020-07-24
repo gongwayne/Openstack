@@ -33,7 +33,7 @@ class BaseTestClusterTemplate(base.SaharaWithDbTestCase):
     into Heat templates.
     """
     def _make_node_groups(self, floating_ip_pool=None, volume_type=None):
-        ng1 = tu.make_ng_dict('master', 42, ['namenode'], 1,
+        ng1 = tu.make_ng_dict('main', 42, ['namenode'], 1,
                               floating_ip_pool=floating_ip_pool, image_id=None,
                               volumes_per_node=0, volumes_size=0, id="1",
                               image_username='root', volume_type=None)
@@ -67,7 +67,7 @@ class TestClusterTemplate(BaseTestClusterTemplate):
                                      anti_affinity=["datanode"])
         heat_template = self._make_heat_template(cluster, ng1, ng2)
 
-        ng1 = [ng for ng in cluster.node_groups if ng.name == "master"][0]
+        ng1 = [ng for ng in cluster.node_groups if ng.name == "main"][0]
         ng2 = [ng for ng in cluster.node_groups if ng.name == "worker"][0]
 
         expected = {
@@ -92,7 +92,7 @@ class TestClusterTemplate(BaseTestClusterTemplate):
         cluster = self._make_cluster('private_net', ng1, ng2)
         heat_template = self._make_heat_template(cluster, ng1, ng2)
 
-        ng1 = [ng for ng in cluster.node_groups if ng.name == "master"][0]
+        ng1 = [ng for ng in cluster.node_groups if ng.name == "main"][0]
         ng2 = [ng for ng in cluster.node_groups if ng.name == "worker"][0]
         expected = ['1', '2']
         actual = heat_template._get_security_groups(ng1)
@@ -128,14 +128,14 @@ class TestClusterTemplate(BaseTestClusterTemplate):
             (ipv6_cidr, 'IPv6', 'udp', '1', '65535'),
             (ipv6_cidr, 'IPv6', 'icmp', '0', '255'),
         ]
-        expected = {'cluster-master-1': {
+        expected = {'cluster-main-1': {
             'type': 'OS::Neutron::SecurityGroup',
             'properties': {
                 'description': 'Data Processing Cluster by Sahara\n'
                                'Sahara cluster name: cluster\n'
                                'Sahara engine: heat.3.0\n'
                                'Auto security group for Sahara Node '
-                               'Group: master',
+                               'Group: main',
                 'rules': [{
                     'remote_ip_prefix': rule[0],
                     'ethertype': rule[1],
@@ -149,14 +149,14 @@ class TestClusterTemplate(BaseTestClusterTemplate):
         self.assertEqual(expected, actual)
 
     def test_serialize_auto_security_group_nova_network(self):
-        expected = {'cluster-master-1': {
+        expected = {'cluster-main-1': {
             'type': 'AWS::EC2::SecurityGroup',
             'properties': {
                 'GroupDescription': 'Data Processing Cluster by Sahara\n'
                                     'Sahara cluster name: cluster\n'
                                     'Sahara engine: heat.3.0\n'
                                     'Auto security group for Sahara '
-                                    'Node Group: master',
+                                    'Node Group: main',
                 'SecurityGroupIngress': [{
                     'ToPort': '22',
                     'CidrIp': '0.0.0.0/0',
@@ -208,11 +208,11 @@ class TestClusterTemplateWaitCondition(BaseTestClusterTemplate):
             "depends_on": "inst",
             "properties": {
                 "timeout": 3600,
-                "handle": {"get_resource": "master-wc-handle"}
+                "handle": {"get_resource": "main-wc-handle"}
             }
         }
-        self.assertEqual(expected_wc_handle, instance["master-wc-handle"])
-        self.assertEqual(expected_wc_waiter, instance["master-wc-waiter"])
+        self.assertEqual(expected_wc_handle, instance["main-wc-handle"])
+        self.assertEqual(expected_wc_waiter, instance["main-wc-waiter"])
 
 
 def get_ud_generator(s):

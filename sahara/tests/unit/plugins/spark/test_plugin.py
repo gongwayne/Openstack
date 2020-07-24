@@ -102,7 +102,7 @@ class SparkPluginTest(base.SaharaWithDbTestCase):
             'valid': True,
             'script': 'script_text',
             'cron': 'cron_text'}}
-        instance.node_group.node_processes = ["master"]
+        instance.node_group.node_processes = ["main"]
         instance.node_group.id = id
         cluster_dict = self._init_cluster_dict('1.3.1')
 
@@ -121,7 +121,7 @@ class SparkPluginTest(base.SaharaWithDbTestCase):
         self.assertFalse(remote.called)
 
         remote.reset_mock()
-        instance.node_group.node_processes = ["master"]
+        instance.node_group.node_processes = ["main"]
         extra_conf['job_cleanup']['valid'] = False
         plugin._push_cleanup_job(remote, cluster, extra_conf, instance)
         remote.execute_command.assert_called_with(

@@ -49,7 +49,7 @@ class NSD4Backend(base.Backend):
                                          '/etc/nsd/nsd_control.pem')
         self.keyfile = self.options.get('keyfile',
                                         '/etc/nsd/nsd_control.key')
-        self.pattern = self.options.get('pattern', 'slave')
+        self.pattern = self.options.get('pattern', 'subordinate')
 
     def _command(self, command):
             sock = eventlet.wrap_ssl(
@@ -77,14 +77,14 @@ class NSD4Backend(base.Backend):
 
     def create_zone(self, context, zone):
         LOG.debug('Create Zone')
-        masters = []
-        for master in self.masters:
-            host = master['host']
-            port = master['port']
-            masters.append('%s port %s' % (host, port))
+        mains = []
+        for main in self.mains:
+            host = main['host']
+            port = main['port']
+            mains.append('%s port %s' % (host, port))
 
         # Ensure different MiniDNS instances are targeted for AXFRs
-        random.shuffle(masters)
+        random.shuffle(mains)
 
         command = 'addzone %s %s' % (zone['name'], self.pattern)
 

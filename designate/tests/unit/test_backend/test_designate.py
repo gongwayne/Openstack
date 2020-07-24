@@ -67,7 +67,7 @@ class DesignateBackendTest(oslotest.base.BaseTestCase):
         self.target = RoObject({
             'id': '4588652b-50e7-46b9-b688-a9bad40a873e',
             'type': 'dyndns',
-            'masters': [RoObject({'host': '192.0.2.1', 'port': 53})],
+            'mains': [RoObject({'host': '192.0.2.1', 'port': 53})],
             'options': opts
         })
 
@@ -89,12 +89,12 @@ class DesignateBackendTest(oslotest.base.BaseTestCase):
 
     def test_create_zone(self):
         zone = create_zone()
-        masters = ["%(host)s:%(port)s" % self.target.masters[0]]
+        mains = ["%(host)s:%(port)s" % self.target.mains[0]]
         with patch.object(
                 self.backend, '_get_client', return_value=self.client):
             self.backend.create_zone(self.admin_context, zone)
         self.client.zones.create.assert_called_once_with(
-            zone.name, 'SECONDARY', masters=masters)
+            zone.name, 'SECONDARY', mains=mains)
 
     def test_delete_zone(self):
         zone = create_zone()

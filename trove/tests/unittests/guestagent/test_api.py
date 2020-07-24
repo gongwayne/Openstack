@@ -24,7 +24,7 @@ from trove.guestagent import api
 from trove import rpc
 from trove.tests.unittests import trove_testtools
 
-REPLICATION_SNAPSHOT = {'master': {'id': '123', 'host': '192.168.0.1',
+REPLICATION_SNAPSHOT = {'main': {'id': '123', 'host': '192.168.0.1',
                                    'port': 3306},
                         'dataset': {},
                         'binlog_position': 'binpos'}
@@ -314,13 +314,13 @@ class ApiTest(trove_testtools.TestCase):
         self._verify_call('get_replication_snapshot', snapshot_info={},
                           replica_source_config=None)
 
-    def test_attach_replication_slave(self):
+    def test_attach_replication_subordinate(self):
         # execute
-        self.api.attach_replication_slave(REPLICATION_SNAPSHOT)
+        self.api.attach_replication_subordinate(REPLICATION_SNAPSHOT)
         # verify
         self._verify_rpc_prepare_before_cast()
-        self._verify_cast('attach_replication_slave',
-                          snapshot=REPLICATION_SNAPSHOT, slave_config=None)
+        self._verify_cast('attach_replication_subordinate',
+                          snapshot=REPLICATION_SNAPSHOT, subordinate_config=None)
 
     def test_detach_replica(self):
         # execute
@@ -338,11 +338,11 @@ class ApiTest(trove_testtools.TestCase):
 
     def test_attach_replica(self):
         # execute
-        self.api.attach_replica(REPLICATION_SNAPSHOT, slave_config=None)
+        self.api.attach_replica(REPLICATION_SNAPSHOT, subordinate_config=None)
         # verify
         self._verify_rpc_prepare_before_call()
         self._verify_call('attach_replica',
-                          replica_info=REPLICATION_SNAPSHOT, slave_config=None)
+                          replica_info=REPLICATION_SNAPSHOT, subordinate_config=None)
 
     def test_make_read_only(self):
         # execute
@@ -351,12 +351,12 @@ class ApiTest(trove_testtools.TestCase):
         self._verify_rpc_prepare_before_call()
         self._verify_call('make_read_only', read_only=True)
 
-    def test_enable_as_master(self):
+    def test_enable_as_main(self):
         # execute
-        self.api.enable_as_master({})
+        self.api.enable_as_main({})
         # verify
         self._verify_rpc_prepare_before_call()
-        self._verify_call('enable_as_master', replica_source_config={})
+        self._verify_call('enable_as_main', replica_source_config={})
 
     def test_get_txn_count(self):
         # execute
@@ -395,12 +395,12 @@ class ApiTest(trove_testtools.TestCase):
         self._verify_call('cleanup_source_on_replica_detach',
                           replica_info={'replication_user': 'test_user'})
 
-    def test_demote_replication_master(self):
+    def test_demote_replication_main(self):
         # execute
-        self.api.demote_replication_master()
+        self.api.demote_replication_main()
         # verify
         self._verify_rpc_prepare_before_call()
-        self._verify_call('demote_replication_master')
+        self._verify_call('demote_replication_main')
 
     @mock.patch.object(messaging, 'Target')
     @mock.patch.object(rpc, 'get_server')

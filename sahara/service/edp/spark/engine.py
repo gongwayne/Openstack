@@ -45,10 +45,10 @@ CONF = cfg.CONF
 class SparkJobEngine(base_engine.JobEngine):
     def __init__(self, cluster):
         self.cluster = cluster
-        # We'll always run the driver program on the master
-        self.master = None
+        # We'll always run the driver program on the main
+        self.main = None
         # These parameters depend on engine that is used
-        self.plugin_params = {"master": "",
+        self.plugin_params = {"main": "",
                               "spark-user": "",
                               "deploy-mode": "",
                               "spark-submit": "",
@@ -231,7 +231,7 @@ class SparkJobEngine(base_engine.JobEngine):
             indep_params["wrapper_jar"] = builtin_paths.pop(0)
             indep_params["wrapper_class"] = (
                 'org.openstack.sahara.edp.SparkWrapper')
-            wrapper_xml = self._upload_wrapper_xml(self.master,
+            wrapper_xml = self._upload_wrapper_xml(self.main,
                                                    wf_dir,
                                                    updated_job_configs)
             indep_params["wrapper_args"] = "%s %s" % (
@@ -274,7 +274,7 @@ class SparkJobEngine(base_engine.JobEngine):
                 '%(spark-user)s%(spark-submit)s%(driver-class-path)s'
                 ' --files %(addnl_files)s'
                 ' --class %(wrapper_class)s%(addnl_jars)s'
-                ' --master %(master)s'
+                ' --main %(main)s'
                 ' --deploy-mode %(deploy-mode)s'
                 ' %(app_jar)s %(wrapper_args)s%(args)s') % dict(
                 mutual_dict)
@@ -282,7 +282,7 @@ class SparkJobEngine(base_engine.JobEngine):
             cmd = (
                 '%(spark-user)s%(spark-submit)s%(driver-class-path)s'
                 ' --class %(job_class)s%(addnl_jars)s'
-                ' --master %(master)s'
+                ' --main %(main)s'
                 ' --deploy-mode %(deploy-mode)s'
                 ' %(app_jar)s%(args)s') % dict(
                 mutual_dict)
@@ -317,15 +317,15 @@ class SparkJobEngine(base_engine.JobEngine):
                 break
 
         # It is needed in case we are working with Spark plugin
-        self.plugin_params['master'] = (
-            self.plugin_params['master'] % {'host': self.master.hostname()})
+        self.plugin_params['main'] = (
+            self.plugin_params['main'] % {'host': self.main.hostname()})
 
         # TODO(tmckay): wf_dir should probably be configurable.
         # The only requirement is that the dir is writable by the image user
-        wf_dir = job_utils.create_workflow_dir(self.master, '/tmp/spark-edp',
+        wf_dir = job_utils.create_workflow_dir(self.main, '/tmp/spark-edp',
                                                job, job_execution.id, "700")
         paths, builtin_paths = self._upload_job_files(
-            self.master, wf_dir, job, updated_job_configs)
+            self.main, wf_dir, job, updated_job_configs)
 
         # We can shorten the paths in this case since we'll run out of wf_dir
         paths = [os.path.basename(p) if p.startswith(wf_dir) else p
@@ -342,7 +342,7 @@ class SparkJobEngine(base_engine.JobEngine):
         # If an exception is raised here, the job_manager will mark
         # the job failed and log the exception
         # The redirects of stdout and stderr will preserve output in the wf_dir
-        with remote.get_remote(self.master) as r:
+        with remote.get_remote(self.main) as r:
             # Upload the command launch script
             launch = os.path.join(wf_dir, "launch_command")
             r.write_file_to(launch, self._job_script())
@@ -357,7 +357,7 @@ class SparkJobEngine(base_engine.JobEngine):
             # pid@instance_id as the job id
 
             # We know the job is running so return "RUNNING"
-            return (stdout.strip() + "@" + self.master.id,
+            return (stdout.strip() + "@" + self.main.id,
                     edp.JOB_STATUS_RUNNING,
                     {'spark-path': wf_dir})
 

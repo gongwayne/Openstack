@@ -159,12 +159,12 @@ class TestBayObject(base.DbTestCase):
                                    autospec=True) as mock_update_bay:
                 bay = objects.Bay.get_by_uuid(self.context, uuid)
                 bay.node_count = 10
-                bay.master_count = 5
+                bay.main_count = 5
                 bay.save()
 
                 mock_get_bay.assert_called_once_with(self.context, uuid)
                 mock_update_bay.assert_called_once_with(
-                    uuid, {'node_count': 10, 'master_count': 5,
+                    uuid, {'node_count': 10, 'main_count': 5,
                            'baymodel': self.fake_baymodel})
                 self.assertEqual(self.context, bay._context)
 

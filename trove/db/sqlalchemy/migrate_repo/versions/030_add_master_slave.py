@@ -21,7 +21,7 @@ from trove.db.sqlalchemy.migrate_repo.schema import Table
 from trove.db.sqlalchemy import utils as db_utils
 
 
-COLUMN_NAME = 'slave_of_id'
+COLUMN_NAME = 'subordinate_of_id'
 
 
 def upgrade(migrate_engine):
@@ -45,6 +45,6 @@ def downgrade(migrate_engine):
         ref_columns=['id'])
     db_utils.drop_foreign_key_constraints(
         constraint_names=constraint_names,
-        columns=[instances.c.slave_of_id],
+        columns=[instances.c.subordinate_of_id],
         ref_columns=[instances.c.id])
     instances.drop_column(COLUMN_NAME)

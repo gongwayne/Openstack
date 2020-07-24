@@ -51,7 +51,7 @@ def get_fake_cluster_with_process(processes=None,
     # default
     mng_ng = ('manager_ng', 1, ['CLOUDERA_MANAGER'], 1)
 
-    mst_ng = ('master_ng', 1, ['HDFS_NAMENODE',
+    mst_ng = ('main_ng', 1, ['HDFS_NAMENODE',
                                'HDFS_SECONDARYNAMENODE',
                                'YARN_RESOURCEMANAGER',
                                'YARN_JOBHISTORY',

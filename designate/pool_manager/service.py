@@ -122,7 +122,7 @@ class Service(service.RPCService, coordination.CoordinationMixin,
 
         for target in self.pool.targets:
             # Fetch an instance of the Backend class, passing in the options
-            # and masters
+            # and mains
             self.target_backends[target.id] = backend.get_backend(
                 target.type, target)
 

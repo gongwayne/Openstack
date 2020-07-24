@@ -100,8 +100,8 @@ class Helpers(object):
             self.request.session.update(
                 {"plugin_name": None,
                  "plugin_version": None,
-                 "master_name": None,
-                 "master_id": None,
+                 "main_name": None,
+                 "main_id": None,
                  "worker_name": None,
                  "worker_id": None,
                  "guide_cluster_template_name": None})

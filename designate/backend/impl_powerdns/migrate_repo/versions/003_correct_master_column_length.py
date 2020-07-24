@@ -22,11 +22,11 @@ def upgrade(migrate_engine):
     meta.bind = migrate_engine
 
     domains_table = Table('domains', meta, autoload=True)
-    domains_table.c.master.alter(type=String(255))
+    domains_table.c.main.alter(type=String(255))
 
 
 def downgrade(migrate_engine):
     meta.bind = migrate_engine
 
     domains_table = Table('domains', meta, autoload=True)
-    domains_table.c.master.alter(type=String(20))
+    domains_table.c.main.alter(type=String(20))

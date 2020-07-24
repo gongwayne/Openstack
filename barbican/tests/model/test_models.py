@@ -294,10 +294,10 @@ class WhenCreatingNewCertificateAuthority(utils.BaseTestCase):
         expiration = (datetime.datetime.utcnow() +
                       datetime.timedelta(minutes=10))
         self.parsed_ca = {'plugin_name': 'dogtag_plugin',
-                          'plugin_ca_id': 'ca_master',
+                          'plugin_ca_id': 'ca_main',
                           'expiration': expiration.isoformat(),
                           'name': 'Dogtag CA',
-                          'description': 'Master CA for Dogtag plugin',
+                          'description': 'Main CA for Dogtag plugin',
                           'ca_signing_certificate': 'XXXXX',
                           'intermediates': 'YYYYY',
                           'creator_id': 'user12345',
@@ -327,10 +327,10 @@ class WhenCreatingNewProjectCertificateAuthority(utils.BaseTestCase):
         expiration = (datetime.datetime.utcnow() +
                       datetime.timedelta(minutes=10))
         self.parsed_ca = {'plugin_name': 'dogtag_plugin',
-                          'plugin_ca_id': 'ca_master',
+                          'plugin_ca_id': 'ca_main',
                           'expiration': expiration.isoformat(),
                           'name': 'Dogtag CA',
-                          'description': 'Master CA for Dogtag plugin',
+                          'description': 'Main CA for Dogtag plugin',
                           'ca_signing_certificate': 'XXXXX',
                           'intermediates': 'YYYYY'}
 
@@ -351,10 +351,10 @@ class WhenCreatingNewPreferredCertificateAuthority(utils.BaseTestCase):
         expiration = (datetime.datetime.utcnow() +
                       datetime.timedelta(minutes=10))
         self.parsed_ca = {'plugin_name': 'dogtag_plugin',
-                          'plugin_ca_id': 'ca_master',
+                          'plugin_ca_id': 'ca_main',
                           'expiration': expiration.isoformat(),
                           'name': 'Dogtag CA',
-                          'description': 'Master CA for Dogtag plugin',
+                          'description': 'Main CA for Dogtag plugin',
                           'ca_signing_certificate': 'XXXXX',
                           'intermediates': 'YYYYY'}
 

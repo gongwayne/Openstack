@@ -110,7 +110,7 @@ class ConfigHelperV5(c_h.ConfigHelper):
             'zookeeper-service.json', 'ZOOKEEPER', 'node')
         self.hbase_confs = self._load_and_init_configs(
             'hbase-service.json', 'HBASE', 'cluster')
-        self.master_confs = self._load_and_init_configs(
-            'hbase-master.json', 'MASTER', 'node')
+        self.main_confs = self._load_and_init_configs(
+            'hbase-main.json', 'MASTER', 'node')
         self.regionserver_confs = self._load_and_init_configs(
             'hbase-regionserver.json', 'REGIONSERVER', 'node')

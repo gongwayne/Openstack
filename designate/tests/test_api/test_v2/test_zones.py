@@ -53,7 +53,7 @@ class ApiV2ZonesTest(ApiV2TestCase):
         self.assertIn('created_at', response.json)
         self.assertEqual('PENDING', response.json['status'])
         self.assertEqual('PRIMARY', response.json['type'])
-        self.assertEqual([], response.json['masters'])
+        self.assertEqual([], response.json['mains'])
         self.assertIsNone(response.json['updated_at'])
 
         for k in fixture:
@@ -79,7 +79,7 @@ class ApiV2ZonesTest(ApiV2TestCase):
         self.assertIn('created_at', response.json)
         self.assertEqual('PENDING', response.json['status'])
         self.assertEqual('PRIMARY', response.json['type'])
-        self.assertEqual([], response.json['masters'])
+        self.assertEqual([], response.json['mains'])
         self.assertIsNone(response.json['updated_at'])
 
         for k in fixture:
@@ -486,7 +486,7 @@ class ApiV2ZonesTest(ApiV2TestCase):
     def test_create_secondary(self):
         # Create a zone
         fixture = self.get_zone_fixture('SECONDARY', 0)
-        fixture['masters'] = ["10.0.0.1"]
+        fixture['mains'] = ["10.0.0.1"]
 
         response = self.client.post_json('/zones/', fixture)
 
@@ -514,7 +514,7 @@ class ApiV2ZonesTest(ApiV2TestCase):
         for k in fixture:
             self.assertEqual(fixture[k], response.json[k])
 
-    def test_create_secondary_no_masters(self):
+    def test_create_secondary_no_mains(self):
         # Create a zone
         fixture = self.get_zone_fixture('SECONDARY', 0)
 
@@ -531,10 +531,10 @@ class ApiV2ZonesTest(ApiV2TestCase):
         # Create a zone
         zone = self.central_service.create_zone(self.admin_context, zone)
 
-        masters = ['10.0.0.1', '10.0.0.2']
+        mains = ['10.0.0.1', '10.0.0.2']
 
         # Prepare an update body
-        body = {'masters': masters}
+        body = {'mains': mains}
 
         response = self.client.patch_json('/zones/%s' % zone['id'], body,
                                           status=202)
@@ -551,14 +551,14 @@ class ApiV2ZonesTest(ApiV2TestCase):
         # Check the values returned are what we expect
         self.assertIn('id', response.json)
         self.assertIsNotNone(response.json['updated_at'])
-        self.assertEqual(masters, response.json['masters'])
+        self.assertEqual(mains, response.json['mains'])
         self.assertEqual(1, response.json['serial'])
 
     def test_xfr_request(self):
         # Create a zone
         fixture = self.get_zone_fixture('SECONDARY', 0)
         fixture['email'] = cfg.CONF['service:central'].managed_resource_email
-        fixture['masters'] = [{"host": "10.0.0.10", "port": 53}]
+        fixture['mains'] = [{"host": "10.0.0.10", "port": 53}]
 
         # Create a zone
         zone = self.create_zone(**fixture)

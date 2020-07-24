@@ -42,10 +42,10 @@ def get_plugin_configs():
     return {}
 
 
-def generate_storm_config(master_hostname, zk_hostnames):
+def generate_storm_config(main_hostname, zk_hostnames):
 
     cfg = {
-        "nimbus.host": master_hostname.encode('ascii', 'ignore'),
+        "nimbus.host": main_hostname.encode('ascii', 'ignore'),
         "worker.childopts": "-Xmx768m -Djava.net.preferIPv4Stack=true",
         "nimbus.childopts": "-Xmx1024m -Djava.net.preferIPv4Stack=true",
         "supervisor.childopts": "-Djava.net.preferIPv4Stack=true",
@@ -58,7 +58,7 @@ def generate_storm_config(master_hostname, zk_hostnames):
     return cfg
 
 
-def generate_slave_supervisor_conf():
+def generate_subordinate_supervisor_conf():
     separator = "\n"
     conf = ("[program:storm-supervisor]",
             'command=bash -exec "cd /usr/local/storm && bin/storm supervisor"',
@@ -76,7 +76,7 @@ def generate_slave_supervisor_conf():
     return separator.join(conf)
 
 
-def generate_master_supervisor_conf():
+def generate_main_supervisor_conf():
     separator = "\n"
     seq_n = ("[program:storm-nimbus]",
              "command=/usr/local/storm/bin/storm nimbus",

@@ -39,9 +39,9 @@ p11_crypto_plugin_opts = [
                help=u._('Password to login to PKCS11 session'),
                secret=True),
     cfg.StrOpt('mkek_label',
-               help=u._('Master KEK label (used in the HSM)')),
+               help=u._('Main KEK label (used in the HSM)')),
     cfg.IntOpt('mkek_length',
-               help=u._('Master KEK length in bytes.')),
+               help=u._('Main KEK length in bytes.')),
     cfg.StrOpt('hmac_label',
                help=u._('HMAC label (used in the HSM)')),
     cfg.IntOpt('slot_id',
@@ -95,7 +95,7 @@ class P11CryptoPlugin(plugin.CryptoPluginBase):
         self.pkek_cache_limit = plugin_conf.pkek_cache_limit
         self.algorithm = plugin_conf.algorithm
 
-        # Master Key cache
+        # Main Key cache
         self.mk_cache = {}
         self.mk_cache_lock = threading.RLock()
 
@@ -107,9 +107,9 @@ class P11CryptoPlugin(plugin.CryptoPluginBase):
         self.caching_session = self.pkcs11.get_session()
         self.caching_session_lock = threading.RLock()
 
-        # Cache master keys
-        self._get_master_key(self.mkek_label)
-        self._get_master_key(self.hmac_label)
+        # Cache main keys
+        self._get_main_key(self.mkek_label)
+        self._get_main_key(self.hmac_label)
 
     def encrypt(self, encrypt_dto, kek_meta_dto, project_id):
         kek = self._load_kek_from_meta_dto(kek_meta_dto)
@@ -243,7 +243,7 @@ class P11CryptoPlugin(plugin.CryptoPluginBase):
     def _return_session(self, session):
         self.pkcs11.return_session(session)
 
-    def _get_master_key(self, label):
+    def _get_main_key(self, label):
         with self.mk_cache_lock:
             session = self.caching_session
             key = self.mk_cache.get(label, None)
@@ -278,9 +278,9 @@ class P11CryptoPlugin(plugin.CryptoPluginBase):
 
                 with self.caching_session_lock:
                     session = self.caching_session
-                    # Get master keys
-                    mkek = self._get_master_key(mkek_label)
-                    mkhk = self._get_master_key(hmac_label)
+                    # Get main keys
+                    mkek = self._get_main_key(mkek_label)
+                    mkhk = self._get_main_key(hmac_label)
 
                     # Verify HMAC
                     self.pkcs11.verify_hmac(mkhk, hmac, kek_data, session)
@@ -296,9 +296,9 @@ class P11CryptoPlugin(plugin.CryptoPluginBase):
     def _generate_wrapped_kek(self, key_length, key_label):
         with self.caching_session_lock:
             session = self.caching_session
-            # Get master keys
-            mkek = self._get_master_key(self.mkek_label)
-            mkhk = self._get_master_key(self.hmac_label)
+            # Get main keys
+            mkek = self._get_main_key(self.mkek_label)
+            mkhk = self._get_main_key(self.hmac_label)
 
             # Generate KEK
             kek = self.pkcs11.generate_key(key_length, session, encrypt=True)
@@ -327,11 +327,11 @@ class P11CryptoPlugin(plugin.CryptoPluginBase):
             if key_label in self.mk_cache or \
                     self.pkcs11.get_key_handle(key_label, session) is not None:
                 raise pkcs11.P11CryptoPluginKeyException(
-                    u._("A master key with that label already exists")
+                    u._("A main key with that label already exists")
                 )
             mk = self.pkcs11.generate_key(
                 key_length, session, key_label,
-                encrypt=True, wrap=True, master_key=True
+                encrypt=True, wrap=True, main_key=True
             )
             self.mk_cache[key_label] = mk
         return mk
@@ -342,10 +342,10 @@ class P11CryptoPlugin(plugin.CryptoPluginBase):
             if key_label in self.mk_cache or \
                     self.pkcs11.get_key_handle(key_label, session) is not None:
                 raise pkcs11.P11CryptoPluginKeyException(
-                    u._("A master key with that label already exists")
+                    u._("A main key with that label already exists")
                 )
             mk = self.pkcs11.generate_key(
-                key_length, session, key_label, sign=True, master_key=True
+                key_length, session, key_label, sign=True, main_key=True
             )
             self.mk_cache[key_label] = mk
         return mk

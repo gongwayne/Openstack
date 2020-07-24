@@ -381,13 +381,13 @@ class IscsiDeployMethodsTestCase(db_base.DbTestCase):
                 iscsi_deploy._get_image_file_path(task.node.uuid))
 
     @mock.patch.object(deploy_utils, 'fetch_images', autospec=True)
-    def test_cache_instance_images_master_path(self, mock_fetch_image):
+    def test_cache_instance_images_main_path(self, mock_fetch_image):
         temp_dir = tempfile.mkdtemp()
         self.config(images_path=temp_dir, group='pxe')
-        self.config(instance_master_path=os.path.join(temp_dir,
-                                                      'instance_master_path'),
+        self.config(instance_main_path=os.path.join(temp_dir,
+                                                      'instance_main_path'),
                     group='pxe')
-        fileutils.ensure_tree(CONF.pxe.instance_master_path)
+        fileutils.ensure_tree(CONF.pxe.instance_main_path)
 
         (uuid, image_path) = iscsi_deploy.cache_instance_image(None, self.node)
         mock_fetch_image.assert_called_once_with(None,
@@ -1477,26 +1477,26 @@ class CleanUpFullFlowTestCase(db_base.DbTestCase):
         # Configure temporary directories
         pxe_temp_dir = tempfile.mkdtemp()
         self.config(tftp_root=pxe_temp_dir, group='pxe')
-        tftp_master_dir = os.path.join(CONF.pxe.tftp_root,
-                                       'tftp_master')
-        self.config(tftp_master_path=tftp_master_dir, group='pxe')
-        os.makedirs(tftp_master_dir)
+        tftp_main_dir = os.path.join(CONF.pxe.tftp_root,
+                                       'tftp_main')
+        self.config(tftp_main_path=tftp_main_dir, group='pxe')
+        os.makedirs(tftp_main_dir)
 
         instance_temp_dir = tempfile.mkdtemp()
         self.config(images_path=instance_temp_dir,
                     group='pxe')
-        instance_master_dir = os.path.join(CONF.pxe.images_path,
-                                           'instance_master')
-        self.config(instance_master_path=instance_master_dir,
+        instance_main_dir = os.path.join(CONF.pxe.images_path,
+                                           'instance_main')
+        self.config(instance_main_path=instance_main_dir,
                     group='pxe')
-        os.makedirs(instance_master_dir)
+        os.makedirs(instance_main_dir)
         self.pxe_config_dir = os.path.join(CONF.pxe.tftp_root, 'pxelinux.cfg')
         os.makedirs(self.pxe_config_dir)
 
         # Populate some file names
-        self.master_kernel_path = os.path.join(CONF.pxe.tftp_master_path,
+        self.main_kernel_path = os.path.join(CONF.pxe.tftp_main_path,
                                                'kernel')
-        self.master_instance_path = os.path.join(CONF.pxe.instance_master_path,
+        self.main_instance_path = os.path.join(CONF.pxe.instance_main_path,
                                                  'image_uuid')
         self.node_tftp_dir = os.path.join(CONF.pxe.tftp_root,
                                           self.node.uuid)
@@ -1510,23 +1510,23 @@ class CleanUpFullFlowTestCase(db_base.DbTestCase):
         self.mac_path = pxe_utils._get_pxe_mac_path(self.port.address)
 
         # Create files
-        self.files = [self.config_path, self.master_kernel_path,
-                      self.master_instance_path]
+        self.files = [self.config_path, self.main_kernel_path,
+                      self.main_instance_path]
         for fname in self.files:
             # NOTE(dtantsur): files with 0 size won't be cleaned up
             with open(fname, 'w') as fp:
                 fp.write('test')
 
         os.link(self.config_path, self.mac_path)
-        os.link(self.master_kernel_path, self.kernel_path)
-        os.link(self.master_instance_path, self.image_path)
+        os.link(self.main_kernel_path, self.kernel_path)
+        os.link(self.main_instance_path, self.image_path)
         dhcp_factory.DHCPFactory._dhcp_provider = None
 
     @mock.patch('ironic.common.dhcp_factory.DHCPFactory._set_dhcp_provider')
     @mock.patch('ironic.common.dhcp_factory.DHCPFactory.clean_dhcp')
     @mock.patch.object(pxe, '_get_instance_image_info', autospec=True)
     @mock.patch.object(pxe, '_get_deploy_image_info', autospec=True)
-    def test_clean_up_with_master(self, mock_get_deploy_image_info,
+    def test_clean_up_with_main(self, mock_get_deploy_image_info,
                                   mock_get_instance_image_info,
                                   clean_dhcp_mock, set_dhcp_provider_mock):
         image_info = {'kernel': ('kernel_uuid',

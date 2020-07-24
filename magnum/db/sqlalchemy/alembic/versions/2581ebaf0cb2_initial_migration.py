@@ -38,7 +38,7 @@ def upgrade():
         sa.Column('name', sa.String(length=255), nullable=True),
         sa.Column('baymodel_id', sa.String(length=255), nullable=True),
         sa.Column('node_count', sa.Integer(), nullable=True),
-        sa.Column('master_address', sa.String(length=255), nullable=True),
+        sa.Column('main_address', sa.String(length=255), nullable=True),
         sa.Column('minions_address', sa.Text(), nullable=True),
         sa.Column('stack_id', sa.String(length=255), nullable=True),
         sa.PrimaryKeyConstraint('id'),

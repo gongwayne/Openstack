@@ -29,7 +29,7 @@ class TestBayConductorWithMesos(base.TestCase):
         self.baymodel_dict = {
             'image_id': 'image_id',
             'flavor_id': 'flavor_id',
-            'master_flavor_id': 'master_flavor_id',
+            'main_flavor_id': 'main_flavor_id',
             'keypair_id': 'keypair_id',
             'dns_nameserver': 'dns_nameserver',
             'external_network_id': 'external_network_id',
@@ -51,7 +51,7 @@ class TestBayConductorWithMesos(base.TestCase):
             'api_address': '172.17.2.3',
             'node_addresses': ['172.17.2.4'],
             'node_count': 1,
-            'master_count': 1,
+            'main_count': 1,
             'trustee_username': 'fake_trustee',
             'trustee_password': 'fake_trustee_password',
             'trustee_user_id': '7b489f04-b458-4541-8179-6a48a553e656',
@@ -88,10 +88,10 @@ class TestBayConductorWithMesos(base.TestCase):
             'external_network': 'external_network_id',
             'dns_nameserver': 'dns_nameserver',
             'server_image': 'image_id',
-            'master_flavor': 'master_flavor_id',
-            'slave_flavor': 'flavor_id',
-            'number_of_slaves': 1,
-            'number_of_masters': 1,
+            'main_flavor': 'main_flavor_id',
+            'subordinate_flavor': 'flavor_id',
+            'number_of_subordinates': 1,
+            'number_of_mains': 1,
             'http_proxy': 'http_proxy',
             'https_proxy': 'https_proxy',
             'no_proxy': 'no_proxy',
@@ -115,7 +115,7 @@ class TestBayConductorWithMesos(base.TestCase):
     def test_extract_template_definition_only_required(
             self,
             mock_objects_baymodel_get_by_uuid):
-        not_required = ['image_id', 'master_flavor_id', 'flavor_id',
+        not_required = ['image_id', 'main_flavor_id', 'flavor_id',
                         'dns_nameserver', 'fixed_network', 'http_proxy',
                         'https_proxy', 'no_proxy', 'volume_driver']
         for key in not_required:
@@ -132,8 +132,8 @@ class TestBayConductorWithMesos(base.TestCase):
         expected = {
             'ssh_key_name': 'keypair_id',
             'external_network': 'external_network_id',
-            'number_of_slaves': 1,
-            'number_of_masters': 1,
+            'number_of_subordinates': 1,
+            'number_of_mains': 1,
             'cluster_name': 'bay1',
             'trustee_domain_id': '3527620c-b220-4f37-9ebc-6e63a81a9b2f',
             'trustee_username': 'fake_trustee',
@@ -168,7 +168,7 @@ class TestBayConductorWithMesos(base.TestCase):
     def test_poll_node_count(self):
         mock_heat_stack, bay, poller = self.setup_poll_test()
 
-        mock_heat_stack.parameters = {'number_of_slaves': 1}
+        mock_heat_stack.parameters = {'number_of_subordinates': 1}
         mock_heat_stack.stack_status = bay_status.CREATE_IN_PROGRESS
         poller.poll_and_check()
 
@@ -177,7 +177,7 @@ class TestBayConductorWithMesos(base.TestCase):
     def test_poll_node_count_by_update(self):
         mock_heat_stack, bay, poller = self.setup_poll_test()
 
-        mock_heat_stack.parameters = {'number_of_slaves': 2}
+        mock_heat_stack.parameters = {'number_of_subordinates': 2}
         mock_heat_stack.stack_status = bay_status.UPDATE_COMPLETE
         self.assertRaises(loopingcall.LoopingCallDone, poller.poll_and_check)
 

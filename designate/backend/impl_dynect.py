@@ -331,7 +331,7 @@ class DynECTBackend(base.Backend):
         self.contact_nickname = self.options.get('contact_nickname', None)
         self.tsig_key_name = self.options.get('tsig_key_name', None)
 
-        for m in self.masters:
+        for m in self.mains:
             if m.port != 53:
                 raise exceptions.ConfigurationError(
                     "DynECT only supports mDNS instances on port 53")
@@ -350,7 +350,7 @@ class DynECTBackend(base.Backend):
 
         url = '/Secondary/%s' % zone['name'].rstrip('.')
         data = {
-            'masters': [m.host for m in self.masters]
+            'mains': [m.host for m in self.mains]
         }
 
         if self.contact_nickname is not None:

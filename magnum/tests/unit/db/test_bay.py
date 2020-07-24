@@ -104,12 +104,12 @@ class DbBayTestCase(base.DbTestCase):
             uuid=magnum_utils.generate_uuid(),
             baymodel_id=bm2['uuid'],
             node_count=1,
-            master_count=1,
+            main_count=1,
             status=bay_status.UPDATE_IN_PROGRESS)
         bay3 = utils.create_test_bay(
             name='bay-three',
             node_count=2,
-            master_count=5,
+            main_count=5,
             status=bay_status.DELETE_IN_PROGRESS)
 
         res = self.dbapi.get_bay_list(self.context,
@@ -137,11 +137,11 @@ class DbBayTestCase(base.DbTestCase):
         self.assertEqual([bay2.id], [r.id for r in res])
 
         res = self.dbapi.get_bay_list(self.context,
-                                      filters={'master_count': 3})
+                                      filters={'main_count': 3})
         self.assertEqual([bay1.id], [r.id for r in res])
 
         res = self.dbapi.get_bay_list(self.context,
-                                      filters={'master_count': 1})
+                                      filters={'main_count': 1})
         self.assertEqual([bay2.id], [r.id for r in res])
 
         filters = {'status': [bay_status.CREATE_IN_PROGRESS,

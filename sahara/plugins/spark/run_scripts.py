@@ -53,7 +53,7 @@ def clean_port_hadoop(nn_remote):
                                "| xargs sudo kill -9"))
 
 
-def start_spark_master(nn_remote, sp_home):
+def start_spark_main(nn_remote, sp_home):
     nn_remote.execute_command("bash " + os.path.join(sp_home,
                                                      "sbin/start-all.sh"))
 

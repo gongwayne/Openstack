@@ -1095,7 +1095,7 @@ class Service(service.RPCService, service.Service):
             context, zone, increment_serial=increment_serial)
 
         # Fire off a XFR
-        if 'masters' in changes:
+        if 'mains' in changes:
             self.mdns_api.perform_zone_xfr(context, zone)
 
         self.pool_manager_api.update_zone(context, zone)
@@ -1199,7 +1199,7 @@ class Service(service.RPCService, service.Service):
 
         # Ensure the format of the servers are correct, then poll the
         # serial
-        srv = random.choice(zone.masters)
+        srv = random.choice(zone.mains)
         status, serial, retries = self.mdns_api.get_serial_number(
             context, zone, srv.host, srv.port, 3, 1, 3, 0)
 

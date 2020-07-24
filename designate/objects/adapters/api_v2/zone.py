@@ -52,7 +52,7 @@ class ZoneAPIv2Adapter(base.APIv2Adapter):
             "type": {
                 "immutable": True
             },
-            "masters": {},
+            "mains": {},
             "created_at": {},
             "updated_at": {},
             "transferred_at": {},
@@ -67,15 +67,15 @@ class ZoneAPIv2Adapter(base.APIv2Adapter):
     @classmethod
     def _parse_object(cls, values, object, *args, **kwargs):
 
-        if 'masters' in values:
+        if 'mains' in values:
 
-            object.masters = objects.adapters.DesignateAdapter.parse(
+            object.mains = objects.adapters.DesignateAdapter.parse(
                 cls.ADAPTER_FORMAT,
-                values['masters'],
-                objects.ZoneMasterList(),
+                values['mains'],
+                objects.ZoneMainList(),
                 *args, **kwargs)
 
-            del values['masters']
+            del values['mains']
 
         if 'attributes' in values:
 

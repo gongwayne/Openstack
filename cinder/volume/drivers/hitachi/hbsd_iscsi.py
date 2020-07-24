@@ -202,12 +202,12 @@ class HBSDISCSIDriver(cinder.volume.driver.ISCSIDriver):
         if ports:
             self._fill_groups(hgs, ports, target_iqn, target_alias, add_iqn)
 
-    def add_hostgroup_master(self, hgs, master_iqn, host_ip, security_ports):
+    def add_hostgroup_main(self, hgs, main_iqn, host_ip, security_ports):
         target_ports = self.configuration.hitachi_target_ports
         group_request = self.configuration.hitachi_group_request
         target_alias = '%s%s' % (basic_lib.NAME_PREFIX, host_ip)
         if target_ports and group_request:
-            target_iqn = '%s.target' % master_iqn
+            target_iqn = '%s.target' % main_iqn
 
             diff_ports = []
             for port in security_ports:
@@ -218,7 +218,7 @@ class HBSDISCSIDriver(cinder.volume.driver.ISCSIDriver):
                     diff_ports.append(port)
 
             self.add_hostgroup_core(hgs, diff_ports, target_iqn,
-                                    target_alias, master_iqn)
+                                    target_alias, main_iqn)
         if not hgs:
             raise exception.HBSDError(message=basic_lib.output_err(649))
 
@@ -231,7 +231,7 @@ class HBSDISCSIDriver(cinder.volume.driver.ISCSIDriver):
         hostgroups = []
         security_ports = self._get_hostgroup_info_iscsi(
             hostgroups, properties['initiator'])
-        self.add_hostgroup_master(hostgroups, properties['initiator'],
+        self.add_hostgroup_main(hostgroups, properties['initiator'],
                                   properties['ip'], security_ports)
 
     def _get_properties(self, volume, hostgroups):
@@ -325,7 +325,7 @@ class HBSDISCSIDriver(cinder.volume.driver.ISCSIDriver):
             hostgroups = []
             security_ports = self._get_hostgroup_info_iscsi(
                 hostgroups, connector['initiator'])
-            self.add_hostgroup_master(hostgroups, connector['initiator'],
+            self.add_hostgroup_main(hostgroups, connector['initiator'],
                                       connector['ip'], security_ports)
 
         self._add_target(hostgroups, ldev)

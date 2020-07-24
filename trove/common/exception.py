@@ -277,9 +277,9 @@ class ReplicationNotSupported(TroveError):
                 "the '%(datastore)s' datastore.")
 
 
-class ReplicationSlaveAttachError(TroveError):
+class ReplicationSubordinateAttachError(TroveError):
 
-    message = _("Exception encountered attaching slave to new replica source.")
+    message = _("Exception encountered attaching subordinate to new replica source.")
 
 
 class TaskManagerError(TroveError):
@@ -486,7 +486,7 @@ class IncompatibleReplicationStrategy(TroveError):
 
 
 class InsufficientSpaceForReplica(TroveError):
-    message = _("The target instance has only %(slave_volume_size)sG free, "
+    message = _("The target instance has only %(subordinate_volume_size)sG free, "
                 "but the replication snapshot contains %(dataset_size)sG "
                 "of data.")
 

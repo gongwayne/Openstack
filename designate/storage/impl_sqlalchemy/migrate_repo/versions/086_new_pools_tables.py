@@ -58,7 +58,7 @@ pool_targets = Table('pool_targets', meta,
     mysql_charset='utf8',
 )
 
-pool_target_masters = Table('pool_target_masters', meta,
+pool_target_mains = Table('pool_target_mains', meta,
     Column('id', UUID, default=utils.generate_uuid, primary_key=True),
     Column('version', Integer(), default=1, nullable=False),
     Column('created_at', DateTime, default=lambda: timeutils.utcnow()),
@@ -122,5 +122,5 @@ def upgrade(migrate_engine):
     pool_nameservers.create()
     pool_targets.create()
     pool_target_options.create()
-    pool_target_masters.create()
+    pool_target_mains.create()
     pool_also_notifies.create()

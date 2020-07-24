@@ -19,9 +19,9 @@ from designate import utils
 LOG = logging.getLogger(__name__)
 
 
-class ZoneMasterAPIv2Adapter(base.APIv2Adapter):
+class ZoneMainAPIv2Adapter(base.APIv2Adapter):
 
-    ADAPTER_OBJECT = objects.ZoneMaster
+    ADAPTER_OBJECT = objects.ZoneMain
 
     MODIFICATIONS = {
         'fields': {
@@ -31,8 +31,8 @@ class ZoneMasterAPIv2Adapter(base.APIv2Adapter):
         },
         'options': {
             'links': False,
-            'resource_name': 'domain_master',
-            'collection_name': 'domain_masters',
+            'resource_name': 'domain_main',
+            'collection_name': 'domain_mains',
         }
     }
 
@@ -49,15 +49,15 @@ class ZoneMasterAPIv2Adapter(base.APIv2Adapter):
         return object
 
 
-class ZoneMasterListAPIv2Adapter(base.APIv2Adapter):
+class ZoneMainListAPIv2Adapter(base.APIv2Adapter):
 
-    ADAPTER_OBJECT = objects.ZoneMasterList
+    ADAPTER_OBJECT = objects.ZoneMainList
 
     MODIFICATIONS = {
         'options': {
             'links': False,
-            'resource_name': 'domain_master',
-            'collection_name': 'domain_masters',
+            'resource_name': 'domain_main',
+            'collection_name': 'domain_mains',
         }
     }
 

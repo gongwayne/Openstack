@@ -94,7 +94,7 @@ def validate_os_resources(context, baymodel):
 # Dictionary that maintains a list of validation functions
 validators = {'image_id': validate_image,
               'flavor_id': validate_flavor,
-              'master_flavor_id': validate_flavor,
+              'main_flavor_id': validate_flavor,
               'keypair_id': validate_keypair,
               'external_network_id': validate_external_network,
               'fixed_network': validate_fixed_network}

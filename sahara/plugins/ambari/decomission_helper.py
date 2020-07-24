@@ -21,7 +21,7 @@ _COMMON_DECOMMISSION_TEMPLATE = {
         "context": "",
         "command": "DECOMMISSION",
         "parameters": {
-            "slave_type": "",
+            "subordinate_type": "",
             "excluded_hosts": ""
         },
         "operation_level": {
@@ -61,7 +61,7 @@ def build_datanode_decommission_request(cluster_name, instances):
 
     tmpl["RequestInfo"]["context"] = "Decommission DataNodes"
 
-    tmpl["RequestInfo"]["parameters"]["slave_type"] = "DATANODE"
+    tmpl["RequestInfo"]["parameters"]["subordinate_type"] = "DATANODE"
     tmpl["RequestInfo"]["parameters"]["excluded_hosts"] = ",".join(
         [i.fqdn() for i in instances])
 
@@ -78,7 +78,7 @@ def build_nodemanager_decommission_request(cluster_name, instances):
 
     tmpl["RequestInfo"]["context"] = "Decommission NodeManagers"
 
-    tmpl["RequestInfo"]["parameters"]["slave_type"] = "NODEMANAGER"
+    tmpl["RequestInfo"]["parameters"]["subordinate_type"] = "NODEMANAGER"
     tmpl["RequestInfo"]["parameters"]["excluded_hosts"] = ",".join(
         [i.fqdn() for i in instances])
 

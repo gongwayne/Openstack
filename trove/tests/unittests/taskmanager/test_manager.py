@@ -21,7 +21,7 @@ from trove.instance.tasks import InstanceTasks
 from trove.taskmanager.manager import Manager
 from trove.taskmanager import models
 from trove.taskmanager import service
-from trove.common.exception import TroveError, ReplicationSlaveAttachError
+from trove.common.exception import TroveError, ReplicationSubordinateAttachError
 from proboscis.asserts import assert_equal
 from trove.tests.unittests import trove_testtools
 
@@ -32,17 +32,17 @@ class TestManager(trove_testtools.TestCase):
         super(TestManager, self).setUp()
         self.manager = Manager()
         self.context = trove_testtools.TroveTestContext(self)
-        self.mock_slave1 = Mock()
-        self.mock_slave2 = Mock()
-        type(self.mock_slave1).id = PropertyMock(return_value='some-inst-id')
-        type(self.mock_slave2).id = PropertyMock(return_value='inst1')
+        self.mock_subordinate1 = Mock()
+        self.mock_subordinate2 = Mock()
+        type(self.mock_subordinate1).id = PropertyMock(return_value='some-inst-id')
+        type(self.mock_subordinate2).id = PropertyMock(return_value='inst1')
 
-        self.mock_old_master = Mock()
-        type(self.mock_old_master).slaves = PropertyMock(
-            return_value=[self.mock_slave1, self.mock_slave2])
-        self.mock_master = Mock()
-        type(self.mock_master).slaves = PropertyMock(
-            return_value=[self.mock_slave1, self.mock_slave2])
+        self.mock_old_main = Mock()
+        type(self.mock_old_main).subordinates = PropertyMock(
+            return_value=[self.mock_subordinate1, self.mock_subordinate2])
+        self.mock_main = Mock()
+        type(self.mock_main).subordinates = PropertyMock(
+            return_value=[self.mock_subordinate1, self.mock_subordinate2])
 
     def tearDown(self):
         super(TestManager, self).tearDown()
@@ -53,14 +53,14 @@ class TestManager(trove_testtools.TestCase):
         self.assertTrue(callable(self.manager.mongodb_add_shard_cluster))
 
     def test_most_current_replica(self):
-        master = Mock()
-        master.id = 32
+        main = Mock()
+        main.id = 32
 
-        def test_case(txn_list, selected_master):
+        def test_case(txn_list, selected_main):
             with patch.object(self.manager, '_get_replica_txns',
                               return_value=txn_list):
-                result = self.manager._most_current_replica(master, None)
-                assert_equal(result, selected_master)
+                result = self.manager._most_current_replica(main, None)
+                assert_equal(result, selected_main)
 
         with self.assertRaisesRegexp(TroveError,
                                      'not all replicating from same'):
@@ -74,37 +74,37 @@ class TestManager(trove_testtools.TestCase):
         test_case([['a', None, 0], ['b', '2a', 1]], 'b')
 
     def test_detach_replica(self):
-        slave = Mock()
-        master = Mock()
+        subordinate = Mock()
+        main = Mock()
         with patch.object(models.BuiltInstanceTasks, 'load',
-                          side_effect=[slave, master]):
+                          side_effect=[subordinate, main]):
             self.manager.detach_replica(self.context, 'some-inst-id')
-        slave.detach_replica.assert_called_with(master)
+        subordinate.detach_replica.assert_called_with(main)
 
     @patch.object(Manager, '_set_task_status')
     def test_promote_to_replica_source(self, mock_set_task_status):
         with patch.object(models.BuiltInstanceTasks, 'load',
-                          side_effect=[self.mock_slave1,
-                                       self.mock_old_master,
-                                       self.mock_slave2]):
+                          side_effect=[self.mock_subordinate1,
+                                       self.mock_old_main,
+                                       self.mock_subordinate2]):
             self.manager.promote_to_replica_source(
                 self.context, 'some-inst-id')
 
-        self.mock_slave1.detach_replica.assert_called_with(
-            self.mock_old_master, for_failover=True)
-        self.mock_old_master.attach_replica.assert_called_with(
-            self.mock_slave1)
-        self.mock_slave1.make_read_only.assert_called_with(False)
+        self.mock_subordinate1.detach_replica.assert_called_with(
+            self.mock_old_main, for_failover=True)
+        self.mock_old_main.attach_replica.assert_called_with(
+            self.mock_subordinate1)
+        self.mock_subordinate1.make_read_only.assert_called_with(False)
 
-        self.mock_slave2.detach_replica.assert_called_with(
-            self.mock_old_master, for_failover=True)
-        self.mock_slave2.attach_replica.assert_called_with(self.mock_slave1)
+        self.mock_subordinate2.detach_replica.assert_called_with(
+            self.mock_old_main, for_failover=True)
+        self.mock_subordinate2.attach_replica.assert_called_with(self.mock_subordinate1)
 
-        self.mock_old_master.demote_replication_master.assert_any_call()
+        self.mock_old_main.demote_replication_main.assert_any_call()
 
-        mock_set_task_status.assert_called_with(([self.mock_old_master] +
-                                                 [self.mock_slave1,
-                                                  self.mock_slave2]),
+        mock_set_task_status.assert_called_with(([self.mock_old_main] +
+                                                 [self.mock_subordinate1,
+                                                  self.mock_subordinate2]),
                                                 InstanceTasks.NONE)
 
     @patch.object(Manager, '_set_task_status')
@@ -112,25 +112,25 @@ class TestManager(trove_testtools.TestCase):
     def test_eject_replica_source(self, mock_most_current_replica,
                                   mock_set_task_status):
         with patch.object(models.BuiltInstanceTasks, 'load',
-                          side_effect=[self.mock_master, self.mock_slave1,
-                                       self.mock_slave2]):
+                          side_effect=[self.mock_main, self.mock_subordinate1,
+                                       self.mock_subordinate2]):
             self.manager.eject_replica_source(self.context, 'some-inst-id')
-        mock_most_current_replica.assert_called_with(self.mock_master,
-                                                     [self.mock_slave1,
-                                                      self.mock_slave2])
-        mock_set_task_status.assert_called_with(([self.mock_master] +
-                                                 [self.mock_slave1,
-                                                  self.mock_slave2]),
+        mock_most_current_replica.assert_called_with(self.mock_main,
+                                                     [self.mock_subordinate1,
+                                                      self.mock_subordinate2])
+        mock_set_task_status.assert_called_with(([self.mock_main] +
+                                                 [self.mock_subordinate1,
+                                                  self.mock_subordinate2]),
                                                 InstanceTasks.NONE)
 
     @patch.object(Manager, '_set_task_status')
     @patch('trove.taskmanager.manager.LOG')
     def test_exception_TroveError_promote_to_replica_source(self, *args):
-        self.mock_slave2.detach_replica = Mock(side_effect=TroveError)
+        self.mock_subordinate2.detach_replica = Mock(side_effect=TroveError)
         with patch.object(models.BuiltInstanceTasks, 'load',
-                          side_effect=[self.mock_slave1, self.mock_old_master,
-                                       self.mock_slave2]):
-            self.assertRaises(ReplicationSlaveAttachError,
+                          side_effect=[self.mock_subordinate1, self.mock_old_main,
+                                       self.mock_subordinate2]):
+            self.assertRaises(ReplicationSubordinateAttachError,
                               self.manager.promote_to_replica_source,
                               self.context, 'some-inst-id')
 
@@ -140,37 +140,37 @@ class TestManager(trove_testtools.TestCase):
     def test_exception_TroveError_eject_replica_source(
             self, mock_logging, mock_most_current_replica,
             mock_set_tast_status):
-        self.mock_slave2.detach_replica = Mock(side_effect=TroveError)
-        mock_most_current_replica.return_value = self.mock_slave1
+        self.mock_subordinate2.detach_replica = Mock(side_effect=TroveError)
+        mock_most_current_replica.return_value = self.mock_subordinate1
         with patch.object(models.BuiltInstanceTasks, 'load',
-                          side_effect=[self.mock_master, self.mock_slave1,
-                                       self.mock_slave2]):
-            self.assertRaises(ReplicationSlaveAttachError,
+                          side_effect=[self.mock_main, self.mock_subordinate1,
+                                       self.mock_subordinate2]):
+            self.assertRaises(ReplicationSubordinateAttachError,
                               self.manager.eject_replica_source,
                               self.context, 'some-inst-id')
 
     @patch.object(Manager, '_set_task_status')
     def test_error_promote_to_replica_source(self, *args):
-        self.mock_slave2.detach_replica = Mock(
+        self.mock_subordinate2.detach_replica = Mock(
             side_effect=RuntimeError('Error'))
 
         with patch.object(models.BuiltInstanceTasks, 'load',
-                          side_effect=[self.mock_slave1, self.mock_old_master,
-                                       self.mock_slave2]):
+                          side_effect=[self.mock_subordinate1, self.mock_old_main,
+                                       self.mock_subordinate2]):
             self.assertRaisesRegexp(RuntimeError, 'Error',
                                     self.manager.promote_to_replica_source,
                                     self.context, 'some-inst-id')
 
     @patch('trove.taskmanager.manager.LOG')
-    def test_error_demote_replication_master_promote_to_replica_source(
+    def test_error_demote_replication_main_promote_to_replica_source(
             self, mock_logging):
-        self.mock_old_master.demote_replication_master = Mock(
+        self.mock_old_main.demote_replication_main = Mock(
             side_effect=RuntimeError('Error'))
 
         with patch.object(models.BuiltInstanceTasks, 'load',
-                          side_effect=[self.mock_slave1, self.mock_old_master,
-                                       self.mock_slave2]):
-            self.assertRaises(ReplicationSlaveAttachError,
+                          side_effect=[self.mock_subordinate1, self.mock_old_main,
+                                       self.mock_subordinate2]):
+            self.assertRaises(ReplicationSubordinateAttachError,
                               self.manager.promote_to_replica_source,
                               self.context, 'some-inst-id')
 
@@ -178,21 +178,21 @@ class TestManager(trove_testtools.TestCase):
     @patch.object(Manager, '_most_current_replica')
     def test_error_eject_replica_source(self, mock_most_current_replica,
                                         mock_set_tast_status):
-        self.mock_slave2.detach_replica = Mock(
+        self.mock_subordinate2.detach_replica = Mock(
             side_effect=RuntimeError('Error'))
-        mock_most_current_replica.return_value = self.mock_slave1
+        mock_most_current_replica.return_value = self.mock_subordinate1
         with patch.object(models.BuiltInstanceTasks, 'load',
-                          side_effect=[self.mock_master, self.mock_slave1,
-                                       self.mock_slave2]):
+                          side_effect=[self.mock_main, self.mock_subordinate1,
+                                       self.mock_subordinate2]):
             self.assertRaisesRegexp(RuntimeError, 'Error',
                                     self.manager.eject_replica_source,
                                     self.context, 'some-inst-id')
 
     @patch.object(Backup, 'delete')
-    def test_create_replication_slave(self, mock_backup_delete):
+    def test_create_replication_subordinate(self, mock_backup_delete):
         mock_tasks = Mock()
         mock_snapshot = {'dataset': {'snapshot_id': 'test-id'}}
-        mock_tasks.get_replication_master_snapshot = Mock(
+        mock_tasks.get_replication_main_snapshot = Mock(
             return_value=mock_snapshot)
         mock_flavor = Mock()
         with patch.object(models.FreshInstanceTasks, 'load',
@@ -202,24 +202,24 @@ class TestManager(trove_testtools.TestCase):
                                          'mysql', 'mysql-server', 2,
                                          'temp-backup-id', None,
                                          'some_password', None, Mock(),
-                                         'some-master-id', None, None,
+                                         'some-main-id', None, None,
                                          None)
-        mock_tasks.get_replication_master_snapshot.assert_called_with(
-            self.context, 'some-master-id', mock_flavor, 'temp-backup-id',
+        mock_tasks.get_replication_main_snapshot.assert_called_with(
+            self.context, 'some-main-id', mock_flavor, 'temp-backup-id',
             replica_number=1)
         mock_backup_delete.assert_called_with(self.context, 'test-id')
 
     @patch.object(models.FreshInstanceTasks, 'load')
     @patch.object(Backup, 'delete')
     @patch('trove.taskmanager.manager.LOG')
-    def test_exception_create_replication_slave(self, mock_logging,
+    def test_exception_create_replication_subordinate(self, mock_logging,
                                                 mock_delete, mock_load):
         mock_load.return_value.create_instance = Mock(side_effect=TroveError)
         self.assertRaises(TroveError, self.manager.create_instance,
                           self.context, ['id1', 'id2'], Mock(), Mock(),
                           Mock(), None, None, 'mysql', 'mysql-server', 2,
                           'temp-backup-id', None, 'some_password', None,
-                          Mock(), 'some-master-id', None, None, None)
+                          Mock(), 'some-main-id', None, None, None)
 
     def test_AttributeError_create_instance(self):
         self.assertRaisesRegexp(

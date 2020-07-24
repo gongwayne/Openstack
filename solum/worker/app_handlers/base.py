@@ -140,7 +140,7 @@ class BaseHandler(object):
 
         return result
 
-    def _clone_repo(self, repo_url, destination, logger, revision='master'):
+    def _clone_repo(self, repo_url, destination, logger, revision='main'):
         # Clone a repo with the constraints of disk and memory usage
         # Need to consider limiting network bandwidth as well.
         container_dest = '/tmp/code'

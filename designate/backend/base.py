@@ -41,7 +41,7 @@ class Backend(DriverPlugin):
 
         self.target = target
         self.options = target.options
-        self.masters = target.masters
+        self.mains = target.mains
         self.host = self.options.get('host', '127.0.0.1')
         self.port = int(self.options.get('port', 53))
 

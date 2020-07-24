@@ -32,12 +32,12 @@ class ReplicationGroup(TestGroup):
 
     @test
     def add_data_for_replication(self):
-        """Add data to master for initial replica setup."""
+        """Add data to main for initial replica setup."""
         self.test_runner.run_add_data_for_replication()
 
     @test(depends_on=[add_data_for_replication])
     def verify_data_for_replication(self):
-        """Verify data exists on master."""
+        """Verify data exists on main."""
         self.test_runner.run_verify_data_for_replication()
 
     @test(runs_after=[verify_data_for_replication])
@@ -47,7 +47,7 @@ class ReplicationGroup(TestGroup):
 
     @test(runs_after=[create_single_replica])
     def add_data_after_replica(self):
-        """Add data to master after initial replica is setup"""
+        """Add data to main after initial replica is setup"""
         self.test_runner.run_add_data_after_replica()
 
     @test(runs_after=[add_data_after_replica])
@@ -62,12 +62,12 @@ class ReplicationGroup(TestGroup):
 
     @test(depends_on=[create_single_replica, create_multiple_replicas])
     def add_data_to_replicate(self):
-        """Add data to master to verify replication."""
+        """Add data to main to verify replication."""
         self.test_runner.run_add_data_to_replicate()
 
     @test(depends_on=[add_data_to_replicate])
     def verify_data_to_replicate(self):
-        """Verify data exists on master."""
+        """Verify data exists on main."""
         self.test_runner.run_verify_data_to_replicate()
 
     @test(depends_on=[create_single_replica, create_multiple_replicas,
@@ -93,43 +93,43 @@ class ReplicationGroup(TestGroup):
 
     @test(depends_on=[create_single_replica, create_multiple_replicas],
           runs_after=[verify_replica_data_new])
-    def promote_master(self):
-        """Ensure promoting master fails."""
-        self.test_runner.run_promote_master()
+    def promote_main(self):
+        """Ensure promoting main fails."""
+        self.test_runner.run_promote_main()
 
     @test(depends_on=[create_single_replica, create_multiple_replicas],
-          runs_after=[promote_master])
+          runs_after=[promote_main])
     def eject_replica(self):
-        """Ensure ejecting non master fails."""
+        """Ensure ejecting non main fails."""
         self.test_runner.run_eject_replica()
 
     @test(depends_on=[create_single_replica, create_multiple_replicas],
           runs_after=[eject_replica])
-    def eject_valid_master(self):
-        """Ensure ejecting valid master fails."""
-        self.test_runner.run_eject_valid_master()
+    def eject_valid_main(self):
+        """Ensure ejecting valid main fails."""
+        self.test_runner.run_eject_valid_main()
 
     @test(depends_on=[create_single_replica, create_multiple_replicas],
-          runs_after=[eject_valid_master])
-    def delete_valid_master(self):
-        """Ensure deleting valid master fails."""
-        self.test_runner.run_delete_valid_master()
+          runs_after=[eject_valid_main])
+    def delete_valid_main(self):
+        """Ensure deleting valid main fails."""
+        self.test_runner.run_delete_valid_main()
 
     @test(depends_on=[create_single_replica, create_multiple_replicas],
-          runs_after=[delete_valid_master])
+          runs_after=[delete_valid_main])
     def promote_to_replica_source(self):
-        """Test promoting a replica to replica source (master)."""
+        """Test promoting a replica to replica source (main)."""
         self.test_runner.run_promote_to_replica_source()
 
     @test(depends_on=[create_single_replica, create_multiple_replicas,
                       promote_to_replica_source])
     def add_data_to_replicate2(self):
-        """Add data to new master to verify replication."""
+        """Add data to new main to verify replication."""
         self.test_runner.run_add_data_to_replicate2()
 
     @test(depends_on=[add_data_to_replicate2])
     def verify_data_to_replicate2(self):
-        """Verify data exists on new master."""
+        """Verify data exists on new main."""
         self.test_runner.run_verify_data_to_replicate2()
 
     @test(depends_on=[add_data_to_replicate2],
@@ -159,7 +159,7 @@ class ReplicationGroup(TestGroup):
     @test(depends_on=[promote_original_source],
           runs_after=[remove_replicated_data])
     def detach_replica_from_source(self):
-        """Test detaching a replica from the master."""
+        """Test detaching a replica from the main."""
         self.test_runner.run_detach_replica_from_source()
 
     @test(depends_on=[promote_original_source],

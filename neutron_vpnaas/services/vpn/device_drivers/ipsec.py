@@ -1014,7 +1014,7 @@ class IPsecDriver(device_drivers.DeviceDriver):
                 router = self.routers.get(vpnservice['router_id'])
                 if not router:
                     continue
-                # For HA router, spawn vpn process on master router
+                # For HA router, spawn vpn process on main router
                 # and terminate vpn process on backup router
                 if router.router['ha'] and router.ha_state == 'backup':
                     process.disable()

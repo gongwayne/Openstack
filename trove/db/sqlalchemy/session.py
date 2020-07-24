@@ -113,9 +113,9 @@ def get_facade():
     return _FACADE
 
 
-def get_engine(use_slave=False):
+def get_engine(use_subordinate=False):
     _check_facade()
-    return _FACADE.get_engine(use_slave=use_slave)
+    return _FACADE.get_engine(use_subordinate=use_subordinate)
 
 
 def get_session(**kwargs):

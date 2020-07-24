@@ -38,7 +38,7 @@ class SparkNodeProcess(np.NodeProcess):
     pass
 
 
-class SparkMaster(np.NodeProcess):
+class SparkMain(np.NodeProcess):
     def submit_url(self, cluster_context):
         args = {
             "host": cluster_context.get_instance(self).fqdn(),
@@ -58,10 +58,10 @@ class SparkWorker(SparkNodeProcess):
         g.execute_command(instances, stop_command)
 
     def _get_start_command(self, cluster_context, run_as=None):
-        command_template = ("%(start_script)s 1 %(master_url)s"
+        command_template = ("%(start_script)s 1 %(main_url)s"
                             " --webui-port %(web_ui_port)s")
         args = {
-            "master_url": SPARK_MASTER.submit_url(cluster_context),
+            "main_url": SPARK_MASTER.submit_url(cluster_context),
             "start_script": self._get_start_script_path(cluster_context),
             "web_ui_port": SPARK_SLAVE_UI_PORT,
         }
@@ -76,7 +76,7 @@ class SparkWorker(SparkNodeProcess):
         return g._run_as(run_as, command_template % args)
 
     def _get_start_script_path(self, cluster_context):
-        path_template = "%(spark_home)s/sbin/start-slave.sh"
+        path_template = "%(spark_home)s/sbin/start-subordinate.sh"
         args = {"spark_home": Spark().home_dir(cluster_context)}
 
         return path_template % args
@@ -88,10 +88,10 @@ class SparkWorker(SparkNodeProcess):
         return path_template % args
 
 
-SPARK_MASTER = SparkMaster(
-    name='spark-master',
-    ui_name='Spark Master',
-    package='mapr-spark-master',
+SPARK_MASTER = SparkMain(
+    name='spark-main',
+    ui_name='Spark Main',
+    package='mapr-spark-main',
     open_ports=[SPARK_MASTER_PORT, SPARK_MASTER_UI_PORT],
 )
 SPARK_HISTORY_SERVER = SparkNodeProcess(
@@ -101,8 +101,8 @@ SPARK_HISTORY_SERVER = SparkNodeProcess(
     open_ports=[SPARK_HS_UI_PORT]
 )
 SPARK_SLAVE = SparkWorker(
-    name='spark-master',
-    ui_name='Spark Slave',
+    name='spark-main',
+    ui_name='Spark Subordinate',
     package='mapr-spark',
     open_ports=[SPARK_SLAVE_UI_PORT]
 )
@@ -121,7 +121,7 @@ class Spark(s.Service):
         ]
         self._dependencies = [('mapr-spark', self.version)]
         self._ui_info = [
-            ('Spark Master', SPARK_MASTER,
+            ('Spark Main', SPARK_MASTER,
              'http://%%s:%s' % SPARK_MASTER_UI_PORT),
             ('Spark History Server', SPARK_HISTORY_SERVER,
              'http://%%s:%s' % SPARK_HS_UI_PORT)]
@@ -151,11 +151,11 @@ class Spark(s.Service):
         return [env]
 
     def configure(self, cluster_context, instances=None):
-        self._write_slaves_list(cluster_context)
+        self._write_subordinates_list(cluster_context)
 
     def update(self, cluster_context, instances=None):
         if cluster_context.changed_instances(SPARK_SLAVE):
-            self._write_slaves_list(cluster_context)
+            self._write_subordinates_list(cluster_context)
 
     def post_install(self, cluster_context, instances):
         self._install_ssh_keys(cluster_context, instances)
@@ -166,9 +166,9 @@ class Spark(s.Service):
             self._install_spark_history_server(cluster_context, instances)
 
     def _install_ssh_keys(self, cluster_context, instances):
-        slaves = cluster_context.filter_instances(instances, SPARK_SLAVE)
-        masters = cluster_context.filter_instances(instances, SPARK_MASTER)
-        instances = g.unique_list(masters + slaves)
+        subordinates = cluster_context.filter_instances(instances, SPARK_SLAVE)
+        mains = cluster_context.filter_instances(instances, SPARK_MASTER)
+        instances = g.unique_list(mains + subordinates)
         private_key = cluster_context.cluster.management_private_key
         public_key = cluster_context.cluster.management_public_key
         g.execute_on_instances(
@@ -188,16 +188,16 @@ class Spark(s.Service):
         props = ' '.join(map(lambda i: '-D%s=%s' % i, six.iteritems(props)))
         return {'SPARK_DAEMON_JAVA_OPTS': props}
 
-    def _write_slaves_list(self, cluster_context):
-        path = '%s/slaves' % self.conf_dir(cluster_context)
-        data = self._generate_slaves_file(cluster_context)
-        master = cluster_context.get_instance(SPARK_MASTER)
-        g.write_file(master, path, data, owner='root')
-        LOG.debug("Spark slaves list successfully written.")
+    def _write_subordinates_list(self, cluster_context):
+        path = '%s/subordinates' % self.conf_dir(cluster_context)
+        data = self._generate_subordinates_file(cluster_context)
+        main = cluster_context.get_instance(SPARK_MASTER)
+        g.write_file(main, path, data, owner='root')
+        LOG.debug("Spark subordinates list successfully written.")
 
-    def _generate_slaves_file(self, cluster_context):
-        slaves = cluster_context.get_instances(SPARK_SLAVE)
-        return "\n".join(instance.fqdn() for instance in slaves)
+    def _generate_subordinates_file(self, cluster_context):
+        subordinates = cluster_context.get_instances(SPARK_SLAVE)
+        return "\n".join(instance.fqdn() for instance in subordinates)
 
     def _create_hadoop_spark_dirs(self, cluster_context):
         path = '/apps/spark'

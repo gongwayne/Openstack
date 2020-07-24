@@ -130,7 +130,7 @@ class RedisGuestAgentManagerTest(trove_testtools.TestCase):
         VolumeDevice.mount_points = MagicMock(return_value=[])
         backup.restore = MagicMock(return_value=None)
         mock_replication = MagicMock()
-        mock_replication.enable_as_slave = MagicMock()
+        mock_replication.enable_as_subordinate = MagicMock()
         self.mock_repl.return_value = mock_replication
 
         self.manager.prepare(self.context, self.packages,
@@ -156,9 +156,9 @@ class RedisGuestAgentManagerTest(trove_testtools.TestCase):
             redis_service.RedisApp.restart.assert_any_call()
 
         if snapshot:
-            self.assertEqual(1, mock_replication.enable_as_slave.call_count)
+            self.assertEqual(1, mock_replication.enable_as_subordinate.call_count)
         else:
-            self.assertEqual(0, mock_replication.enable_as_slave.call_count)
+            self.assertEqual(0, mock_replication.enable_as_subordinate.call_count)
 
     @patch.object(redis_service.RedisApp, 'restart')
     def test_restart(self, redis_mock):
@@ -193,38 +193,38 @@ class RedisGuestAgentManagerTest(trove_testtools.TestCase):
 
     def test_attach_replica(self):
         mock_replication = MagicMock()
-        mock_replication.enable_as_slave = MagicMock()
+        mock_replication.enable_as_subordinate = MagicMock()
         self.mock_repl.return_value = mock_replication
 
         snapshot = {'replication_strategy': self.replication_strategy,
                     'dataset': {'dataset_size': 1.0}}
 
         self.manager.attach_replica(self.context, snapshot, None)
-        self.assertEqual(1, mock_replication.enable_as_slave.call_count)
+        self.assertEqual(1, mock_replication.enable_as_subordinate.call_count)
 
     def test_detach_replica(self):
         mock_replication = MagicMock()
-        mock_replication.detach_slave = MagicMock()
+        mock_replication.detach_subordinate = MagicMock()
         self.mock_repl.return_value = mock_replication
 
         self.manager.detach_replica(self.context)
-        self.assertEqual(1, mock_replication.detach_slave.call_count)
+        self.assertEqual(1, mock_replication.detach_subordinate.call_count)
 
-    def test_enable_as_master(self):
+    def test_enable_as_main(self):
         mock_replication = MagicMock()
-        mock_replication.enable_as_master = MagicMock()
+        mock_replication.enable_as_main = MagicMock()
         self.mock_repl.return_value = mock_replication
 
-        self.manager.enable_as_master(self.context, None)
-        self.assertEqual(mock_replication.enable_as_master.call_count, 1)
+        self.manager.enable_as_main(self.context, None)
+        self.assertEqual(mock_replication.enable_as_main.call_count, 1)
 
-    def test_demote_replication_master(self):
+    def test_demote_replication_main(self):
         mock_replication = MagicMock()
-        mock_replication.demote_master = MagicMock()
+        mock_replication.demote_main = MagicMock()
         self.mock_repl.return_value = mock_replication
 
-        self.manager.demote_replication_master(self.context)
-        self.assertEqual(1, mock_replication.demote_master.call_count)
+        self.manager.demote_replication_main(self.context)
+        self.assertEqual(1, mock_replication.demote_main.call_count)
 
     @patch.object(redis_service.RedisApp, 'make_read_only')
     def test_make_read_only(self, redis_mock):
@@ -245,16 +245,16 @@ class RedisGuestAgentManagerTest(trove_testtools.TestCase):
     def test_get_replication_snapshot(self):
         snapshot_id = None
         log_position = None
-        master_ref = 'my_master'
+        main_ref = 'my_main'
         used_size = 1.0
         total_size = 2.0
 
         mock_replication = MagicMock()
-        mock_replication.enable_as_master = MagicMock()
+        mock_replication.enable_as_main = MagicMock()
         mock_replication.snapshot_for_replication = MagicMock(
             return_value=(snapshot_id, log_position))
-        mock_replication.get_master_ref = MagicMock(
-            return_value=master_ref)
+        mock_replication.get_main_ref = MagicMock(
+            return_value=main_ref)
         self.mock_repl.return_value = mock_replication
         self.mock_gfvs_class.return_value = (
             {'used': used_size, 'total': total_size})
@@ -267,7 +267,7 @@ class RedisGuestAgentManagerTest(trove_testtools.TestCase):
                 'snapshot_id': snapshot_id
             },
             'replication_strategy': self.replication_strategy,
-            'master': master_ref,
+            'main': main_ref,
             'log_position': log_position
         }
 
@@ -277,18 +277,18 @@ class RedisGuestAgentManagerTest(trove_testtools.TestCase):
             self.manager.get_replication_snapshot(self.context, snapshot_info,
                                                   replica_source_config))
         self.assertEqual(expected_replication_snapshot, replication_snapshot)
-        self.assertEqual(1, mock_replication.enable_as_master.call_count)
+        self.assertEqual(1, mock_replication.enable_as_main.call_count)
         self.assertEqual(
             1, mock_replication.snapshot_for_replication.call_count)
-        self.assertEqual(1, mock_replication.get_master_ref.call_count)
+        self.assertEqual(1, mock_replication.get_main_ref.call_count)
 
     def test_get_replica_context(self):
-        master_ref = {
+        main_ref = {
             'host': '1.2.3.4',
             'port': 3306
         }
         expected_info = {
-            'master': master_ref,
+            'main': main_ref,
         }
         mock_replication = MagicMock()
         mock_replication.get_replica_context = MagicMock(
@@ -301,20 +301,20 @@ class RedisGuestAgentManagerTest(trove_testtools.TestCase):
 
     def test_get_last_txn(self):
         expected_host = '10.0.0.2'
-        self.manager._get_master_host = MagicMock(return_value=expected_host)
+        self.manager._get_main_host = MagicMock(return_value=expected_host)
         expected_txn_id = 199
-        repl_info = {'role': 'master', 'master_repl_offset': expected_txn_id}
+        repl_info = {'role': 'main', 'main_repl_offset': expected_txn_id}
         self.manager._get_repl_info = MagicMock(return_value=repl_info)
 
         (host, txn_id) = self.manager.get_last_txn(self.context)
-        self.manager._get_master_host.assert_any_call()
+        self.manager._get_main_host.assert_any_call()
         self.manager._get_repl_info.assert_any_call()
         self.assertEqual(expected_host, host)
         self.assertEqual(expected_txn_id, txn_id)
 
     def test_get_latest_txn_id(self):
         expected_txn_id = 199
-        repl_info = {'role': 'master', 'master_repl_offset': expected_txn_id}
+        repl_info = {'role': 'main', 'main_repl_offset': expected_txn_id}
         self.manager._get_repl_info = MagicMock(return_value=repl_info)
         latest_txn_id = self.manager.get_latest_txn_id(self.context)
         self.assertEqual(expected_txn_id, latest_txn_id)
@@ -322,7 +322,7 @@ class RedisGuestAgentManagerTest(trove_testtools.TestCase):
 
     def test_wait_for_txn(self):
         expected_txn_id = 199
-        repl_info = {'role': 'master', 'master_repl_offset': expected_txn_id}
+        repl_info = {'role': 'main', 'main_repl_offset': expected_txn_id}
         self.manager._get_repl_info = MagicMock(return_value=repl_info)
         self.manager.wait_for_txn(self.context, expected_txn_id)
         self.manager._get_repl_info.assert_any_call()

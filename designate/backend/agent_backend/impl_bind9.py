@@ -127,7 +127,7 @@ class Bind9Backend(base.AgentBackend):
             if new_zone_flag:
                 rndc_op = [
                     'addzone',
-                    '%s { type master; file "%s"; };' % (zone_name,
+                    '%s { type main; file "%s"; };' % (zone_name,
                                                          output_path),
                 ]
                 rndc_call.extend(rndc_op)

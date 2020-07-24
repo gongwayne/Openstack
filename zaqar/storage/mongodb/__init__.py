@@ -35,7 +35,7 @@ Supported Deployments
 
 MongoDB can be deployed in 3 different ways. The first and most simple one is
 to deploy a standalone `mongod` node. The second one is to use a Replica Sets
-which gives a master-slave deployment but cannot be scaled unlimitedly. The
+which gives a main-subordinate deployment but cannot be scaled unlimitedly. The
 third and last one is a sharded cluster.
 
 The second and third methods are the ones recommended for production

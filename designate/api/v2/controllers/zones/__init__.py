@@ -151,7 +151,7 @@ class ZonesController(rest.RestController):
             zone = DesignateAdapter.parse('API_v2', body, zone)
 
             zone.validate()
-            # If masters are specified then we set zone.transferred_at to None
+            # If mains are specified then we set zone.transferred_at to None
             # which will cause a new transfer
             if 'attributes' in zone.obj_what_changed():
                 zone.transferred_at = None

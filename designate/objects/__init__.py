@@ -19,7 +19,7 @@ from designate.objects.base import PagedListObjectMixin  # noqa
 from designate.objects.blacklist import Blacklist, BlacklistList  # noqa
 from designate.objects.zone import Zone, ZoneList  # noqa
 from designate.objects.zone_attribute import ZoneAttribute, ZoneAttributeList  # noqa
-from designate.objects.zone_master import ZoneMaster, ZoneMasterList  # noqa
+from designate.objects.zone_main import ZoneMain, ZoneMainList  # noqa
 from designate.objects.floating_ip import FloatingIP, FloatingIPList  # noqa
 from designate.objects.pool_manager_status import PoolManagerStatus, PoolManagerStatusList  # noqa
 from designate.objects.pool import Pool, PoolList  # noqa
@@ -28,7 +28,7 @@ from designate.objects.pool_attribute import PoolAttribute, PoolAttributeList  #
 from designate.objects.pool_ns_record import PoolNsRecord, PoolNsRecordList  # noqa
 from designate.objects.pool_nameserver import PoolNameserver, PoolNameserverList  # noqa
 from designate.objects.pool_target import PoolTarget, PoolTargetList  # noqa
-from designate.objects.pool_target_master import PoolTargetMaster, PoolTargetMasterList  # noqa
+from designate.objects.pool_target_main import PoolTargetMain, PoolTargetMainList  # noqa
 from designate.objects.pool_target_option import PoolTargetOption, PoolTargetOptionList  # noqa
 from designate.objects.quota import Quota, QuotaList  # noqa
 from designate.objects.record import Record, RecordList  # noqa

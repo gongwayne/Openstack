@@ -276,7 +276,7 @@ class AtomicK8sTemplateDefinitionTestCase(base.TestCase):
         mock_resp.text = expected_discovery_url
         mock_get.return_value = mock_resp
         mock_bay = mock.MagicMock()
-        mock_bay.master_count = 10
+        mock_bay.main_count = 10
         mock_bay.discovery_url = None
 
         k8s_def = tdef.AtomicK8sTemplateDefinition()
@@ -293,7 +293,7 @@ class AtomicK8sTemplateDefinitionTestCase(base.TestCase):
                               group='bay')
         mock_get.side_effect = Exception()
         mock_bay = mock.MagicMock()
-        mock_bay.master_count = 10
+        mock_bay.main_count = 10
         mock_bay.discovery_url = None
 
         k8s_def = tdef.AtomicK8sTemplateDefinition()
@@ -484,10 +484,10 @@ class AtomicSwarmTemplateDefinitionTestCase(base.TestCase):
              "output_key": "api_address"},
             {"output_value": ['any', 'output'],
              "description": "No description given",
-             "output_key": "swarm_master_private"},
+             "output_key": "swarm_main_private"},
             {"output_value": ['any', 'output'],
              "description": "No description given",
-             "output_key": "swarm_master"},
+             "output_key": "swarm_main"},
             {"output_value": ['any', 'output'],
              "description": "No description given",
              "output_key": "swarm_nodes_private"},
@@ -548,17 +548,17 @@ class UbuntuMesosTemplateDefinitionTestCase(base.TestCase):
         mesos_def = tdef.UbuntuMesosTemplateDefinition()
 
         heat_param = mesos_def.get_heat_param(bay_attr='node_count')
-        self.assertEqual('number_of_slaves', heat_param)
+        self.assertEqual('number_of_subordinates', heat_param)
 
-        heat_param = mesos_def.get_heat_param(bay_attr='master_count')
-        self.assertEqual('number_of_masters', heat_param)
+        heat_param = mesos_def.get_heat_param(bay_attr='main_count')
+        self.assertEqual('number_of_mains', heat_param)
 
     def test_update_outputs(self):
         mesos_def = tdef.UbuntuMesosTemplateDefinition()
 
         expected_api_address = 'updated_address'
-        expected_node_addresses = ['ex_slave', 'address']
-        expected_master_addresses = ['ex_master', 'address']
+        expected_node_addresses = ['ex_subordinate', 'address']
+        expected_main_addresses = ['ex_main', 'address']
 
         outputs = [
             {"output_value": expected_api_address,
@@ -566,16 +566,16 @@ class UbuntuMesosTemplateDefinitionTestCase(base.TestCase):
              "output_key": "api_address"},
             {"output_value": ['any', 'output'],
              "description": "No description given",
-             "output_key": "mesos_master_private"},
-            {"output_value": expected_master_addresses,
+             "output_key": "mesos_main_private"},
+            {"output_value": expected_main_addresses,
              "description": "No description given",
-             "output_key": "mesos_master"},
+             "output_key": "mesos_main"},
             {"output_value": ['any', 'output'],
              "description": "No description given",
-             "output_key": "mesos_slaves_private"},
+             "output_key": "mesos_subordinates_private"},
             {"output_value": expected_node_addresses,
              "description": "No description given",
-             "output_key": "mesos_slaves"},
+             "output_key": "mesos_subordinates"},
         ]
         mock_stack = mock.MagicMock()
         mock_stack.to_dict.return_value = {'outputs': outputs}
@@ -586,4 +586,4 @@ class UbuntuMesosTemplateDefinitionTestCase(base.TestCase):
 
         self.assertEqual(expected_api_address, mock_bay.api_address)
         self.assertEqual(expected_node_addresses, mock_bay.node_addresses)
-        self.assertEqual(expected_master_addresses, mock_bay.master_addresses)
+        self.assertEqual(expected_main_addresses, mock_bay.main_addresses)

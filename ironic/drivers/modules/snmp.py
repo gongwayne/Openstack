@@ -436,10 +436,10 @@ class SNMPDriverAten(SNMPDriverSimple):
         return self.oid_enterprise + self.oid_device + (outlet, 0,)
 
 
-class SNMPDriverAPCMasterSwitch(SNMPDriverSimple):
-    """SNMP driver class for APC MasterSwitch PDU devices.
+class SNMPDriverAPCMainSwitch(SNMPDriverSimple):
+    """SNMP driver class for APC MainSwitch PDU devices.
 
-    SNMP objects for APC SNMPDriverAPCMasterSwitch PDU:
+    SNMP objects for APC SNMPDriverAPCMainSwitch PDU:
     1.3.6.1.4.1.318.1.1.4.4.2.1.3 sPDUOutletCtl
     Values: 1=On, 2=Off, 3=PowerCycle, [...more options follow]
     """
@@ -449,10 +449,10 @@ class SNMPDriverAPCMasterSwitch(SNMPDriverSimple):
     value_power_off = 2
 
 
-class SNMPDriverAPCMasterSwitchPlus(SNMPDriverSimple):
-    """SNMP driver class for APC MasterSwitchPlus PDU devices.
+class SNMPDriverAPCMainSwitchPlus(SNMPDriverSimple):
+    """SNMP driver class for APC MainSwitchPlus PDU devices.
 
-    SNMP objects for APC SNMPDriverAPCMasterSwitchPlus PDU:
+    SNMP objects for APC SNMPDriverAPCMainSwitchPlus PDU:
     1.3.6.1.4.1.318.1.1.6.5.1.1.5 sPDUOutletControlMSPOutletCommand
     Values: 1=On, 3=Off, [...more options follow]
     """
@@ -465,7 +465,7 @@ class SNMPDriverAPCMasterSwitchPlus(SNMPDriverSimple):
 class SNMPDriverAPCRackPDU(SNMPDriverSimple):
     """SNMP driver class for APC RackPDU devices.
 
-    SNMP objects for APC SNMPDriverAPCMasterSwitch PDU:
+    SNMP objects for APC SNMPDriverAPCMainSwitch PDU:
     # 1.3.6.1.4.1.318.1.1.12.3.3.1.1.4 rPDUOutletControlOutletCommand
     Values: 1=On, 2=Off, 3=PowerCycle, [...more options follow]
     """
@@ -586,9 +586,9 @@ class SNMPDriverEatonPower(SNMPDriverBase):
 
 # A dictionary of supported drivers keyed by snmp_driver attribute
 DRIVER_CLASSES = {
-    'apc': SNMPDriverAPCMasterSwitch,
-    'apc_masterswitch': SNMPDriverAPCMasterSwitch,
-    'apc_masterswitchplus': SNMPDriverAPCMasterSwitchPlus,
+    'apc': SNMPDriverAPCMainSwitch,
+    'apc_mainswitch': SNMPDriverAPCMainSwitch,
+    'apc_mainswitchplus': SNMPDriverAPCMainSwitchPlus,
     'apc_rackpdu': SNMPDriverAPCRackPDU,
     'aten': SNMPDriverAten,
     'cyberpower': SNMPDriverCyberPower,

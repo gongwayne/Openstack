@@ -60,14 +60,14 @@ class WhenTestingSimpleCryptoPlugin(utils.BaseTestCase):
         """Test plan:
 
                 Generate a kek
-                Encrypt with master kek
+                Encrypt with main kek
                 Convert to unicode
                 call plugin.encrypt on unencrypted
                 decrypt response cypher_text
                 Compare with unencrypted
         """
         project_kek = fernet.Fernet.generate_key()
-        encryptor = fernet.Fernet(self.plugin.master_kek)
+        encryptor = fernet.Fernet(self.plugin.main_kek)
         ENC_project_kek = encryptor.encrypt(project_kek)
         UENC_project_kek = six.u(ENC_project_kek)
         kek_meta_dto = self._get_mocked_kek_meta_dto()

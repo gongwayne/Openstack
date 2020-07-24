@@ -96,7 +96,7 @@ class DockerHandler(base.BaseHandler):
                 logger.log(logging.ERROR, 'Building app preparation failed.')
                 return False
 
-            revision = git_info.get('revision', 'master')
+            revision = git_info.get('revision', 'main')
 
             head_sha = self._clone_repo(git_info['source_url'], self.work_dir,
                                         logger, revision=revision)
@@ -133,7 +133,7 @@ class DockerHandler(base.BaseHandler):
             logger.upload()
             return
 
-        revision = git_info.get('revision', 'master')
+        revision = git_info.get('revision', 'main')
         head_sha = self._clone_repo(git_info['source_url'], self.work_dir,
                                     logger, revision=revision)
         if not head_sha:

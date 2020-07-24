@@ -48,9 +48,9 @@ MagnumGroup = [
                default=None,
                help="Bypass URL for Magnum to skip service catalog lookup"),
 
-    cfg.StrOpt("master_flavor_id",
+    cfg.StrOpt("main_flavor_id",
                default="m1.magnum",
-               help="Master flavor id to use for baymodels."),
+               help="Main flavor id to use for baymodels."),
 
     cfg.StrOpt("csr_location",
                default="/opt/stack/new/magnum/default.csr",

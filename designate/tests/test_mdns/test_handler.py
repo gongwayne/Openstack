@@ -40,10 +40,10 @@ ANSWER = [
     ";QUESTION",
     "example.com. IN SOA",
     ";ANSWER",
-    "example.com. 3600 IN SOA ns1.example.com. root.master.com. "
+    "example.com. 3600 IN SOA ns1.example.com. root.main.com. "
     "%(serial)s 3600 1800 604800 3600",
     ";AUTHORITY",
-    "example.com. 3600 IN NS ns1.master.com.",
+    "example.com. 3600 IN NS ns1.main.com.",
     ";ADDITIONAL"
 ]
 
@@ -122,15 +122,15 @@ class MdnsRequestHandlerTest(MdnsTestCase):
         self.assertEqual(expected_response, binascii.b2a_hex(response))
 
     def _get_secondary_zone(self, values=None, attributes=None,
-                            masters=None):
+                            mains=None):
         attributes = attributes or []
-        masters = masters or [{"host": "10.0.0.1", "port": 53}]
+        mains = mains or [{"host": "10.0.0.1", "port": 53}]
         fixture = self.get_zone_fixture("SECONDARY", values=values)
         fixture['email'] = cfg.CONF['service:central'].managed_resource_email
 
         zone = objects.Zone(**fixture)
         zone.attributes = objects.ZoneAttributeList().from_list(attributes)
-        zone.masters = objects.ZoneMasterList().from_list(masters)
+        zone.mains = objects.ZoneMainList().from_list(mains)
         return zone
 
     def _get_soa_answer(self, serial):
@@ -146,7 +146,7 @@ class MdnsRequestHandlerTest(MdnsTestCase):
         # DNS packet with NOTIFY opcode
         payload = "c38021000001000000000000076578616d706c6503636f6d0000060001"
 
-        master = "10.0.0.1"
+        main = "10.0.0.1"
         zone = self._get_secondary_zone({"serial": 123})
 
         # expected response is an error code NOERROR.  The other fields are
@@ -168,7 +168,7 @@ class MdnsRequestHandlerTest(MdnsTestCase):
 
         request = dns.message.from_wire(binascii.a2b_hex(payload))
         request.environ = {
-            'addr': (master, 53),
+            'addr': (main, 53),
             'context': self.context
         }
 
@@ -178,7 +178,7 @@ class MdnsRequestHandlerTest(MdnsTestCase):
 
         self.mock_tg.add_thread.assert_called_with(
             self.handler.zone_sync, self.context, zone,
-            [zone.masters[0]])
+            [zone.mains[0]])
         self.assertEqual(expected_response, binascii.b2a_hex(response))
 
     @mock.patch.object(dns.resolver.Resolver, 'query')
@@ -186,7 +186,7 @@ class MdnsRequestHandlerTest(MdnsTestCase):
         # DNS packet with NOTIFY opcode
         payload = "c38021000001000000000000076578616d706c6503636f6d0000060001"
 
-        master = "10.0.0.1"
+        main = "10.0.0.1"
         zone = self._get_secondary_zone({"serial": 123})
 
         # expected response is an error code NOERROR.  The other fields are
@@ -208,7 +208,7 @@ class MdnsRequestHandlerTest(MdnsTestCase):
 
         request = dns.message.from_wire(binascii.a2b_hex(payload))
         request.environ = {
-            'addr': (master, 53),
+            'addr': (main, 53),
             'context': self.context
         }
 
@@ -219,11 +219,11 @@ class MdnsRequestHandlerTest(MdnsTestCase):
         assert not self.mock_tg.add_thread.called
         self.assertEqual(expected_response, binascii.b2a_hex(response))
 
-    def test_dispatch_opcode_notify_invalid_master(self):
+    def test_dispatch_opcode_notify_invalid_main(self):
         # DNS packet with NOTIFY opcode
         payload = "c38021000001000000000000076578616d706c6503636f6d0000060001"
 
-        # Have a zone with different master then the one where the notify
+        # Have a zone with different main then the one where the notify
         # comes from causing it to be "ignored" as in not transferred and
         # logged
 

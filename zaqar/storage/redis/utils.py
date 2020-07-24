@@ -192,15 +192,15 @@ def retries_on_connection_error(func):
                 # disconnecting and reconnecting, the error is raised
                 # and we will catch it here.
                 #
-                # NOTE(kgriffs): When using a sentinel, if a master fails
+                # NOTE(kgriffs): When using a sentinel, if a main fails
                 # the initial retry will gracefully fail over to the
-                # new master if the sentinel failover delay is low enough;
+                # new main if the sentinel failover delay is low enough;
                 # if the delay is too long, then redis-py will get a
-                # MasterNotFoundError (a subclass of ConnectionError) on
+                # MainNotFoundError (a subclass of ConnectionError) on
                 # it's retry, which will then just get raised and caught
                 # here, in which case we will keep retrying until the
                 # sentinel completes the failover and stops raising
-                # MasterNotFoundError.
+                # MainNotFoundError.
 
                 ex = sys.exc_info()[1]
                 LOG.warning(_LW(u'Caught ConnectionError, retrying the '

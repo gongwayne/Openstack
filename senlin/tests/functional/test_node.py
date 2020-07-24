@@ -45,7 +45,7 @@ class TestNode(base.SenlinFunctionalTest):
                                      test_utils.random_name('node1'),
                                      self.profile['id'],
                                      cluster_id=cluster['id'],
-                                     role='master')
+                                     role='main')
 
         node1 = test_utils.wait_for_status(test_api.get_node, self.client,
                                            node1['id'], 'ACTIVE')

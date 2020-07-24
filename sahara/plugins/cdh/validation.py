@@ -185,7 +185,7 @@ class Validator(object):
 
             if not rm and 'YARN_NODEMANAGER' in ng.node_processes:
                 msg = _("CDH plugin cannot scale node group with processes "
-                        "which have no master-processes run in cluster")
+                        "which have no main-processes run in cluster")
                 raise ex.NodeGroupCannotBeScaled(ng.name, msg)
 
     @classmethod

@@ -436,38 +436,38 @@ class FreshInstanceTasksTest(trove_testtools.TestCase):
             768, mock_build_volume_info(), 'mysql-server', None, None, None,
             config_content, None, overrides, None, None, None)
 
-    @patch.object(trove.guestagent.api.API, 'attach_replication_slave')
+    @patch.object(trove.guestagent.api.API, 'attach_replication_subordinate')
     @patch.object(rpc, 'get_client')
-    def test_attach_replication_slave(self, mock_get_client,
-                                      mock_attach_replication_slave):
+    def test_attach_replication_subordinate(self, mock_get_client,
+                                      mock_attach_replication_subordinate):
         mock_flavor = {'id': 8, 'ram': 768, 'name': 'bigger_flavor'}
         snapshot = {'replication_strategy': 'MysqlGTIDReplication',
-                    'master': {'id': 'master-id'}}
+                    'main': {'id': 'main-id'}}
         config_content = {'config_contents': 'some junk'}
         replica_config = MagicMock()
         replica_config.config_contents = config_content
         with patch.object(taskmanager_models.FreshInstanceTasks,
                           '_render_replica_config',
                           return_value=replica_config):
-            self.freshinstancetasks.attach_replication_slave(snapshot,
+            self.freshinstancetasks.attach_replication_subordinate(snapshot,
                                                              mock_flavor)
-        mock_attach_replication_slave.assert_called_with(snapshot,
+        mock_attach_replication_subordinate.assert_called_with(snapshot,
                                                          config_content)
 
     @patch.object(BaseInstance, 'update_db')
     @patch.object(rpc, 'get_client')
     @patch.object(taskmanager_models.FreshInstanceTasks,
                   '_render_replica_config')
-    @patch.object(trove.guestagent.api.API, 'attach_replication_slave',
+    @patch.object(trove.guestagent.api.API, 'attach_replication_subordinate',
                   side_effect=GuestError)
     @patch('trove.taskmanager.models.LOG')
-    def test_error_attach_replication_slave(self, *args):
+    def test_error_attach_replication_subordinate(self, *args):
         mock_flavor = {'id': 8, 'ram': 768, 'name': 'bigger_flavor'}
         snapshot = {'replication_strategy': 'MysqlGTIDReplication',
-                    'master': {'id': 'master-id'}}
+                    'main': {'id': 'main-id'}}
         self.assertRaisesRegexp(
             TroveError, 'Error attaching instance',
-            self.freshinstancetasks.attach_replication_slave,
+            self.freshinstancetasks.attach_replication_subordinate,
             snapshot, mock_flavor)
 
 
@@ -783,7 +783,7 @@ class BuiltInstanceTasksTest(trove_testtools.TestCase):
     def test_detach_replica(self, mock_update_db):
         self.instance_task.detach_replica(Mock(), True)
         self.instance_task._guest.detach_replica.assert_called_with(True)
-        mock_update_db.assert_called_with(slave_of_id=None)
+        mock_update_db.assert_called_with(subordinate_of_id=None)
 
     @patch('trove.taskmanager.models.LOG')
     def test_error_detach_replica(self, mock_logging):
@@ -800,11 +800,11 @@ class BuiltInstanceTasksTest(trove_testtools.TestCase):
 
     @patch.object(BaseInstance, 'update_db')
     def test_attach_replica(self, mock_update_db):
-        master = MagicMock()
+        main = MagicMock()
         replica_context = trove_testtools.TroveTestContext(self)
         mock_guest = MagicMock()
         mock_guest.get_replica_context = Mock(return_value=replica_context)
-        type(master).guest = PropertyMock(return_value=mock_guest)
+        type(main).guest = PropertyMock(return_value=mock_guest)
 
         config_content = {'config_contents': 'some junk'}
         replica_config = MagicMock()
@@ -813,10 +813,10 @@ class BuiltInstanceTasksTest(trove_testtools.TestCase):
         with patch.object(taskmanager_models.BuiltInstanceTasks,
                           '_render_replica_config',
                           return_value=replica_config):
-            self.instance_task.attach_replica(master)
+            self.instance_task.attach_replica(main)
         self.instance_task._guest.attach_replica.assert_called_with(
             replica_context, config_content)
-        mock_update_db.assert_called_with(slave_of_id=master.id)
+        mock_update_db.assert_called_with(subordinate_of_id=main.id)
 
     @patch('trove.taskmanager.models.LOG')
     def test_error_attach_replica(self, mock_logging):
@@ -841,15 +841,15 @@ class BuiltInstanceTasksTest(trove_testtools.TestCase):
             '192.168.10.1')
 
     @patch.object(BaseInstance, 'update_db')
-    def test_enable_as_master(self, mock_update_db):
-        test_func = self.instance_task._guest.enable_as_master
+    def test_enable_as_main(self, mock_update_db):
+        test_func = self.instance_task._guest.enable_as_main
         config_content = {'config_contents': 'some junk'}
         replica_source_config = MagicMock()
         replica_source_config.config_contents = config_content
         with patch.object(self.instance_task, '_render_replica_source_config',
                           return_value=replica_source_config):
-            self.instance_task.enable_as_master()
-        mock_update_db.assert_called_with(slave_of_id=None)
+            self.instance_task.enable_as_main()
+        mock_update_db.assert_called_with(subordinate_of_id=None)
         test_func.assert_called_with(config_content)
 
     def test_get_last_txn(self):
@@ -873,9 +873,9 @@ class BuiltInstanceTasksTest(trove_testtools.TestCase):
         self.instance_task.cleanup_source_on_replica_detach(replica_info)
         test_func.assert_called_with(replica_info)
 
-    def test_demote_replication_master(self):
-        self.instance_task.demote_replication_master()
-        self.instance_task._guest.demote_replication_master.assert_any_call()
+    def test_demote_replication_main(self):
+        self.instance_task.demote_replication_main()
+        self.instance_task._guest.demote_replication_main.assert_any_call()
 
 
 class BackupTasksTest(trove_testtools.TestCase):

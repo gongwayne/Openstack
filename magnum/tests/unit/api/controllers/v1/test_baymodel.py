@@ -51,7 +51,7 @@ class TestListBayModel(api_base.FunctionalTest):
                               'cluster_distro', 'external_network_id',
                               'image_id', 'registry_enabled', 'no_proxy',
                               'keypair_id', 'https_proxy', 'tls_disabled',
-                              'public', 'labels', 'master_flavor_id',
+                              'public', 'labels', 'main_flavor_id',
                               'volume_driver')
 
     def test_empty(self):
@@ -204,7 +204,7 @@ class TestPatch(api_base.FunctionalTest):
             apiserver_port=8080,
             fixed_network='private',
             flavor_id='m1.magnum',
-            master_flavor_id='m1.magnum',
+            main_flavor_id='m1.magnum',
             external_network_id='public',
             keypair_id='test',
             volume_driver='rexray',
@@ -499,7 +499,7 @@ class TestPost(api_base.FunctionalTest):
             self.assertFalse(cc_mock.called)
 
     def test_create_baymodel_with_invalid_long_string(self):
-        fields = ["uuid", "name", "image_id", "flavor_id", "master_flavor_id",
+        fields = ["uuid", "name", "image_id", "flavor_id", "main_flavor_id",
                   "dns_nameserver", "keypair_id", "external_network_id",
                   "cluster_distro", "fixed_network", "apiserver_port",
                   "docker_volume_size", "http_proxy", "https_proxy",
@@ -508,7 +508,7 @@ class TestPost(api_base.FunctionalTest):
             self._create_baymodel_raises_app_error(**{field: 'i' * 256})
 
     def test_create_baymodel_with_invalid_empty_string(self):
-        fields = ["uuid", "name", "image_id", "flavor_id", "master_flavor_id",
+        fields = ["uuid", "name", "image_id", "flavor_id", "main_flavor_id",
                   "dns_nameserver", "keypair_id", "external_network_id",
                   "cluster_distro", "fixed_network", "apiserver_port",
                   "docker_volume_size", "labels", "http_proxy", "https_proxy",
@@ -804,8 +804,8 @@ class TestPost(api_base.FunctionalTest):
         self.assertEqual(201, response.status_int)
         self.assertEqual(bdict['flavor_id'],
                          response.json['flavor_id'])
-        self.assertEqual(bdict['master_flavor_id'],
-                         response.json['master_flavor_id'])
+        self.assertEqual(bdict['main_flavor_id'],
+                         response.json['main_flavor_id'])
 
     @mock.patch('magnum.api.attr_validator.validate_image')
     def test_create_baymodel_with_no_exist_flavor(self,

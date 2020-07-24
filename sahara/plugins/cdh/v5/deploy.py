@@ -188,8 +188,8 @@ def start_spark_historyserver(cluster, cm_cluster):
     CU.start_service(spark)
 
 
-@cpo.event_wrapper(True, **_step_description("HBase master"))
-def start_hbase_master(cluster, cm_cluster):
+@cpo.event_wrapper(True, **_step_description("HBase main"))
+def start_hbase_main(cluster, cm_cluster):
     # Cluster cannot be removed from args list, because it used inside
     # event wrapper
     hbase = cm_cluster.get_service(CU.HBASE_SERVICE_NAME)
@@ -218,8 +218,8 @@ def start_cluster(cluster):
     if CU.pu.get_spark_historyserver(cluster):
         start_spark_historyserver(cluster, cm_cluster)
 
-    if CU.pu.get_hbase_master(cluster):
-        start_hbase_master(cluster, cm_cluster)
+    if CU.pu.get_hbase_main(cluster):
+        start_hbase_main(cluster, cm_cluster)
 
     create_hbase_common_lib(cluster)
 
@@ -227,7 +227,7 @@ def start_cluster(cluster):
 @cpo.event_wrapper(
     True, step=_("Create HBase common lib"), param=('cluster', 0))
 def create_hbase_common_lib(cluster):
-    server = CU.pu.get_hbase_master(cluster)
+    server = CU.pu.get_hbase_main(cluster)
     if CU.pu.c_helper.is_hbase_common_lib_enabled(cluster) and server:
         with server.remote() as r:
             h.create_hbase_common_lib(r)

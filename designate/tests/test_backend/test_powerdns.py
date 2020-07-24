@@ -35,7 +35,7 @@ class PowerDNSBackendTestCase(BackendTestCase):
         self.target = objects.PoolTarget.from_dict({
             'id': '4588652b-50e7-46b9-b688-a9bad40a873e',
             'type': 'powerdns',
-            'masters': [{'host': '192.0.2.1', 'port': 53},
+            'mains': [{'host': '192.0.2.1', 'port': 53},
                         {'host': '192.0.2.2', 'port': 35}],
             'options': [{'key': 'connection', 'value': 'memory://',
                          'key': 'host', 'value': '192.0.2.3',
@@ -72,7 +72,7 @@ class PowerDNSBackendTestCase(BackendTestCase):
         self.assertDictContainsSubset(
             {'type': 'SLAVE',
              'designate_id': self.zone.id,
-             'master': '192.0.2.1:53,192.0.2.2:35',
+             'main': '192.0.2.1:53,192.0.2.2:35',
              'name': self.zone.name.rstrip('.')},
             session_mock.execute.call_args_list[0][0][1])
 

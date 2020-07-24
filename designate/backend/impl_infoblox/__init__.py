@@ -37,8 +37,8 @@ class InfobloxBackend(base.Backend):
         self.infoblox = object_manipulator.InfobloxObjectManipulator(
             connector.Infoblox(self.options))
 
-        for master in self.masters:
-            if master.port != 53:
+        for main in self.mains:
+            if main.port != 53:
                 raise exceptions.ConfigurationError(
                     "Infoblox only supports mDNS instances on port 53")
 

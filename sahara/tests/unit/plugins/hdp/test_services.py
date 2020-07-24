@@ -226,11 +226,11 @@ class ServicesTest(base.SaharaTestCase):
         self.assertFalse(service.is_mandatory())
 
         # ensure that hdfs and mr clients are added implicitly
-        master_host = hdp_test_base.TestServer(
-            'master.novalocal', 'master', '11111', 3,
+        main_host = hdp_test_base.TestServer(
+            'main.novalocal', 'main', '11111', 3,
             '111.11.1111', '222.11.1111')
-        master_ng = hdp_test_base.TestNodeGroup(
-            'master', [master_host], ["NAMENODE", "RESOURCEMANAGER",
+        main_ng = hdp_test_base.TestNodeGroup(
+            'main', [main_host], ["NAMENODE", "RESOURCEMANAGER",
                                       "HISTORYSERVER", "SECONDARY_NAMENODE",
                                       "NODEMANAGER", "DATANODE",
                                       "AMBARI_SERVER", "ZOOKEEPER_SERVER"])
@@ -239,7 +239,7 @@ class ServicesTest(base.SaharaTestCase):
             '111.11.1111', '222.11.1111')
         sqoop_ng = hdp_test_base.TestNodeGroup(
             'sqoop', [sqoop_host], ["SQOOP"])
-        cluster = hdp_test_base.TestCluster([master_ng, sqoop_ng])
+        cluster = hdp_test_base.TestCluster([main_ng, sqoop_ng])
 
         cluster_spec = hdp_test_base.create_clusterspec(hdp_version='2.0.6')
         cluster_spec.create_operational_config(cluster, [])
@@ -561,11 +561,11 @@ class ServicesTest(base.SaharaTestCase):
         '_get_swift_properties',
         return_value=[])
     def test_hbase_validation(self, patched):
-        master_host = hdp_test_base.TestServer(
-            'master.novalocal', 'master', '11111', 3,
+        main_host = hdp_test_base.TestServer(
+            'main.novalocal', 'main', '11111', 3,
             '111.11.1111', '222.11.1111')
-        master_ng = hdp_test_base.TestNodeGroup(
-            'master', [master_host], ["NAMENODE",
+        main_ng = hdp_test_base.TestNodeGroup(
+            'main', [main_host], ["NAMENODE",
                                       'RESOURCEMANAGER', 'YARN_CLIENT',
                                       'NODEMANAGER',
                                       "SECONDARY_NAMENODE",
@@ -590,43 +590,43 @@ class ServicesTest(base.SaharaTestCase):
         hbase_client_ng = hdp_test_base.TestNodeGroup(
             'hbase-client', [hbase_client_host], ["HBASE_CLIENT"])
 
-        hbase_slave_host = hdp_test_base.TestServer(
+        hbase_subordinate_host = hdp_test_base.TestServer(
             'hbase-rs.novalocal', 'hbase-rs', '11111', 3,
             '111.11.1111', '222.11.1111')
 
-        hbase_slave_ng = hdp_test_base.TestNodeGroup(
-            'hbase-rs', [hbase_slave_host], ["HBASE_REGIONSERVER"])
+        hbase_subordinate_ng = hdp_test_base.TestNodeGroup(
+            'hbase-rs', [hbase_subordinate_host], ["HBASE_REGIONSERVER"])
 
-        cluster = hdp_test_base.TestCluster([master_ng, hbase_client_ng])
+        cluster = hdp_test_base.TestCluster([main_ng, hbase_client_ng])
         cluster_spec = hdp_test_base.create_clusterspec()
 
-        # validation should fail due to lack of hbase master
+        # validation should fail due to lack of hbase main
         self.assertRaises(
             ex.InvalidComponentCountException,
             cluster_spec.create_operational_config, cluster, [])
 
         cluster = hdp_test_base.TestCluster(
-            [master_ng, hbase_client_ng, hbase_slave_ng])
+            [main_ng, hbase_client_ng, hbase_subordinate_ng])
         cluster_spec = hdp_test_base.create_clusterspec()
 
-        # validation should fail due to lack of hbase master
+        # validation should fail due to lack of hbase main
 
         self.assertRaises(
             ex.InvalidComponentCountException,
             cluster_spec.create_operational_config, cluster, [])
 
         cluster = hdp_test_base.TestCluster(
-            [master_ng, hbase_client_ng, hbase_ng])
+            [main_ng, hbase_client_ng, hbase_ng])
         cluster_spec = hdp_test_base.create_clusterspec()
 
-        # validation should succeed with hbase master included
+        # validation should succeed with hbase main included
         cluster_spec.create_operational_config(cluster, [])
 
         cluster = hdp_test_base.TestCluster(
-            [master_ng, hbase_client_ng, hbase_ng, hbase_ng2])
+            [main_ng, hbase_client_ng, hbase_ng, hbase_ng2])
         cluster_spec = hdp_test_base.create_clusterspec()
 
-        # validation should fail with multiple hbase master components
+        # validation should fail with multiple hbase main components
         self.assertRaises(
             ex.InvalidComponentCountException,
             cluster_spec.create_operational_config, cluster, [])
@@ -638,11 +638,11 @@ class ServicesTest(base.SaharaTestCase):
         '_get_swift_properties',
         return_value=[])
     def test_hdp2_hbase_validation(self, patched):
-        master_host = hdp_test_base.TestServer(
-            'master.novalocal', 'master', '11111', 3,
+        main_host = hdp_test_base.TestServer(
+            'main.novalocal', 'main', '11111', 3,
             '111.11.1111', '222.11.1111')
-        master_ng = hdp_test_base.TestNodeGroup(
-            'master', [master_host], ["NAMENODE", "RESOURCEMANAGER",
+        main_ng = hdp_test_base.TestNodeGroup(
+            'main', [main_host], ["NAMENODE", "RESOURCEMANAGER",
                                       "SECONDARY_NAMENODE", "HISTORYSERVER",
                                       "NODEMANAGER", "DATANODE",
                                       "AMBARI_SERVER", "ZOOKEEPER_SERVER"])
@@ -663,43 +663,43 @@ class ServicesTest(base.SaharaTestCase):
         hbase_client_ng = hdp_test_base.TestNodeGroup(
             'hbase-client', [hbase_client_host], ["HBASE_CLIENT"])
 
-        hbase_slave_host = hdp_test_base.TestServer(
+        hbase_subordinate_host = hdp_test_base.TestServer(
             'hbase-rs.novalocal', 'hbase-rs', '11111', 3,
             '111.11.1111', '222.11.1111')
 
-        hbase_slave_ng = hdp_test_base.TestNodeGroup(
-            'hbase-rs', [hbase_slave_host], ["HBASE_REGIONSERVER"])
+        hbase_subordinate_ng = hdp_test_base.TestNodeGroup(
+            'hbase-rs', [hbase_subordinate_host], ["HBASE_REGIONSERVER"])
 
-        cluster = hdp_test_base.TestCluster([master_ng, hbase_client_ng])
+        cluster = hdp_test_base.TestCluster([main_ng, hbase_client_ng])
         cluster_spec = hdp_test_base.create_clusterspec(hdp_version='2.0.6')
 
-        # validation should fail due to lack of hbase master
+        # validation should fail due to lack of hbase main
         self.assertRaises(
             ex.InvalidComponentCountException,
             cluster_spec.create_operational_config, cluster, [])
 
         cluster = hdp_test_base.TestCluster(
-            [master_ng, hbase_client_ng, hbase_slave_ng])
+            [main_ng, hbase_client_ng, hbase_subordinate_ng])
         cluster_spec = hdp_test_base.create_clusterspec(hdp_version='2.0.6')
 
-        # validation should fail due to lack of hbase master
+        # validation should fail due to lack of hbase main
 
         self.assertRaises(
             ex.InvalidComponentCountException,
             cluster_spec.create_operational_config, cluster, [])
 
         cluster = hdp_test_base.TestCluster(
-            [master_ng, hbase_client_ng, hbase_ng])
+            [main_ng, hbase_client_ng, hbase_ng])
         cluster_spec = hdp_test_base.create_clusterspec(hdp_version='2.0.6')
 
-        # validation should succeed with hbase master included
+        # validation should succeed with hbase main included
         cluster_spec.create_operational_config(cluster, [])
 
         cluster = hdp_test_base.TestCluster(
-            [master_ng, hbase_client_ng, hbase_ng, hbase_ng2])
+            [main_ng, hbase_client_ng, hbase_ng, hbase_ng2])
         cluster_spec = hdp_test_base.create_clusterspec(hdp_version='2.0.6')
 
-        # validation should fail with multiple hbase master components
+        # validation should fail with multiple hbase main components
         self.assertRaises(
             ex.InvalidComponentCountException,
             cluster_spec.create_operational_config, cluster, [])
@@ -723,7 +723,7 @@ class ServicesTest(base.SaharaTestCase):
             service.register_service_urls(cluster_spec, url_info, mock.Mock())
             self.assertEqual(1, len(url_info))
             self.assertEqual(6, len(url_info['HBase']))
-            self.assertEqual('http://222.22.2222:60010/master-status',
+            self.assertEqual('http://222.22.2222:60010/main-status',
                              url_info['HBase']['Web UI'])
             self.assertEqual('http://222.22.2222:60010/logs',
                              url_info['HBase']['Logs'])
@@ -752,10 +752,10 @@ class ServicesTest(base.SaharaTestCase):
             service = s.create_service('HBASE')
             service.finalize_configuration(cluster_spec)
 
-            self.assertEqual("hdfs://master.novalocal:8020/apps/hbase/data",
+            self.assertEqual("hdfs://main.novalocal:8020/apps/hbase/data",
                              cluster_spec.configurations['hbase-site'][
                                  'hbase.rootdir'])
-            self.assertEqual(set(['zk.novalocal', 'master.novalocal']),
+            self.assertEqual(set(['zk.novalocal', 'main.novalocal']),
                              set(cluster_spec.configurations['hbase-site'][
                                  'hbase.zookeeper.quorum'].split(',')))
 
@@ -764,9 +764,9 @@ class ServicesTest(base.SaharaTestCase):
             s = self.get_services_processor(version=version)
             service = s.create_service('AMBARI')
             server1 = hdp_test_base.TestServer(
-                'host1', 'test-master', '11111', 3, '1.1.1.1', '2.2.2.2')
+                'host1', 'test-main', '11111', 3, '1.1.1.1', '2.2.2.2')
             server2 = hdp_test_base.TestServer(
-                'host2', 'test-slave', '11111', 3, '3.3.3.3', '4.4.4.4')
+                'host2', 'test-subordinate', '11111', 3, '3.3.3.3', '4.4.4.4')
             server3 = hdp_test_base.TestServer(
                 'host3', 'another-test', '11111', 3, '6.6.6.6', '5.5.5.5')
             ng1 = hdp_test_base.TestNodeGroup('ng1', [server1], None)
@@ -794,11 +794,11 @@ class ServicesTest(base.SaharaTestCase):
             self.assertEqual(['/volume/disk1'], paths)
 
     def _create_hbase_cluster(self):
-        master_host = hdp_test_base.TestServer(
-            'master.novalocal', 'master', '11111', 3,
+        main_host = hdp_test_base.TestServer(
+            'main.novalocal', 'main', '11111', 3,
             '111.11.1111', '222.11.1111')
-        master_ng = hdp_test_base.TestNodeGroup(
-            'master', [master_host], ["NAMENODE", "RESOURCEMANAGER",
+        main_ng = hdp_test_base.TestNodeGroup(
+            'main', [main_host], ["NAMENODE", "RESOURCEMANAGER",
                                       "SECONDARY_NAMENODE", "NODEMANAGER",
                                       "DATANODE", "AMBARI_SERVER",
                                       "HISTORYSERVER", "ZOOKEEPER_SERVER"])
@@ -812,4 +812,4 @@ class ServicesTest(base.SaharaTestCase):
             '222.22.2222', '222.11.1111')
         hbase_ng = hdp_test_base.TestNodeGroup(
             'hbase', [hbase_host], ["HBASE_MASTER"])
-        return hdp_test_base.TestCluster([master_ng, extra_zk_ng, hbase_ng])
+        return hdp_test_base.TestCluster([main_ng, extra_zk_ng, hbase_ng])

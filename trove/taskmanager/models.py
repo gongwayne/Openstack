@@ -460,11 +460,11 @@ class FreshInstanceTasks(FreshInstance, NotifyMixin, ConfigurationMixin):
             err = inst_models.InstanceTasks.BUILDING_ERROR_DNS
             self._log_and_raise(e, msg, err)
 
-    def attach_replication_slave(self, snapshot, flavor):
-        LOG.debug("Calling attach_replication_slave for %s.", self.id)
+    def attach_replication_subordinate(self, snapshot, flavor):
+        LOG.debug("Calling attach_replication_subordinate for %s.", self.id)
         try:
             replica_config = self._render_replica_config(flavor)
-            self.guest.attach_replication_slave(snapshot,
+            self.guest.attach_replication_subordinate(snapshot,
                                                 replica_config.config_contents)
         except GuestError as e:
             msg = (_("Error attaching instance %s "
@@ -472,17 +472,17 @@ class FreshInstanceTasks(FreshInstance, NotifyMixin, ConfigurationMixin):
             err = inst_models.InstanceTasks.BUILDING_ERROR_REPLICA
             self._log_and_raise(e, msg, err)
 
-    def get_replication_master_snapshot(self, context, slave_of_id, flavor,
+    def get_replication_main_snapshot(self, context, subordinate_of_id, flavor,
                                         backup_id=None, replica_number=1):
         # First check to see if we need to take a backup
-        master = BuiltInstanceTasks.load(context, slave_of_id)
-        backup_required = master.backup_required_for_replication()
+        main = BuiltInstanceTasks.load(context, subordinate_of_id)
+        backup_required = main.backup_required_for_replication()
         if backup_required:
             # if we aren't passed in a backup id, look it up to possibly do
             # an incremental backup, thus saving time
             if not backup_id:
                 backup = Backup.get_last_completed(
-                    context, slave_of_id, include_incremental=True)
+                    context, subordinate_of_id, include_incremental=True)
                 if backup:
                     backup_id = backup.id
         else:
@@ -490,8 +490,8 @@ class FreshInstanceTasks(FreshInstance, NotifyMixin, ConfigurationMixin):
         snapshot_info = {
             'name': "Replication snapshot for %s" % self.id,
             'description': "Backup image used to initialize "
-                           "replication slave",
-            'instance_id': slave_of_id,
+                           "replication subordinate",
+            'instance_id': subordinate_of_id,
             'parent_id': backup_id,
             'tenant_id': self.tenant_id,
             'state': BackupState.NEW,
@@ -531,11 +531,11 @@ class FreshInstanceTasks(FreshInstance, NotifyMixin, ConfigurationMixin):
         try:
             snapshot_info.update({
                 'id': replica_backup_id,
-                'datastore': master.datastore.name,
-                'datastore_version': master.datastore_version.name,
+                'datastore': main.datastore.name,
+                'datastore_version': main.datastore_version.name,
             })
-            snapshot = master.get_replication_snapshot(
-                snapshot_info, flavor=master.flavor_id)
+            snapshot = main.get_replication_snapshot(
+                snapshot_info, flavor=main.flavor_id)
             snapshot.update({
                 'config': self._render_replica_config(flavor).config_contents
             })
@@ -544,7 +544,7 @@ class FreshInstanceTasks(FreshInstance, NotifyMixin, ConfigurationMixin):
             msg_create = (
                 _("Error creating replication snapshot from "
                   "instance %(source)s for new replica %(replica)s.") %
-                {'source': slave_of_id, 'replica': self.id})
+                {'source': subordinate_of_id, 'replica': self.id})
             err = inst_models.InstanceTasks.BUILDING_ERROR_REPLICA
             # if the delete of the 'bad' backup fails, it'll mask the
             # create exception, so we trap it here
@@ -560,7 +560,7 @@ class FreshInstanceTasks(FreshInstance, NotifyMixin, ConfigurationMixin):
                 msg_delete = (
                     _("An error occurred while deleting a bad "
                       "replication snapshot from instance %(source)s.") %
-                    {'source': slave_of_id})
+                    {'source': subordinate_of_id})
                 # we've already logged the create exception, so we'll raise
                 # the delete (otherwise the create will be logged twice)
                 self._log_and_raise(e_delete, msg_delete, err)
@@ -1169,25 +1169,25 @@ class BuiltInstanceTasks(BuiltInstance, NotifyMixin, ConfigurationMixin):
         return run_with_quotas(self.context.tenant, {'backups': 1},
                                _get_replication_snapshot)
 
-    def detach_replica(self, master, for_failover=False):
+    def detach_replica(self, main, for_failover=False):
         LOG.debug("Calling detach_replica on %s" % self.id)
         try:
             self.guest.detach_replica(for_failover)
-            self.update_db(slave_of_id=None)
-            self.slave_list = None
+            self.update_db(subordinate_of_id=None)
+            self.subordinate_list = None
         except (GuestError, GuestTimeout):
             LOG.exception(_("Failed to detach replica %s.") % self.id)
             raise
 
-    def attach_replica(self, master):
+    def attach_replica(self, main):
         LOG.debug("Calling attach_replica on %s" % self.id)
         try:
-            replica_info = master.guest.get_replica_context()
+            replica_info = main.guest.get_replica_context()
             flavor = self.nova_client.flavors.get(self.flavor_id)
-            slave_config = self._render_replica_config(flavor).config_contents
-            self.guest.attach_replica(replica_info, slave_config)
-            self.update_db(slave_of_id=master.id)
-            self.slave_list = None
+            subordinate_config = self._render_replica_config(flavor).config_contents
+            self.guest.attach_replica(replica_info, subordinate_config)
+            self.update_db(subordinate_of_id=main.id)
+            self.subordinate_list = None
         except (GuestError, GuestTimeout):
             LOG.exception(_("Failed to attach replica %s.") % self.id)
             raise
@@ -1222,13 +1222,13 @@ class BuiltInstanceTasks(BuiltInstance, NotifyMixin, ConfigurationMixin):
         for ip in ips:
             nova_instance.add_floating_ip(ip)
 
-    def enable_as_master(self):
-        LOG.debug("Calling enable_as_master on %s" % self.id)
+    def enable_as_main(self):
+        LOG.debug("Calling enable_as_main on %s" % self.id)
         flavor = self.nova_client.flavors.get(self.flavor_id)
         replica_source_config = self._render_replica_source_config(flavor)
-        self.update_db(slave_of_id=None)
-        self.slave_list = None
-        self.guest.enable_as_master(replica_source_config.config_contents)
+        self.update_db(subordinate_of_id=None)
+        self.subordinate_list = None
+        self.guest.enable_as_main(replica_source_config.config_contents)
 
     def get_last_txn(self):
         LOG.debug("Calling get_last_txn on %s" % self.id)
@@ -1247,9 +1247,9 @@ class BuiltInstanceTasks(BuiltInstance, NotifyMixin, ConfigurationMixin):
         LOG.debug("Calling cleanup_source_on_replica_detach on %s" % self.id)
         self.guest.cleanup_source_on_replica_detach(replica_info)
 
-    def demote_replication_master(self):
-        LOG.debug("Calling demote_replication_master on %s" % self.id)
-        self.guest.demote_replication_master()
+    def demote_replication_main(self):
+        LOG.debug("Calling demote_replication_main on %s" % self.id)
+        self.guest.demote_replication_main()
 
     def reboot(self):
         try:

@@ -9,7 +9,7 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
-"""Add master flavor
+"""Add main flavor
 
 Revision ID: 1afee1db6cd0
 Revises: 3a938526b35d
@@ -26,5 +26,5 @@ import sqlalchemy as sa
 
 
 def upgrade():
-    op.add_column('baymodel', sa.Column('master_flavor_id',
+    op.add_column('baymodel', sa.Column('main_flavor_id',
                   sa.String(length=255), nullable=True))

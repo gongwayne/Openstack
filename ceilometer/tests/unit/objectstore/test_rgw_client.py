@@ -35,7 +35,7 @@ RGW_ADMIN_BUCKETS = '''
     },
     "bucket": "somefoo",
     "owner": "admin",
-    "master_ver": 0,
+    "main_ver": 0,
     "mtime": 1420176126,
     "marker": "default.4126.1",
     "bucket_quota": {
@@ -59,7 +59,7 @@ RGW_ADMIN_BUCKETS = '''
     },
     "bucket": "somefoo31",
     "owner": "admin",
-    "master_ver": 0,
+    "main_ver": 0,
     "mtime": 1420176134,
     "marker": "default.4126.5",
     "bucket_quota": {

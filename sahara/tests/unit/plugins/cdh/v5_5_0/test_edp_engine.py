@@ -59,7 +59,7 @@ class EdpEngineTestV550(sahara_base.SaharaTestCase):
         cluster = get_cluster()
         eng = edp_engine.EdpOozieEngine(cluster)
         uri = eng.get_name_node_uri(cluster)
-        self.assertEqual("hdfs://master_inst.novalocal:8020", uri)
+        self.assertEqual("hdfs://main_inst.novalocal:8020", uri)
 
         # has HDFS_JOURNALNODE
         cluster = get_cluster()
@@ -74,7 +74,7 @@ class EdpEngineTestV550(sahara_base.SaharaTestCase):
         cluster = get_cluster()
         eng = edp_engine.EdpOozieEngine(cluster)
         uri = eng.get_resource_manager_uri(cluster)
-        self.assertEqual("master_inst.novalocal:8032", uri)
+        self.assertEqual("main_inst.novalocal:8032", uri)
 
     def test_get_oozie_server(self):
         cluster = get_cluster()

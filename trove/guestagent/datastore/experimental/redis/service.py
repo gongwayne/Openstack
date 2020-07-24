@@ -445,8 +445,8 @@ class RedisAdmin(object):
                                                 "Redis data (%s)") % save_cmd)
         LOG.debug("Redis data persist (%s) completed" % save_cmd)
 
-    def set_master(self, host=None, port=None):
-        self.__client.slaveof(host, port)
+    def set_main(self, host=None, port=None):
+        self.__client.subordinateof(host, port)
 
     def config_set(self, name, value):
         response = self.execute(

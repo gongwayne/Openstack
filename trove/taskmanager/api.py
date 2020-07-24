@@ -150,7 +150,7 @@ class API(object):
                         image_id, databases, users, datastore_manager,
                         packages, volume_size, backup_id=None,
                         availability_zone=None, root_password=None,
-                        nics=None, overrides=None, slave_of_id=None,
+                        nics=None, overrides=None, subordinate_of_id=None,
                         cluster_config=None, volume_type=None,
                         modules=None):
 
@@ -169,7 +169,7 @@ class API(object):
                    root_password=root_password,
                    nics=nics,
                    overrides=overrides,
-                   slave_of_id=slave_of_id,
+                   subordinate_of_id=subordinate_of_id,
                    cluster_config=cluster_config,
                    volume_type=volume_type,
                    modules=modules)

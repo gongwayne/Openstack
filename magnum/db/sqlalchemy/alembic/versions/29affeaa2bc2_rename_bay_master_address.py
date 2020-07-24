@@ -9,7 +9,7 @@
 #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 #    License for the specific language governing permissions and limitations
 #    under the License.
-"""rename-bay-master-address
+"""rename-bay-main-address
 
 Revision ID: 29affeaa2bc2
 Revises: 2d1354bbf76e
@@ -26,6 +26,6 @@ import sqlalchemy as sa
 
 
 def upgrade():
-    op.alter_column('bay', 'master_address',
+    op.alter_column('bay', 'main_address',
                     new_column_name='api_address',
                     existing_type=sa.String(255))

@@ -57,20 +57,20 @@ pxe_opts = [
                default='/var/lib/ironic/images/',
                help=_('On the ironic-conductor node, directory where images '
                       'are stored on disk.')),
-    cfg.StrOpt('instance_master_path',
-               default='/var/lib/ironic/master_images',
-               help=_('On the ironic-conductor node, directory where master '
+    cfg.StrOpt('instance_main_path',
+               default='/var/lib/ironic/main_images',
+               help=_('On the ironic-conductor node, directory where main '
                       'instance images are stored on disk. '
                       'Setting to <None> disables image caching.')),
     cfg.IntOpt('image_cache_size',
                default=20480,
-               help=_('Maximum size (in MiB) of cache for master images, '
+               help=_('Maximum size (in MiB) of cache for main images, '
                       'including those in use.')),
     # 10080 here is 1 week - 60*24*7. It is entirely arbitrary in the absence
     # of a facility to disable the ttl entirely.
     cfg.IntOpt('image_cache_ttl',
                default=10080,
-               help=_('Maximum TTL (in minutes) for old master images in '
+               help=_('Maximum TTL (in minutes) for old main images in '
                       'cache.')),
     cfg.StrOpt('disk_devices',
                default='cciss/c0d0,sda,hda,vda',
@@ -88,7 +88,7 @@ class InstanceImageCache(image_cache.ImageCache):
 
     def __init__(self):
         super(self.__class__, self).__init__(
-            CONF.pxe.instance_master_path,
+            CONF.pxe.instance_main_path,
             # MiB -> B
             cache_size=CONF.pxe.image_cache_size * 1024 * 1024,
             # min -> sec

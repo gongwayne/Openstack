@@ -91,7 +91,7 @@ def validate_additional_ng_scaling(cluster, additional):
 
         if not rm and 'nodemanager' in ng.node_processes:
             msg = _("Vanilla plugin cannot scale node group with processes "
-                    "which have no master-processes run in cluster")
+                    "which have no main-processes run in cluster")
             raise ex.NodeGroupCannotBeScaled(ng.name, msg)
 
 

@@ -40,9 +40,9 @@ class PoolTarget(base.DictObjectMixin, base.PersistentObjectMixin,
                 'maxLength': 160
             }
         },
-        'masters': {
+        'mains': {
             'relation': True,
-            'relation_cls': 'PoolTargetMasterList'
+            'relation_cls': 'PoolTargetMainList'
         },
         'options': {
             'relation': True,

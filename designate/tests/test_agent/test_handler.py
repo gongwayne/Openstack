@@ -61,7 +61,7 @@ class AgentRequestHandlerTest(AgentTestCase):
 
     def test_receive_notify_bad_notifier(self):
         """
-        Get a NOTIFY from a bad master and refuse it
+        Get a NOTIFY from a bad main and refuse it
         """
         payload = "243520000001000000000000076578616d706c6503636f6d0000060001"
         # expected response is REFUSED, other fields are
@@ -113,7 +113,7 @@ class AgentRequestHandlerTest(AgentTestCase):
 
     def test_receive_create_bad_notifier(self):
         """
-        Get a NOTIFY from a bad master and refuse it
+        Get a NOTIFY from a bad main and refuse it
         """
         payload = "8dfd70000001000000000000076578616d706c6503636f6d00ff02ff00"
         # expected response is REFUSED, other fields are

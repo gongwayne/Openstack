@@ -69,7 +69,7 @@ def besteffort_compare_digest(first, second):
     # exists since python >= 2.7.7 and python >= 3.3
     # this a bit less-secure python fallback version
     # taken from https://github.com/openstack/python-keystoneclient/blob/
-    # master/keystoneclient/middleware/memcache_crypt.py#L88
+    # main/keystoneclient/middleware/memcache_crypt.py#L88
     if len(first) != len(second):
         return False
     result = 0

@@ -63,7 +63,7 @@ class TestKeepalivedStateChange(base.BaseSudoTestCase):
         self.assertEqual('backup', self._get_state())
 
         self.monitor.parse_and_handle_event(self.line)
-        self.assertEqual('master', self._get_state())
+        self.assertEqual('main', self._get_state())
 
     def test_parse_and_handle_event_fails_writing_state(self):
         with mock.patch.object(

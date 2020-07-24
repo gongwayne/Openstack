@@ -34,7 +34,7 @@ class TestMagnumBayModel(common.HeatTestCase):
           name: test_bay_model
           image: fedora-21-atomic-2
           flavor: m1.small
-          master_flavor: m1.medium
+          main_flavor: m1.medium
           keypair: heat_key
           external_network: 0244b54d-ae1f-44f0-a24a-442760f1d681
           fixed_network: 0f59a3dd-fac1-4d03-b41a-d4115fbffa89
@@ -47,7 +47,7 @@ class TestMagnumBayModel(common.HeatTestCase):
         'name': 'test_bay_model',
         'image_id': 'fedora-21-atomic-2',
         'flavor_id': 'm1.small',
-        'master_flavor_id': 'm1.medium',
+        'main_flavor_id': 'm1.medium',
         'keypair_id': 'heat_key',
         'external_network_id': '0244b54d-ae1f-44f0-a24a-442760f1d681',
         'fixed_network': '0f59a3dd-fac1-4d03-b41a-d4115fbffa89',
@@ -99,7 +99,7 @@ class TestMagnumBayModelWithAddedProperties(TestMagnumBayModel):
           name: test_bay_model
           image: fedora-21-atomic-2
           flavor: m1.small
-          master_flavor: m1.medium
+          main_flavor: m1.medium
           keypair: heat_key
           external_network: 0244b54d-ae1f-44f0-a24a-442760f1d681
           fixed_network: 0f59a3dd-fac1-4d03-b41a-d4115fbffa89
@@ -119,7 +119,7 @@ class TestMagnumBayModelWithAddedProperties(TestMagnumBayModel):
         'name': 'test_bay_model',
         'image_id': 'fedora-21-atomic-2',
         'flavor_id': 'm1.small',
-        'master_flavor_id': 'm1.medium',
+        'main_flavor_id': 'm1.medium',
         'keypair_id': 'heat_key',
         'external_network_id': '0244b54d-ae1f-44f0-a24a-442760f1d681',
         'fixed_network': '0f59a3dd-fac1-4d03-b41a-d4115fbffa89',

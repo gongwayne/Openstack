@@ -10,7 +10,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-"""Add master_addresses to bay
+"""Add main_addresses to bay
 
 Revision ID: 6f21dc998bb
 Revises: 421102d1f2d2
@@ -30,7 +30,7 @@ import sqlalchemy as sa
 def upgrade():
     op.add_column(
         'bay',
-        sa.Column('master_addresses',
+        sa.Column('main_addresses',
                   models.JSONEncodedList(),
                   nullable=True)
     )

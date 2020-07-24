@@ -216,7 +216,7 @@ class StorwizeSVCReplicationGlobalMirror(
 
     Global Mirror establishes a Global Mirror relationship between
     two volumes of equal size. The volumes in a Global Mirror relationship
-    are referred to as the master (source) volume and the auxiliary
+    are referred to as the main (source) volume and the auxiliary
     (target) volume. This mode is dedicated to the asynchronous volume
     replication.
     """
@@ -439,7 +439,7 @@ class StorwizeSVCReplicationMetroMirror(
 
     Metro Mirror establishes a Metro Mirror relationship between
     two volumes of equal size. The volumes in a Metro Mirror relationship
-    are referred to as the master (source) volume and the auxiliary
+    are referred to as the main (source) volume and the auxiliary
     (target) volume.
     """
 

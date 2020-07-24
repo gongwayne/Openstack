@@ -57,12 +57,12 @@ mock_conf = RoObject(**{
     ),
     'pool_target:t1': RoObject(
         type='t1',
-        masters=[],
+        mains=[],
         options=dict(a=1, b=2),
     ),
     'pool_target:t2': RoObject(
         type='t2',
-        masters=['1.1.1.1:11'],
+        mains=['1.1.1.1:11'],
         options={},
     ),
 })
@@ -95,12 +95,12 @@ class poolTest(oslotest.base.BaseTestCase):
                                      'id': 'pt2',
                                      'port': 456}],
                     'targets': [{'id': 't1',
-                                 'masters': [],
+                                 'mains': [],
                                  'options': [{'key': 'a', 'value': 1},
                                              {'key': 'b', 'value': 2}],
                                  'type': 't1'},
                                 {'id': 't2',
-                                 'masters': [{'host': '1.1.1.1', 'port': 11}],
+                                 'mains': [{'host': '1.1.1.1', 'port': 11}],
                                  'options': [],
                                  'type': 't2'}]}
 

@@ -40,7 +40,7 @@ LOG = logging.getLogger(__name__)
 
 
 class HadoopServer(object):
-    _master_ip = None
+    _main_ip = None
 
     def __init__(self, instance, node_group, ambari_rpm=None):
         self.instance = instance
@@ -189,7 +189,7 @@ class HadoopServer(object):
 
         r.execute_command('yum -y install ambari-agent', run_as_root=True)
         LOG.debug(
-            'Setting master-ip: {ip} in ambari-agent.ini'.format(
+            'Setting main-ip: {ip} in ambari-agent.ini'.format(
                 ip=ambari_server_ip))
         r.replace_remote_string(
             '/etc/ambari-agent/conf/ambari-agent.ini', 'localhost',
@@ -253,10 +253,10 @@ class HadoopServer(object):
     def _is_component_available(self, component):
         return component in self.node_group.components
 
-    def _is_ganglia_master(self):
+    def _is_ganglia_main(self):
         return self._is_component_available('GANGLIA_SERVER')
 
-    def _is_ganglia_slave(self):
+    def _is_ganglia_subordinate(self):
         return self._is_component_available('GANGLIA_MONITOR')
 
 

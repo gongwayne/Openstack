@@ -95,7 +95,7 @@ class RequestHandler(xfr.XFRMixin):
         """
         Constructs the response to a NOTIFY and acts accordingly on it.
 
-        * Checks if the master sending the NOTIFY is in the Zone's masters,
+        * Checks if the main sending the NOTIFY is in the Zone's mains,
           if not it is ignored.
         * Checks if SOA query response serial != local serial.
         """
@@ -125,12 +125,12 @@ class RequestHandler(xfr.XFRMixin):
 
         notify_addr = request.environ['addr'][0]
 
-        # We check if the src_master which is the assumed master for the zone
-        # that is sending this NOTIFY OP is actually the master. If it's not
+        # We check if the src_main which is the assumed main for the zone
+        # that is sending this NOTIFY OP is actually the main. If it's not
         # We'll reply but don't do anything with the NOTIFY.
-        master_addr = zone.get_master_by_ip(notify_addr)
-        if not master_addr:
-            msg = _LW("NOTIFY for %(name)s from non-master server "
+        main_addr = zone.get_main_by_ip(notify_addr)
+        if not main_addr:
+            msg = _LW("NOTIFY for %(name)s from non-main server "
                       "%(addr)s, ignoring.")
             LOG.warning(msg % {"name": zone.name, "addr": notify_addr})
             response.set_rcode(dns.rcode.REFUSED)
@@ -144,15 +144,15 @@ class RequestHandler(xfr.XFRMixin):
         soa_answer = resolver.query(zone.name, 'SOA')
         soa_serial = soa_answer[0].serial
         if soa_serial == zone.serial:
-            msg = _LI("Serial %(serial)s is the same for master and us for "
+            msg = _LI("Serial %(serial)s is the same for main and us for "
                       "%(zone_id)s")
             LOG.info(msg, {"serial": soa_serial, "zone_id": zone.id})
         else:
-            msg = _LI("Scheduling AXFR for %(zone_id)s from %(master_addr)s")
-            info = {"zone_id": zone.id, "master_addr": master_addr}
+            msg = _LI("Scheduling AXFR for %(zone_id)s from %(main_addr)s")
+            info = {"zone_id": zone.id, "main_addr": main_addr}
             LOG.info(msg, info)
             self.tg.add_thread(self.zone_sync, context, zone,
-                               [master_addr])
+                               [main_addr])
 
         response.flags |= dns.flags.AA
 

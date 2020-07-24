@@ -362,16 +362,16 @@ class PXEPrivateMethodsTestCase(db_base.DbTestCase):
         self.assertEqual(expected_options, options)
 
     @mock.patch.object(deploy_utils, 'fetch_images', autospec=True)
-    def test__cache_tftp_images_master_path(self, mock_fetch_image):
+    def test__cache_tftp_images_main_path(self, mock_fetch_image):
         temp_dir = tempfile.mkdtemp()
         self.config(tftp_root=temp_dir, group='pxe')
-        self.config(tftp_master_path=os.path.join(temp_dir,
-                                                  'tftp_master_path'),
+        self.config(tftp_main_path=os.path.join(temp_dir,
+                                                  'tftp_main_path'),
                     group='pxe')
         image_path = os.path.join(temp_dir, self.node.uuid,
                                   'deploy_kernel')
         image_info = {'deploy_kernel': ('deploy_kernel', image_path)}
-        fileutils.ensure_tree(CONF.pxe.tftp_master_path)
+        fileutils.ensure_tree(CONF.pxe.tftp_main_path)
 
         pxe._cache_ramdisk_kernel(None, self.node, image_info)
 

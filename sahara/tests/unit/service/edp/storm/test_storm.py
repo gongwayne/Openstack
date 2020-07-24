@@ -27,8 +27,8 @@ class TestStorm(base.SaharaTestCase):
     def setUp(self):
         super(TestStorm, self).setUp()
 
-        self.master_host = "master"
-        self.master_inst = "6789"
+        self.main_host = "main"
+        self.main_inst = "6789"
         self.storm_topology_name = "MyJob_ed8347a9-39aa-477c-8108-066202eb6130"
         self.workflow_dir = "/wfdir"
 
@@ -111,11 +111,11 @@ class TestStorm(base.SaharaTestCase):
         eng = se.StormJobEngine("cluster")
         job_exec = mock.Mock()
 
-        master_instance = self._make_master_instance()
-        master_instance.execute_command.return_value = 0, "ACTIVE"
+        main_instance = self._make_main_instance()
+        main_instance.execute_command.return_value = 0, "ACTIVE"
         get_remote.return_value.__enter__ = mock.Mock(
-            return_value=master_instance)
-        get_instance.return_value = master_instance
+            return_value=main_instance)
+        get_instance.return_value = main_instance
         get_instances.return_value = ["instance"]
 
         # Pretend process is running
@@ -189,14 +189,14 @@ class TestStorm(base.SaharaTestCase):
     @mock.patch('sahara.utils.remote.get_remote')
     def test_cancel_job(self, get_remote, get_instance, get_instances,
                         _get_job_status_from_remote):
-        master_instance = self._make_master_instance()
-        status = self._setup_tests(master_instance)
-        get_instance.return_value = master_instance
+        main_instance = self._make_main_instance()
+        status = self._setup_tests(main_instance)
+        get_instance.return_value = main_instance
         get_instances.return_value = ["instance"]
-        master_instance.execute_command.return_value = 0, "KILLED"
+        main_instance.execute_command.return_value = 0, "KILLED"
 
         get_remote.return_value.__enter__ = mock.Mock(
-            return_value=master_instance)
+            return_value=main_instance)
         eng = se.StormJobEngine("cluster")
         job_exec = mock.Mock()
         job_exec.engine_job_id = "topology_name@inst_id"
@@ -204,9 +204,9 @@ class TestStorm(base.SaharaTestCase):
         job_exec.job_configs = {"configs": {"topology_name": "topology_name"}}
         status = eng.cancel_job(job_exec)
 
-        master_instance.execute_command.assert_called_with(
+        main_instance.execute_command.assert_called_with(
             "/usr/local/storm/bin/storm kill -c nimbus.host=%s topology_name "
-            "> /dev/null 2>&1 & echo $!" % self.master_host)
+            "> /dev/null 2>&1 & echo $!" % self.main_host)
 
         self.assertEqual({"status": edp.JOB_STATUS_KILLED}, status)
 
@@ -245,26 +245,26 @@ class TestStorm(base.SaharaTestCase):
         for path in paths:
             remote_instance.write_file_to.assert_any_call(path, "data")
 
-    def _make_master_instance(self, return_code=0):
-        master = mock.Mock()
-        master.execute_command.return_value = (return_code,
+    def _make_main_instance(self, return_code=0):
+        main = mock.Mock()
+        main.execute_command.return_value = (return_code,
                                                self.storm_topology_name)
-        master.hostname.return_value = self.master_host
-        master.id = self.master_inst
-        return master
+        main.hostname.return_value = self.main_host
+        main.id = self.main_inst
+        return main
 
     @mock.patch('sahara.conductor.API.job_execution_get')
     @mock.patch('sahara.utils.remote.get_remote')
     @mock.patch('sahara.plugins.utils.get_instance')
     @mock.patch('sahara.conductor.API.job_get')
     @mock.patch('sahara.context.ctx', return_value="ctx")
-    def _setup_tests(self, master_instance, ctx, job_get,
+    def _setup_tests(self, main_instance, ctx, job_get,
                      get_instance, get_remote, job_exec_get):
 
-        # This is to mock "with remote.get_remote(master) as r" in run_job
+        # This is to mock "with remote.get_remote(main) as r" in run_job
         get_remote.return_value.__enter__ = mock.Mock(
-            return_value=master_instance)
-        get_instance.return_value = master_instance
+            return_value=main_instance)
+        get_instance.return_value = main_instance
 
     @mock.patch.object(se.StormJobEngine,
                        '_generate_topology_name',
@@ -278,7 +278,7 @@ class TestStorm(base.SaharaTestCase):
     @mock.patch('sahara.plugins.utils.get_instance')
     @mock.patch('sahara.conductor.API.job_get')
     @mock.patch('sahara.context.ctx', return_value="ctx")
-    def _setup_run_job(self, master_instance, job_configs, files,
+    def _setup_run_job(self, main_instance, job_configs, files,
                        ctx, job_get, get_instance, create_workflow_dir,
                        get_remote, job_exec_get, job_exec_update,
                        _generate_topology_name):
@@ -297,17 +297,17 @@ class TestStorm(base.SaharaTestCase):
 
         create_workflow_dir.return_value = self.workflow_dir
 
-        # This is to mock "with remote.get_remote(master) as r" in run_job
+        # This is to mock "with remote.get_remote(main) as r" in run_job
         get_remote.return_value.__enter__ = mock.Mock(
-            return_value=master_instance)
-        get_instance.return_value = master_instance
+            return_value=main_instance)
+        get_instance.return_value = main_instance
 
         eng = se.StormJobEngine("cluster")
         eng._upload_job_files = mock.Mock()
         eng._upload_job_files.side_effect = _upload_job_files
         status = eng.run_job(job_exec)
 
-        # Check that we launch on the master node
+        # Check that we launch on the main node
         get_instance.assert_called_with("cluster", "nimbus")
 
         return status
@@ -320,14 +320,14 @@ class TestStorm(base.SaharaTestCase):
 
         files = {'jars': ["app.jar"]}
 
-        # The object representing the storm master node
+        # The object representing the storm main node
         # The storm jar command will be run on this instance
-        master_instance = self._make_master_instance(return_code=1)
+        main_instance = self._make_main_instance(return_code=1)
 
         # If execute_command returns an error we should get a raise
         self.assertRaises(ex.EDPError,
                           self._setup_run_job,
-                          master_instance, job_configs, files)
+                          main_instance, job_configs, files)
 
     def test_run_job(self):
         job_configs = {
@@ -336,16 +336,16 @@ class TestStorm(base.SaharaTestCase):
 
         files = {'jars': ["app.jar"]}
 
-        # The object representing the storm master node
+        # The object representing the storm main node
         # The storm jar command will be run on this instance
-        master_instance = self._make_master_instance()
-        status = self._setup_run_job(master_instance, job_configs, files)
+        main_instance = self._make_main_instance()
+        status = self._setup_run_job(main_instance, job_configs, files)
 
         # Check the command
-        master_instance.execute_command.assert_called_with(
+        main_instance.execute_command.assert_called_with(
             'cd %(workflow_dir)s; '
             './launch_command /usr/local/storm/bin/storm jar '
-            '-c nimbus.host=master '
+            '-c nimbus.host=main '
             'app.jar org.me.myclass %(topology_name)s '
             '> /dev/null 2>&1 & echo $!' % {"workflow_dir": self.workflow_dir,
                                             "topology_name": (
@@ -353,7 +353,7 @@ class TestStorm(base.SaharaTestCase):
 
         # Check result here
         self.assertEqual(("%s@%s" % (self.storm_topology_name,
-                                     self.master_inst),
+                                     self.main_inst),
                           edp.JOB_STATUS_RUNNING,
                           {"storm-path": self.workflow_dir}), status)
 
@@ -365,16 +365,16 @@ class TestStorm(base.SaharaTestCase):
 
         files = {'jars': ["app.jar"]}
 
-        # The object representing the spark master node
+        # The object representing the spark main node
         # The spark-submit command will be run on this instance
-        master_instance = self._make_master_instance()
-        status = self._setup_run_job(master_instance, job_configs, files)
+        main_instance = self._make_main_instance()
+        status = self._setup_run_job(main_instance, job_configs, files)
 
         # Check the command
-        master_instance.execute_command.assert_called_with(
+        main_instance.execute_command.assert_called_with(
             'cd %(workflow_dir)s; '
             './launch_command /usr/local/storm/bin/storm jar '
-            '-c nimbus.host=master '
+            '-c nimbus.host=main '
             'app.jar org.me.myclass %(topology_name)s input_arg output_arg '
             '> /dev/null 2>&1 & echo $!' % {"workflow_dir": self.workflow_dir,
                                             "topology_name": (
@@ -382,6 +382,6 @@ class TestStorm(base.SaharaTestCase):
 
         # Check result here
         self.assertEqual(("%s@%s" % (self.storm_topology_name,
-                                     self.master_inst),
+                                     self.main_inst),
                           edp.JOB_STATUS_RUNNING,
                           {"storm-path": self.workflow_dir}), status)

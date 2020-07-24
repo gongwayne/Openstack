@@ -23,19 +23,19 @@ from sahara.utils import edp
 class TestSparkShellEngine(base.SaharaTestCase):
     def setUp(self):
         super(TestSparkShellEngine, self).setUp()
-        self.master_host = "master"
-        self.master_port = 7077
-        self.master_instance_id = "6789"
+        self.main_host = "main"
+        self.main_port = 7077
+        self.main_instance_id = "6789"
         self.spark_pid = "12345"
         self.spark_home = "/opt/spark"
         self.workflow_dir = "/wfdir"
 
-    def _create_master_instance(self, return_code=0):
-        master = mock.Mock()
-        master.execute_command.return_value = (return_code, self.spark_pid)
-        master.hostname.return_value = self.master_host
-        master.id = self.master_instance_id
-        return master
+    def _create_main_instance(self, return_code=0):
+        main = mock.Mock()
+        main.execute_command.return_value = (return_code, self.spark_pid)
+        main.hostname.return_value = self.main_host
+        main.id = self.main_instance_id
+        return main
 
     def _build_cmd(self, params='', args=''):
         cmd = ('%(env_params)s%(cmd)s %(main_script)s %(args)s' % (
@@ -47,7 +47,7 @@ class TestSparkShellEngine(base.SaharaTestCase):
                 (self.workflow_dir, cmd))
 
     def _check_status(self, status):
-        self.assertEqual(("%s@%s" % (self.spark_pid, self.master_instance_id),
+        self.assertEqual(("%s@%s" % (self.spark_pid, self.main_instance_id),
                           edp.JOB_STATUS_RUNNING,
                           {"spark-path": self.workflow_dir}), status)
 
@@ -58,7 +58,7 @@ class TestSparkShellEngine(base.SaharaTestCase):
     @mock.patch('sahara.plugins.utils.get_instance')
     @mock.patch('sahara.conductor.API.job_get')
     @mock.patch('sahara.context.ctx', return_value="ctx")
-    def _setup_run_job(self, master_instance, job_configs,
+    def _setup_run_job(self, main_instance, job_configs,
                        ctx, job_get, get_instance, create_workflow_dir,
                        get_remote, job_exec_get, job_exec_update):
         job = mock.Mock()
@@ -67,10 +67,10 @@ class TestSparkShellEngine(base.SaharaTestCase):
 
         create_workflow_dir.return_value = self.workflow_dir
 
-        # This is to mock "with remote.get_remote(master) as r" in run_job
+        # This is to mock "with remote.get_remote(main) as r" in run_job
         get_remote.return_value.__enter__ = mock.Mock(
-            return_value=master_instance)
-        get_instance.return_value = master_instance
+            return_value=main_instance)
+        get_instance.return_value = main_instance
 
         eng = shell_engine.ShellEngine("cluster")
         eng._upload_job_files = mock.Mock()
@@ -80,8 +80,8 @@ class TestSparkShellEngine(base.SaharaTestCase):
         job_exec.job_configs = job_configs
         status = eng.run_job(job_exec)
 
-        # Check that we launch command on the master node
-        get_instance.assert_called_with("cluster", self.master_host)
+        # Check that we launch command on the main node
+        get_instance.assert_called_with("cluster", self.main_host)
 
         return status
 
@@ -92,11 +92,11 @@ class TestSparkShellEngine(base.SaharaTestCase):
             'params': {}
         }
 
-        master_instance = self._create_master_instance()
-        status = self._setup_run_job(master_instance, job_configs)
+        main_instance = self._create_main_instance()
+        status = self._setup_run_job(main_instance, job_configs)
 
         # Check the command
-        master_instance.execute_command.assert_called_with(
+        main_instance.execute_command.assert_called_with(
             self._build_cmd())
 
         # Check execution status
@@ -109,11 +109,11 @@ class TestSparkShellEngine(base.SaharaTestCase):
             'params': {}
         }
 
-        master_instance = self._create_master_instance()
-        status = self._setup_run_job(master_instance, job_configs)
+        main_instance = self._create_main_instance()
+        status = self._setup_run_job(main_instance, job_configs)
 
         # Check the command
-        master_instance.execute_command.assert_called_with(
+        main_instance.execute_command.assert_called_with(
             self._build_cmd(args='arg1 arg2')
         )
 
@@ -127,11 +127,11 @@ class TestSparkShellEngine(base.SaharaTestCase):
             'params': {'A': 'a'}
         }
 
-        master_instance = self._create_master_instance()
-        status = self._setup_run_job(master_instance, job_configs)
+        main_instance = self._create_main_instance()
+        status = self._setup_run_job(main_instance, job_configs)
 
         # Check the command
-        master_instance.execute_command.assert_called_with(
+        main_instance.execute_command.assert_called_with(
             self._build_cmd(params='A=a ')
         )
 

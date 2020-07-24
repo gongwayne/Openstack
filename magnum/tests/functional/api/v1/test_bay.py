@@ -102,7 +102,7 @@ class BayTest(base.BaseMagnumTest):
         self.addOnException(self.copy_logs_handler(
             lambda: list(
                 self._get_bay_by_id(self.bay_uuid)[1].node_addresses +
-                self._get_bay_by_id(self.bay_uuid)[1].master_addresses),
+                self._get_bay_by_id(self.bay_uuid)[1].main_addresses),
             self.baymodel.coe,
             self.keypair))
         self.bay_client.wait_for_created_bay(model.uuid, delete_on_error=False)
@@ -163,9 +163,9 @@ class BayTest(base.BaseMagnumTest):
             self.bay_client.post_bay, gen_model)
 
     @testtools.testcase.attr('negative')
-    def test_create_bay_with_zero_masters(self):
+    def test_create_bay_with_zero_mains(self):
         gen_model = datagen.valid_bay_data(baymodel_id=self.baymodel.uuid,
-                                           master_count=0)
+                                           main_count=0)
         self.assertRaises(
             exceptions.BadRequest,
             self.bay_client.post_bay, gen_model)

@@ -79,14 +79,14 @@ class JobExecutionTest(base.BaseDataProcessingTest):
         worker = self.create_node_group_template(
             data_utils.rand_name('sahara-ng-template'), **self.worker_template)
 
-        master = self.create_node_group_template(
-            data_utils.rand_name('sahara-ng-template'), **self.master_template)
+        main = self.create_node_group_template(
+            data_utils.rand_name('sahara-ng-template'), **self.main_template)
 
         cluster_templ = self.cluster_template.copy()
         cluster_templ['node_groups'] = [
             {
-                'name': 'master',
-                'node_group_template_id': master.id,
+                'name': 'main',
+                'node_group_template_id': main.id,
                 'count': 1
             },
             {
@@ -154,7 +154,7 @@ class JobExecutionTest(base.BaseDataProcessingTest):
                 },
                 {
                     "count": 2,
-                    "name": 'master'
+                    "name": 'main'
                 }
             ],
             'add_node_groups': [

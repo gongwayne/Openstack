@@ -369,11 +369,11 @@ class API(object):
                           self.version_cap, snapshot_info=snapshot_info,
                           replica_source_config=replica_source_config)
 
-    def attach_replication_slave(self, snapshot, replica_config=None):
+    def attach_replication_subordinate(self, snapshot, replica_config=None):
         LOG.debug("Configuring instance %s to replicate from %s.",
-                  self.id, snapshot.get('master').get('id'))
-        self._cast("attach_replication_slave", self.version_cap,
-                   snapshot=snapshot, slave_config=replica_config)
+                  self.id, snapshot.get('main').get('id'))
+        self._cast("attach_replication_subordinate", self.version_cap,
+                   snapshot=snapshot, subordinate_config=replica_config)
 
     def detach_replica(self, for_failover=False):
         LOG.debug("Detaching replica %s from its replication source.", self.id)
@@ -385,19 +385,19 @@ class API(object):
         return self._call("get_replica_context",
                           AGENT_HIGH_TIMEOUT, self.version_cap)
 
-    def attach_replica(self, replica_info, slave_config):
+    def attach_replica(self, replica_info, subordinate_config):
         LOG.debug("Attaching replica %s." % replica_info)
         self._call("attach_replica", AGENT_HIGH_TIMEOUT, self.version_cap,
-                   replica_info=replica_info, slave_config=slave_config)
+                   replica_info=replica_info, subordinate_config=subordinate_config)
 
     def make_read_only(self, read_only):
         LOG.debug("Executing make_read_only(%s)" % read_only)
         self._call("make_read_only", AGENT_HIGH_TIMEOUT, self.version_cap,
                    read_only=read_only)
 
-    def enable_as_master(self, replica_source_config):
-        LOG.debug("Executing enable_as_master")
-        self._call("enable_as_master", AGENT_HIGH_TIMEOUT, self.version_cap,
+    def enable_as_main(self, replica_source_config):
+        LOG.debug("Executing enable_as_main")
+        self._call("enable_as_main", AGENT_HIGH_TIMEOUT, self.version_cap,
                    replica_source_config=replica_source_config)
 
     # DEPRECATED: Maintain for API Compatibility
@@ -422,13 +422,13 @@ class API(object):
                    txn=txn)
 
     def cleanup_source_on_replica_detach(self, replica_info):
-        LOG.debug("Cleaning up master %s on detach of replica.", self.id)
+        LOG.debug("Cleaning up main %s on detach of replica.", self.id)
         self._call("cleanup_source_on_replica_detach", AGENT_HIGH_TIMEOUT,
                    self.version_cap, replica_info=replica_info)
 
-    def demote_replication_master(self):
-        LOG.debug("Demoting instance %s to non-master.", self.id)
-        self._call("demote_replication_master", AGENT_HIGH_TIMEOUT,
+    def demote_replication_main(self):
+        LOG.debug("Demoting instance %s to non-main.", self.id)
+        self._call("demote_replication_main", AGENT_HIGH_TIMEOUT,
                    self.version_cap)
 
     def guest_log_list(self):

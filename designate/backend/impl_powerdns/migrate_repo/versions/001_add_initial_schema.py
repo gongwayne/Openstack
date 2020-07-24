@@ -25,7 +25,7 @@ domains = Table('domains', meta,
                 Column('id', Integer(), autoincrement=True,
                        primary_key=True, nullable=False),
                 Column('name', String(255), nullable=False, unique=True),
-                Column('master', String(20), default=None, nullable=True),
+                Column('main', String(20), default=None, nullable=True),
                 Column('last_check', Integer(), default=None,
                        nullable=True),
                 Column('type', String(6), nullable=False),
@@ -67,7 +67,7 @@ domainmetadata = Table('domainmetadata', meta,
                        Column('kind', String(16), default=None, nullable=True),
                        Column('content', Text()))
 
-supermasters = Table('supermasters', meta,
+supermains = Table('supermains', meta,
                      Column('ip', String(25), nullable=False),
                      Column('nameserver', String(255), nullable=False),
                      Column('account', String(40), default=None,
@@ -90,7 +90,7 @@ def upgrade(migrate_engine):
     records.create()
     cryptokeys.create()
     domainmetadata.create()
-    supermasters.create()
+    supermains.create()
     tsigkeys.create()
 
 
@@ -98,7 +98,7 @@ def downgrade(migrate_engine):
     meta.bind = migrate_engine
 
     tsigkeys.drop()
-    supermasters.drop()
+    supermains.drop()
     domainmetadata.drop()
     cryptokeys.drop()
     records.drop()

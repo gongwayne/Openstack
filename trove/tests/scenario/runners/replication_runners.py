@@ -25,16 +25,16 @@ class ReplicationRunner(TestRunner):
     def __init__(self):
         super(ReplicationRunner, self).__init__()
 
-        self.master_id = self.instance_info.id
+        self.main_id = self.instance_info.id
         self.replica_1_id = 0
         self.replica_2_id = 0
-        self.master_host = self.get_instance_host(self.master_id)
+        self.main_host = self.get_instance_host(self.main_id)
         self.replica_1_host = None
-        self.master_backup_count = None
+        self.main_backup_count = None
         self.used_data_sets = set()
 
     def run_add_data_for_replication(self, data_type=DataType.small):
-        self.assert_add_replication_data(data_type, self.master_host)
+        self.assert_add_replication_data(data_type, self.main_host)
 
     def assert_add_replication_data(self, data_type, host):
         """In order for this to work, the corresponding datastore
@@ -44,10 +44,10 @@ class ReplicationRunner(TestRunner):
         self.used_data_sets.add(data_type)
 
     def run_add_data_after_replica(self, data_type=DataType.micro):
-        self.assert_add_replication_data(data_type, self.master_host)
+        self.assert_add_replication_data(data_type, self.main_host)
 
     def run_verify_data_for_replication(self, data_type=DataType.small):
-        self.assert_verify_replication_data(data_type, self.master_host)
+        self.assert_verify_replication_data(data_type, self.main_host)
 
     def assert_verify_replication_data(self, data_type, host):
         """In order for this to work, the corresponding datastore
@@ -57,20 +57,20 @@ class ReplicationRunner(TestRunner):
 
     def run_create_single_replica(self, expected_states=['BUILD', 'ACTIVE'],
                                   expected_http_code=200):
-        master_id = self.instance_info.id
-        self.master_backup_count = len(
-            self.auth_client.instances.backups(master_id))
+        main_id = self.instance_info.id
+        self.main_backup_count = len(
+            self.auth_client.instances.backups(main_id))
         self.replica_1_id = self.assert_replica_create(
-            master_id, 'replica1', 1, expected_states, expected_http_code)
+            main_id, 'replica1', 1, expected_states, expected_http_code)
         self.replica_1_host = self.get_instance_host(self.replica_1_id)
 
     def assert_replica_create(
-            self, master_id, replica_name, replica_count,
+            self, main_id, replica_name, replica_count,
             expected_states, expected_http_code):
         replica = self.auth_client.instances.create(
             self.instance_info.name + replica_name,
             self.instance_info.dbaas_flavor_href,
-            self.instance_info.volume, replica_of=master_id,
+            self.instance_info.volume, replica_of=main_id,
             datastore=self.instance_info.dbaas_datastore,
             datastore_version=self.instance_info.dbaas_datastore_version,
             nics=self.instance_info.nics,
@@ -79,39 +79,39 @@ class ReplicationRunner(TestRunner):
 
         self.assert_instance_action(replica_id, expected_states,
                                     expected_http_code)
-        self._assert_is_master(master_id, [replica_id])
-        self._assert_is_replica(replica_id, master_id)
+        self._assert_is_main(main_id, [replica_id])
+        self._assert_is_replica(replica_id, main_id)
         return replica_id
 
-    def _assert_is_master(self, instance_id, replica_ids):
+    def _assert_is_main(self, instance_id, replica_ids):
         instance = self.get_instance(instance_id)
         self.assert_client_code(200)
-        CheckInstance(instance._info).slaves()
+        CheckInstance(instance._info).subordinates()
         self.assert_true(
             set(replica_ids).issubset(self._get_replica_set(instance_id)))
 
-    def _get_replica_set(self, master_id):
-        instance = self.get_instance(master_id)
+    def _get_replica_set(self, main_id):
+        instance = self.get_instance(main_id)
         return set([replica['id'] for replica in instance._info['replicas']])
 
-    def _assert_is_replica(self, instance_id, master_id):
+    def _assert_is_replica(self, instance_id, main_id):
         instance = self.get_instance(instance_id)
         self.assert_client_code(200)
         CheckInstance(instance._info).replica_of()
-        self.assert_equal(master_id, instance._info['replica_of']['id'],
-                          'Unexpected replication master ID')
+        self.assert_equal(main_id, instance._info['replica_of']['id'],
+                          'Unexpected replication main ID')
 
     def run_create_multiple_replicas(self, expected_states=['BUILD', 'ACTIVE'],
                                      expected_http_code=200):
-        master_id = self.instance_info.id
+        main_id = self.instance_info.id
         self.replica_2_id = self.assert_replica_create(
-            master_id, 'replica2', 2, expected_states, expected_http_code)
+            main_id, 'replica2', 2, expected_states, expected_http_code)
 
     def run_add_data_to_replicate(self):
-        self.assert_add_replication_data(DataType.tiny, self.master_host)
+        self.assert_add_replication_data(DataType.tiny, self.main_host)
 
     def run_verify_data_to_replicate(self):
-        self.assert_verify_replication_data(DataType.tiny, self.master_host)
+        self.assert_verify_replication_data(DataType.tiny, self.main_host)
 
     def run_wait_for_data_to_replicate(self):
         self.test_helper.wait_for_replicas()
@@ -119,8 +119,8 @@ class ReplicationRunner(TestRunner):
     def run_verify_replica_data_orig(self):
         self.assert_verify_replica_data(self.instance_info.id, DataType.small)
 
-    def assert_verify_replica_data(self, master_id, data_type):
-        replica_ids = self._get_replica_set(master_id)
+    def assert_verify_replica_data(self, main_id, data_type):
+        replica_ids = self._get_replica_set(main_id)
         for replica_id in replica_ids:
             replica_instance = self.get_instance(replica_id)
             host = str(replica_instance._info['ip'][0])
@@ -133,7 +133,7 @@ class ReplicationRunner(TestRunner):
     def run_verify_replica_data_new(self):
         self.assert_verify_replica_data(self.instance_info.id, DataType.tiny)
 
-    def run_promote_master(self, expected_exception=exceptions.BadRequest,
+    def run_promote_main(self, expected_exception=exceptions.BadRequest,
                            expected_http_code=400):
         self.assert_raises(
             expected_exception, expected_http_code,
@@ -147,14 +147,14 @@ class ReplicationRunner(TestRunner):
             self.auth_client.instances.eject_replica_source,
             self.replica_1_id)
 
-    def run_eject_valid_master(self, expected_exception=exceptions.BadRequest,
+    def run_eject_valid_main(self, expected_exception=exceptions.BadRequest,
                                expected_http_code=400):
         self.assert_raises(
             expected_exception, expected_http_code,
             self.auth_client.instances.eject_replica_source,
             self.instance_info.id)
 
-    def run_delete_valid_master(self, expected_exception=exceptions.Forbidden,
+    def run_delete_valid_main(self, expected_exception=exceptions.Forbidden,
                                 expected_http_code=403):
         self.assert_raises(
             expected_exception, expected_http_code,
@@ -169,24 +169,24 @@ class ReplicationRunner(TestRunner):
             expected_http_code)
 
     def assert_promote_to_replica_source(
-            self, new_master_id, old_master_id,
+            self, new_main_id, old_main_id,
             expected_states, expected_http_code):
-        original_replica_ids = self._get_replica_set(old_master_id)
+        original_replica_ids = self._get_replica_set(old_main_id)
         other_replica_ids = list(original_replica_ids)
-        other_replica_ids.remove(new_master_id)
+        other_replica_ids.remove(new_main_id)
 
         # Promote replica
-        self.assert_replica_promote(new_master_id, expected_states,
+        self.assert_replica_promote(new_main_id, expected_states,
                                     expected_http_code)
         current_replica_ids = list(other_replica_ids)
-        current_replica_ids.append(old_master_id)
-        self._assert_is_master(new_master_id, current_replica_ids)
-        self._assert_is_replica(old_master_id, new_master_id)
+        current_replica_ids.append(old_main_id)
+        self._assert_is_main(new_main_id, current_replica_ids)
+        self._assert_is_replica(old_main_id, new_main_id)
 
     def assert_replica_promote(
-            self, new_master_id, expected_states, expected_http_code):
-        self.auth_client.instances.promote_to_replica_source(new_master_id)
-        self.assert_instance_action(new_master_id, expected_states,
+            self, new_main_id, expected_states, expected_http_code):
+        self.auth_client.instances.promote_to_replica_source(new_main_id)
+        self.assert_instance_action(new_main_id, expected_states,
                                     expected_http_code)
 
     def run_add_data_to_replicate2(self):
@@ -207,7 +207,7 @@ class ReplicationRunner(TestRunner):
             expected_http_code)
 
     def run_remove_replicated_data(self):
-        self.assert_remove_replicated_data(self.master_host)
+        self.assert_remove_replicated_data(self.main_host)
 
     def assert_remove_replicated_data(self, host):
         """In order for this to work, the corresponding datastore
@@ -225,16 +225,16 @@ class ReplicationRunner(TestRunner):
             expected_states, expected_http_code)
 
     def assert_detach_replica_from_source(
-            self, master_id, replica_id, expected_states,
+            self, main_id, replica_id, expected_states,
             expected_http_code):
-        other_replica_ids = self._get_replica_set(master_id)
+        other_replica_ids = self._get_replica_set(main_id)
         other_replica_ids.remove(replica_id)
 
         self.assert_detach_replica(
             replica_id, expected_states, expected_http_code)
 
-        self._assert_is_master(master_id, other_replica_ids)
-        self._assert_is_not_replica(replica_id, master_id)
+        self._assert_is_main(main_id, other_replica_ids)
+        self._assert_is_not_replica(replica_id, main_id)
 
     def assert_detach_replica(
             self, replica_id, expected_states, expected_http_code):
@@ -243,11 +243,11 @@ class ReplicationRunner(TestRunner):
         self.assert_instance_action(
             replica_id, expected_states, expected_http_code)
 
-    def _assert_is_not_replica(self, instance_id, master_id):
+    def _assert_is_not_replica(self, instance_id, main_id):
         try:
-            self._assert_is_replica(instance_id, master_id)
+            self._assert_is_replica(instance_id, main_id)
             self.fail("Non-replica '%s' is still replica of '%s'" %
-                      (instance_id, master_id))
+                      (instance_id, main_id))
         except AssertionError:
             pass
 
@@ -275,12 +275,12 @@ class ReplicationRunner(TestRunner):
             expected_http_code)
 
     def assert_delete_all_replicas(
-            self, master_id, expected_last_state, expected_http_code):
-        self.report.log("Deleting a replication set: %s" % master_id)
-        replica_ids = self._get_replica_set(master_id)
+            self, main_id, expected_last_state, expected_http_code):
+        self.report.log("Deleting a replication set: %s" % main_id)
+        replica_ids = self._get_replica_set(main_id)
         self.assert_delete_instances(replica_ids, expected_last_state,
                                      expected_http_code)
 
     def run_test_backup_deleted(self):
-        backup = self.auth_client.instances.backups(self.master_id)
-        self.assert_equal(self.master_backup_count, len(backup))
+        backup = self.auth_client.instances.backups(self.main_id)
+        self.assert_equal(self.main_backup_count, len(backup))

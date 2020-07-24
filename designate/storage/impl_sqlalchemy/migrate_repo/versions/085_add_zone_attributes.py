@@ -12,7 +12,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-"""Move zone masters to their own table, and allow for abstract keys in the
+"""Move zone mains to their own table, and allow for abstract keys in the
 attributes table"""
 
 from migrate.changeset.constraint import UniqueConstraint
@@ -28,7 +28,7 @@ LOG = logging.getLogger()
 
 meta = MetaData()
 
-zone_masters_table = Table('zone_masters', meta,
+zone_mains_table = Table('zone_mains', meta,
     Column('id', UUID(), default=utils.generate_uuid, primary_key=True),
     Column('version', Integer(), default=1, nullable=False),
     Column('created_at', DateTime, default=lambda: timeutils.utcnow()),
@@ -38,7 +38,7 @@ zone_masters_table = Table('zone_masters', meta,
     Column('port', Integer(), nullable=False),
     Column('zone_id', UUID(), nullable=False),
 
-    UniqueConstraint('host', 'port', 'zone_id', name='unique_masters'),
+    UniqueConstraint('host', 'port', 'zone_id', name='unique_mains'),
     ForeignKeyConstraint(['zone_id'], ['zones.id'], ondelete='CASCADE'),
 
     mysql_engine='InnoDB',
@@ -55,9 +55,9 @@ def upgrade(migrate_engine):
     transaction = connection.begin()
     try:
 
-        zone_masters_table.create()
+        zone_mains_table.create()
 
-        masters = select(
+        mains = select(
             [
                 zone_attibutes_table.c.id,
                 zone_attibutes_table.c.version,
@@ -67,28 +67,28 @@ def upgrade(migrate_engine):
                 zone_attibutes_table.c.zone_id
             ]
         ).where(
-            zone_attibutes_table.c.key == 'master'
+            zone_attibutes_table.c.key == 'main'
         ).execute().fetchall()
 
-        masters_input = []
+        mains_input = []
 
-        for master in masters:
+        for main in mains:
             host, port = utils.split_host_port(
-                master[zone_attibutes_table.c.value])
-            masters_input.append({
-                'id': master[zone_attibutes_table.c.id],
-                'version': master[zone_attibutes_table.c.version],
-                'created_at': master[zone_attibutes_table.c.created_at],
-                'updated_at': master[zone_attibutes_table.c.updated_at],
-                'zone_id': master[zone_attibutes_table.c.zone_id],
+                main[zone_attibutes_table.c.value])
+            mains_input.append({
+                'id': main[zone_attibutes_table.c.id],
+                'version': main[zone_attibutes_table.c.version],
+                'created_at': main[zone_attibutes_table.c.created_at],
+                'updated_at': main[zone_attibutes_table.c.updated_at],
+                'zone_id': main[zone_attibutes_table.c.zone_id],
                 'host': host,
                 'port': port
             })
 
-        zone_attibutes_table.insert(masters_input)
+        zone_attibutes_table.insert(mains_input)
 
         zone_attibutes_table.delete().where(
-            zone_attibutes_table.c.key == 'master')
+            zone_attibutes_table.c.key == 'main')
 
         zone_attibutes_table.c.key.alter(type=String(50))
         transaction.commit()

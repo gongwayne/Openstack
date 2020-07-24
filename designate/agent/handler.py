@@ -47,14 +47,14 @@ DELETE = 65283
 
 class RequestHandler(object):
     def __init__(self):
-        self.masters = []
-        for server in CONF['service:agent'].masters:
+        self.mains = []
+        for server in CONF['service:agent'].mains:
             raw_server = utils.split_host_port(server)
-            master = {'host': raw_server[0], 'port': int(raw_server[1])}
-            self.masters.append(master)
+            main = {'host': raw_server[0], 'port': int(raw_server[1])}
+            self.mains.append(main)
 
-        LOG.info(_LI("Agent masters: %(masters)s"),
-                 {'masters': self.masters})
+        LOG.info(_LI("Agent mains: %(mains)s"),
+                 {'mains': self.mains})
 
         self.allow_notify = CONF['service:agent'].allow_notify
         self.transfer_source = CONF['service:agent'].transfer_source
@@ -127,7 +127,7 @@ class RequestHandler(object):
                   {'verb': "CREATE", 'name': zone_name, 'host': requester})
 
         try:
-            zone = dnsutils.do_axfr(zone_name, self.masters,
+            zone = dnsutils.do_axfr(zone_name, self.mains,
                 source=self.transfer_source)
             self.backend.create_zone(zone)
         except Exception:
@@ -144,7 +144,7 @@ class RequestHandler(object):
         Constructs the response to a NOTIFY and acts accordingly on it.
 
         * Decodes the NOTIFY
-        * Checks if the master sending the NOTIFY is allowed to notify
+        * Checks if the main sending the NOTIFY is allowed to notify
         * Does a serial check to see if further action needs to be taken
         * Kicks off an AXFR and returns a valid response
         """
@@ -173,12 +173,12 @@ class RequestHandler(object):
         # TODO(Tim): Reenable this when it makes more sense
         # resolver = dns.resolver.Resolver()
         # resolver.nameservers = [requester]
-        # This assumes that the Master is running on port 53
+        # This assumes that the Main is running on port 53
         # soa_answer = resolver.query(zone_name, 'SOA')
         # Check that the serial is < serial above
 
         try:
-            zone = dnsutils.do_axfr(zone_name, self.masters,
+            zone = dnsutils.do_axfr(zone_name, self.mains,
                 source=self.transfer_source)
             self.backend.update_zone(zone)
         except Exception:
@@ -195,7 +195,7 @@ class RequestHandler(object):
         Constructs the response to a DELETE and acts accordingly on it.
 
         * Decodes the message for zone name
-        * Checks if the master sending the DELETE is in the allowed notify list
+        * Checks if the main sending the DELETE is in the allowed notify list
         * Checks if the zone exists (maybe?)
         * Kicks a call to the backend to delete the zone in question
         """

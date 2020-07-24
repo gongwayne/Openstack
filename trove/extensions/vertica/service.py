@@ -34,7 +34,7 @@ class VerticaRootController(ClusterRootController):
     def _get_cluster_instance_id(self, tenant_id, cluster_id):
         instance_ids = self._find_cluster_node_ids(tenant_id, cluster_id)
         args = {'tenant_id': tenant_id, 'cluster_id': cluster_id, 'type':
-                'master'}
-        master_instance = DBInstance.find_by(**args)
-        master_instance_id = master_instance.id
-        return master_instance_id, instance_ids
+                'main'}
+        main_instance = DBInstance.find_by(**args)
+        main_instance_id = main_instance.id
+        return main_instance_id, instance_ids

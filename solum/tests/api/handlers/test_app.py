@@ -55,7 +55,7 @@ class TestAppHandler(base.BaseTestCase):
                 'description': 'fake app for testing',
                 'source': {
                     'repository': 'https://github.com/example/a.git',
-                    'revision': 'master'
+                    'revision': 'main'
                 }}
         db_obj = fakes.FakeApp()
         mock_registry.App.return_value = db_obj
@@ -80,7 +80,7 @@ class TestAppHandler(base.BaseTestCase):
                     'description': 'fake app for testing',
                     'source': {
                         'repository': invalid_url,
-                        'revision': 'master'
+                        'revision': 'main'
                     }}
             db_obj = fakes.FakeApp()
             mock_registry.App.return_value = db_obj

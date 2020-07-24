@@ -40,15 +40,15 @@ class TemplateUtilsTestCase(base.ConductorManagerTestCase):
                 "node_group_template_id": "{vanilla-worker}",
                 "count": 3},
 
-               {"name": "master",
-                "node_group_template_id": "{vanilla-master}",
+               {"name": "main",
+                "node_group_template_id": "{vanilla-main}",
                 "count": 1},
 
                {"name": "secondary-name",
                 "node_group_template_id": "some_id"}]}
 
         ng_dict = {"vanilla-worker": 1,
-                   "vanilla-master": 2}
+                   "vanilla-main": 2}
 
         utils.substitute_ng_ids(cl, ng_dict)
         self.assertEqual("1", cl["node_groups"][0]["node_group_template_id"])

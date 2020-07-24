@@ -47,7 +47,7 @@ json_files = [
     'zookeeper-server.json',
     'zookeeper-service.json',
     'hbase-service.json',
-    'hbase-master.json',
+    'hbase-main.json',
     'hbase-regionserver.json'
 ]
 

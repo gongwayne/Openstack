@@ -461,7 +461,7 @@ def fetch_images(ctx, cache, images_info, force_raw=True):
     """
 
     try:
-        image_cache.clean_up_caches(ctx, cache.master_dir, images_info)
+        image_cache.clean_up_caches(ctx, cache.main_dir, images_info)
     except exception.InsufficientDiskSpace as e:
         raise exception.InstanceDeployFailure(reason=e)
 

@@ -42,20 +42,20 @@ class TestImageCacheFetch(base.TestCase):
 
     def setUp(self):
         super(TestImageCacheFetch, self).setUp()
-        self.master_dir = tempfile.mkdtemp()
-        self.cache = image_cache.ImageCache(self.master_dir, None, None)
+        self.main_dir = tempfile.mkdtemp()
+        self.cache = image_cache.ImageCache(self.main_dir, None, None)
         self.dest_dir = tempfile.mkdtemp()
         self.dest_path = os.path.join(self.dest_dir, 'dest')
         self.uuid = uuidutils.generate_uuid()
-        self.master_path = os.path.join(self.master_dir, self.uuid)
+        self.main_path = os.path.join(self.main_dir, self.uuid)
 
     @mock.patch.object(image_cache, '_fetch', autospec=True)
     @mock.patch.object(image_cache.ImageCache, 'clean_up', autospec=True)
     @mock.patch.object(image_cache.ImageCache, '_download_image',
                        autospec=True)
-    def test_fetch_image_no_master_dir(self, mock_download, mock_clean_up,
+    def test_fetch_image_no_main_dir(self, mock_download, mock_clean_up,
                                        mock_fetch):
-        self.cache.master_dir = None
+        self.cache.main_dir = None
         self.cache.fetch_image(self.uuid, self.dest_path)
         self.assertFalse(mock_download.called)
         mock_fetch.assert_called_once_with(
@@ -68,15 +68,15 @@ class TestImageCacheFetch(base.TestCase):
     @mock.patch.object(os, 'link', autospec=True)
     @mock.patch.object(image_cache, '_delete_dest_path_if_stale',
                        return_value=True, autospec=True)
-    @mock.patch.object(image_cache, '_delete_master_path_if_stale',
+    @mock.patch.object(image_cache, '_delete_main_path_if_stale',
                        return_value=True, autospec=True)
-    def test_fetch_image_dest_and_master_uptodate(
+    def test_fetch_image_dest_and_main_uptodate(
             self, mock_cache_upd, mock_dest_upd, mock_link, mock_download,
             mock_clean_up):
         self.cache.fetch_image(self.uuid, self.dest_path)
-        mock_cache_upd.assert_called_once_with(self.master_path, self.uuid,
+        mock_cache_upd.assert_called_once_with(self.main_path, self.uuid,
                                                None)
-        mock_dest_upd.assert_called_once_with(self.master_path, self.dest_path)
+        mock_dest_upd.assert_called_once_with(self.main_path, self.dest_path)
         self.assertFalse(mock_link.called)
         self.assertFalse(mock_download.called)
         self.assertFalse(mock_clean_up.called)
@@ -87,16 +87,16 @@ class TestImageCacheFetch(base.TestCase):
     @mock.patch.object(os, 'link', autospec=True)
     @mock.patch.object(image_cache, '_delete_dest_path_if_stale',
                        return_value=False, autospec=True)
-    @mock.patch.object(image_cache, '_delete_master_path_if_stale',
+    @mock.patch.object(image_cache, '_delete_main_path_if_stale',
                        return_value=True, autospec=True)
     def test_fetch_image_dest_out_of_date(
             self, mock_cache_upd, mock_dest_upd, mock_link, mock_download,
             mock_clean_up):
         self.cache.fetch_image(self.uuid, self.dest_path)
-        mock_cache_upd.assert_called_once_with(self.master_path, self.uuid,
+        mock_cache_upd.assert_called_once_with(self.main_path, self.uuid,
                                                None)
-        mock_dest_upd.assert_called_once_with(self.master_path, self.dest_path)
-        mock_link.assert_called_once_with(self.master_path, self.dest_path)
+        mock_dest_upd.assert_called_once_with(self.main_path, self.dest_path)
+        mock_link.assert_called_once_with(self.main_path, self.dest_path)
         self.assertFalse(mock_download.called)
         self.assertFalse(mock_clean_up.called)
 
@@ -106,18 +106,18 @@ class TestImageCacheFetch(base.TestCase):
     @mock.patch.object(os, 'link', autospec=True)
     @mock.patch.object(image_cache, '_delete_dest_path_if_stale',
                        return_value=True, autospec=True)
-    @mock.patch.object(image_cache, '_delete_master_path_if_stale',
+    @mock.patch.object(image_cache, '_delete_main_path_if_stale',
                        return_value=False, autospec=True)
-    def test_fetch_image_master_out_of_date(
+    def test_fetch_image_main_out_of_date(
             self, mock_cache_upd, mock_dest_upd, mock_link, mock_download,
             mock_clean_up):
         self.cache.fetch_image(self.uuid, self.dest_path)
-        mock_cache_upd.assert_called_once_with(self.master_path, self.uuid,
+        mock_cache_upd.assert_called_once_with(self.main_path, self.uuid,
                                                None)
-        mock_dest_upd.assert_called_once_with(self.master_path, self.dest_path)
+        mock_dest_upd.assert_called_once_with(self.main_path, self.dest_path)
         self.assertFalse(mock_link.called)
         mock_download.assert_called_once_with(
-            self.cache, self.uuid, self.master_path, self.dest_path,
+            self.cache, self.uuid, self.main_path, self.dest_path,
             ctx=None, force_raw=True)
         mock_clean_up.assert_called_once_with(self.cache)
 
@@ -127,18 +127,18 @@ class TestImageCacheFetch(base.TestCase):
     @mock.patch.object(os, 'link', autospec=True)
     @mock.patch.object(image_cache, '_delete_dest_path_if_stale',
                        return_value=True, autospec=True)
-    @mock.patch.object(image_cache, '_delete_master_path_if_stale',
+    @mock.patch.object(image_cache, '_delete_main_path_if_stale',
                        return_value=False, autospec=True)
-    def test_fetch_image_both_master_and_dest_out_of_date(
+    def test_fetch_image_both_main_and_dest_out_of_date(
             self, mock_cache_upd, mock_dest_upd, mock_link, mock_download,
             mock_clean_up):
         self.cache.fetch_image(self.uuid, self.dest_path)
-        mock_cache_upd.assert_called_once_with(self.master_path, self.uuid,
+        mock_cache_upd.assert_called_once_with(self.main_path, self.uuid,
                                                None)
-        mock_dest_upd.assert_called_once_with(self.master_path, self.dest_path)
+        mock_dest_upd.assert_called_once_with(self.main_path, self.dest_path)
         self.assertFalse(mock_link.called)
         mock_download.assert_called_once_with(
-            self.cache, self.uuid, self.master_path, self.dest_path,
+            self.cache, self.uuid, self.main_path, self.dest_path,
             ctx=None, force_raw=True)
         mock_clean_up.assert_called_once_with(self.cache)
 
@@ -149,10 +149,10 @@ class TestImageCacheFetch(base.TestCase):
         href = u'http://abc.com/ubuntu.qcow2'
         href_encoded = href.encode('utf-8') if six.PY2 else href
         href_converted = str(uuid.uuid5(uuid.NAMESPACE_URL, href_encoded))
-        master_path = os.path.join(self.master_dir, href_converted)
+        main_path = os.path.join(self.main_dir, href_converted)
         self.cache.fetch_image(href, self.dest_path)
         mock_download.assert_called_once_with(
-            self.cache, href, master_path, self.dest_path,
+            self.cache, href, main_path, self.dest_path,
             ctx=None, force_raw=True)
         self.assertTrue(mock_clean_up.called)
 
@@ -161,16 +161,16 @@ class TestImageCacheFetch(base.TestCase):
         def _fake_fetch(ctx, uuid, tmp_path, *args):
             self.assertEqual(self.uuid, uuid)
             self.assertNotEqual(self.dest_path, tmp_path)
-            self.assertNotEqual(os.path.dirname(tmp_path), self.master_dir)
+            self.assertNotEqual(os.path.dirname(tmp_path), self.main_dir)
             with open(tmp_path, 'w') as fp:
                 fp.write("TEST")
 
         mock_fetch.side_effect = _fake_fetch
-        self.cache._download_image(self.uuid, self.master_path, self.dest_path)
+        self.cache._download_image(self.uuid, self.main_path, self.dest_path)
         self.assertTrue(os.path.isfile(self.dest_path))
-        self.assertTrue(os.path.isfile(self.master_path))
+        self.assertTrue(os.path.isfile(self.main_path))
         self.assertEqual(os.stat(self.dest_path).st_ino,
-                         os.stat(self.master_path).st_ino)
+                         os.stat(self.main_path).st_ino)
         with open(self.dest_path) as fp:
             self.assertEqual("TEST", fp.read())
 
@@ -180,125 +180,125 @@ class TestUpdateImages(base.TestCase):
 
     def setUp(self):
         super(TestUpdateImages, self).setUp()
-        self.master_dir = tempfile.mkdtemp()
+        self.main_dir = tempfile.mkdtemp()
         self.dest_dir = tempfile.mkdtemp()
         self.dest_path = os.path.join(self.dest_dir, 'dest')
         self.uuid = uuidutils.generate_uuid()
-        self.master_path = os.path.join(self.master_dir, self.uuid)
+        self.main_path = os.path.join(self.main_dir, self.uuid)
 
     @mock.patch.object(os.path, 'exists', return_value=False, autospec=True)
     @mock.patch.object(image_service, 'get_image_service', autospec=True)
-    def test__delete_master_path_if_stale_glance_img_not_cached(
+    def test__delete_main_path_if_stale_glance_img_not_cached(
             self, mock_gis, mock_path_exists, mock_unlink):
-        res = image_cache._delete_master_path_if_stale(self.master_path,
+        res = image_cache._delete_main_path_if_stale(self.main_path,
                                                        self.uuid, None)
         self.assertFalse(mock_gis.called)
         self.assertFalse(mock_unlink.called)
-        mock_path_exists.assert_called_once_with(self.master_path)
+        mock_path_exists.assert_called_once_with(self.main_path)
         self.assertFalse(res)
 
     @mock.patch.object(os.path, 'exists', return_value=True, autospec=True)
     @mock.patch.object(image_service, 'get_image_service', autospec=True)
-    def test__delete_master_path_if_stale_glance_img(
+    def test__delete_main_path_if_stale_glance_img(
             self, mock_gis, mock_path_exists, mock_unlink):
-        res = image_cache._delete_master_path_if_stale(self.master_path,
+        res = image_cache._delete_main_path_if_stale(self.main_path,
                                                        self.uuid, None)
         self.assertFalse(mock_gis.called)
         self.assertFalse(mock_unlink.called)
-        mock_path_exists.assert_called_once_with(self.master_path)
+        mock_path_exists.assert_called_once_with(self.main_path)
         self.assertTrue(res)
 
     @mock.patch.object(image_service, 'get_image_service', autospec=True)
-    def test__delete_master_path_if_stale_no_master(self, mock_gis,
+    def test__delete_main_path_if_stale_no_main(self, mock_gis,
                                                     mock_unlink):
-        res = image_cache._delete_master_path_if_stale(self.master_path,
+        res = image_cache._delete_main_path_if_stale(self.main_path,
                                                        'http://11', None)
         self.assertFalse(mock_gis.called)
         self.assertFalse(mock_unlink.called)
         self.assertFalse(res)
 
     @mock.patch.object(image_service, 'get_image_service', autospec=True)
-    def test__delete_master_path_if_stale_no_updated_at(self, mock_gis,
+    def test__delete_main_path_if_stale_no_updated_at(self, mock_gis,
                                                         mock_unlink):
-        touch(self.master_path)
+        touch(self.main_path)
         href = 'http://awesomefreeimages.al/img111'
         mock_gis.return_value.show.return_value = {}
-        res = image_cache._delete_master_path_if_stale(self.master_path, href,
+        res = image_cache._delete_main_path_if_stale(self.main_path, href,
                                                        None)
         mock_gis.assert_called_once_with(href, context=None)
         self.assertFalse(mock_unlink.called)
         self.assertTrue(res)
 
     @mock.patch.object(image_service, 'get_image_service', autospec=True)
-    def test__delete_master_path_if_stale_master_up_to_date(self, mock_gis,
+    def test__delete_main_path_if_stale_main_up_to_date(self, mock_gis,
                                                             mock_unlink):
-        touch(self.master_path)
+        touch(self.main_path)
         href = 'http://awesomefreeimages.al/img999'
         mock_gis.return_value.show.return_value = {
             'updated_at': datetime.datetime(1999, 11, 15, 8, 12, 31)
         }
-        res = image_cache._delete_master_path_if_stale(self.master_path, href,
+        res = image_cache._delete_main_path_if_stale(self.main_path, href,
                                                        None)
         mock_gis.assert_called_once_with(href, context=None)
         self.assertFalse(mock_unlink.called)
         self.assertTrue(res)
 
     @mock.patch.object(image_service, 'get_image_service', autospec=True)
-    def test__delete_master_path_if_stale_master_same_time(self, mock_gis,
+    def test__delete_main_path_if_stale_main_same_time(self, mock_gis,
                                                            mock_unlink):
         # When times identical should not delete cached file
-        touch(self.master_path)
-        mtime = utils.unix_file_modification_datetime(self.master_path)
+        touch(self.main_path)
+        mtime = utils.unix_file_modification_datetime(self.main_path)
         href = 'http://awesomefreeimages.al/img999'
         mock_gis.return_value.show.return_value = {
             'updated_at': mtime
         }
-        res = image_cache._delete_master_path_if_stale(self.master_path, href,
+        res = image_cache._delete_main_path_if_stale(self.main_path, href,
                                                        None)
         mock_gis.assert_called_once_with(href, context=None)
         self.assertFalse(mock_unlink.called)
         self.assertTrue(res)
 
     @mock.patch.object(image_service, 'get_image_service', autospec=True)
-    def test__delete_master_path_if_stale_out_of_date(self, mock_gis,
+    def test__delete_main_path_if_stale_out_of_date(self, mock_gis,
                                                       mock_unlink):
-        touch(self.master_path)
+        touch(self.main_path)
         href = 'http://awesomefreeimages.al/img999'
         mock_gis.return_value.show.return_value = {
             'updated_at': datetime.datetime((datetime.datetime.utcnow().year
                                              + 1), 11, 15, 8, 12, 31)
         }
-        res = image_cache._delete_master_path_if_stale(self.master_path, href,
+        res = image_cache._delete_main_path_if_stale(self.main_path, href,
                                                        None)
         mock_gis.assert_called_once_with(href, context=None)
-        mock_unlink.assert_called_once_with(self.master_path)
+        mock_unlink.assert_called_once_with(self.main_path)
         self.assertFalse(res)
 
     def test__delete_dest_path_if_stale_no_dest(self, mock_unlink):
-        res = image_cache._delete_dest_path_if_stale(self.master_path,
+        res = image_cache._delete_dest_path_if_stale(self.main_path,
                                                      self.dest_path)
         self.assertFalse(mock_unlink.called)
         self.assertFalse(res)
 
-    def test__delete_dest_path_if_stale_no_master(self, mock_unlink):
+    def test__delete_dest_path_if_stale_no_main(self, mock_unlink):
         touch(self.dest_path)
-        res = image_cache._delete_dest_path_if_stale(self.master_path,
+        res = image_cache._delete_dest_path_if_stale(self.main_path,
                                                      self.dest_path)
         mock_unlink.assert_called_once_with(self.dest_path)
         self.assertFalse(res)
 
     def test__delete_dest_path_if_stale_out_of_date(self, mock_unlink):
-        touch(self.master_path)
+        touch(self.main_path)
         touch(self.dest_path)
-        res = image_cache._delete_dest_path_if_stale(self.master_path,
+        res = image_cache._delete_dest_path_if_stale(self.main_path,
                                                      self.dest_path)
         mock_unlink.assert_called_once_with(self.dest_path)
         self.assertFalse(res)
 
     def test__delete_dest_path_if_stale_up_to_date(self, mock_unlink):
-        touch(self.master_path)
-        os.link(self.master_path, self.dest_path)
-        res = image_cache._delete_dest_path_if_stale(self.master_path,
+        touch(self.main_path)
+        os.link(self.main_path, self.dest_path)
+        res = image_cache._delete_dest_path_if_stale(self.main_path,
                                                      self.dest_path)
         self.assertFalse(mock_unlink.called)
         self.assertTrue(res)
@@ -308,8 +308,8 @@ class TestImageCacheCleanUp(base.TestCase):
 
     def setUp(self):
         super(TestImageCacheCleanUp, self).setUp()
-        self.master_dir = tempfile.mkdtemp()
-        self.cache = image_cache.ImageCache(self.master_dir,
+        self.main_dir = tempfile.mkdtemp()
+        self.cache = image_cache.ImageCache(self.main_dir,
                                             cache_size=10,
                                             cache_ttl=600)
 
@@ -317,7 +317,7 @@ class TestImageCacheCleanUp(base.TestCase):
                        autospec=True)
     def test_clean_up_old_deleted(self, mock_clean_size):
         mock_clean_size.return_value = None
-        files = [os.path.join(self.master_dir, str(i))
+        files = [os.path.join(self.main_dir, str(i))
                  for i in range(2)]
         for filename in files:
             touch(filename)
@@ -339,7 +339,7 @@ class TestImageCacheCleanUp(base.TestCase):
     @mock.patch.object(image_cache.ImageCache, '_clean_up_ensure_cache_size',
                        autospec=True)
     def test_clean_up_old_with_amount(self, mock_clean_size):
-        files = [os.path.join(self.master_dir, str(i))
+        files = [os.path.join(self.main_dir, str(i))
                  for i in range(2)]
         for filename in files:
             open(filename, 'wb').write(b'X')
@@ -356,7 +356,7 @@ class TestImageCacheCleanUp(base.TestCase):
                        autospec=True)
     def test_clean_up_files_with_links_untouched(self, mock_clean_size):
         mock_clean_size.return_value = None
-        files = [os.path.join(self.master_dir, str(i))
+        files = [os.path.join(self.main_dir, str(i))
                  for i in range(2)]
         for filename in files:
             touch(filename)
@@ -376,7 +376,7 @@ class TestImageCacheCleanUp(base.TestCase):
         mock_clean_ttl.side_effect = lambda *xx: xx[1:]
         # NOTE(dtantsur): Cache size in test is 10 bytes, we create 6 files
         # with 3 bytes each and expect 3 to be deleted
-        files = [os.path.join(self.master_dir, str(i))
+        files = [os.path.join(self.main_dir, str(i))
                  for i in range(6)]
         for filename in files:
             with open(filename, 'w') as fp:
@@ -403,7 +403,7 @@ class TestImageCacheCleanUp(base.TestCase):
         mock_clean_ttl.side_effect = lambda *xx: xx[1:]
         # NOTE(dtantsur): Cache size in test is 10 bytes, we create 6 files
         # with 3 bytes each and set amount to be 15, 5 files are to be deleted
-        files = [os.path.join(self.master_dir, str(i))
+        files = [os.path.join(self.main_dir, str(i))
                  for i in range(6)]
         for filename in files:
             with open(filename, 'w') as fp:
@@ -429,7 +429,7 @@ class TestImageCacheCleanUp(base.TestCase):
         mock_clean_ttl.side_effect = lambda *xx: xx[1:]
         # NOTE(dtantsur): Cache size in test is 10 bytes, we create 2 files
         # than cannot be deleted and expected this to be logged
-        files = [os.path.join(self.master_dir, str(i))
+        files = [os.path.join(self.main_dir, str(i))
                  for i in range(2)]
         for filename in files:
             with open(filename, 'w') as fp:
@@ -455,9 +455,9 @@ class TestImageCacheCleanUp(base.TestCase):
             self.assertTrue(os.path.exists(tmp_path))
 
         mock_fetch.side_effect = _fake_fetch
-        master_path = os.path.join(self.master_dir, 'uuid')
+        main_path = os.path.join(self.main_dir, 'uuid')
         dest_path = os.path.join(tempfile.mkdtemp(), 'dest')
-        self.cache._download_image('uuid', master_path, dest_path)
+        self.cache._download_image('uuid', main_path, dest_path)
         self.assertTrue(mock_rmtree.called)
 
     @mock.patch.object(utils, 'rmtree_without_raise', autospec=True)
@@ -521,8 +521,8 @@ class CleanupImageCacheTestCase(base.TestCase):
         self.mock_second_cache = mock.MagicMock(spec_set=[])
         self.cache_cleanup_list = [(50, self.mock_first_cache),
                                    (20, self.mock_second_cache)]
-        self.mock_first_cache.return_value.master_dir = 'first_cache_dir'
-        self.mock_second_cache.return_value.master_dir = 'second_cache_dir'
+        self.mock_first_cache.return_value.main_dir = 'first_cache_dir'
+        self.mock_second_cache.return_value.main_dir = 'second_cache_dir'
 
     def test_no_clean_up(self, mock_image_service, mock_statvfs,
                          cache_cleanup_list_mock):
@@ -534,14 +534,14 @@ class CleanupImageCacheTestCase(base.TestCase):
 
         cache_cleanup_list_mock.__iter__.return_value = self.cache_cleanup_list
 
-        image_cache.clean_up_caches(None, 'master_dir', [('uuid', 'path')])
+        image_cache.clean_up_caches(None, 'main_dir', [('uuid', 'path')])
 
         mock_show.assert_called_once_with('uuid')
-        mock_statvfs.assert_called_once_with('master_dir')
+        mock_statvfs.assert_called_once_with('main_dir')
         self.assertFalse(self.mock_first_cache.return_value.clean_up.called)
         self.assertFalse(self.mock_second_cache.return_value.clean_up.called)
 
-        mock_statvfs.assert_called_once_with('master_dir')
+        mock_statvfs.assert_called_once_with('main_dir')
 
     @mock.patch.object(os, 'stat', autospec=True)
     def test_one_clean_up(self, mock_stat, mock_image_service, mock_statvfs,
@@ -557,10 +557,10 @@ class CleanupImageCacheTestCase(base.TestCase):
                            spec_set=['f_frsize', 'f_bavail'])
         ]
         cache_cleanup_list_mock.__iter__.return_value = self.cache_cleanup_list
-        image_cache.clean_up_caches(None, 'master_dir', [('uuid', 'path')])
+        image_cache.clean_up_caches(None, 'main_dir', [('uuid', 'path')])
 
         mock_show.assert_called_once_with('uuid')
-        mock_statvfs.assert_called_with('master_dir')
+        mock_statvfs.assert_called_with('main_dir')
         self.assertEqual(2, mock_statvfs.call_count)
         self.mock_first_cache.return_value.clean_up.assert_called_once_with(
             amount=(42 - 1))
@@ -569,10 +569,10 @@ class CleanupImageCacheTestCase(base.TestCase):
         # Since we are using generator expression in clean_up_caches, stat on
         # second cache wouldn't be called if we got enough free space on
         # cleaning up the first cache.
-        mock_stat_calls_expected = [mock.call('master_dir'),
+        mock_stat_calls_expected = [mock.call('main_dir'),
                                     mock.call('first_cache_dir')]
-        mock_statvfs_calls_expected = [mock.call('master_dir'),
-                                       mock.call('master_dir')]
+        mock_statvfs_calls_expected = [mock.call('main_dir'),
+                                       mock.call('main_dir')]
         self.assertEqual(mock_stat_calls_expected, mock_stat.mock_calls)
         self.assertEqual(mock_statvfs_calls_expected, mock_statvfs.mock_calls)
 
@@ -593,10 +593,10 @@ class CleanupImageCacheTestCase(base.TestCase):
         ]
 
         cache_cleanup_list_mock.__iter__.return_value = self.cache_cleanup_list
-        image_cache.clean_up_caches(None, 'master_dir', [('uuid', 'path')])
+        image_cache.clean_up_caches(None, 'main_dir', [('uuid', 'path')])
 
         mock_show.assert_called_once_with('uuid')
-        mock_statvfs.assert_called_with('master_dir')
+        mock_statvfs.assert_called_with('main_dir')
         self.assertEqual(2, mock_statvfs.call_count)
         self.mock_second_cache.return_value.clean_up.assert_called_once_with(
             amount=(42 - 1))
@@ -604,11 +604,11 @@ class CleanupImageCacheTestCase(base.TestCase):
 
         # Since first cache exists on a different partition, it wouldn't be
         # considered for cleanup.
-        mock_stat_calls_expected = [mock.call('master_dir'),
+        mock_stat_calls_expected = [mock.call('main_dir'),
                                     mock.call('first_cache_dir'),
                                     mock.call('second_cache_dir')]
-        mock_statvfs_calls_expected = [mock.call('master_dir'),
-                                       mock.call('master_dir')]
+        mock_statvfs_calls_expected = [mock.call('main_dir'),
+                                       mock.call('main_dir')]
         self.assertEqual(mock_stat_calls_expected, mock_stat.mock_calls)
         self.assertEqual(mock_statvfs_calls_expected, mock_statvfs.mock_calls)
 
@@ -629,22 +629,22 @@ class CleanupImageCacheTestCase(base.TestCase):
         ]
 
         cache_cleanup_list_mock.__iter__.return_value = self.cache_cleanup_list
-        image_cache.clean_up_caches(None, 'master_dir', [('uuid', 'path')])
+        image_cache.clean_up_caches(None, 'main_dir', [('uuid', 'path')])
 
         mock_show.assert_called_once_with('uuid')
-        mock_statvfs.assert_called_with('master_dir')
+        mock_statvfs.assert_called_with('main_dir')
         self.assertEqual(3, mock_statvfs.call_count)
         self.mock_first_cache.return_value.clean_up.assert_called_once_with(
             amount=(42 - 1))
         self.mock_second_cache.return_value.clean_up.assert_called_once_with(
             amount=(42 - 2))
 
-        mock_stat_calls_expected = [mock.call('master_dir'),
+        mock_stat_calls_expected = [mock.call('main_dir'),
                                     mock.call('first_cache_dir'),
                                     mock.call('second_cache_dir')]
-        mock_statvfs_calls_expected = [mock.call('master_dir'),
-                                       mock.call('master_dir'),
-                                       mock.call('master_dir')]
+        mock_statvfs_calls_expected = [mock.call('main_dir'),
+                                       mock.call('main_dir'),
+                                       mock.call('main_dir')]
         self.assertEqual(mock_stat_calls_expected, mock_stat.mock_calls)
         self.assertEqual(mock_statvfs_calls_expected, mock_statvfs.mock_calls)
 
@@ -661,22 +661,22 @@ class CleanupImageCacheTestCase(base.TestCase):
         cache_cleanup_list_mock.__iter__.return_value = self.cache_cleanup_list
         self.assertRaises(exception.InsufficientDiskSpace,
                           image_cache.clean_up_caches,
-                          None, 'master_dir', [('uuid', 'path')])
+                          None, 'main_dir', [('uuid', 'path')])
 
         mock_show.assert_called_once_with('uuid')
-        mock_statvfs.assert_called_with('master_dir')
+        mock_statvfs.assert_called_with('main_dir')
         self.assertEqual(3, mock_statvfs.call_count)
         self.mock_first_cache.return_value.clean_up.assert_called_once_with(
             amount=(42 - 1))
         self.mock_second_cache.return_value.clean_up.assert_called_once_with(
             amount=(42 - 1))
 
-        mock_stat_calls_expected = [mock.call('master_dir'),
+        mock_stat_calls_expected = [mock.call('main_dir'),
                                     mock.call('first_cache_dir'),
                                     mock.call('second_cache_dir')]
-        mock_statvfs_calls_expected = [mock.call('master_dir'),
-                                       mock.call('master_dir'),
-                                       mock.call('master_dir')]
+        mock_statvfs_calls_expected = [mock.call('main_dir'),
+                                       mock.call('main_dir'),
+                                       mock.call('main_dir')]
         self.assertEqual(mock_stat_calls_expected, mock_stat.mock_calls)
         self.assertEqual(mock_statvfs_calls_expected, mock_statvfs.mock_calls)
 

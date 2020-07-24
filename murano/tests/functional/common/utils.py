@@ -375,7 +375,7 @@ class DeployTestMixin(zip_utils.ZipUtilsMixin):
 
     @classmethod
     def get_k8s_ip_by_instance_name(cls, environment, inst_name, service_name):
-        """Returns ip of specific kubernetes node (gateway, master, minion).
+        """Returns ip of specific kubernetes node (gateway, main, minion).
 
         Search depends on service name of kubernetes and names of spawned
         instances
@@ -392,10 +392,10 @@ class DeployTestMixin(zip_utils.ZipUtilsMixin):
                         if inst_name in gateway['instance']['name']:
                             LOG.debug(gateway['instance']['floatingIpAddress'])
                             return gateway['instance']['floatingIpAddress']
-                elif "master" in inst_name:
-                    LOG.debug(service['masterNode']['instance'][
+                elif "main" in inst_name:
+                    LOG.debug(service['mainNode']['instance'][
                         'floatingIpAddress'])
-                    return service['masterNode']['instance'][
+                    return service['mainNode']['instance'][
                         'floatingIpAddress']
                 elif "minion" in inst_name:
                     for minion in service['minionNodes']:

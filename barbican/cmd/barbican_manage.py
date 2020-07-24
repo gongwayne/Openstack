@@ -161,15 +161,15 @@ class HSMCommands(object):
     @args('--passphrase', metavar='<passphrase>', default=None, required=True,
           help='Password to login to PKCS11 session')
     @args('--label', '-L', metavar='<label>', default='primarymkek',
-          help='The label of the Master Key Encrypt Key')
+          help='The label of the Main Key Encrypt Key')
     @args('--length', '-l', metavar='<length>', default=32,
-          help='The length of the Master Key Encrypt Key (default is 32)')
+          help='The length of the Main Key Encrypt Key (default is 32)')
     def gen_mkek(self, passphrase, libpath=None, slotid=None, label=None,
                  length=None):
         self._create_pkcs11_session(str(passphrase), str(libpath), int(slotid))
         self._verify_label_does_not_exist(str(label), self.session)
         self.pkcs11.generate_key(int(length), self.session, str(label),
-                                 encrypt=True, wrap=True, master_key=True)
+                                 encrypt=True, wrap=True, main_key=True)
         self.pkcs11.return_session(self.session)
         print ("MKEK successfully generated!")
 
@@ -186,13 +186,13 @@ class HSMCommands(object):
     @args('--label', '-L', metavar='<label>', default='primarymkek',
           help='The label of the Matser HMAC Key')
     @args('--length', '-l', metavar='<length>', default=32,
-          help='The length of the Master HMAC Key (default is 32)')
+          help='The length of the Main HMAC Key (default is 32)')
     def gen_hmac(self, passphrase, libpath=None, slotid=None, label=None,
                  length=None):
         self._create_pkcs11_session(str(passphrase), str(libpath), int(slotid))
         self._verify_label_does_not_exist(str(label), self.session)
         self.pkcs11.generate_key(int(length), self.session, str(label),
-                                 sign=True, master_key=True)
+                                 sign=True, main_key=True)
         self.pkcs11.return_session(self.session)
         print ("HMAC successfully generated!")
 

@@ -67,13 +67,13 @@ class ConnectionURI(object):
         self.unix_socket_path = None
 
         # Sentinel
-        self.master = None
+        self.main = None
         self.sentinels = []
 
-        if 'master' in query_params:
+        if 'main' in query_params:
             # NOTE(prashanthr_): Configure redis driver in sentinel mode
             self.strategy = STRATEGY_SENTINEL
-            self.master = query_params['master']
+            self.main = query_params['main']
 
             # NOTE(kgriffs): Have to parse list of sentinel hosts ourselves
             # since urllib doesn't support it.
@@ -102,11 +102,11 @@ class ConnectionURI(object):
             if ',' in parsed_url.netloc:
                 # NOTE(kgriffs): They probably were specifying
                 # a list of sentinel hostnames, but forgot to
-                # add 'master' to the query string.
+                # add 'main' to the query string.
                 msg = _('The Redis URI specifies multiple sentinel hosts, '
-                        'but is missing the "master" query string '
-                        'parameter. Please set "master" to the name of '
-                        'the Redis master server as specified in the '
+                        'but is missing the "main" query string '
+                        'parameter. Please set "main" to the name of '
+                        'the Redis main server as specified in the '
                         'sentinel configuration file.')
                 raise errors.ConfigurationError(msg)
 
@@ -256,7 +256,7 @@ def _get_redis_client(driver):
         # NOTE(prashanthr_): The socket_timeout parameter being generic
         # to all redis connections is inherited from the parameters for
         # sentinel.
-        return sentinel.master_for(connection_uri.master)
+        return sentinel.main_for(connection_uri.main)
 
     elif connection_uri.strategy == STRATEGY_TCP:
         return redis.StrictRedis(

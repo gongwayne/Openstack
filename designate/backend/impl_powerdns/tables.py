@@ -30,7 +30,7 @@ domains = Table(
 
     Column('designate_id', UUID, nullable=False),
     Column('name', String(255), nullable=False, unique=True),
-    Column('master', String(255), nullable=True),
+    Column('main', String(255), nullable=True),
     Column('last_check', Integer, default=None, nullable=True),
     Column('type', String(6), nullable=False),
     Column('notified_serial', Integer, default=None, nullable=True),

@@ -148,7 +148,7 @@ class L3AgentTestFramework(base.BaseSudoTestCase):
                 n, len([line for line in out.strip().split('\n') if line]))
 
         if ha:
-            utils.wait_until_true(lambda: router.ha_state == 'master')
+            utils.wait_until_true(lambda: router.ha_state == 'main')
 
         with self.assert_max_execution_time(100):
             assert_num_of_conntrack_rules(0)
@@ -232,7 +232,7 @@ class L3AgentTestFramework(base.BaseSudoTestCase):
             interface_name = router.get_external_device_name(port['id'])
             self._assert_no_ip_addresses_on_interface(router.ns_name,
                                                       interface_name)
-            utils.wait_until_true(lambda: router.ha_state == 'master')
+            utils.wait_until_true(lambda: router.ha_state == 'main')
 
             # Keepalived notifies of a state transition when it starts,
             # not when it ends. Thus, we have to wait until keepalived finishes
@@ -363,7 +363,7 @@ class L3AgentTestFramework(base.BaseSudoTestCase):
     interface %(ha_device_name)s
     virtual_router_id 1
     priority 50
-    garp_master_delay 60
+    garp_main_delay 60
     nopreempt
     advert_int 2
     track_interface {

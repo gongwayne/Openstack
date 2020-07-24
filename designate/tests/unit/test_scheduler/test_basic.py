@@ -38,7 +38,7 @@ class SchedulerTest(test.BaseTestCase):
         zone = objects.Zone(
             name="example.com.",
             type="PRIMARY",
-            email="hostmaster@example.com"
+            email="hostmain@example.com"
         )
 
         attrs = {
@@ -57,7 +57,7 @@ class SchedulerTest(test.BaseTestCase):
         zone = objects.Zone(
             name="example.com.",
             type="PRIMARY",
-            email="hostmaster@example.com"
+            email="hostmain@example.com"
         )
 
         attrs = {
@@ -87,7 +87,7 @@ class SchedulerTest(test.BaseTestCase):
         zone = objects.Zone(
             name="example.com.",
             type="PRIMARY",
-            email="hostmaster@example.com"
+            email="hostmain@example.com"
         )
 
         attrs = {

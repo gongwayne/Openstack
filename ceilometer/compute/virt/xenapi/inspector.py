@@ -78,13 +78,13 @@ def get_api_session():
         session.login_with_password(username, password)
     except api.Failure as e:
         if e.details[0] == 'HOST_IS_SLAVE':
-            master = e.details[1]
-            url = swap_xapi_host(url, master)
+            main = e.details[1]
+            url = swap_xapi_host(url, main)
             try:
                 session = api.Session(url)
                 session.login_with_password(username, password)
             except api.Failure as es:
-                raise XenapiException(_('Could not connect slave host: %s ') %
+                raise XenapiException(_('Could not connect subordinate host: %s ') %
                                       es.details[0])
         else:
             msg = _("Could not connect to XenAPI: %s") % e.details[0]

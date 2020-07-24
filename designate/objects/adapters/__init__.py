@@ -17,7 +17,7 @@ from designate.objects.adapters.base import DesignateAdapter  # noqa
 from designate.objects.adapters.api_v2.blacklist import BlacklistAPIv2Adapter, BlacklistListAPIv2Adapter  # noqa
 from designate.objects.adapters.api_v2.zone import ZoneAPIv2Adapter, ZoneListAPIv2Adapter  # noqa
 from designate.objects.adapters.api_v2.zone_attribute import ZoneAttributeAPIv2Adapter, ZoneAttributeListAPIv2Adapter  # noqa
-from designate.objects.adapters.api_v2.zone_master import ZoneMasterAPIv2Adapter, ZoneMasterListAPIv2Adapter  # noqa
+from designate.objects.adapters.api_v2.zone_main import ZoneMainAPIv2Adapter, ZoneMainListAPIv2Adapter  # noqa
 from designate.objects.adapters.api_v2.floating_ip import FloatingIPAPIv2Adapter, FloatingIPListAPIv2Adapter  # noqa
 from designate.objects.adapters.api_v2.record import RecordAPIv2Adapter, RecordListAPIv2Adapter  # noqa
 from designate.objects.adapters.api_v2.recordset import RecordSetAPIv2Adapter, RecordSetListAPIv2Adapter  # noqa
@@ -41,5 +41,5 @@ from designate.objects.adapters.yaml.pool_also_notify import PoolAlsoNotifyYAMLA
 from designate.objects.adapters.yaml.pool_nameserver import PoolNameserverYAMLAdapter, PoolNameserverListYAMLAdapter  # noqa
 from designate.objects.adapters.yaml.pool_ns_record import PoolNsRecordYAMLAdapter, PoolNsRecordListYAMLAdapter  # noqa
 from designate.objects.adapters.yaml.pool_target import PoolTargetYAMLAdapter, PoolTargetListYAMLAdapter  # noqa
-from designate.objects.adapters.yaml.pool_target_master import PoolTargetMasterYAMLAdapter, PoolTargetMasterListYAMLAdapter  # noqa
+from designate.objects.adapters.yaml.pool_target_main import PoolTargetMainYAMLAdapter, PoolTargetMainListYAMLAdapter  # noqa
 from designate.objects.adapters.yaml.pool_target_option import PoolTargetOptionYAMLAdapter, PoolTargetOptionListYAMLAdapter  # noqa

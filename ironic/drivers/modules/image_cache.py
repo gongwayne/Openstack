@@ -15,7 +15,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 """
-Utility for caching master images.
+Utility for caching main images.
 """
 
 import os
@@ -58,21 +58,21 @@ _cache_cleanup_list = []
 
 
 class ImageCache(object):
-    """Class handling access to cache for master images."""
+    """Class handling access to cache for main images."""
 
-    def __init__(self, master_dir, cache_size, cache_ttl):
+    def __init__(self, main_dir, cache_size, cache_ttl):
         """Constructor.
 
-        :param master_dir: cache directory to work on
+        :param main_dir: cache directory to work on
                            Value of None disables image caching.
         :param cache_size: desired maximum cache size in bytes
         :param cache_ttl: cache entity TTL in seconds
         """
-        self.master_dir = master_dir
+        self.main_dir = main_dir
         self._cache_size = cache_size
         self._cache_ttl = cache_ttl
-        if master_dir is not None:
-            fileutils.ensure_tree(master_dir)
+        if main_dir is not None:
+            fileutils.ensure_tree(main_dir)
 
     def fetch_image(self, href, dest_path, ctx=None, force_raw=True):
         """Fetch image by given href to the destination path.
@@ -91,7 +91,7 @@ class ImageCache(object):
                           format
         """
         img_download_lock_name = 'download-image'
-        if self.master_dir is None:
+        if self.main_dir is None:
             # NOTE(ghe): We don't share images between instances/hosts
             if not CONF.parallel_image_downloads:
                 with lockutils.lock(img_download_lock_name, 'ironic-'):
@@ -105,26 +105,26 @@ class ImageCache(object):
         # NOTE(vdrok): File name is converted to UUID if it's not UUID already,
         # so that two images with same file names do not collide
         if service_utils.is_glance_image(href):
-            master_file_name = service_utils.parse_image_ref(href)[0]
+            main_file_name = service_utils.parse_image_ref(href)[0]
         else:
             # NOTE(vdrok): Doing conversion of href in case it's unicode
             # string, UUID cannot be generated for unicode strings on python 2.
             href_encoded = href.encode('utf-8') if six.PY2 else href
-            master_file_name = str(uuid.uuid5(uuid.NAMESPACE_URL,
+            main_file_name = str(uuid.uuid5(uuid.NAMESPACE_URL,
                                               href_encoded))
-        master_path = os.path.join(self.master_dir, master_file_name)
+        main_path = os.path.join(self.main_dir, main_file_name)
 
         if CONF.parallel_image_downloads:
-            img_download_lock_name = 'download-image:%s' % master_file_name
+            img_download_lock_name = 'download-image:%s' % main_file_name
 
         # TODO(dtantsur): lock expiration time
         with lockutils.lock(img_download_lock_name, 'ironic-'):
             # NOTE(vdrok): After rebuild requested image can change, so we
-            # should ensure that dest_path and master_path (if exists) are
+            # should ensure that dest_path and main_path (if exists) are
             # pointing to the same file and their content is up to date
-            cache_up_to_date = _delete_master_path_if_stale(master_path, href,
+            cache_up_to_date = _delete_main_path_if_stale(main_path, href,
                                                             ctx)
-            dest_up_to_date = _delete_dest_path_if_stale(master_path,
+            dest_up_to_date = _delete_dest_path_if_stale(main_path,
                                                          dest_path)
 
             if cache_up_to_date and dest_up_to_date:
@@ -135,29 +135,29 @@ class ImageCache(object):
 
             if cache_up_to_date:
                 # NOTE(dtantsur): ensure we're not in the middle of clean up
-                with lockutils.lock('master_image', 'ironic-'):
-                    os.link(master_path, dest_path)
-                LOG.debug("Master cache hit for image %(href)s",
+                with lockutils.lock('main_image', 'ironic-'):
+                    os.link(main_path, dest_path)
+                LOG.debug("Main cache hit for image %(href)s",
                           {'href': href})
                 return
 
-            LOG.info(_LI("Master cache miss for image %(href)s, "
+            LOG.info(_LI("Main cache miss for image %(href)s, "
                          "starting download"),
                      {'href': href})
             self._download_image(
-                href, master_path, dest_path, ctx=ctx, force_raw=force_raw)
+                href, main_path, dest_path, ctx=ctx, force_raw=force_raw)
 
         # NOTE(dtantsur): we increased cache size - time to clean up
         self.clean_up()
 
-    def _download_image(self, href, master_path, dest_path, ctx=None,
+    def _download_image(self, href, main_path, dest_path, ctx=None,
                         force_raw=True):
         """Download image by href and store at a given path.
 
         This method should be called with uuid-specific lock taken.
 
         :param href: image UUID or href to fetch
-        :param master_path: destination master path
+        :param main_path: destination main path
         :param dest_path: destination file path
         :param ctx: context
         :param force_raw: boolean value, whether to convert the image to raw
@@ -165,38 +165,38 @@ class ImageCache(object):
         """
         # TODO(ghe): timeout and retry for downloads
         # TODO(ghe): logging when image cannot be created
-        tmp_dir = tempfile.mkdtemp(dir=self.master_dir)
+        tmp_dir = tempfile.mkdtemp(dir=self.main_dir)
         tmp_path = os.path.join(tmp_dir, href.split('/')[-1])
 
         try:
             _fetch(ctx, href, tmp_path, force_raw)
-            # NOTE(dtantsur): no need for global lock here - master_path
+            # NOTE(dtantsur): no need for global lock here - main_path
             # will have link count >1 at any moment, so won't be cleaned up
-            os.link(tmp_path, master_path)
-            os.link(master_path, dest_path)
+            os.link(tmp_path, main_path)
+            os.link(main_path, dest_path)
         finally:
             utils.rmtree_without_raise(tmp_dir)
 
-    @lockutils.synchronized('master_image', 'ironic-')
+    @lockutils.synchronized('main_image', 'ironic-')
     def clean_up(self, amount=None):
         """Clean up directory with images, keeping cache of the latest images.
 
         Files with link count >1 are never deleted.
-        Protected by global lock, so that no one messes with master images
+        Protected by global lock, so that no one messes with main images
         after we get listing and before we actually delete files.
 
         :param amount: if present, amount of space to reclaim in bytes,
                        cleaning will stop, if this goal was reached,
                        even if it is possible to clean up more files
         """
-        if self.master_dir is None:
+        if self.main_dir is None:
             return
 
-        LOG.debug("Starting clean up for master image cache %(dir)s" %
-                  {'dir': self.master_dir})
+        LOG.debug("Starting clean up for main image cache %(dir)s" %
+                  {'dir': self.main_dir})
 
         amount_copy = amount
-        listing = _find_candidates_for_deletion(self.master_dir)
+        listing = _find_candidates_for_deletion(self.main_dir)
         survived, amount = self._clean_up_too_old(listing, amount)
         if amount is not None and amount <= 0:
             return
@@ -231,7 +231,7 @@ class ImageCache(object):
                     os.unlink(file_name)
                 except EnvironmentError as exc:
                     LOG.warning(_LW("Unable to delete file %(name)s from "
-                                    "master image cache: %(exc)s"),
+                                    "main image cache: %(exc)s"),
                                 {'name': file_name, 'exc': exc})
                 else:
                     if amount is not None:
@@ -259,8 +259,8 @@ class ImageCache(object):
         listing = sorted(listing,
                          key=lambda entry: entry[1],
                          reverse=True)
-        total_listing = (os.path.join(self.master_dir, f)
-                         for f in os.listdir(self.master_dir))
+        total_listing = (os.path.join(self.main_dir, f)
+                         for f in os.listdir(self.main_dir))
         total_size = sum(os.path.getsize(f)
                          for f in total_listing)
         while listing and (total_size > self._cache_size or
@@ -270,7 +270,7 @@ class ImageCache(object):
                 os.unlink(file_name)
             except EnvironmentError as exc:
                 LOG.warning(_LW("Unable to delete file %(name)s from "
-                                "master image cache: %(exc)s"),
+                                "main image cache: %(exc)s"),
                             {'name': file_name, 'exc': exc})
             else:
                 total_size -= stat.st_size
@@ -281,19 +281,19 @@ class ImageCache(object):
             LOG.info(_LI("After cleaning up cache dir %(dir)s "
                          "cache size %(actual)d is still larger than "
                          "threshold %(expected)d"),
-                     {'dir': self.master_dir, 'actual': total_size,
+                     {'dir': self.main_dir, 'actual': total_size,
                       'expected': self._cache_size})
         return max(amount, 0) if amount is not None else 0
 
 
-def _find_candidates_for_deletion(master_dir):
+def _find_candidates_for_deletion(main_dir):
     """Find files eligible for deletion i.e. with link count ==1.
 
-    :param master_dir: directory to operate on
+    :param main_dir: directory to operate on
     :returns: iterator yielding tuples (file name, last used time, stat)
     """
-    for filename in os.listdir(master_dir):
-        filename = os.path.join(master_dir, filename)
+    for filename in os.listdir(main_dir):
+        filename = os.path.join(main_dir, filename)
         stat = os.stat(filename)
         if not os.path.isfile(filename) or stat.st_nlink > 1:
             continue
@@ -343,7 +343,7 @@ def _clean_up_caches(directory, amount):
 
     caches_to_clean = [x[1]() for x in _cache_cleanup_list]
     caches = (c for c in caches_to_clean
-              if os.stat(c.master_dir).st_dev == st_dev)
+              if os.stat(c.main_dir).st_dev == st_dev)
     for cache_to_clean in caches:
         cache_to_clean.clean_up(amount=(amount - free))
         free = _free_disk_space_for(directory)
@@ -386,19 +386,19 @@ def cleanup(priority):
     return _add_property_to_class_func
 
 
-def _delete_master_path_if_stale(master_path, href, ctx):
+def _delete_main_path_if_stale(main_path, href, ctx):
     """Delete image from cache if it is not up to date with href contents.
 
-    :param master_path: path to an image in master cache
+    :param main_path: path to an image in main cache
     :param href: image href
     :param ctx: context to use
-    :returns: True if master_path is up to date with href contents,
-        False if master_path was stale and was deleted or it didn't exist
+    :returns: True if main_path is up to date with href contents,
+        False if main_path was stale and was deleted or it didn't exist
     """
     if service_utils.is_glance_image(href):
         # Glance image contents cannot be updated without changing image's UUID
-        return os.path.exists(master_path)
-    if os.path.exists(master_path):
+        return os.path.exists(main_path)
+    if os.path.exists(main_path):
         img_service = image_service.get_image_service(href, context=ctx)
         img_mtime = img_service.show(href).get('updated_at')
         if not img_mtime:
@@ -408,35 +408,35 @@ def _delete_master_path_if_stale(master_path, href, ctx):
                             "modification time of %(href)s, considering "
                             "cached image up to date."), {'href': href})
             return True
-        master_mtime = utils.unix_file_modification_datetime(master_path)
-        if img_mtime <= master_mtime:
+        main_mtime = utils.unix_file_modification_datetime(main_path)
+        if img_mtime <= main_mtime:
             return True
         # Delete image from cache as it is outdated
         LOG.info(_LI('Image %(href)s was last modified at %(remote_time)s. '
                      'Deleting the cached copy "%(cached_file)s since it was '
                      'last modified at %(local_time)s and may be outdated.'),
                  {'href': href, 'remote_time': img_mtime,
-                  'local_time': master_mtime, 'cached_file': master_path})
+                  'local_time': main_mtime, 'cached_file': main_path})
 
-        os.unlink(master_path)
+        os.unlink(main_path)
     return False
 
 
-def _delete_dest_path_if_stale(master_path, dest_path):
+def _delete_dest_path_if_stale(main_path, dest_path):
     """Delete dest_path if it does not point to cached image.
 
-    :param master_path: path to an image in master cache
+    :param main_path: path to an image in main cache
     :param dest_path: hard link to an image
-    :returns: True if dest_path points to master_path, False if dest_path was
+    :returns: True if dest_path points to main_path, False if dest_path was
         stale and was deleted or it didn't exist
     """
     dest_path_exists = os.path.exists(dest_path)
     if not dest_path_exists:
         # Image not cached, re-download
         return False
-    master_path_exists = os.path.exists(master_path)
-    if (not master_path_exists or
-            os.stat(master_path).st_ino != os.stat(dest_path).st_ino):
+    main_path_exists = os.path.exists(main_path)
+    if (not main_path_exists or
+            os.stat(main_path).st_ino != os.stat(dest_path).st_ino):
         # Image exists in cache, but dest_path out of date
         os.unlink(dest_path)
         return False

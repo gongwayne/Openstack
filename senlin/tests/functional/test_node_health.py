@@ -33,7 +33,7 @@ class TestNodeHealth(base.SenlinFunctionalTest):
         node1 = test_api.create_node(self.client,
                                      test_utils.random_name('node1'),
                                      self.profile['id'],
-                                     role='master')
+                                     role='main')
         node1 = test_utils.wait_for_status(test_api.get_node, self.client,
                                            node1['id'], 'ACTIVE')
 

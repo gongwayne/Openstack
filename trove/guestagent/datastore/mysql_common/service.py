@@ -72,8 +72,8 @@ MYSQL_BIN_CANDIDATES = ["/usr/sbin/mysqld", "/usr/libexec/mysqld"]
 MYSQL_OWNER = 'mysql'
 CNF_EXT = 'cnf'
 CNF_INCLUDE_DIR = '/etc/mysql/conf.d/'
-CNF_MASTER = 'master-replication'
-CNF_SLAVE = 'slave-replication'
+CNF_MASTER = 'main-replication'
+CNF_SLAVE = 'subordinate-replication'
 
 # Create a package impl
 packager = pkg.Package()
@@ -865,7 +865,7 @@ class BaseMySqlApp(object):
         self.configuration_manager.remove_system_override(CNF_SLAVE)
 
     def grant_replication_privilege(self, replication_user):
-        LOG.info(_("Granting Replication Slave privilege."))
+        LOG.info(_("Granting Replication Subordinate privilege."))
 
         LOG.debug("grant_replication_privilege: %s" % replication_user)
 
@@ -896,42 +896,42 @@ class BaseMySqlApp(object):
         with self.local_sql_client(self.get_engine()) as client:
             return client.execute(sql_statement)
 
-    def start_slave(self):
-        LOG.info(_("Starting slave replication."))
+    def start_subordinate(self):
+        LOG.info(_("Starting subordinate replication."))
         with self.local_sql_client(self.get_engine()) as client:
             client.execute('START SLAVE')
-            self._wait_for_slave_status("ON", client, 60)
+            self._wait_for_subordinate_status("ON", client, 60)
 
-    def stop_slave(self, for_failover):
+    def stop_subordinate(self, for_failover):
         replication_user = None
-        LOG.info(_("Stopping slave replication."))
+        LOG.info(_("Stopping subordinate replication."))
         with self.local_sql_client(self.get_engine()) as client:
             result = client.execute('SHOW SLAVE STATUS')
-            replication_user = result.first()['Master_User']
+            replication_user = result.first()['Main_User']
             client.execute('STOP SLAVE')
             client.execute('RESET SLAVE ALL')
-            self._wait_for_slave_status("OFF", client, 30)
+            self._wait_for_subordinate_status("OFF", client, 30)
             if not for_failover:
                 client.execute('DROP USER ' + replication_user)
         return {
             'replication_user': replication_user
         }
 
-    def stop_master(self):
-        LOG.info(_("Stopping replication master."))
+    def stop_main(self):
+        LOG.info(_("Stopping replication main."))
         with self.local_sql_client(self.get_engine()) as client:
             client.execute('RESET MASTER')
 
-    def _wait_for_slave_status(self, status, client, max_time):
+    def _wait_for_subordinate_status(self, status, client, max_time):
 
-        def verify_slave_status():
+        def verify_subordinate_status():
             actual_status = client.execute(
-                "SHOW GLOBAL STATUS like 'slave_running'").first()[1]
+                "SHOW GLOBAL STATUS like 'subordinate_running'").first()[1]
             return actual_status.upper() == status.upper()
 
         LOG.debug("Waiting for SLAVE_RUNNING to change to %s.", status)
         try:
-            utils.poll_until(verify_slave_status, sleep_time=3,
+            utils.poll_until(verify_subordinate_status, sleep_time=3,
                              time_out=max_time)
             LOG.info(_("Replication is now %s.") % status.lower())
         except PollTimeOut:

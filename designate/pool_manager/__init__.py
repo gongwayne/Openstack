@@ -91,7 +91,7 @@ def register_dynamic_pool_options():
     # Build the [pool_target:<id>] config sections
     pool_target_opts = [
         cfg.StrOpt('type'),
-        cfg.ListOpt('masters', default=[]),
+        cfg.ListOpt('mains', default=[]),
         cfg.DictOpt('options', default={}, secret=True),
     ]
 

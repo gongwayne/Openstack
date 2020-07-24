@@ -267,7 +267,7 @@ class GuestAgentManagerTest(trove_testtools.TestCase):
         operating_system.chown = MagicMock(return_value=None)
         os.path.exists = MagicMock(return_value=True)
         mock_replication = MagicMock()
-        mock_replication.enable_as_slave = MagicMock()
+        mock_replication.enable_as_subordinate = MagicMock()
         self.mock_rs_class.return_value = mock_replication
 
         with patch.object(dbaas.MySqlAdmin, 'is_root_enabled',
@@ -319,9 +319,9 @@ class GuestAgentManagerTest(trove_testtools.TestCase):
             self.assertFalse(dbaas.MySqlAdmin.create_user.called)
 
         if snapshot:
-            self.assertEqual(1, mock_replication.enable_as_slave.call_count)
+            self.assertEqual(1, mock_replication.enable_as_subordinate.call_count)
         else:
-            self.assertEqual(0, mock_replication.enable_as_slave.call_count)
+            self.assertEqual(0, mock_replication.enable_as_subordinate.call_count)
 
     def test_get_replication_snapshot(self):
         mock_status = MagicMock()
@@ -329,16 +329,16 @@ class GuestAgentManagerTest(trove_testtools.TestCase):
 
         snapshot_id = 'my_snapshot_id'
         log_position = 123456789
-        master_ref = 'my_master'
+        main_ref = 'my_main'
         used_size = 1.0
         total_size = 2.0
 
         mock_replication = MagicMock()
-        mock_replication.enable_as_master = MagicMock()
+        mock_replication.enable_as_main = MagicMock()
         mock_replication.snapshot_for_replication = MagicMock(
             return_value=(snapshot_id, log_position))
-        mock_replication.get_master_ref = MagicMock(
-            return_value=master_ref)
+        mock_replication.get_main_ref = MagicMock(
+            return_value=main_ref)
         self.mock_rs_class.return_value = mock_replication
         self.mock_gfvs_class.return_value = (
             {'used': used_size, 'total': total_size})
@@ -351,7 +351,7 @@ class GuestAgentManagerTest(trove_testtools.TestCase):
                 'snapshot_id': snapshot_id
             },
             'replication_strategy': self.replication_strategy,
-            'master': master_ref,
+            'main': main_ref,
             'log_position': log_position
         }
 
@@ -363,12 +363,12 @@ class GuestAgentManagerTest(trove_testtools.TestCase):
                                                   replica_source_config))
         # assertions
         self.assertEqual(expected_replication_snapshot, replication_snapshot)
-        self.assertEqual(1, mock_replication.enable_as_master.call_count)
+        self.assertEqual(1, mock_replication.enable_as_main.call_count)
         self.assertEqual(
             1, mock_replication.snapshot_for_replication.call_count)
-        self.assertEqual(1, mock_replication.get_master_ref.call_count)
+        self.assertEqual(1, mock_replication.get_main_ref.call_count)
 
-    def test_attach_replication_slave_valid(self):
+    def test_attach_replication_subordinate_valid(self):
         mock_status = MagicMock()
         dbaas.MySqlAppStatus.get = MagicMock(return_value=mock_status)
 
@@ -376,7 +376,7 @@ class GuestAgentManagerTest(trove_testtools.TestCase):
         dataset_size = 1.0
 
         mock_replication = MagicMock()
-        mock_replication.enable_as_slave = MagicMock()
+        mock_replication.enable_as_subordinate = MagicMock()
         self.mock_rs_class.return_value = mock_replication
         self.mock_gfvs_class.return_value = {'total': total_size}
 
@@ -386,10 +386,10 @@ class GuestAgentManagerTest(trove_testtools.TestCase):
         # entry point
         self.manager.attach_replica(self.context, snapshot, None)
         # assertions
-        self.assertEqual(1, mock_replication.enable_as_slave.call_count)
+        self.assertEqual(1, mock_replication.enable_as_subordinate.call_count)
 
     @patch('trove.guestagent.datastore.mysql_common.manager.LOG')
-    def test_attach_replication_slave_invalid(self, *args):
+    def test_attach_replication_subordinate_invalid(self, *args):
         mock_status = MagicMock()
         dbaas.MySqlAppStatus.get = MagicMock(return_value=mock_status)
 
@@ -397,7 +397,7 @@ class GuestAgentManagerTest(trove_testtools.TestCase):
         dataset_size = 3.0
 
         mock_replication = MagicMock()
-        mock_replication.enable_as_slave = MagicMock()
+        mock_replication.enable_as_subordinate = MagicMock()
         self.mock_rs_class.return_value = mock_replication
         self.mock_gfvs_class.return_value = {'total': total_size}
 
@@ -409,44 +409,44 @@ class GuestAgentManagerTest(trove_testtools.TestCase):
                           self.manager.attach_replica,
                           self.context, snapshot, None)
         # assertions
-        self.assertEqual(0, mock_replication.enable_as_slave.call_count)
+        self.assertEqual(0, mock_replication.enable_as_subordinate.call_count)
 
     def test_detach_replica(self):
         mock_status = MagicMock()
         dbaas.MySqlAppStatus.get = MagicMock(return_value=mock_status)
 
         mock_replication = MagicMock()
-        mock_replication.detach_slave = MagicMock()
+        mock_replication.detach_subordinate = MagicMock()
         self.mock_rs_class.return_value = mock_replication
 
         # entry point
         self.manager.detach_replica(self.context)
         # assertions
-        self.assertEqual(1, mock_replication.detach_slave.call_count)
+        self.assertEqual(1, mock_replication.detach_subordinate.call_count)
 
-    def test_demote_replication_master(self):
+    def test_demote_replication_main(self):
         mock_status = MagicMock()
         dbaas.MySqlAppStatus.get = MagicMock(return_value=mock_status)
 
         mock_replication = MagicMock()
-        mock_replication.demote_master = MagicMock()
+        mock_replication.demote_main = MagicMock()
         self.mock_rs_class.return_value = mock_replication
 
         # entry point
-        self.manager.demote_replication_master(self.context)
+        self.manager.demote_replication_main(self.context)
         # assertions
-        self.assertEqual(1, mock_replication.demote_master.call_count)
+        self.assertEqual(1, mock_replication.demote_main.call_count)
 
-    def test_get_master_UUID(self):
+    def test_get_main_UUID(self):
         app = dbaas.MySqlApp(None)
 
-        def test_case(slave_status, expected_value):
-            with patch.object(dbaas.MySqlApp, '_get_slave_status',
-                              return_value=slave_status):
-                assert_equal(app._get_master_UUID(), expected_value)
+        def test_case(subordinate_status, expected_value):
+            with patch.object(dbaas.MySqlApp, '_get_subordinate_status',
+                              return_value=subordinate_status):
+                assert_equal(app._get_main_UUID(), expected_value)
 
-        test_case({'Master_UUID': '2a5b-2064-32fb'}, '2a5b-2064-32fb')
-        test_case({'Master_UUID': ''}, None)
+        test_case({'Main_UUID': '2a5b-2064-32fb'}, '2a5b-2064-32fb')
+        test_case({'Main_UUID': ''}, None)
         test_case({}, None)
 
     def test_get_last_txn(self):
@@ -457,8 +457,8 @@ class GuestAgentManagerTest(trove_testtools.TestCase):
                 txn = self.manager.get_last_txn(self.context)
                 assert_equal(txn, expected_value)
 
-        with patch.object(dbaas.MySqlApp, '_get_slave_status',
-                          return_value={'Master_UUID': '2a5b-2064-32fb'}):
+        with patch.object(dbaas.MySqlApp, '_get_subordinate_status',
+                          return_value={'Main_UUID': '2a5b-2064-32fb'}):
             test_case('2a5b-2064-32fb:1', ('2a5b-2064-32fb', 1))
             test_case('2a5b-2064-32fb:1-5', ('2a5b-2064-32fb', 5))
             test_case('2a5b-2064-32fb:1,4b4-23:5', ('2a5b-2064-32fb', 1))
@@ -466,11 +466,11 @@ class GuestAgentManagerTest(trove_testtools.TestCase):
             test_case('4b-23:5,2a5b-2064-32fb:1,25:3-4', ('2a5b-2064-32fb', 1))
             test_case('4b4-23:1-5,2a5b-2064-32fb:1-10', ('2a5b-2064-32fb', 10))
 
-        with patch.object(dbaas.MySqlApp, '_get_slave_status',
-                          return_value={'Master_UUID': ''}):
+        with patch.object(dbaas.MySqlApp, '_get_subordinate_status',
+                          return_value={'Main_UUID': ''}):
             test_case('2a5b-2064-32fb:1', (None, 0))
 
-        with patch.object(dbaas.MySqlApp, '_get_slave_status',
+        with patch.object(dbaas.MySqlApp, '_get_subordinate_status',
                           return_value={}):
             test_case('2a5b-2064-32fb:1', (None, 0))
 
@@ -655,12 +655,12 @@ class GuestAgentManagerTest(trove_testtools.TestCase):
             'name': 'repl_user',
             'password': 'repl_pwd'
         }
-        master_ref = {
+        main_ref = {
             'host': '1.2.3.4',
             'port': 3306
         }
         rep_info = {
-            'master': master_ref,
+            'main': main_ref,
             'log_position': {
                 'replication_user': replication_user
             }
@@ -675,15 +675,15 @@ class GuestAgentManagerTest(trove_testtools.TestCase):
         self.assertEqual(1, mock_replication.get_replica_context.call_count)
         self.assertEqual(rep_info, replica_info)
 
-    def test_enable_as_master(self):
+    def test_enable_as_main(self):
         mock_replication = MagicMock()
-        mock_replication.enable_as_master = MagicMock()
+        mock_replication.enable_as_main = MagicMock()
         self.mock_rs_class.return_value = mock_replication
 
         # entry point
-        self.manager.enable_as_master(self.context, None)
+        self.manager.enable_as_main(self.context, None)
         # assertions
-        self.assertEqual(mock_replication.enable_as_master.call_count, 1)
+        self.assertEqual(mock_replication.enable_as_main.call_count, 1)
 
     @patch('trove.guestagent.datastore.mysql_common.manager.LOG')
     def test__perform_restore(self, *args):

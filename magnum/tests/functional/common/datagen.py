@@ -109,7 +109,7 @@ def baymodel_data(**kwargs):
         "fixed_network": "192.168.0.0/24",
         "dns_nameserver": "8.8.8.8",
         "flavor_id": data_utils.rand_name('bay'),
-        "master_flavor_id": data_utils.rand_name('bay'),
+        "main_flavor_id": data_utils.rand_name('bay'),
         "external_network_id": "public",
         "keypair_id": data_utils.rand_name('bay'),
         "image_id": data_utils.rand_name('bay')
@@ -160,7 +160,7 @@ def baymodel_data_with_valid_keypair_image_flavor():
     return baymodel_data(keypair_id=config.Config.keypair_id,
                          image_id=config.Config.image_id,
                          flavor_id=config.Config.flavor_id,
-                         master_flavor_id=config.Config.master_flavor_id)
+                         main_flavor_id=config.Config.main_flavor_id)
 
 
 def baymodel_data_with_valid_keypair():
@@ -191,7 +191,7 @@ def baymodel_data_with_valid_image_and_flavor():
 
     return baymodel_data(image_id=config.Config.image_id,
                          flavor_id=config.Config.flavor_id,
-                         master_flavor_id=config.Config.master_flavor_id)
+                         main_flavor_id=config.Config.main_flavor_id)
 
 
 def valid_swarm_baymodel():
@@ -204,7 +204,7 @@ def valid_swarm_baymodel():
                          fixed_network="192.168.0.0/24",
                          flavor_id=config.Config.flavor_id, public=False,
                          dns_nameserver="8.8.8.8",
-                         master_flavor_id=config.Config.master_flavor_id,
+                         main_flavor_id=config.Config.main_flavor_id,
                          keypair_id=config.Config.keypair_id, coe="swarm",
                          docker_volume_size=3, cluster_distro=None,
                          external_network_id="public",
@@ -217,7 +217,7 @@ def bay_data(name=data_utils.rand_name('bay'),
              baymodel_id=data_utils.rand_uuid(),
              node_count=random_int(1, 5), discovery_url=gen_random_ip(),
              bay_create_timeout=random_int(1, 30),
-             master_count=random_int(1, 5)):
+             main_count=random_int(1, 5)):
     """Generates random bay data
 
     BayModel_id cannot be random for the bay to be valid due to
@@ -229,7 +229,7 @@ def bay_data(name=data_utils.rand_name('bay'),
     :param node_count: number of agents for bay
     :param discovery_url: url provided for node discovery
     :param bay_create_timeout: timeout in minutes for bay create
-    :param master_count: number of master nodes for the bay
+    :param main_count: number of main nodes for the bay
     :returns: BayEntity with generated data
     """
 
@@ -239,7 +239,7 @@ def bay_data(name=data_utils.rand_name('bay'),
         "node_count": node_count,
         "discovery_url": None,
         "bay_create_timeout": bay_create_timeout,
-        "master_count": master_count
+        "main_count": main_count
     }
     model = bay_model.BayEntity.from_dict(data)
 
@@ -247,7 +247,7 @@ def bay_data(name=data_utils.rand_name('bay'),
 
 
 def valid_bay_data(baymodel_id, name=data_utils.rand_name('bay'), node_count=1,
-                   master_count=1, bay_create_timeout=None):
+                   main_count=1, bay_create_timeout=None):
     """Generates random bay data with valid
 
     :param baymodel_id: baymodel unique id that already exists
@@ -257,7 +257,7 @@ def valid_bay_data(baymodel_id, name=data_utils.rand_name('bay'), node_count=1,
     """
 
     return bay_data(baymodel_id=baymodel_id, name=name,
-                    master_count=master_count, node_count=node_count,
+                    main_count=main_count, node_count=node_count,
                     bay_create_timeout=bay_create_timeout)
 
 

@@ -135,11 +135,11 @@ class AmbariPluginProvider(p.ProvisioningPluginBase):
             info[p_common.OOZIE_SERVER] = {
                 "Web UI": "http://%s:11000/oozie" % oozie.management_ip
             }
-        hbase_master = plugin_utils.get_instance(cluster,
+        hbase_main = plugin_utils.get_instance(cluster,
                                                  p_common.HBASE_MASTER)
-        if hbase_master:
+        if hbase_main:
             info[p_common.HBASE_MASTER] = {
-                "Web UI": "http://%s:60010" % hbase_master.management_ip
+                "Web UI": "http://%s:60010" % hbase_main.management_ip
             }
         falcon = plugin_utils.get_instance(cluster, p_common.FALCON_SERVER)
         if falcon:

@@ -125,7 +125,7 @@ class VerticaCluster(models.Cluster):
         minstances = []
         for i in range(0, num_instances):
             if i == 0 and new_cluster:
-                member_config = {"id": db_info.id, "instance_type": "master"}
+                member_config = {"id": db_info.id, "instance_type": "main"}
             else:
                 member_config = {"id": db_info.id, "instance_type": "member"}
             instance_name = "%s-member-%s" % (db_info.name,
@@ -213,11 +213,11 @@ class VerticaCluster(models.Cluster):
         datastore_version = self.ds_version
 
         for db_instance in self.db_instances:
-            if db_instance.type == 'master':
+            if db_instance.type == 'main':
                 if db_instance.id in instance_ids:
                     raise exception.ClusterShrinkInstanceInUse(
                         id=db_instance.id,
-                        reason="Cannot remove master node."
+                        reason="Cannot remove main node."
                     )
 
         all_instance_ids = [db_instance.id for db_instance
@@ -244,12 +244,12 @@ class VerticaCluster(models.Cluster):
 class VerticaClusterView(ClusterView):
 
     def build_instances(self):
-        return self._build_instances(['member', 'master'],
-                                     ['member', 'master'])
+        return self._build_instances(['member', 'main'],
+                                     ['member', 'main'])
 
 
 class VerticaMgmtClusterView(MgmtClusterView):
 
     def build_instances(self):
-        return self._build_instances(['member', 'master'],
-                                     ['member', 'master'])
+        return self._build_instances(['member', 'main'],
+                                     ['member', 'main'])

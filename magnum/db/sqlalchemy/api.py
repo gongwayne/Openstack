@@ -124,7 +124,7 @@ class Connection(api.Connection):
             filters = {}
 
         possible_filters = ["baymodel_id", "name", "node_count",
-                            "master_count", "stack_id", "api_address",
+                            "main_count", "stack_id", "api_address",
                             "node_addresses", "project_id", "user_id"]
 
         filter_names = set(filters).intersection(possible_filters)
@@ -254,7 +254,7 @@ class Connection(api.Connection):
             filters = {}
 
         possible_filters = ["name", "image_id", "flavor_id",
-                            "master_flavor_id", "keypair_id",
+                            "main_flavor_id", "keypair_id",
                             "external_network_id", "dns_nameserver",
                             "project_id", "user_id", "labels"]
 

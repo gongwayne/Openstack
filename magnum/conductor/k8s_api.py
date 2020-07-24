@@ -51,7 +51,7 @@ class K8sAPI(apiv_api.ApivApi):
         if bay.magnum_cert_ref:
             self._create_certificate_files(bay)
 
-        # build a connection with Kubernetes master
+        # build a connection with Kubernetes main
         client = api_client.ApiClient(bay.api_address,
                                       key_file=self.key_file.name,
                                       cert_file=self.cert_file.name,
@@ -86,7 +86,7 @@ class K8sAPI(apiv_api.ApivApi):
 def create_k8s_api(context, bay_uuid):
     """Create a kubernetes API client
 
-    Creates connection with Kubernetes master and creates ApivApi instance
+    Creates connection with Kubernetes main and creates ApivApi instance
     to call Kubernetes APIs.
 
     :param context: The security context

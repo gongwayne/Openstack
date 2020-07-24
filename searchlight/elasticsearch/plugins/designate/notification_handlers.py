@@ -55,9 +55,9 @@ class ZoneHandler(base.NotificationBase):
             if key in payload:
                 del payload[key]
 
-        if 'masters' in payload:
-            payload['masters'] = ["%(host)s:%(port)s" for i in
-                                  payload["masters"]]
+        if 'mains' in payload:
+            payload['mains'] = ["%(host)s:%(port)s" for i in
+                                  payload["mains"]]
         payload['project_id'] = payload.pop('tenant_id')
         if not payload['updated_at'] and payload['created_at']:
             payload['updated_at'] = payload['created_at']

@@ -272,8 +272,8 @@ class StorwizeSSH(object):
             with excutils.save_and_reraise_exception():
                 LOG.error(_LE('Error mapping VDisk-to-host'))
 
-    def mkrcrelationship(self, master, aux, system, name, asyncmirror):
-        ssh_cmd = ['svctask', 'mkrcrelationship', '-master', master,
+    def mkrcrelationship(self, main, aux, system, name, asyncmirror):
+        ssh_cmd = ['svctask', 'mkrcrelationship', '-main', main,
                    '-aux', aux, '-cluster', system, '-name', name]
         if asyncmirror:
             ssh_cmd.append('-global')
@@ -284,7 +284,7 @@ class StorwizeSSH(object):
         self.run_ssh_assert_no_output(ssh_cmd)
 
     def switchrelationship(self, relationship, aux=True):
-        primary = 'aux' if aux else 'master'
+        primary = 'aux' if aux else 'main'
         ssh_cmd = ['svctask', 'switchrcrelationship', '-primary',
                    primary, relationship]
         self.run_ssh_assert_no_output(ssh_cmd)
@@ -1459,21 +1459,21 @@ class StorwizeHelpers(object):
         if vol_attrs['RC_name']:
             self.ssh.stoprcrelationship(vol_attrs['RC_name'], access=True)
 
-    def create_relationship(self, master, aux, system, asyncmirror):
+    def create_relationship(self, main, aux, system, asyncmirror):
         name = 'rcrel' + ''.join(random.sample(string.digits, 10))
         try:
-            rc_id = self.ssh.mkrcrelationship(master, aux, system, name,
+            rc_id = self.ssh.mkrcrelationship(main, aux, system, name,
                                               asyncmirror)
         except exception.VolumeBackendAPIException as e:
             # CMMVC5959E is the code in Stowize storage, meaning that
             # there is a relationship that already has this name on the
-            # master cluster.
+            # main cluster.
             if 'CMMVC5959E' not in e:
                 # If there is no relation between the primary and the
                 # secondary back-end storage, the exception is raised.
                 raise
         if rc_id:
-            self.start_relationship(master)
+            self.start_relationship(main)
 
     def delete_relationship(self, volume_name):
         vol_attrs = self.get_vdisk_attributes(volume_name)

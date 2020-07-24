@@ -65,7 +65,7 @@ class ClusterTest(trove_testtools.TestCase):
                                                   self.datastore,
                                                   self.datastore_version)
         self.instances = [{'volume_size': 1, 'flavor_id': '1234',
-                           'instance_type': 'master'},
+                           'instance_type': 'main'},
                           {'volume_size': 1, 'flavor_id': '1234',
                            'instance_type': 'member'},
                           {'volume_size': 1, 'flavor_id': '1234',

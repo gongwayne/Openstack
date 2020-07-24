@@ -60,14 +60,14 @@ class Bind9Backend(base.Backend):
         Do not raise exceptions if the zone already exists.
         """
         LOG.debug('Create Zone')
-        masters = []
-        for master in self.masters:
-            host = master['host']
-            port = master['port']
-            masters.append('%s port %s' % (host, port))
+        mains = []
+        for main in self.mains:
+            host = main['host']
+            port = main['port']
+            mains.append('%s port %s' % (host, port))
 
         # Ensure different MiniDNS instances are targeted for AXFRs
-        random.shuffle(masters)
+        random.shuffle(mains)
 
         if self.view:
             view = 'in %s' % self.view
@@ -76,8 +76,8 @@ class Bind9Backend(base.Backend):
 
         rndc_op = [
             'addzone',
-            '%s %s { type slave; masters { %s;}; file "slave.%s%s"; };' %
-            (zone['name'].rstrip('.'), view, '; '.join(masters), zone['name'],
+            '%s %s { type subordinate; mains { %s;}; file "subordinate.%s%s"; };' %
+            (zone['name'].rstrip('.'), view, '; '.join(mains), zone['name'],
              zone['id']),
         ]
 

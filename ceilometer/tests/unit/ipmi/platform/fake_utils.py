@@ -42,9 +42,9 @@ def get_nm_version_v3(parameter=''):
 def sdr_dump(data_file=''):
     if data_file == '':
         raise ValueError("No file specified for ipmitool sdr dump")
-    fake_slave_address = '2c'
+    fake_subordinate_address = '2c'
     fake_channel = '60'
-    hexstr = node_manager.INTEL_PREFIX + fake_slave_address + fake_channel
+    hexstr = node_manager.INTEL_PREFIX + fake_subordinate_address + fake_channel
     data = binascii.unhexlify(hexstr)
     with open(data_file, 'wb') as bin_fp:
         bin_fp.write(data)

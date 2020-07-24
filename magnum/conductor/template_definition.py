@@ -342,8 +342,8 @@ class BaseTemplateDefinition(TemplateDefinition):
                            baymodel_attr='https_proxy')
         self.add_parameter('no_proxy',
                            baymodel_attr='no_proxy')
-        self.add_parameter('number_of_masters',
-                           bay_attr='master_count')
+        self.add_parameter('number_of_mains',
+                           bay_attr='main_count')
 
     @abc.abstractproperty
     def template_path(self):
@@ -383,7 +383,7 @@ class BaseTemplateDefinition(TemplateDefinition):
         else:
             discovery_endpoint = (
                 cfg.CONF.bay.etcd_discovery_service_endpoint_format %
-                {'size': bay.master_count})
+                {'size': bay.main_count})
             try:
                 discovery_url = requests.get(discovery_endpoint).text
             except Exception as err:
@@ -445,8 +445,8 @@ class K8sTemplateDefinition(BaseTemplateDefinition):
 
     def __init__(self):
         super(K8sTemplateDefinition, self).__init__()
-        self.add_parameter('master_flavor',
-                           baymodel_attr='master_flavor_id')
+        self.add_parameter('main_flavor',
+                           baymodel_attr='main_flavor_id')
         self.add_parameter('minion_flavor',
                            baymodel_attr='flavor_id')
         self.add_parameter('number_of_minions',
@@ -467,10 +467,10 @@ class K8sTemplateDefinition(BaseTemplateDefinition):
                         bay_attr=None)
         self.add_output('kube_minions',
                         bay_attr='node_addresses')
-        self.add_output('kube_masters_private',
+        self.add_output('kube_mains_private',
                         bay_attr=None)
-        self.add_output('kube_masters',
-                        bay_attr='master_addresses')
+        self.add_output('kube_mains',
+                        bay_attr='main_addresses')
 
     def get_params(self, context, baymodel, bay, **kwargs):
         extra_params = kwargs.pop('extra_params', {})
@@ -559,8 +559,8 @@ class AtomicSwarmTemplateDefinition(BaseTemplateDefinition):
                            param_type=str)
         self.add_parameter('number_of_nodes',
                            bay_attr='node_count')
-        self.add_parameter('master_flavor',
-                           baymodel_attr='master_flavor_id')
+        self.add_parameter('main_flavor',
+                           baymodel_attr='main_flavor_id')
         self.add_parameter('node_flavor',
                            baymodel_attr='flavor_id')
         self.add_parameter('docker_volume_size',
@@ -576,10 +576,10 @@ class AtomicSwarmTemplateDefinition(BaseTemplateDefinition):
         self.add_output('api_address',
                         bay_attr='api_address',
                         mapping_type=SwarmApiAddressOutputMapping)
-        self.add_output('swarm_master_private',
+        self.add_output('swarm_main_private',
                         bay_attr=None)
-        self.add_output('swarm_masters',
-                        bay_attr='master_addresses')
+        self.add_output('swarm_mains',
+                        bay_attr='main_addresses')
         self.add_output('swarm_nodes_private',
                         bay_attr=None)
         self.add_output('swarm_nodes',
@@ -625,11 +625,11 @@ class UbuntuMesosTemplateDefinition(BaseTemplateDefinition):
         self.add_parameter('external_network',
                            baymodel_attr='external_network_id',
                            required=True)
-        self.add_parameter('number_of_slaves',
+        self.add_parameter('number_of_subordinates',
                            bay_attr='node_count')
-        self.add_parameter('master_flavor',
-                           baymodel_attr='master_flavor_id')
-        self.add_parameter('slave_flavor',
+        self.add_parameter('main_flavor',
+                           baymodel_attr='main_flavor_id')
+        self.add_parameter('subordinate_flavor',
                            baymodel_attr='flavor_id')
         self.add_parameter('cluster_name',
                            bay_attr='name')
@@ -638,13 +638,13 @@ class UbuntuMesosTemplateDefinition(BaseTemplateDefinition):
 
         self.add_output('api_address',
                         bay_attr='api_address')
-        self.add_output('mesos_master_private',
+        self.add_output('mesos_main_private',
                         bay_attr=None)
-        self.add_output('mesos_master',
-                        bay_attr='master_addresses')
-        self.add_output('mesos_slaves_private',
+        self.add_output('mesos_main',
+                        bay_attr='main_addresses')
+        self.add_output('mesos_subordinates_private',
                         bay_attr=None)
-        self.add_output('mesos_slaves',
+        self.add_output('mesos_subordinates',
                         bay_attr='node_addresses')
 
     def get_params(self, context, baymodel, bay, **kwargs):

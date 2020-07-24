@@ -91,9 +91,9 @@ class DesignateBackend(base.Backend):
         msg = _LI('Creating zone %(d_id)s / %(d_name)s')
         LOG.info(msg, {'d_id': zone['id'], 'd_name': zone['name']})
 
-        masters = ["%s:%s" % (i.host, i.port) for i in self.masters]
+        mains = ["%s:%s" % (i.host, i.port) for i in self.mains]
         self.client.zones.create(
-            zone.name, 'SECONDARY', masters=masters)
+            zone.name, 'SECONDARY', mains=mains)
 
     def delete_zone(self, context, zone):
         msg = _LI('Deleting zone %(d_id)s / %(d_name)s')

@@ -204,9 +204,9 @@ class WhenTestingPKCS11(utils.BaseTestCase):
 
         self.assertEqual(self.lib.C_GenerateKey.call_count, 1)
 
-    def test_generate_master_key(self):
+    def test_generate_main_key(self):
         key = self.pkcs11.generate_key(16, mock.MagicMock(), key_label='key',
-                                       encrypt=True, master_key=True)
+                                       encrypt=True, main_key=True)
 
         self.assertEqual(key, 3)
 
@@ -217,10 +217,10 @@ class WhenTestingPKCS11(utils.BaseTestCase):
                           self.pkcs11.generate_key, mock.MagicMock(),
                           mock.MagicMock())
 
-    def test_generate_master_key_no_label(self):
+    def test_generate_main_key_no_label(self):
         self.assertRaises(ValueError, self.pkcs11.generate_key,
                           mock.MagicMock(), mock.MagicMock(),
-                          encrypt=True, master_key=True)
+                          encrypt=True, main_key=True)
 
     def test_encrypt(self):
         pt = b'0123456789ABCDEF'

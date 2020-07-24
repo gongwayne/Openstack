@@ -229,19 +229,19 @@ class SNMPValidateParametersTestCase(db_base.DbTestCase):
         info = snmp._parse_driver_info(node)
         self.assertEqual('apc', info.get('driver'))
 
-    def test__parse_driver_info_apc_masterswitch(self):
+    def test__parse_driver_info_apc_mainswitch(self):
         # Make sure the APC driver type is parsed.
-        info = db_utils.get_test_snmp_info(snmp_driver='apc_masterswitch')
+        info = db_utils.get_test_snmp_info(snmp_driver='apc_mainswitch')
         node = self._get_test_node(info)
         info = snmp._parse_driver_info(node)
-        self.assertEqual('apc_masterswitch', info.get('driver'))
+        self.assertEqual('apc_mainswitch', info.get('driver'))
 
-    def test__parse_driver_info_apc_masterswitchplus(self):
+    def test__parse_driver_info_apc_mainswitchplus(self):
         # Make sure the APC driver type is parsed.
-        info = db_utils.get_test_snmp_info(snmp_driver='apc_masterswitchplus')
+        info = db_utils.get_test_snmp_info(snmp_driver='apc_mainswitchplus')
         node = self._get_test_node(info)
         info = snmp._parse_driver_info(node)
-        self.assertEqual('apc_masterswitchplus', info.get('driver'))
+        self.assertEqual('apc_mainswitchplus', info.get('driver'))
 
     def test__parse_driver_info_apc_rackpdu(self):
         # Make sure the APC driver type is parsed.
@@ -912,10 +912,10 @@ class SNMPDeviceDriverTestCase(db_base.DbTestCase):
     def test_apc_power_reset(self, mock_get_client):
         self._test_simple_device_power_reset('apc', mock_get_client)
 
-    def test_apc_masterswitch_snmp_objects(self, mock_get_client):
+    def test_apc_mainswitch_snmp_objects(self, mock_get_client):
         # Ensure the correct SNMP object OIDs and values are used by the APC
-        # masterswitch driver
-        self._update_driver_info(snmp_driver="apc_masterswitch",
+        # mainswitch driver
+        self._update_driver_info(snmp_driver="apc_mainswitch",
                                  snmp_outlet="6")
         driver = snmp._get_driver(self.node)
         oid = (1, 3, 6, 1, 4, 1, 318, 1, 1, 4, 4, 2, 1, 3, 6)
@@ -923,28 +923,28 @@ class SNMPDeviceDriverTestCase(db_base.DbTestCase):
         self.assertEqual(1, driver.value_power_on)
         self.assertEqual(2, driver.value_power_off)
 
-    def test_apc_masterswitch_power_state_on(self, mock_get_client):
-        self._test_simple_device_power_state_on('apc_masterswitch',
+    def test_apc_mainswitch_power_state_on(self, mock_get_client):
+        self._test_simple_device_power_state_on('apc_mainswitch',
                                                 mock_get_client)
 
-    def test_apc_masterswitch_power_state_off(self, mock_get_client):
-        self._test_simple_device_power_state_off('apc_masterswitch',
+    def test_apc_mainswitch_power_state_off(self, mock_get_client):
+        self._test_simple_device_power_state_off('apc_mainswitch',
                                                  mock_get_client)
 
-    def test_apc_masterswitch_power_on(self, mock_get_client):
-        self._test_simple_device_power_on('apc_masterswitch', mock_get_client)
+    def test_apc_mainswitch_power_on(self, mock_get_client):
+        self._test_simple_device_power_on('apc_mainswitch', mock_get_client)
 
-    def test_apc_masterswitch_power_off(self, mock_get_client):
-        self._test_simple_device_power_off('apc_masterswitch', mock_get_client)
+    def test_apc_mainswitch_power_off(self, mock_get_client):
+        self._test_simple_device_power_off('apc_mainswitch', mock_get_client)
 
-    def test_apc_masterswitch_power_reset(self, mock_get_client):
-        self._test_simple_device_power_reset('apc_masterswitch',
+    def test_apc_mainswitch_power_reset(self, mock_get_client):
+        self._test_simple_device_power_reset('apc_mainswitch',
                                              mock_get_client)
 
-    def test_apc_masterswitchplus_snmp_objects(self, mock_get_client):
+    def test_apc_mainswitchplus_snmp_objects(self, mock_get_client):
         # Ensure the correct SNMP object OIDs and values are used by the APC
-        # masterswitchplus driver
-        self._update_driver_info(snmp_driver="apc_masterswitchplus",
+        # mainswitchplus driver
+        self._update_driver_info(snmp_driver="apc_mainswitchplus",
                                  snmp_outlet="6")
         driver = snmp._get_driver(self.node)
         oid = (1, 3, 6, 1, 4, 1, 318, 1, 1, 6, 5, 1, 1, 5, 6)
@@ -952,24 +952,24 @@ class SNMPDeviceDriverTestCase(db_base.DbTestCase):
         self.assertEqual(1, driver.value_power_on)
         self.assertEqual(3, driver.value_power_off)
 
-    def test_apc_masterswitchplus_power_state_on(self, mock_get_client):
-        self._test_simple_device_power_state_on('apc_masterswitchplus',
+    def test_apc_mainswitchplus_power_state_on(self, mock_get_client):
+        self._test_simple_device_power_state_on('apc_mainswitchplus',
                                                 mock_get_client)
 
-    def test_apc_masterswitchplus_power_state_off(self, mock_get_client):
-        self._test_simple_device_power_state_off('apc_masterswitchplus',
+    def test_apc_mainswitchplus_power_state_off(self, mock_get_client):
+        self._test_simple_device_power_state_off('apc_mainswitchplus',
                                                  mock_get_client)
 
-    def test_apc_masterswitchplus_power_on(self, mock_get_client):
-        self._test_simple_device_power_on('apc_masterswitchplus',
+    def test_apc_mainswitchplus_power_on(self, mock_get_client):
+        self._test_simple_device_power_on('apc_mainswitchplus',
                                           mock_get_client)
 
-    def test_apc_masterswitchplus_power_off(self, mock_get_client):
-        self._test_simple_device_power_off('apc_masterswitchplus',
+    def test_apc_mainswitchplus_power_off(self, mock_get_client):
+        self._test_simple_device_power_off('apc_mainswitchplus',
                                            mock_get_client)
 
-    def test_apc_masterswitchplus_power_reset(self, mock_get_client):
-        self._test_simple_device_power_reset('apc_masterswitchplus',
+    def test_apc_mainswitchplus_power_reset(self, mock_get_client):
+        self._test_simple_device_power_reset('apc_mainswitchplus',
                                              mock_get_client)
 
     def test_apc_rackpdu_snmp_objects(self, mock_get_client):

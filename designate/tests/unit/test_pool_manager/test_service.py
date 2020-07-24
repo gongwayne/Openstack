@@ -73,7 +73,7 @@ POOL_DICT = {
     'targets': [
         {
             'description': u'PowerDNS Database Cluster',
-            'masters': [],
+            'mains': [],
             'options': [],
             'type': 'fake',
             'pool_id': u'cf2e8eab-76cd-4162-bf76-8aeee3556de0',

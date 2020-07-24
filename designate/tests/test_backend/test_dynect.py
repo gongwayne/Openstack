@@ -59,7 +59,7 @@ INVALID_MASTER_DATA = {
     "data": {}, "job_id": 1326038394,
     "msgs": [
         {
-            "INFO": "master: IP address expected",
+            "INFO": "main: IP address expected",
             "SOURCE": "DYN",
             "ERR_CD": "INVALID_DATA",
             "LVL": "ERROR"
@@ -98,7 +98,7 @@ ACTIVATE_SUCCESS = {
     "status": "success",
     "data": {
         "active": "L",
-        "masters": MASTERS,
+        "mains": MASTERS,
         "contact_nickname": CONTACT,
         "tsig_key_name": "",
         "zone": "meep.io"
@@ -121,7 +121,7 @@ class DynECTTestsCase(BackendTestCase):
         self.target = objects.PoolTarget.from_dict({
             'id': '4588652b-50e7-46b9-b688-a9bad40a873e',
             'type': 'dyndns',
-            'masters': [{'host': '192.0.2.1', 'port': 53}],
+            'mains': [{'host': '192.0.2.1', 'port': 53}],
             'options': [
                 {'key': 'username', 'value': 'example'},
                 {'key': 'password', 'value': 'secret'},

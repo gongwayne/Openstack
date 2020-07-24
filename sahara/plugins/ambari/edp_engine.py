@@ -86,12 +86,12 @@ class EDPSparkEngine(spark_engine.SparkJobEngine):
     def __init__(self, cluster):
         super(EDPSparkEngine, self).__init__(cluster)
         # searching for spark instance
-        self.master = plugin_utils.get_instance(
+        self.main = plugin_utils.get_instance(
             cluster, p_common.SPARK_JOBHISTORYSERVER)
         self.plugin_params["spark-user"] = "sudo -u spark "
         self.plugin_params["spark-submit"] = "spark-submit"
         self.plugin_params["deploy-mode"] = "cluster"
-        self.plugin_params["master"] = "yarn-cluster"
+        self.plugin_params["main"] = "yarn-cluster"
 
     @staticmethod
     def edp_supported(version):
@@ -100,8 +100,8 @@ class EDPSparkEngine(spark_engine.SparkJobEngine):
     def run_job(self, job_execution):
         # calculate class-path dynamically
         driver_classpath = [
-            _get_hadoop_openstack_jar_location(self.master),
-            _get_jackson_core(self.master)]
+            _get_hadoop_openstack_jar_location(self.main),
+            _get_jackson_core(self.main)]
         self.plugin_params['driver-class-path'] = ":".join(driver_classpath)
         self.plugin_params['drivers-to-jars'] = driver_classpath
 

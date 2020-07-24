@@ -146,7 +146,7 @@ class AbstractPluginUtils(object):
     def get_zookeepers(self, cluster):
         return u.get_instances(cluster, 'ZOOKEEPER_SERVER')
 
-    def get_hbase_master(self, cluster):
+    def get_hbase_main(self, cluster):
         return u.get_instance(cluster, 'HBASE_MASTER')
 
     def convert_process_configs(self, configs):

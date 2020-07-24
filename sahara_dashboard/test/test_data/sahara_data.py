@@ -164,7 +164,7 @@ def data(TEST):
                 "flavor_id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
                 "floating_ip_pool": None,
                 "image_id": None,
-                "name": "master",
+                "name": "main",
                 "node_configs": {},
                 "node_group_template_id": "c166dfcc-9cc7-4b48-adc9",
                 "node_processes": [
@@ -252,14 +252,14 @@ def data(TEST):
                         "created_at": "2014-06-04T20:02:14",
                         "id": "c3b8004b-7063-4b99-a082-820cdc6e961c",
                         "instance_id": "a45f5495-4a10-4f17-8fae",
-                        "instance_name": "cercluster-master-001",
+                        "instance_name": "cercluster-main-001",
                         "internal_ip": None,
                         "management_ip": None,
                         "updated_at": None,
                         "volumes": []
                     }
                 ],
-                "name": "master",
+                "name": "main",
                 "node_configs": {},
                 "node_group_template_id": "c166dfcc-9cc7-4b48-adc9",
                 "node_processes": [
@@ -406,7 +406,7 @@ def data(TEST):
                         "id": "evt1",
                         "created_at": "2015-03-27T16:01:22",
                         "node_group_id": "ng1",
-                        "instance_name": "cercluster-master-001",
+                        "instance_name": "cercluster-main-001",
                         "successful": True,
                         "event_info": None
                     },
@@ -593,7 +593,7 @@ def data(TEST):
                     "stats": None,
                     "status": "RUNNING",
                     "toString": "Action name[job-node] status[RUNNING]",
-                    "trackerUri": "cercluster-master-001:8021",
+                    "trackerUri": "cercluster-main-001:8021",
                     "transition": None,
                     "type": "pig"
                 }

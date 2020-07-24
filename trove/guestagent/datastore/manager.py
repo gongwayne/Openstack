@@ -795,10 +795,10 @@ class Manager(periodic_task.PeriodicTasks):
         raise exception.DatastoreOperationNotSupported(
             operation='get_replication_snapshot', datastore=self.manager)
 
-    def attach_replication_slave(self, context, snapshot, slave_config):
-        LOG.debug("Attaching replication slave.")
+    def attach_replication_subordinate(self, context, snapshot, subordinate_config):
+        LOG.debug("Attaching replication subordinate.")
         raise exception.DatastoreOperationNotSupported(
-            operation='attach_replication_slave', datastore=self.manager)
+            operation='attach_replication_subordinate', datastore=self.manager)
 
     def detach_replica(self, context, for_failover=False):
         LOG.debug("Detaching replica.")
@@ -815,10 +815,10 @@ class Manager(periodic_task.PeriodicTasks):
         raise exception.DatastoreOperationNotSupported(
             operation='make_read_only', datastore=self.manager)
 
-    def enable_as_master(self, context, replica_source_config):
-        LOG.debug("Enabling as master.")
+    def enable_as_main(self, context, replica_source_config):
+        LOG.debug("Enabling as main.")
         raise exception.DatastoreOperationNotSupported(
-            operation='enable_as_master', datastore=self.manager)
+            operation='enable_as_main', datastore=self.manager)
 
     def get_txn_count(self, context):
         LOG.debug("Getting transaction count.")
@@ -835,7 +835,7 @@ class Manager(periodic_task.PeriodicTasks):
         raise exception.DatastoreOperationNotSupported(
             operation='wait_for_txn', datastore=self.manager)
 
-    def demote_replication_master(self, context):
-        LOG.debug("Demoting replication master.")
+    def demote_replication_main(self, context):
+        LOG.debug("Demoting replication main.")
         raise exception.DatastoreOperationNotSupported(
-            operation='demote_replication_master', datastore=self.manager)
+            operation='demote_replication_main', datastore=self.manager)

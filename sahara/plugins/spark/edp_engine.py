@@ -30,7 +30,7 @@ class EdpEngine(edp_engine.SparkJobEngine):
 
     def __init__(self, cluster):
         super(EdpEngine, self).__init__(cluster)
-        self.master = plugin_utils.get_instance(cluster, "master")
+        self.main = plugin_utils.get_instance(cluster, "main")
         self.plugin_params["spark-user"] = ""
         self.plugin_params["spark-submit"] = os.path.join(
             plugin_utils.
@@ -39,8 +39,8 @@ class EdpEngine(edp_engine.SparkJobEngine):
         self.plugin_params["deploy-mode"] = "client"
         port_str = six.text_type(
             plugin_utils.get_config_value_or_default(
-                "Spark", "Master port", self.cluster))
-        self.plugin_params["master"] = ('spark://%(host)s:' + port_str)
+                "Spark", "Main port", self.cluster))
+        self.plugin_params["main"] = ('spark://%(host)s:' + port_str)
         driver_cp = plugin_utils.get_config_value_or_default(
             "Spark", "Executor extra classpath", self.cluster)
         self.plugin_params["driver-class-path"] = driver_cp

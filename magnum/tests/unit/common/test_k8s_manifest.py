@@ -23,16 +23,16 @@ class K8sManifestTestCase(base.TestCase):
         containerPort = 6380
         json_str = '''
         {
-          "id": "redis-master",
+          "id": "redis-main",
           "kind": "Service",
           "apiVersion": "v1",
           "port": %d,
           "containerPort": %d,
           "selector": {
-            "name": "redis-master"
+            "name": "redis-main"
           },
           "labels": {
-            "name": "redis-master"
+            "name": "redis-main"
           }
         }
         ''' % (port, containerPort)
@@ -46,14 +46,14 @@ class K8sManifestTestCase(base.TestCase):
         port = 6389
         containerPort = 6380
         yaml_str = '''
-        id: redis-master
+        id: redis-main
         kind: Service
         port: %d
         containerPort: %d
         selector:
-            name: redis-master
+            name: redis-main
         labels:
-            name: redis-master
+            name: redis-main
         ''' % (port, containerPort)
 
         manifest = k8s_manifest.parse(yaml_str)

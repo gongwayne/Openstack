@@ -43,13 +43,13 @@ class SimpleCryptoPlugin(c.CryptoPluginBase):
     """Insecure implementation of the crypto plugin."""
 
     def __init__(self, conf=CONF):
-        self.master_kek = conf.simple_crypto_plugin.kek
+        self.main_kek = conf.simple_crypto_plugin.kek
 
     def _get_kek(self, kek_meta_dto):
         if not kek_meta_dto.plugin_meta:
             raise ValueError(u._('KEK not yet created.'))
         # the kek is stored encrypted. Need to decrypt.
-        encryptor = fernet.Fernet(self.master_kek)
+        encryptor = fernet.Fernet(self.main_kek)
         # Note : If plugin_meta type is unicode, encode to byte.
         if isinstance(kek_meta_dto.plugin_meta, six.text_type):
             kek_meta_dto.plugin_meta = kek_meta_dto.plugin_meta.encode('utf-8')
@@ -85,7 +85,7 @@ class SimpleCryptoPlugin(c.CryptoPluginBase):
         kek_meta_dto.mode = 'cbc'
         if not kek_meta_dto.plugin_meta:
             # the kek is stored encrypted in the plugin_meta field
-            encryptor = fernet.Fernet(self.master_kek)
+            encryptor = fernet.Fernet(self.main_kek)
             key = fernet.Fernet.generate_key()
             kek_meta_dto.plugin_meta = encryptor.encrypt(key)
         return kek_meta_dto

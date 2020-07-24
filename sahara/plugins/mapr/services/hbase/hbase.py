@@ -20,9 +20,9 @@ import sahara.plugins.mapr.util.validation_utils as vu
 
 
 HBASE_MASTER = np.NodeProcess(
-    name='hbmaster',
-    ui_name='HBase-Master',
-    package='mapr-hbase-master',
+    name='hbmain',
+    ui_name='HBase-Main',
+    package='mapr-hbase-main',
     open_ports=[60000, 60010]
 )
 HBASE_REGION_SERVER = np.NodeProcess(
@@ -61,7 +61,7 @@ class HBase(s.Service):
             vu.at_least(1, HBASE_REGION_SERVER),
         ]
         self._ui_info = [
-            ("HBase Master", HBASE_MASTER, "http://%s:60010"),
+            ("HBase Main", HBASE_MASTER, "http://%s:60010"),
         ]
 
     def get_config_files(self, cluster_context, configs, instance=None):

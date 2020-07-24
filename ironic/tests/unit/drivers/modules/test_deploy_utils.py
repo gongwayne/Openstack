@@ -1297,9 +1297,9 @@ class OtherFunctionTestCase(db_base.DbTestCase):
     def test_fetch_images(self, mock_clean_up_caches):
 
         mock_cache = mock.MagicMock(
-            spec_set=['fetch_image', 'master_dir'], master_dir='master_dir')
+            spec_set=['fetch_image', 'main_dir'], main_dir='main_dir')
         utils.fetch_images(None, mock_cache, [('uuid', 'path')])
-        mock_clean_up_caches.assert_called_once_with(None, 'master_dir',
+        mock_clean_up_caches.assert_called_once_with(None, 'main_dir',
                                                      [('uuid', 'path')])
         mock_cache.fetch_image.assert_called_once_with('uuid', 'path',
                                                        ctx=None,
@@ -1313,14 +1313,14 @@ class OtherFunctionTestCase(db_base.DbTestCase):
                                               actual=1)
 
         mock_cache = mock.MagicMock(
-            spec_set=['master_dir'], master_dir='master_dir')
+            spec_set=['main_dir'], main_dir='main_dir')
         mock_clean_up_caches.side_effect = iter([exc])
         self.assertRaises(exception.InstanceDeployFailure,
                           utils.fetch_images,
                           None,
                           mock_cache,
                           [('uuid', 'path')])
-        mock_clean_up_caches.assert_called_once_with(None, 'master_dir',
+        mock_clean_up_caches.assert_called_once_with(None, 'main_dir',
                                                      [('uuid', 'path')])
 
 

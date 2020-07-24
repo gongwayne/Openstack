@@ -77,7 +77,7 @@ class FakeApp(mock.Mock):
         self.deleted = False
         self.source = {
             'repository': 'http://github.com/example/a.git',
-            'revision': 'master',
+            'revision': 'main',
         }
         self.ports = [80]
         self.workflow_config = {

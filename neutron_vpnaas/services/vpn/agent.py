@@ -52,14 +52,14 @@ class VPNAgent(l3_agent.L3NATAgentWithStateReport):
         self.device_drivers = self.service.load_device_drivers(host)
 
     def process_state_change(self, router_id, state):
-        """Enable the vpn process when router transitioned to master.
+        """Enable the vpn process when router transitioned to main.
 
            And disable vpn process for backup router.
         """
         for device_driver in self.device_drivers:
             if router_id in device_driver.processes:
                 process = device_driver.processes[router_id]
-                if state == 'master':
+                if state == 'main':
                     process.enable()
                 else:
                     process.disable()

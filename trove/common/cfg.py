@@ -436,10 +436,10 @@ database_opts = [
     cfg.BoolOpt('sqlite_synchronous',
                 default=True,
                 help='If True, SQLite uses synchronous mode.'),
-    cfg.StrOpt('slave_connection',
+    cfg.StrOpt('subordinate_connection',
                secret=True,
                help='The SQLAlchemy connection string to use to connect to the'
-                    ' slave database.'),
+                    ' subordinate database.'),
     cfg.StrOpt('mysql_sql_mode',
                default='TRADITIONAL',
                help='The SQL mode to be used for MySQL sessions. '
@@ -572,10 +572,10 @@ percona_opts = [
     cfg.StrOpt('replication_namespace',
                default='trove.guestagent.strategies.replication.mysql_gtid',
                help='Namespace to load replication strategies from.'),
-    cfg.StrOpt('replication_user', default='slave_user',
-               help='Userid for replication slave.'),
+    cfg.StrOpt('replication_user', default='subordinate_user',
+               help='Userid for replication subordinate.'),
     cfg.StrOpt('replication_password', default='NETOU7897NNLOU',
-               help='Password for replication slave user.'),
+               help='Password for replication subordinate user.'),
     cfg.StrOpt('mount_point', default='/var/lib/mysql',
                help="Filesystem path for mounting "
                     "volumes if volume support is enabled."),
@@ -648,8 +648,8 @@ pxc_opts = [
     cfg.StrOpt('replication_namespace',
                default='trove.guestagent.strategies.replication.mysql_gtid',
                help='Namespace to load replication strategies from.'),
-    cfg.StrOpt('replication_user', default='slave_user',
-               help='Userid for replication slave.'),
+    cfg.StrOpt('replication_user', default='subordinate_user',
+               help='Userid for replication subordinate.'),
     cfg.StrOpt('mount_point', default='/var/lib/mysql',
                help="Filesystem path for mounting "
                     "volumes if volume support is enabled."),

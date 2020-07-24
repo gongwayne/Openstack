@@ -67,7 +67,7 @@ class ExclusiveRouterProcessor(object):
 
     Other instances may be created for the same router_id while the first
     instance has exclusive access.  If that happens then it doesn't block and
-    wait for access.  Instead, it signals to the master instance that an update
+    wait for access.  Instead, it signals to the main instance that an update
     came in with the timestamp.
 
     This way, a thread will not block to wait for access to a router.  Instead
@@ -81,27 +81,27 @@ class ExclusiveRouterProcessor(object):
     possible.  The timestamp should not be recorded, however, until the router
     has been processed using the fetch data.
     """
-    _masters = {}
+    _mains = {}
     _router_timestamps = {}
 
     def __init__(self, router_id):
         self._router_id = router_id
 
-        if router_id not in self._masters:
-            self._masters[router_id] = self
+        if router_id not in self._mains:
+            self._mains[router_id] = self
             self._queue = []
 
-        self._master = self._masters[router_id]
+        self._main = self._mains[router_id]
 
-    def _i_am_master(self):
-        return self == self._master
+    def _i_am_main(self):
+        return self == self._main
 
     def __enter__(self):
         return self
 
     def __exit__(self, type, value, traceback):
-        if self._i_am_master():
-            del self._masters[self._router_id]
+        if self._i_am_main():
+            del self._mains[self._router_id]
 
     def _get_router_data_timestamp(self):
         return self._router_timestamps.get(self._router_id,
@@ -119,16 +119,16 @@ class ExclusiveRouterProcessor(object):
         is being processed.  These updates have already bubbled to the front of
         the RouterProcessingQueue.
         """
-        self._master._queue.append(update)
+        self._main._queue.append(update)
 
     def updates(self):
         """Processes the router until updates stop coming
 
-        Only the master instance will process the router.  However, updates may
+        Only the main instance will process the router.  However, updates may
         come in from other workers while it is in progress.  This method loops
         until they stop coming.
         """
-        if self._i_am_master():
+        if self._i_am_main():
             while self._queue:
                 # Remove the update from the queue even if it is old.
                 update = self._queue.pop(0)
@@ -154,10 +154,10 @@ class RouterProcessingQueue(object):
         next_update = self._queue.get()
 
         with ExclusiveRouterProcessor(next_update.id) as rp:
-            # Queue the update whether this worker is the master or not.
+            # Queue the update whether this worker is the main or not.
             rp.queue_update(next_update)
 
-            # Here, if the current worker is not the master, the call to
+            # Here, if the current worker is not the main, the call to
             # rp.updates() will not yield and so this will essentially be a
             # noop.
             for update in rp.updates():

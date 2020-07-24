@@ -55,7 +55,7 @@ class OnceGitCheckCommitTitleBug(GitCheck):
     name = "GitCheckCommitTitleBug"
 
     # From https://github.com/openstack/openstack-ci-puppet
-    #       /blob/master/modules/gerrit/manifests/init.pp#L74
+    #       /blob/main/modules/gerrit/manifests/init.pp#L74
     # Changeid|bug|blueprint
     GIT_REGEX = re.compile(
         r'(I[0-9a-f]{8,40})|'

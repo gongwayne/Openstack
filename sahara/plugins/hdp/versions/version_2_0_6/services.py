@@ -563,19 +563,19 @@ class HBaseService(Service):
             raise ex.InvalidComponentCountException('HBASE_MASTER', 1, count)
 
     def register_service_urls(self, cluster_spec, url_info, cluster):
-        master_ip = cluster_spec.determine_component_hosts(
+        main_ip = cluster_spec.determine_component_hosts(
             'HBASE_MASTER').pop().management_ip
 
         hbase_config = cluster_spec.configurations['hbase-site']
-        info_port = hbase_config['hbase.master.info.port']
+        info_port = hbase_config['hbase.main.info.port']
 
         url_info['HBase'] = {
-            'Web UI': 'http://%s:%s/master-status' % (master_ip, info_port),
-            'Logs': 'http://%s:%s/logs' % (master_ip, info_port),
-            'Zookeeper Info': 'http://%s:%s/zk.jsp' % (master_ip, info_port),
-            'JMX': 'http://%s:%s/jmx' % (master_ip, info_port),
-            'Debug Dump': 'http://%s:%s/dump' % (master_ip, info_port),
-            'Thread Stacks': 'http://%s:%s/stacks' % (master_ip, info_port)
+            'Web UI': 'http://%s:%s/main-status' % (main_ip, info_port),
+            'Logs': 'http://%s:%s/logs' % (main_ip, info_port),
+            'Zookeeper Info': 'http://%s:%s/zk.jsp' % (main_ip, info_port),
+            'JMX': 'http://%s:%s/jmx' % (main_ip, info_port),
+            'Debug Dump': 'http://%s:%s/dump' % (main_ip, info_port),
+            'Thread Stacks': 'http://%s:%s/stacks' % (main_ip, info_port)
         }
         return url_info
 

@@ -87,7 +87,7 @@ class NSD4BackendTestCase(BackendTestCase):
         self.target = objects.PoolTarget.from_dict({
             'id': '4588652b-50e7-46b9-b688-a9bad40a873e',
             'type': 'nsd4',
-            'masters': [{'host': '192.0.2.1', 'port': 53},
+            'mains': [{'host': '192.0.2.1', 'port': 53},
                         {'host': '192.0.2.2', 'port': 35}],
             'options': [
                 {'key': 'keyfile', 'value': keyfile},

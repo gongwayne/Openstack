@@ -31,16 +31,16 @@ class RedisSyncReplication(base.Replication):
     __strategy_ns__ = 'trove.guestagent.strategies.replication.experimental'
     __strategy_name__ = 'RedisSyncReplication'
 
-    CONF_LABEL_REPLICATION_MASTER = 'replication_master'
-    CONF_LABEL_REPLICATION_SLAVE = 'replication_slave'
+    CONF_LABEL_REPLICATION_MASTER = 'replication_main'
+    CONF_LABEL_REPLICATION_SLAVE = 'replication_subordinate'
 
-    def get_master_ref(self, service, snapshot_info):
-        master_ref = {
+    def get_main_ref(self, service, snapshot_info):
+        main_ref = {
             'host': netutils.get_my_ipv4(),
             'port': service.get_port(),
             'requirepass': service.get_auth_password(),
         }
-        return master_ref
+        return main_ref
 
     def backup_required_for_replication(self):
         LOG.debug('Request for replication backup: no backup required')
@@ -50,45 +50,45 @@ class RedisSyncReplication(base.Replication):
                                  location, snapshot_info):
         return None, None
 
-    def enable_as_master(self, service, master_config):
+    def enable_as_main(self, service, main_config):
         service.configuration_manager.apply_system_override(
-            master_config, change_id=self.CONF_LABEL_REPLICATION_MASTER)
+            main_config, change_id=self.CONF_LABEL_REPLICATION_MASTER)
         service.restart()
 
-    def enable_as_slave(self, service, snapshot, slave_config):
+    def enable_as_subordinate(self, service, snapshot, subordinate_config):
         service.configuration_manager.apply_system_override(
-            slave_config, change_id=self.CONF_LABEL_REPLICATION_SLAVE)
-        master_info = snapshot['master']
-        master_host = master_info['host']
-        master_port = master_info['port']
-        connect_options = {'slaveof': [master_host, master_port]}
-        master_passwd = master_info.get('requirepass')
-        if master_passwd:
-            connect_options['masterauth'] = master_passwd
-            service.admin.config_set('masterauth', master_passwd)
+            subordinate_config, change_id=self.CONF_LABEL_REPLICATION_SLAVE)
+        main_info = snapshot['main']
+        main_host = main_info['host']
+        main_port = main_info['port']
+        connect_options = {'subordinateof': [main_host, main_port]}
+        main_passwd = main_info.get('requirepass')
+        if main_passwd:
+            connect_options['mainauth'] = main_passwd
+            service.admin.config_set('mainauth', main_passwd)
         else:
-            service.admin.config_set('masterauth', "")
+            service.admin.config_set('mainauth', "")
         service.configuration_manager.apply_system_override(
             connect_options, change_id=self.CONF_LABEL_REPLICATION_SLAVE)
-        service.admin.set_master(host=master_host, port=master_port)
-        LOG.debug('Enabled as slave.')
+        service.admin.set_main(host=main_host, port=main_port)
+        LOG.debug('Enabled as subordinate.')
 
-    def detach_slave(self, service, for_failover):
+    def detach_subordinate(self, service, for_failover):
         service.configuration_manager.remove_system_override(
             change_id=self.CONF_LABEL_REPLICATION_SLAVE)
-        service.admin.set_master(host=None, port=None)
-        service.admin.config_set('masterauth', "")
+        service.admin.set_main(host=None, port=None)
+        service.admin.config_set('mainauth', "")
         return None
 
     def cleanup_source_on_replica_detach(self, service, replica_info):
-        # Nothing needs to be done to the master when a replica goes away.
+        # Nothing needs to be done to the main when a replica goes away.
         pass
 
     def get_replica_context(self, service):
         return {
-            'master': self.get_master_ref(service, None),
+            'main': self.get_main_ref(service, None),
         }
 
-    def demote_master(self, service):
+    def demote_main(self, service):
         service.configuration_manager.remove_system_override(
             change_id=self.CONF_LABEL_REPLICATION_MASTER)

@@ -21,14 +21,14 @@ from sahara.tests.unit.service.edp.spark import base as tests
 class TestSparkPlugin(tests.TestSpark):
     def setUp(self):
         super(TestSparkPlugin, self).setUp()
-        self.master_host = "master"
+        self.main_host = "main"
         self.engine_class = spark_edp.EdpEngine
         self.spark_user = ""
         self.spark_submit = (
             "%(spark_home)s/bin/spark-submit" %
             {"spark_home": self.spark_home})
-        self.master = (
-            "spark://%(master_host)s:%(master_port)s" %
-            {"master_host": self.master_host,
-             "master_port": self.master_port})
+        self.main = (
+            "spark://%(main_host)s:%(main_port)s" %
+            {"main_host": self.main_host,
+             "main_port": self.main_port})
         self.deploy_mode = "client"

@@ -107,7 +107,7 @@ class EnhancedDNSClient(object):
         self.client = SudsClient(CONF['backend:akamai'].enhanceddns_wsdl,
                                  transport=transport)
 
-    def buildZone(self, zoneName, masters, endCustomerId, tsigKeyName=None,
+    def buildZone(self, zoneName, mains, endCustomerId, tsigKeyName=None,
                   tsigKey=None, tsigAlgorithm=None):
         zone = self.client.factory.create('ns3:Zone')
 
@@ -119,7 +119,7 @@ class EnhancedDNSClient(object):
 
         # Set the remaining options
         zone.zoneName = self._sanitizeZoneName(zoneName)
-        zone.masters = masters
+        zone.mains = mains
         zone.tsigKeyName = tsigKeyName
         zone.tsigKey = tsigKey
         zone.tsigAlgorithm = tsigAlgorithm
@@ -198,12 +198,12 @@ class EnhancedDNSClient(object):
 
 
 def build_zone(client, target, zone):
-    masters = [m.host for m in target.masters]
+    mains = [m.host for m in target.mains]
 
     if target.options.get("tsig_key_name", None):
         return client.buildZone(
             zone.name,
-            masters,
+            mains,
             zone.id,
             target.options["tsig_key_name"],
             target.options.get("tsig_key_secret", None),
@@ -211,7 +211,7 @@ def build_zone(client, target, zone):
     else:
         return client.buildZone(
             zone.name,
-            masters,
+            mains,
             zone.id)
 
 
@@ -242,7 +242,7 @@ class AkamaiBackend(base.Backend):
 
         self.client = EnhancedDNSClient(self.username, self.password)
 
-        for m in self.masters:
+        for m in self.mains:
             if m.port != 53:
                 raise exceptions.ConfigurationError(
                     "Akamai only supports mDNS instances on port 53")

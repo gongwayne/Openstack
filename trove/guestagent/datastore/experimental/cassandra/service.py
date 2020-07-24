@@ -1064,7 +1064,7 @@ class CassandraAdmin(object):
 
         Cassandra stores replicas on multiple nodes to ensure reliability and
         fault tolerance. All replicas are equally important;
-        there is no primary or master.
+        there is no primary or main.
         A replication strategy determines the nodes where
         replicas are placed. SimpleStrategy is for a single data center only.
         The total number of replicas across the cluster is referred to as the

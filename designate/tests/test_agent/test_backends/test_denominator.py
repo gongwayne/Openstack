@@ -39,7 +39,7 @@ class DenominatorAgentBackendTestCase(TestCase, BackendTestMixin):
 
     @mock.patch('designate.utils.execute', return_value=(
                 'example.org SOA 86400 ns1.designate.com. '
-                'hostmaster@example.org. 475 3600 600 604800 1800', None))
+                'hostmain@example.org. 475 3600 600 604800 1800', None))
     def test_find_zone_serial(self, execute):
         serial = self.backend.find_zone_serial('example.org.')
 
@@ -69,7 +69,7 @@ class DenominatorAgentBackendTestCase(TestCase, BackendTestMixin):
     def test_update_zone(self, execute):
         # Output from 'designate record list' command
         records = ('example.org SOA 86400 ns1.designate.com. '
-        'hostmaster@example.org. 475 3600 600 604800 1800\n'
+        'hostmain@example.org. 475 3600 600 604800 1800\n'
         'example.org NS 86400 ns1.designator.net.\n'
         'example.org NS 86400 ns2.designator.net.\n'
         'example.org MX 86400 10 mx1.designator.net.')

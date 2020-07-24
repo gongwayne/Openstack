@@ -65,18 +65,18 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             'plugins/hdp/versions/version_2_0_6/resources/'
             'default-cluster.template')
 
-        server1 = base.TestServer('host1', 'test-master', '11111', 3,
+        server1 = base.TestServer('host1', 'test-main', '11111', 3,
                                   '111.11.1111', '222.11.1111')
-        server2 = base.TestServer('host2', 'test-slave', '11111', 3,
+        server2 = base.TestServer('host2', 'test-subordinate', '11111', 3,
                                   '222.22.2222', '333.22.2222')
 
         node_group1 = TestNodeGroup(
-            'master', [server1], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server1], ["NAMENODE", "RESOURCEMANAGER",
                                   "HISTORYSERVER", "SECONDARY_NAMENODE",
                                   "GANGLIA_SERVER", "GANGLIA_MONITOR",
                                   "NAGIOS_SERVER", "AMBARI_SERVER",
                                   "AMBARI_AGENT", "ZOOKEEPER_SERVER"])
-        node_group2 = TestNodeGroup('slave', [server2], ['NODEMANAGER',
+        node_group2 = TestNodeGroup('subordinate', [server2], ['NODEMANAGER',
                                                          'DATANODE'])
         cluster = base.TestCluster([node_group1, node_group2])
 
@@ -88,27 +88,27 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
 
         node_groups = cluster_config.node_groups
         self.assertEqual(2, len(node_groups))
-        self.assertIn('master', node_groups)
-        self.assertIn('slave', node_groups)
+        self.assertIn('main', node_groups)
+        self.assertIn('subordinate', node_groups)
 
-        master_node_group = node_groups['master']
-        self.assertEqual('master', master_node_group.name)
-        self.assertEqual(13, len(master_node_group.components))
-        self.assertIn('NAMENODE', master_node_group.components)
-        self.assertIn('RESOURCEMANAGER', master_node_group.components)
-        self.assertIn('HISTORYSERVER', master_node_group.components)
-        self.assertIn('SECONDARY_NAMENODE', master_node_group.components)
-        self.assertIn('GANGLIA_SERVER', master_node_group.components)
-        self.assertIn('GANGLIA_MONITOR', master_node_group.components)
-        self.assertIn('NAGIOS_SERVER', master_node_group.components)
-        self.assertIn('AMBARI_SERVER', master_node_group.components)
-        self.assertIn('AMBARI_AGENT', master_node_group.components)
-        self.assertIn('YARN_CLIENT', master_node_group.components)
-        self.assertIn('ZOOKEEPER_SERVER', master_node_group.components)
+        main_node_group = node_groups['main']
+        self.assertEqual('main', main_node_group.name)
+        self.assertEqual(13, len(main_node_group.components))
+        self.assertIn('NAMENODE', main_node_group.components)
+        self.assertIn('RESOURCEMANAGER', main_node_group.components)
+        self.assertIn('HISTORYSERVER', main_node_group.components)
+        self.assertIn('SECONDARY_NAMENODE', main_node_group.components)
+        self.assertIn('GANGLIA_SERVER', main_node_group.components)
+        self.assertIn('GANGLIA_MONITOR', main_node_group.components)
+        self.assertIn('NAGIOS_SERVER', main_node_group.components)
+        self.assertIn('AMBARI_SERVER', main_node_group.components)
+        self.assertIn('AMBARI_AGENT', main_node_group.components)
+        self.assertIn('YARN_CLIENT', main_node_group.components)
+        self.assertIn('ZOOKEEPER_SERVER', main_node_group.components)
 
-        slave_node_group = node_groups['slave']
-        self.assertEqual('slave', slave_node_group.name)
-        self.assertIn('NODEMANAGER', slave_node_group.components)
+        subordinate_node_group = node_groups['subordinate']
+        self.assertEqual('subordinate', subordinate_node_group.name)
+        self.assertIn('NODEMANAGER', subordinate_node_group.components)
 
         return cluster_config
 
@@ -118,24 +118,24 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             'plugins/hdp/versions/version_2_0_6/resources/'
             'default-cluster.template')
 
-        server1 = base.TestServer('ambari_machine', 'master', '11111', 3,
+        server1 = base.TestServer('ambari_machine', 'main', '11111', 3,
                                   '111.11.1111', '222.11.1111')
-        server2 = base.TestServer('host2', 'slave', '11111', 3, '222.22.2222',
+        server2 = base.TestServer('host2', 'subordinate', '11111', 3, '222.22.2222',
                                   '333.22.2222')
-        server3 = base.TestServer('host3', 'slave', '11111', 3, '222.22.2223',
+        server3 = base.TestServer('host3', 'subordinate', '11111', 3, '222.22.2223',
                                   '333.22.2223')
 
         node_group1 = TestNodeGroup(
-            'master', [server1], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server1], ["NAMENODE", "RESOURCEMANAGER",
                                   "HISTORYSERVER", "SECONDARY_NAMENODE",
                                   "GANGLIA_SERVER", "NAGIOS_SERVER",
                                   "AMBARI_SERVER", "ZOOKEEPER_SERVER"])
         node_group2 = TestNodeGroup(
-            'slave', [server2], ["DATANODE", "NODEMANAGER",
+            'subordinate', [server2], ["DATANODE", "NODEMANAGER",
                                  "HDFS_CLIENT", "MAPREDUCE2_CLIENT"])
 
         node_group3 = TestNodeGroup(
-            'slave2', [server3], ["DATANODE", "NODEMANAGER",
+            'subordinate2', [server3], ["DATANODE", "NODEMANAGER",
                                   "HDFS_CLIENT", "MAPREDUCE2_CLIENT"])
 
         cluster = base.TestCluster([node_group1, node_group2, node_group3])
@@ -164,8 +164,8 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             'plugins/hdp/versions/version_2_0_6/resources/'
             'default-cluster.template')
 
-        master_host = base.TestServer(
-            'master.novalocal', 'master', '11111', 3,
+        main_host = base.TestServer(
+            'main.novalocal', 'main', '11111', 3,
             '111.11.1111', '222.11.1111')
 
         jt_host = base.TestServer(
@@ -208,12 +208,12 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             'oozie_host.novalocal', 'oozie', '11111', 3,
             '111.11.9999', '222.11.9999')
 
-        slave_host = base.TestServer(
-            'slave1.novalocal', 'slave', '11111', 3,
+        subordinate_host = base.TestServer(
+            'subordinate1.novalocal', 'subordinate', '11111', 3,
             '222.22.6666', '333.22.6666')
 
-        master_ng = TestNodeGroup(
-            'master', [master_host], ["GANGLIA_SERVER",
+        main_ng = TestNodeGroup(
+            'main', [main_host], ["GANGLIA_SERVER",
                                       "GANGLIA_MONITOR",
                                       "NAGIOIS_SERVER",
                                       "AMBARI_SERVER",
@@ -258,8 +258,8 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
         oozie_ng = TestNodeGroup(
             'oozie', [oozie_host], ["OOZIE_SERVER", "GANGLIA_MONITOR",
                                     "AMBARI_AGENT"])
-        slave_ng = TestNodeGroup(
-            'slave', [slave_host], ["DATANODE", "NODEMANAGER",
+        subordinate_ng = TestNodeGroup(
+            'subordinate', [subordinate_host], ["DATANODE", "NODEMANAGER",
                                     "GANGLIA_MONITOR", "HDFS_CLIENT",
                                     "MAPREDUCE2_CLIENT", "OOZIE_CLIENT",
                                     "AMBARI_AGENT"])
@@ -269,10 +269,10 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
         user_input = provisioning.UserInput(
             user_input_config, 'hdfs://nn_dif_host.novalocal:8020')
 
-        cluster = base.TestCluster([master_ng, jt_ng, nn_ng, snn_ng, hive_ng,
+        cluster = base.TestCluster([main_ng, jt_ng, nn_ng, snn_ng, hive_ng,
                                     hive_ms_ng, hive_mysql_ng,
                                     hcat_ng, zk1_ng, zk2_ng, oozie_ng,
-                                    slave_ng])
+                                    subordinate_ng])
         cluster_config = cs.ClusterSpec(cluster_config_file, version='2.0.6')
         cluster_config.create_operational_config(cluster, [user_input])
         config = cluster_config.configurations
@@ -337,8 +337,8 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             'plugins/hdp/versions/version_2_0_6/resources/'
             'default-cluster.template')
 
-        master_host = base.TestServer(
-            'master.novalocal', 'master', '11111', 3,
+        main_host = base.TestServer(
+            'main.novalocal', 'main', '11111', 3,
             '111.11.1111', '222.11.1111')
 
         jt_host = base.TestServer(
@@ -381,12 +381,12 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             'oozie_host.novalocal', 'oozie', '11111', 3,
             '111.11.9999', '222.11.9999')
 
-        slave_host = base.TestServer(
-            'slave1.novalocal', 'slave', '11111', 3,
+        subordinate_host = base.TestServer(
+            'subordinate1.novalocal', 'subordinate', '11111', 3,
             '222.22.6666', '333.22.6666')
 
-        master_ng = TestNodeGroup(
-            'master', [master_host], ["GANGLIA_SERVER",
+        main_ng = TestNodeGroup(
+            'main', [main_host], ["GANGLIA_SERVER",
                                       "GANGLIA_MONITOR",
                                       "NAGIOIS_SERVER",
                                       "AMBARI_SERVER",
@@ -431,8 +431,8 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
         oozie_ng = TestNodeGroup(
             'oozie', [oozie_host], ["OOZIE_SERVER", "GANGLIA_MONITOR",
                                     "AMBARI_AGENT"])
-        slave_ng = TestNodeGroup(
-            'slave', [slave_host], ["DATANODE", "NODEMANAGER",
+        subordinate_ng = TestNodeGroup(
+            'subordinate', [subordinate_host], ["DATANODE", "NODEMANAGER",
                                     "GANGLIA_MONITOR", "HDFS_CLIENT",
                                     "MAPREDUCE2_CLIENT", "OOZIE_CLIENT",
                                     "AMBARI_AGENT", "HUE"])
@@ -442,10 +442,10 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
         user_input = provisioning.UserInput(
             user_input_config, 'hdfs://nn_dif_host.novalocal:8020')
 
-        cluster = base.TestCluster([master_ng, jt_ng, nn_ng, snn_ng, hive_ng,
+        cluster = base.TestCluster([main_ng, jt_ng, nn_ng, snn_ng, hive_ng,
                                     hive_ms_ng, hive_mysql_ng,
                                     hcat_ng, zk1_ng, zk2_ng, oozie_ng,
-                                    slave_ng])
+                                    subordinate_ng])
         cluster_config = cs.ClusterSpec(cluster_config_file, version='2.0.6')
         cluster_config.create_operational_config(cluster, [user_input])
         config = cluster_config.configurations
@@ -529,8 +529,8 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             'plugins/hdp/versions/version_2_0_6/resources/'
             'default-cluster.template')
 
-        master_host = base.TestServer(
-            'master.novalocal', 'master', '11111', 3,
+        main_host = base.TestServer(
+            'main.novalocal', 'main', '11111', 3,
             '111.11.1111', '222.11.1111')
 
         jt_host = base.TestServer(
@@ -545,12 +545,12 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             'snn_host.novalocal', 'jt', '11111', 3,
             '111.11.4444', '222.11.4444')
 
-        slave_host = base.TestServer(
-            'slave1.novalocal', 'slave', '11111', 3,
+        subordinate_host = base.TestServer(
+            'subordinate1.novalocal', 'subordinate', '11111', 3,
             '222.22.6666', '333.22.6666')
 
-        master_ng = TestNodeGroup(
-            'master', [master_host],
+        main_ng = TestNodeGroup(
+            'main', [main_host],
             ['GANGLIA_SERVER',
              'GANGLIA_MONITOR', 'NAGIOS_SERVER',
              'AMBARI_SERVER', 'AMBARI_AGENT', 'ZOOKEEPER_SERVER'])
@@ -562,14 +562,14 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
                               "GANGLIA_MONITOR", "AMBARI_AGENT"])
         snn_ng = TestNodeGroup('snn', [snn_host], ["SECONDARY_NAMENODE",
                                "GANGLIA_MONITOR", "AMBARI_AGENT"])
-        slave_ng = TestNodeGroup(
-            'slave', [slave_host],
+        subordinate_ng = TestNodeGroup(
+            'subordinate', [subordinate_host],
             ["DATANODE", "NODEMANAGER",
              "GANGLIA_MONITOR", "HDFS_CLIENT", "MAPREDUCE2_CLIENT",
              "AMBARI_AGENT"])
 
-        cluster = base.TestCluster([master_ng, jt_ng, nn_ng,
-                                   snn_ng, slave_ng])
+        cluster = base.TestCluster([main_ng, jt_ng, nn_ng,
+                                   snn_ng, subordinate_ng])
         cluster_config = cs.ClusterSpec(cluster_config_file, version='2.0.6')
         cluster_config.create_operational_config(cluster, [])
         services = cluster_config.services
@@ -602,19 +602,19 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
                 'plugins/hdp/versions/version_2_0_6/resources/'
                 'default-cluster.template')
 
-            server1 = base.TestServer('host1', 'test-master', '11111', 3,
+            server1 = base.TestServer('host1', 'test-main', '11111', 3,
                                       '111.11.1111', '222.11.1111')
-            server2 = base.TestServer('host2', 'test-slave', '11111', 3,
+            server2 = base.TestServer('host2', 'test-subordinate', '11111', 3,
                                       '222.22.2222', '333.22.2222')
 
             node_group1 = TestNodeGroup(
-                'master', [server1], ["NAMENODE", "RESOURCEMANAGER",
+                'main', [server1], ["NAMENODE", "RESOURCEMANAGER",
                                       "SECONDARY_NAMENODE", "GANGLIA_SERVER",
                                       "GANGLIA_MONITOR", "NAGIOS_SERVER",
                                       "AMBARI_SERVER", "AMBARI_AGENT",
                                       "HISTORYSERVER", "ZOOKEEPER_SERVER"])
             node_group2 = TestNodeGroup(
-                'slave', [server2], ["NODEMANAGER", "DATANODE", "AMBARI_AGENT",
+                'subordinate', [server2], ["NODEMANAGER", "DATANODE", "AMBARI_AGENT",
                                      "GANGLIA_MONITOR"])
 
             cluster = base.TestCluster([node_group1, node_group2])
@@ -641,30 +641,30 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
 
         node_groups = cluster_config.node_groups
         self.assertEqual(2, len(node_groups))
-        master_node_group = node_groups['MASTER']
-        self.assertEqual('MASTER', master_node_group.name)
-        self.assertIsNone(master_node_group.predicate)
-        self.assertEqual('1', master_node_group.cardinality)
-        self.assertEqual(8, len(master_node_group.components))
-        self.assertIn('NAMENODE', master_node_group.components)
-        self.assertIn('RESOURCEMANAGER', master_node_group.components)
-        self.assertIn('HISTORYSERVER', master_node_group.components)
-        self.assertIn('SECONDARY_NAMENODE', master_node_group.components)
-        self.assertIn('GANGLIA_SERVER', master_node_group.components)
-        self.assertIn('NAGIOS_SERVER', master_node_group.components)
-        self.assertIn('AMBARI_SERVER', master_node_group.components)
-        self.assertIn('ZOOKEEPER_SERVER', master_node_group.components)
+        main_node_group = node_groups['MASTER']
+        self.assertEqual('MASTER', main_node_group.name)
+        self.assertIsNone(main_node_group.predicate)
+        self.assertEqual('1', main_node_group.cardinality)
+        self.assertEqual(8, len(main_node_group.components))
+        self.assertIn('NAMENODE', main_node_group.components)
+        self.assertIn('RESOURCEMANAGER', main_node_group.components)
+        self.assertIn('HISTORYSERVER', main_node_group.components)
+        self.assertIn('SECONDARY_NAMENODE', main_node_group.components)
+        self.assertIn('GANGLIA_SERVER', main_node_group.components)
+        self.assertIn('NAGIOS_SERVER', main_node_group.components)
+        self.assertIn('AMBARI_SERVER', main_node_group.components)
+        self.assertIn('ZOOKEEPER_SERVER', main_node_group.components)
 
-        slave_node_group = node_groups['SLAVE']
-        self.assertEqual('SLAVE', slave_node_group.name)
-        self.assertIsNone(slave_node_group.predicate)
-        self.assertEqual('1+', slave_node_group.cardinality)
-        self.assertEqual(5, len(slave_node_group.components))
-        self.assertIn('DATANODE', slave_node_group.components)
-        self.assertIn('NODEMANAGER', slave_node_group.components)
-        self.assertIn('HDFS_CLIENT', slave_node_group.components)
-        self.assertIn('YARN_CLIENT', slave_node_group.components)
-        self.assertIn('MAPREDUCE2_CLIENT', slave_node_group.components)
+        subordinate_node_group = node_groups['SLAVE']
+        self.assertEqual('SLAVE', subordinate_node_group.name)
+        self.assertIsNone(subordinate_node_group.predicate)
+        self.assertEqual('1+', subordinate_node_group.cardinality)
+        self.assertEqual(5, len(subordinate_node_group.components))
+        self.assertIn('DATANODE', subordinate_node_group.components)
+        self.assertIn('NODEMANAGER', subordinate_node_group.components)
+        self.assertIn('HDFS_CLIENT', subordinate_node_group.components)
+        self.assertIn('YARN_CLIENT', subordinate_node_group.components)
+        self.assertIn('MAPREDUCE2_CLIENT', subordinate_node_group.components)
 
         return cluster_config
 
@@ -730,13 +730,13 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
         self.assertTrue(contains_mapred_user)
         node_groups = cluster.node_groups
         self.assertEqual(2, len(node_groups))
-        contains_master_group = False
-        contains_slave_group = False
+        contains_main_group = False
+        contains_subordinate_group = False
         for i in range(2):
             node_group = node_groups[i]
             components = node_group.node_processes
             if node_group.name == "MASTER":
-                contains_master_group = True
+                contains_main_group = True
                 self.assertEqual(8, len(components))
                 self.assertIn('NAMENODE', components)
                 self.assertIn('RESOURCEMANAGER', components)
@@ -749,7 +749,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
                 # TODO(jspeidel): node configs
                 # TODO(jspeidel): vm_requirements
             elif node_group.name == 'SLAVE':
-                contains_slave_group = True
+                contains_subordinate_group = True
                 self.assertEqual(5, len(components))
                 self.assertIn('DATANODE', components)
                 self.assertIn('NODEMANAGER', components)
@@ -760,8 +760,8 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
                 # TODO(jspeidel): vm requirements
             else:
                 self.fail('Unexpected node group: {0}'.format(node_group.name))
-        self.assertTrue(contains_master_group)
-        self.assertTrue(contains_slave_group)
+        self.assertTrue(contains_main_group)
+        self.assertTrue(contains_subordinate_group)
 
     def test_existing_config_item_in_top_level_within_blueprint(self, patched):
         cluster_config_file = pkg.resource_string(
@@ -774,19 +774,19 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
         user_input = provisioning.UserInput(user_input_config,
                                             '/some/new/path')
 
-        server1 = base.TestServer('host1', 'test-master', '11111', 3,
+        server1 = base.TestServer('host1', 'test-main', '11111', 3,
                                   '111.11.1111', '222.11.1111')
-        server2 = base.TestServer('host2', 'test-slave', '11111', 3,
+        server2 = base.TestServer('host2', 'test-subordinate', '11111', 3,
                                   '222.22.2222', '333.22.2222')
 
         node_group1 = TestNodeGroup(
-            'master', [server1], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server1], ["NAMENODE", "RESOURCEMANAGER",
                                   "HISTORYSERVER", "SECONDARY_NAMENODE",
                                   "GANGLIA_SERVER", "GANGLIA_MONITOR",
                                   "NAGIOS_SERVER", "AMBARI_SERVER",
                                   "ZOOKEEPER_SERVER", "AMBARI_AGENT"])
         node_group2 = TestNodeGroup(
-            'slave', [server2], ["NODEMANAGER", "DATANODE",
+            'subordinate', [server2], ["NODEMANAGER", "DATANODE",
                                  "AMBARI_AGENT", "GANGLIA_MONITOR"])
 
         cluster = base.TestCluster([node_group1, node_group2])
@@ -805,19 +805,19 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             'global', 'general', 'new_property')
         user_input = provisioning.UserInput(user_input_config, 'foo')
 
-        server1 = base.TestServer('host1', 'test-master', '11111', 3,
+        server1 = base.TestServer('host1', 'test-main', '11111', 3,
                                   '111.11.1111', '222.11.1111')
-        server2 = base.TestServer('host2', 'test-slave', '11111', 3,
+        server2 = base.TestServer('host2', 'test-subordinate', '11111', 3,
                                   '222.22.2222', '333.22.2222')
 
         node_group1 = TestNodeGroup(
-            'master', [server1],
+            'main', [server1],
             ["NAMENODE", "RESOURCEMANAGER",
              "HISTORYSERVER", "SECONDARY_NAMENODE", "GANGLIA_SERVER",
              "GANGLIA_MONITOR", "NAGIOS_SERVER", "AMBARI_SERVER",
              "ZOOKEEPER_SERVER", "AMBARI_AGENT"])
         node_group2 = TestNodeGroup(
-            'slave', [server2], ["NODEMANAGER", "DATANODE", "AMBARI_AGENT",
+            'subordinate', [server2], ["NODEMANAGER", "DATANODE", "AMBARI_AGENT",
                                  "GANGLIA_MONITOR"])
 
         cluster = base.TestCluster([node_group1, node_group2])
@@ -837,19 +837,19 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
                 'plugins/hdp/versions/version_2_0_6/resources/'
                 'default-cluster.template')
 
-            server1 = base.TestServer('host1', 'test-master', '11111', 3,
+            server1 = base.TestServer('host1', 'test-main', '11111', 3,
                                       '111.11.1111', '222.11.1111')
-            server2 = base.TestServer('host2', 'test-slave', '11111', 3,
+            server2 = base.TestServer('host2', 'test-subordinate', '11111', 3,
                                       '222.22.2222', '333.22.2222')
 
             node_group1 = TestNodeGroup(
-                'master', [server1], ["NAMENODE", "RESOURCEMANAGER",
+                'main', [server1], ["NAMENODE", "RESOURCEMANAGER",
                                       "HISTORYSERVER", "SECONDARY_NAMENODE",
                                       "GANGLIA_SERVER", "GANGLIA_MONITOR",
                                       "NAGIOS_SERVER", "AMBARI_SERVER",
                                       "ZOOKEEPER_SERVER", "AMBARI_AGENT"])
             node_group2 = TestNodeGroup(
-                'slave', [server2], ["NODEMANAGER", "DATANODE", "AMBARI_AGENT",
+                'subordinate', [server2], ["NODEMANAGER", "DATANODE", "AMBARI_AGENT",
                                      "GANGLIA_MONITOR"])
 
             cluster = base.TestCluster([node_group1, node_group2])
@@ -909,19 +909,19 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
                 'plugins/hdp/versions/version_2_0_6/resources/'
                 'default-cluster.template')
 
-            server1 = base.TestServer('host1', 'test-master', '11111', 3,
+            server1 = base.TestServer('host1', 'test-main', '11111', 3,
                                       '111.11.1111', '222.11.1111')
-            server2 = base.TestServer('host2', 'test-slave', '11111', 3,
+            server2 = base.TestServer('host2', 'test-subordinate', '11111', 3,
                                       '222.22.2222', '333.22.2222')
 
             node_group1 = TestNodeGroup(
-                'master', [server1], ["NAMENODE", "RESOURCEMANAGER",
+                'main', [server1], ["NAMENODE", "RESOURCEMANAGER",
                                       "HISTORYSERVER", "SECONDARY_NAMENODE",
                                       "GANGLIA_SERVER", "GANGLIA_MONITOR",
                                       "NAGIOS_SERVER", "AMBARI_SERVER",
                                       "ZOOKEEPER_SERVER", "AMBARI_AGENT"])
             node_group2 = TestNodeGroup(
-                'slave', [server2], ["NODEMANAGER", "DATANODE", "AMBARI_AGENT",
+                'subordinate', [server2], ["NODEMANAGER", "DATANODE", "AMBARI_AGENT",
                                      "GANGLIA_MONITOR"])
 
             cluster = base.TestCluster([node_group1, node_group2])
@@ -946,13 +946,13 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
                                                 'ambari.admin.user')
         user_input = provisioning.UserInput(user_input_config, 'new-user')
 
-        server1 = base.TestServer('host1', 'test-master', '11111', 3,
+        server1 = base.TestServer('host1', 'test-main', '11111', 3,
                                   '111.11.1111', '222.11.1111')
-        server2 = base.TestServer('host2', 'test-slave', '11111', 3,
+        server2 = base.TestServer('host2', 'test-subordinate', '11111', 3,
                                   '222.22.2222', '333.22.2222')
 
         node_group1 = TestNodeGroup(
-            'master',
+            'main',
             [server1],
             ["NAMENODE",
              "RESOURCEMANAGER",
@@ -965,7 +965,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
              "ZOOKEEPER_SERVER",
              "AMBARI_AGENT"])
         node_group2 = TestNodeGroup(
-            'slave',
+            'subordinate',
             [server2],
             ["NODEMANAGER",
              "DATANODE",
@@ -991,13 +991,13 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
                                                 'ambari.admin.password')
         user_input = provisioning.UserInput(user_input_config, 'new-pwd')
 
-        server1 = base.TestServer('host1', 'test-master', '11111', 3,
+        server1 = base.TestServer('host1', 'test-main', '11111', 3,
                                   '111.11.1111', '222.11.1111')
-        server2 = base.TestServer('host2', 'test-slave', '11111', 3,
+        server2 = base.TestServer('host2', 'test-subordinate', '11111', 3,
                                   '222.22.2222', '333.22.2222')
 
         node_group1 = TestNodeGroup(
-            'master',
+            'main',
             [server1],
             ["NAMENODE",
              "RESOURCEMANAGER",
@@ -1010,7 +1010,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
              "ZOOKEEPER_SERVER",
              "AMBARI_AGENT"])
         node_group2 = TestNodeGroup(
-            'slave',
+            'subordinate',
             [server2],
             ["NODEMANAGER",
              "DATANODE",
@@ -1041,9 +1041,9 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
         pwd_user_input = provisioning.UserInput(pwd_user_input_config,
                                                 'new-admin_pwd')
 
-        server1 = base.TestServer('host1', 'test-master', '11111', 3,
+        server1 = base.TestServer('host1', 'test-main', '11111', 3,
                                   '111.11.1111', '222.11.1111')
-        server2 = base.TestServer('host2', 'test-slave', '11111', 3,
+        server2 = base.TestServer('host2', 'test-subordinate', '11111', 3,
                                   '222.22.2222', '333.22.2222')
 
         node_group1 = TestNodeGroup(
@@ -1068,17 +1068,17 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
         self.assertEqual('new-admin_pwd', users[0].password)
 
     def test_validate_missing_hdfs(self, patched):
-        server = base.TestServer('host1', 'slave', '11111', 3,
+        server = base.TestServer('host1', 'subordinate', '11111', 3,
                                  '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
 
         node_group = TestNodeGroup(
-            'slave', [server], ["NODEMANAGER", "MAPREDUCE2_CLIENT",
+            'subordinate', [server], ["NODEMANAGER", "MAPREDUCE2_CLIENT",
                                 "HISTORYSERVER"])
 
         node_group2 = TestNodeGroup(
-            'master', [server2], ["RESOURCEMANAGER", "ZOOKEEPER_SERVER"])
+            'main', [server2], ["RESOURCEMANAGER", "ZOOKEEPER_SERVER"])
 
         cluster = base.TestCluster([node_group, node_group2])
         cluster_config = base.create_clusterspec(hdp_version='2.0.6')
@@ -1091,16 +1091,16 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             pass
 
     def test_validate_missing_mr2(self, patched):
-        server = base.TestServer('host1', 'slave', '11111', 3,
+        server = base.TestServer('host1', 'subordinate', '11111', 3,
                                  '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
 
         node_group = TestNodeGroup(
-            'slave', [server], ["DATANODE"])
+            'subordinate', [server], ["DATANODE"])
 
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "ZOOKEEPER_SERVER"])
+            'main', [server2], ["NAMENODE", "ZOOKEEPER_SERVER"])
 
         cluster = base.TestCluster([node_group, node_group2])
         cluster_config = base.create_clusterspec(hdp_version='2.0.6')
@@ -1113,17 +1113,17 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             pass
 
     def test_validate_missing_ambari(self, patched):
-        server = base.TestServer('host1', 'slave', '11111', 3,
+        server = base.TestServer('host1', 'subordinate', '11111', 3,
                                  '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
 
         node_group = TestNodeGroup(
-            'slave', [server], ["NAMENODE", "RESOURCEMANAGER",
+            'subordinate', [server], ["NAMENODE", "RESOURCEMANAGER",
                                 "ZOOKEEPER_SERVER"])
 
         node_group2 = TestNodeGroup(
-            'master', [server2], ["DATANODE", "NODEMANAGER"])
+            'main', [server2], ["DATANODE", "NODEMANAGER"])
 
         cluster = base.TestCluster([node_group, node_group2])
         cluster_config = base.create_clusterspec(hdp_version='2.0.6')
@@ -1138,17 +1138,17 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
     # TODO(jspeidel): move validate_* to test_services when validate
     # is called independently of cluspterspec
     def test_validate_hdfs(self, patched):
-        server = base.TestServer('host1', 'slave', '11111', 3,
+        server = base.TestServer('host1', 'subordinate', '11111', 3,
                                  '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
 
         node_group = TestNodeGroup(
-            'slave', [server], ["DATANODE", "NODEMANAGER",
+            'subordinate', [server], ["DATANODE", "NODEMANAGER",
                                 "HDFS_CLIENT", "MAPREDUCE2_CLIENT"], 1)
 
         node_group2 = TestNodeGroup(
-            'master', [server2], ["RESOURCEMANAGER", "AMBARI_SERVER",
+            'main', [server2], ["RESOURCEMANAGER", "AMBARI_SERVER",
                                   "ZOOKEEPER_SERVER"])
 
         cluster = base.TestCluster([node_group, node_group2])
@@ -1162,7 +1162,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             pass
 
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "HISTORYSERVER", "ZOOKEEPER_SERVER",
                                   "AMBARI_SERVER"])
         cluster = base.TestCluster([node_group, node_group2])
@@ -1172,7 +1172,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
 
         # should cause validation exception due to 2 NN
         node_group3 = TestNodeGroup(
-            'master2', [server2], ["NAMENODE"])
+            'main2', [server2], ["NAMENODE"])
         cluster = base.TestCluster([node_group, node_group2, node_group3])
         cluster_config = base.create_clusterspec(hdp_version='2.0.6')
         try:
@@ -1183,21 +1183,21 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             pass
 
     def test_validate_hdfs_ha(self, patched):
-        server1 = base.TestServer('host1', 'slave', '11111', 3,
+        server1 = base.TestServer('host1', 'subordinate', '11111', 3,
                                   '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
-        server3 = base.TestServer('host3', 'master', '11113', 3,
+        server3 = base.TestServer('host3', 'main', '11113', 3,
                                   '111.11.1113', '222.22.2224')
 
         node_group1 = TestNodeGroup(
-            'slave', [server1], ["DATANODE", "NODEMANAGER", "HDFS_CLIENT",
+            'subordinate', [server1], ["DATANODE", "NODEMANAGER", "HDFS_CLIENT",
                                  "MAPREDUCE2_CLIENT"], 1)
         node_group2 = TestNodeGroup(
-            'master1', [server2], ["NAMENODE", "ZOOKEEPER_SERVER",
+            'main1', [server2], ["NAMENODE", "ZOOKEEPER_SERVER",
                                    "JOURNALNODE"], 1)
         node_group3 = TestNodeGroup(
-            'master2', [server3], ["RESOURCEMANAGER", "HISTORYSERVER",
+            'main2', [server3], ["RESOURCEMANAGER", "HISTORYSERVER",
                                    "ZOOKEEPER_SERVER", "AMBARI_SERVER",
                                    "JOURNALNODE"], 1)
 
@@ -1216,7 +1216,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
 
         # Test Journalnodes
         node_group2 = TestNodeGroup(
-            'master1', [server2], ["NAMENODE", "ZOOKEEPER_SERVER"], 2)
+            'main1', [server2], ["NAMENODE", "ZOOKEEPER_SERVER"], 2)
         cluster1 = base.TestCluster([node_group1, node_group2, node_group3],
                                     cc_r)
         # should fail due to missing odd number greater than 3 of journalnodes
@@ -1226,7 +1226,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
 
         # Test zookeepers
         node_group2 = TestNodeGroup(
-            'master1', [server2], ["NAMENODE", "JOURNALNODE"], 2)
+            'main1', [server2], ["NAMENODE", "JOURNALNODE"], 2)
         cluster1 = base.TestCluster([node_group1, node_group2, node_group3],
                                     cc_r)
         # should fail due to missing odd number greater than 3 of zookeepers
@@ -1236,7 +1236,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
 
         # should validate successfully now
         node_group2 = TestNodeGroup(
-            'master1', [server2], ["NAMENODE", "JOURNALNODE",
+            'main1', [server2], ["NAMENODE", "JOURNALNODE",
                                    "ZOOKEEPER_SERVER"], 2)
         cluster1 = base.TestCluster([node_group1, node_group2, node_group3],
                                     cc_r)
@@ -1247,7 +1247,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
         cc_r = rsc.Resource(cc)
 
         node_group2 = TestNodeGroup(
-            'master1', [server2], ["NAMENODE", "JOURNALNODE",
+            'main1', [server2], ["NAMENODE", "JOURNALNODE",
                                    "ZOOKEEPER_SERVER"], 1)
         cluster1 = base.TestCluster([node_group1, node_group2, node_group3],
                                     cc_r)
@@ -1258,7 +1258,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
                           cluster1, [])
 
         node_group2 = TestNodeGroup(
-            'master1', [server2], ["NAMENODE", "ZKFC", "ZOOKEEPER_SERVER"], 1)
+            'main1', [server2], ["NAMENODE", "ZKFC", "ZOOKEEPER_SERVER"], 1)
 
         cluster1 = base.TestCluster([node_group1, node_group2, node_group3],
                                     cc_r)
@@ -1269,16 +1269,16 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
                           cluster1, [])
 
     def test_validate_yarn(self, patched):
-        server = base.TestServer('host1', 'slave', '11111', 3,
+        server = base.TestServer('host1', 'subordinate', '11111', 3,
                                  '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
 
         node_group = TestNodeGroup(
-            'slave', [server], ["DATANODE", "NODEMANAGER",
+            'subordinate', [server], ["DATANODE", "NODEMANAGER",
                                 "HDFS_CLIENT", "MAPREDUCE2_CLIENT"])
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "AMBARI_SERVER",
+            'main', [server2], ["NAMENODE", "AMBARI_SERVER",
                                   "ZOOKEEPER_SERVER", "HISTORYSERVER"])
 
         cluster = base.TestCluster([node_group, node_group2])
@@ -1291,7 +1291,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             # expected
             pass
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "AMBARI_SERVER", "ZOOKEEPER_SERVER",
                                   "HISTORYSERVER"])
         cluster = base.TestCluster([node_group, node_group2])
@@ -1301,7 +1301,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
 
         # should cause validation exception due to 2 JT
         node_group3 = TestNodeGroup(
-            'master', [server2], ["RESOURCEMANAGER"])
+            'main', [server2], ["RESOURCEMANAGER"])
         cluster = base.TestCluster([node_group, node_group2, node_group3])
         cluster_config = base.create_clusterspec(hdp_version='2.0.6')
         try:
@@ -1313,7 +1313,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
 
         # should cause validation exception due to 2 NN
         node_group3 = TestNodeGroup(
-            'master', [server2], ["NAMENODE"])
+            'main', [server2], ["NAMENODE"])
         cluster = base.TestCluster([node_group, node_group2, node_group3])
         cluster_config = base.create_clusterspec(hdp_version='2.0.6')
         try:
@@ -1325,7 +1325,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
 
         # should fail due to no nodemanager
         node_group = TestNodeGroup(
-            'slave', [server], ["DATANODE", "HDFS_CLIENT",
+            'subordinate', [server], ["DATANODE", "HDFS_CLIENT",
                                 "MAPREDUCE2_CLIENT"])
         cluster = base.TestCluster([node_group, node_group2])
         cluster_config = base.create_clusterspec(hdp_version='2.0.6')
@@ -1338,16 +1338,16 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             pass
 
     def test_validate_hive(self, patched):
-        server = base.TestServer('host1', 'slave', '11111', 3,
+        server = base.TestServer('host1', 'subordinate', '11111', 3,
                                  '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
 
         node_group = TestNodeGroup(
-            'slave', [server], ["DATANODE", "NODEMANAGER",
+            'subordinate', [server], ["DATANODE", "NODEMANAGER",
                                 "HIVE_CLIENT"])
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "HISTORYSERVER", "AMBARI_SERVER",
                                   "ZOOKEEPER_SERVER"])
 
@@ -1361,7 +1361,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             # expected
             pass
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "HIVE_SERVER", "AMBARI_SERVER",
                                   "ZOOKEEPER_SERVER", "HISTORYSERVER"])
         cluster = base.TestCluster([node_group, node_group2])
@@ -1371,7 +1371,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
 
         # should cause validation exception due to 2 HIVE_SERVER
         node_group3 = TestNodeGroup(
-            'master', [server2], ["HIVE_SERVER"])
+            'main', [server2], ["HIVE_SERVER"])
         cluster = base.TestCluster([node_group, node_group2, node_group3])
         cluster_config = base.create_clusterspec(hdp_version='2.0.6')
         try:
@@ -1382,18 +1382,18 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             pass
 
     def test_validate_zk(self, patched):
-        server = base.TestServer('host1', 'slave', '11111', 3,
+        server = base.TestServer('host1', 'subordinate', '11111', 3,
                                  '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
-        server3 = base.TestServer('host3', 'master', '11113', 3,
+        server3 = base.TestServer('host3', 'main', '11113', 3,
                                   '111.11.1113', '222.22.2224')
 
         node_group = TestNodeGroup(
-            'slave', [server], ["DATANODE", "NODEMANAGER",
+            'subordinate', [server], ["DATANODE", "NODEMANAGER",
                                 "ZOOKEEPER_CLIENT"])
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "AMBARI_SERVER", "HISTORYSERVER"])
 
         cluster = base.TestCluster([node_group, node_group2])
@@ -1406,7 +1406,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             # expected
             pass
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "HISTORYSERVER", "ZOOKEEPER_SERVER",
                                   "AMBARI_SERVER"])
         cluster = base.TestCluster([node_group, node_group2])
@@ -1422,16 +1422,16 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
         cluster_config.create_operational_config(cluster, [])
 
     def test_validate_oozie(self, patched):
-        server = base.TestServer('host1', 'slave', '11111', 3,
+        server = base.TestServer('host1', 'subordinate', '11111', 3,
                                  '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
 
         node_group = TestNodeGroup(
-            'slave', [server], ["DATANODE", "NODEMANAGER",
+            'subordinate', [server], ["DATANODE", "NODEMANAGER",
                                 "OOZIE_CLIENT"])
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "HISTORYSERVER", "AMBARI_SERVER",
                                   "ZOOKEEPER_SERVER"])
 
@@ -1445,7 +1445,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             # expected
             pass
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "OOZIE_SERVER", "AMBARI_SERVER",
                                   "ZOOKEEPER_SERVER", "HISTORYSERVER"])
         cluster = base.TestCluster([node_group, node_group2])
@@ -1455,7 +1455,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
 
         # should cause validation exception due to 2 OOZIE_SERVER
         node_group3 = TestNodeGroup(
-            'master', [server2], ["OOZIE_SERVER"])
+            'main', [server2], ["OOZIE_SERVER"])
         cluster = base.TestCluster([node_group, node_group2, node_group3])
         cluster_config = base.create_clusterspec(hdp_version='2.0.6')
         try:
@@ -1466,16 +1466,16 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             pass
 
     def test_validate_ganglia(self, patched):
-        server = base.TestServer('host1', 'slave', '11111', 3,
+        server = base.TestServer('host1', 'subordinate', '11111', 3,
                                  '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
 
         node_group = TestNodeGroup(
-            'slave', [server], ["DATANODE", "NODEMANAGER",
+            'subordinate', [server], ["DATANODE", "NODEMANAGER",
                                 "GANGLIA_MONITOR"])
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "HISTORYSERVER", "AMBARI_SERVER",
                                   "ZOOKEEPER_SERVER"])
 
@@ -1489,7 +1489,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             # expected
             pass
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "GANGLIA_SERVER", "AMBARI_SERVER",
                                   "HISTORYSERVER", "ZOOKEEPER_SERVER"])
         cluster = base.TestCluster([node_group, node_group2])
@@ -1499,7 +1499,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
 
         # should cause validation exception due to 2 GANGLIA_SERVER
         node_group3 = TestNodeGroup(
-            'master2', [server2], ["GANGLIA_SERVER"])
+            'main2', [server2], ["GANGLIA_SERVER"])
         cluster = base.TestCluster([node_group, node_group2, node_group3])
         cluster_config = base.create_clusterspec(hdp_version='2.0.6')
         try:
@@ -1510,16 +1510,16 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             pass
 
     def test_validate_ambari(self, patched):
-        server = base.TestServer('host1', 'slave', '11111', 3,
+        server = base.TestServer('host1', 'subordinate', '11111', 3,
                                  '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
 
         node_group = TestNodeGroup(
-            'slave', [server], ["DATANODE", "NODEMANAGER",
+            'subordinate', [server], ["DATANODE", "NODEMANAGER",
                                 "AMBARI_AGENT"])
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "HISTORYSERVER", "ZOOKEEPER_SERVER"])
 
         cluster = base.TestCluster([node_group, node_group2])
@@ -1532,7 +1532,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             # expected
             pass
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "HISTORYSERVER", "AMBARI_SERVER",
                                   "ZOOKEEPER_SERVER"])
         cluster = base.TestCluster([node_group, node_group2])
@@ -1542,10 +1542,10 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
 
         # should cause validation exception due to 2 AMBARI_SERVER
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "AMBARI_SERVER", "ZOOKEEPER_SERVER"])
         node_group3 = TestNodeGroup(
-            'master', [server2], ["AMBARI_SERVER"])
+            'main', [server2], ["AMBARI_SERVER"])
         cluster = base.TestCluster([node_group, node_group2, node_group3])
         cluster_config = base.create_clusterspec(hdp_version='2.0.6')
         try:
@@ -1556,16 +1556,16 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             pass
 
     def test_validate_hue(self, patched):
-        server = base.TestServer('host1', 'slave', '11111', 3,
+        server = base.TestServer('host1', 'subordinate', '11111', 3,
                                  '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
 
         node_group = TestNodeGroup(
-            'slave', [server], ["DATANODE", "NODEMANAGER",
+            'subordinate', [server], ["DATANODE", "NODEMANAGER",
                                 "HUE"])
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "HISTORYSERVER", "AMBARI_SERVER",
                                   "ZOOKEEPER_SERVER"])
 
@@ -1578,7 +1578,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
                           cluster, [])
 
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "HIVE_SERVER", "AMBARI_SERVER",
                                   "ZOOKEEPER_SERVER", "HISTORYSERVER"])
         cluster = base.TestCluster([node_group, node_group2])
@@ -1590,10 +1590,10 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
                           cluster, [])
 
         node_group = TestNodeGroup(
-            'slave', [server], ["DATANODE", "NODEMANAGER",
+            'subordinate', [server], ["DATANODE", "NODEMANAGER",
                                 "OOZIE_CLIENT", "HUE"])
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "HIVE_SERVER", "AMBARI_SERVER",
                                   "ZOOKEEPER_SERVER", "HISTORYSERVER",
                                   "OOZIE_SERVER"])
@@ -1605,10 +1605,10 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
                           cluster, [])
 
         node_group = TestNodeGroup(
-            'slave', [server], ["DATANODE", "NODEMANAGER",
+            'subordinate', [server], ["DATANODE", "NODEMANAGER",
                                 "OOZIE_CLIENT", "HUE"])
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "HIVE_SERVER", "AMBARI_SERVER",
                                   "ZOOKEEPER_SERVER", "HISTORYSERVER",
                                   "OOZIE_SERVER", "WEBHCAT_SERVER"])
@@ -1617,14 +1617,14 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
         # should validate successfully now
         cluster_config.create_operational_config(cluster, [])
 
-        # should have automatically added a HIVE_CLIENT to "slave" node group
+        # should have automatically added a HIVE_CLIENT to "subordinate" node group
         hue_ngs = cluster_config.get_node_groups_containing_component("HUE")
         self.assertEqual(1, len(hue_ngs))
         self.assertIn("HIVE_CLIENT", hue_ngs.pop().components)
 
         # should cause validation exception due to 2 hue instances
         node_group3 = TestNodeGroup(
-            'master', [server2], ["HUE"])
+            'main', [server2], ["HUE"])
         cluster = base.TestCluster([node_group, node_group2, node_group3])
         cluster_config = base.create_clusterspec(hdp_version='2.0.6')
         self.assertRaises(ex.InvalidComponentCountException,
@@ -1632,15 +1632,15 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
                           cluster, [])
 
     def test_validate_scaling_existing_ng(self, patched):
-        server = base.TestServer('host1', 'slave', '11111', 3,
+        server = base.TestServer('host1', 'subordinate', '11111', 3,
                                  '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
 
         node_group = TestNodeGroup(
-            'slave', [server], ["DATANODE", "NODEMANAGER"])
+            'subordinate', [server], ["DATANODE", "NODEMANAGER"])
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "HISTORYSERVER", "AMBARI_SERVER",
                                   "ZOOKEEPER_SERVER"])
 
@@ -1650,7 +1650,7 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
         cluster_config.create_operational_config(cluster, [])
 
         cluster_config = base.create_clusterspec(hdp_version='2.0.6')
-        scaled_groups = {'master': 2}
+        scaled_groups = {'main': 2}
         # should fail due to 2 JT
         try:
             cluster_config.create_operational_config(
@@ -1662,16 +1662,16 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
 
     def test_scale(self, patched):
 
-        server = base.TestServer('host1', 'slave', '11111', 3,
+        server = base.TestServer('host1', 'subordinate', '11111', 3,
                                  '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
 
         node_group = TestNodeGroup(
-            'slave', [server], ["DATANODE", "NODEMANAGER",
+            'subordinate', [server], ["DATANODE", "NODEMANAGER",
                                 "AMBARI_AGENT"])
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "HISTORYSERVER", "ZOOKEEPER_SERVER",
                                   "AMBARI_SERVER"])
 
@@ -1681,24 +1681,24 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
         # sanity check that original config validates
         cluster_config.create_operational_config(cluster, [])
 
-        slave_ng = cluster_config.node_groups['slave']
-        self.assertEqual(1, slave_ng.count)
+        subordinate_ng = cluster_config.node_groups['subordinate']
+        self.assertEqual(1, subordinate_ng.count)
 
-        cluster_config.scale({'slave': 2})
+        cluster_config.scale({'subordinate': 2})
 
-        self.assertEqual(2, slave_ng.count)
+        self.assertEqual(2, subordinate_ng.count)
 
     def test_get_deployed_configurations(self, patched):
 
-        server = base.TestServer('host1', 'slave', '11111', 3,
+        server = base.TestServer('host1', 'subordinate', '11111', 3,
                                  '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
 
         node_group = TestNodeGroup(
-            'slave', [server], ["DATANODE", "NODEMANAGER"])
+            'subordinate', [server], ["DATANODE", "NODEMANAGER"])
         node_group2 = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "AMBARI_SERVER", "ZOOKEEPER_SERVER",
                                   "HISTORYSERVER"])
 
@@ -1714,21 +1714,21 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
 
     def test_get_deployed_node_group_count(self, patched):
 
-        server = base.TestServer('host1', 'slave', '11111', 3,
+        server = base.TestServer('host1', 'subordinate', '11111', 3,
                                  '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
 
-        slave_group = TestNodeGroup(
-            'slave', [server], ["DATANODE", "NODEMANAGER"])
-        slave2_group = TestNodeGroup(
-            'slave2', [server], ["DATANODE", "NODEMANAGER"])
-        master_group = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+        subordinate_group = TestNodeGroup(
+            'subordinate', [server], ["DATANODE", "NODEMANAGER"])
+        subordinate2_group = TestNodeGroup(
+            'subordinate2', [server], ["DATANODE", "NODEMANAGER"])
+        main_group = TestNodeGroup(
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "HISTORYSERVER", "AMBARI_SERVER",
                                   "ZOOKEEPER_SERVER"])
 
-        cluster = base.TestCluster([master_group, slave_group, slave2_group])
+        cluster = base.TestCluster([main_group, subordinate_group, subordinate2_group])
         cluster_config = base.create_clusterspec(hdp_version='2.0.6')
         cluster_config.create_operational_config(cluster, [])
 
@@ -1738,21 +1738,21 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             'AMBARI_SERVER'))
 
     def test_get_node_groups_containing_component(self, patched):
-        server = base.TestServer('host1', 'slave', '11111', 3,
+        server = base.TestServer('host1', 'subordinate', '11111', 3,
                                  '111.11.1111', '222.22.2222')
-        server2 = base.TestServer('host2', 'master', '11112', 3,
+        server2 = base.TestServer('host2', 'main', '11112', 3,
                                   '111.11.1112', '222.22.2223')
 
-        slave_group = TestNodeGroup(
-            'slave', [server], ["DATANODE", "NODEMANAGER"])
-        slave2_group = TestNodeGroup(
-            'slave2', [server], ["DATANODE", "NODEMANAGER"])
-        master_group = TestNodeGroup(
-            'master', [server2], ["NAMENODE", "RESOURCEMANAGER",
+        subordinate_group = TestNodeGroup(
+            'subordinate', [server], ["DATANODE", "NODEMANAGER"])
+        subordinate2_group = TestNodeGroup(
+            'subordinate2', [server], ["DATANODE", "NODEMANAGER"])
+        main_group = TestNodeGroup(
+            'main', [server2], ["NAMENODE", "RESOURCEMANAGER",
                                   "HISTORYSERVER", "AMBARI_SERVER",
                                   "ZOOKEEPER_SERVER"])
 
-        cluster = base.TestCluster([master_group, slave_group, slave2_group])
+        cluster = base.TestCluster([main_group, subordinate_group, subordinate2_group])
         cluster_config = base.create_clusterspec(hdp_version='2.0.6')
         cluster_config.create_operational_config(cluster, [])
 
@@ -1760,31 +1760,31 @@ class ClusterSpecTestForHDP2(sahara_base.SaharaTestCase):
             'DATANODE')
         self.assertEqual(2, len(datanode_ngs))
         ng_names = set([datanode_ngs[0].name, datanode_ngs[1].name])
-        self.assertIn('slave', ng_names)
-        self.assertIn('slave2', ng_names)
+        self.assertIn('subordinate', ng_names)
+        self.assertIn('subordinate2', ng_names)
 
     def test_get_components_for_type(self, patched):
 
         cluster_config = base.create_clusterspec(hdp_version='2.0.6')
         clients = cluster_config.get_components_for_type('CLIENT')
-        slaves = cluster_config.get_components_for_type('SLAVE')
-        masters = cluster_config.get_components_for_type('MASTER')
+        subordinates = cluster_config.get_components_for_type('SLAVE')
+        mains = cluster_config.get_components_for_type('MASTER')
 
         expected_clients = set(['HCAT', 'ZOOKEEPER_CLIENT',
                                 'MAPREDUCE2_CLIENT', 'HIVE_CLIENT',
                                 'HDFS_CLIENT', 'PIG', 'YARN_CLIENT', 'HUE'])
         self.assertEqual(expected_clients, expected_clients & set(clients))
 
-        expected_slaves = set(['AMBARI_AGENT', 'NODEMANAGER', 'DATANODE',
+        expected_subordinates = set(['AMBARI_AGENT', 'NODEMANAGER', 'DATANODE',
                                'GANGLIA_MONITOR'])
-        self.assertEqual(expected_slaves, expected_slaves & set(slaves))
+        self.assertEqual(expected_subordinates, expected_subordinates & set(subordinates))
 
-        expected_masters = set(['SECONDARY_NAMENODE', 'HIVE_METASTORE',
+        expected_mains = set(['SECONDARY_NAMENODE', 'HIVE_METASTORE',
                                 'AMBARI_SERVER', 'RESOURCEMANAGER',
                                 'WEBHCAT_SERVER', 'NAGIOS_SERVER',
                                 'MYSQL_SERVER', 'ZOOKEEPER_SERVER',
                                 'NAMENODE', 'HIVE_SERVER', 'GANGLIA_SERVER'])
-        self.assertEqual(expected_masters, expected_masters & set(masters))
+        self.assertEqual(expected_mains, expected_mains & set(mains))
 
     def _assert_services(self, services):
         found_services = []

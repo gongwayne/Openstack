@@ -64,7 +64,7 @@ class TestJobExecCreateValidation(u.ValidationTestCase):
 
         get_data_source.side_effect = lambda ctx, x: data_sources[x]
 
-        ng = tu.make_ng_dict('master', 42, ['oozie'], 1,
+        ng = tu.make_ng_dict('main', 42, ['oozie'], 1,
                              instances=[tu.make_inst_dict('id', 'name')])
         get_cluster.return_value = tu.create_cluster("cluster", "tenant1",
                                                      "vanilla", "2.7.1", [ng])
@@ -115,7 +115,7 @@ class TestJobExecCreateValidation(u.ValidationTestCase):
 
         get_data_source.side_effect = lambda ctx, x: data_sources[x]
 
-        ng = tu.make_ng_dict('master', 42, ['oozie'], 1,
+        ng = tu.make_ng_dict('main', 42, ['oozie'], 1,
                              instances=[tu.make_inst_dict('id', 'name')])
         get_cluster.return_value = tu.create_cluster("cluster", "tenant1",
                                                      "vanilla", "2.7.1", [ng])
@@ -160,7 +160,7 @@ class TestJobExecCreateValidation(u.ValidationTestCase):
         get_job.return_value = mock.Mock(type=edp.JOB_TYPE_PIG, libs=[],
                                          interface=[])
 
-        ng = tu.make_ng_dict('master', 42, ['namenode'], 1,
+        ng = tu.make_ng_dict('main', 42, ['namenode'], 1,
                              instances=[tu.make_inst_dict('id', 'name')])
         get_cluster.return_value = tu.create_cluster("cluster", "tenant1",
                                                      "vanilla", "2.7.1", [ng])
@@ -186,13 +186,13 @@ class TestJobExecCreateValidation(u.ValidationTestCase):
         # because it calls start_patch() and will override our setting
         job = mock.Mock(type=edp.JOB_TYPE_SPARK, mains=["main"], interface=[])
         get_job.return_value = job
-        ng = tu.make_ng_dict('master', 42, [], 1,
+        ng = tu.make_ng_dict('main', 42, [], 1,
                              instances=[tu.make_inst_dict('id', 'name')])
         get_cluster.return_value = tu.create_cluster("cluster", "tenant1",
                                                      "spark", "1.3.1", [ng])
 
         # Everything is okay, spark cluster supports EDP by default
-        # because cluster requires a master and slaves >= 1
+        # because cluster requires a main and subordinates >= 1
         wrap_it(data={"cluster_id": six.text_type(uuid.uuid4()),
                       "job_configs": {
                           "configs": {
@@ -203,7 +203,7 @@ class TestJobExecCreateValidation(u.ValidationTestCase):
     def test_edp_main_class_java(self, job_get, cluster_get):
         job_get.return_value = mock.Mock(type=edp.JOB_TYPE_JAVA,
                                          interface=[])
-        ng = tu.make_ng_dict('master', 42, ['namenode', 'oozie'], 1,
+        ng = tu.make_ng_dict('main', 42, ['namenode', 'oozie'], 1,
                              instances=[tu.make_inst_dict('id', 'name')])
         cluster_get.return_value = tu.create_cluster("cluster", "tenant1",
                                                      "vanilla", "2.7.1", [ng])
@@ -250,7 +250,7 @@ class TestJobExecCreateValidation(u.ValidationTestCase):
     def test_edp_main_class_spark(self, job_get, cluster_get):
         job_get.return_value = mock.Mock(type=edp.JOB_TYPE_SPARK,
                                          interface=[])
-        ng = tu.make_ng_dict('master', 42, ['namenode'], 1,
+        ng = tu.make_ng_dict('main', 42, ['namenode'], 1,
                              instances=[tu.make_inst_dict('id', 'name')])
         cluster_get.return_value = tu.create_cluster("cluster", "tenant1",
                                                      "spark", "1.3.1", [ng])

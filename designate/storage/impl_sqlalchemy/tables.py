@@ -140,7 +140,7 @@ zone_attributes = Table('zone_attributes', metadata,
     mysql_charset='utf8'
 )
 
-zone_masters = Table('zone_masters', metadata,
+zone_mains = Table('zone_mains', metadata,
     Column('id', UUID(), default=utils.generate_uuid, primary_key=True),
     Column('version', Integer(), default=1, nullable=False),
     Column('created_at', DateTime, default=lambda: timeutils.utcnow()),
@@ -150,7 +150,7 @@ zone_masters = Table('zone_masters', metadata,
     Column('port', Integer(), nullable=False),
     Column('zone_id', UUID(), nullable=False),
 
-    UniqueConstraint('host', 'port', 'zone_id', name='unique_masters'),
+    UniqueConstraint('host', 'port', 'zone_id', name='unique_mains'),
     ForeignKeyConstraint(['zone_id'], ['zones.id'], ondelete='CASCADE'),
 
     mysql_engine='InnoDB',
@@ -332,7 +332,7 @@ pool_targets = Table('pool_targets', metadata,
     mysql_charset='utf8',
 )
 
-pool_target_masters = Table('pool_target_masters', metadata,
+pool_target_mains = Table('pool_target_mains', metadata,
     Column('id', UUID, default=utils.generate_uuid, primary_key=True),
     Column('version', Integer(), default=1, nullable=False),
     Column('created_at', DateTime, default=lambda: timeutils.utcnow()),

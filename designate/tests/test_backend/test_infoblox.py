@@ -40,9 +40,9 @@ class InfobloxBackendTestCase(BackendTestCase):
                     password=None,
                     ns_group=None)
 
-    def get_target_fixture(self, masters=None, options=None):
-        if not masters:
-            masters = [{'host': '1.1.1.1', 'port': 53}]
+    def get_target_fixture(self, mains=None, options=None):
+        if not mains:
+            mains = [{'host': '1.1.1.1', 'port': 53}]
 
         if not options:
             options = [{'key': 'wapi_url', 'value': 'test'},
@@ -53,7 +53,7 @@ class InfobloxBackendTestCase(BackendTestCase):
         return objects.PoolTarget.from_dict({
             'id': '4588652b-50e7-46b9-b688-a9bad40a873e',
             'type': 'infoblox',
-            'masters': masters,
+            'mains': mains,
             'options': options
         })
 
@@ -131,8 +131,8 @@ class InfobloxBackendTestCase(BackendTestCase):
                               self.set_up_backend, target)
 
     def test_wrong_port(self):
-        masters = [{'host': '1.1.1.1', 'port': 100}]
-        target = self.get_target_fixture(masters=masters)
+        mains = [{'host': '1.1.1.1', 'port': 100}]
+        target = self.get_target_fixture(mains=mains)
         six.assertRaisesRegex(self, ConfigurationError,
                               "port 53",
                               self.set_up_backend, target)

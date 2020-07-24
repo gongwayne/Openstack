@@ -48,7 +48,7 @@ class SparkProvider(p.ProvisioningPluginBase):
     def __init__(self):
         self.processes = {
             "HDFS": ["namenode", "datanode"],
-            "Spark": ["master", "slave"]
+            "Spark": ["main", "subordinate"]
         }
 
     def get_title(self):
@@ -89,18 +89,18 @@ class SparkProvider(p.ProvisioningPluginBase):
                   'than %(replication)s')
                 % {'dn': 'datanode', 'replication': 'dfs.replication'})
 
-        # validate Spark Master Node and Spark Slaves
+        # validate Spark Main Node and Spark Subordinates
         sm_count = sum([ng.count for ng
-                        in utils.get_node_groups(cluster, "master")])
+                        in utils.get_node_groups(cluster, "main")])
 
         if sm_count != 1:
-            raise ex.RequiredServiceMissingException("Spark master")
+            raise ex.RequiredServiceMissingException("Spark main")
 
         sl_count = sum([ng.count for ng
-                        in utils.get_node_groups(cluster, "slave")])
+                        in utils.get_node_groups(cluster, "subordinate")])
 
         if sl_count < 1:
-            raise ex.InvalidComponentCountException("Spark slave",
+            raise ex.InvalidComponentCountException("Spark subordinate",
                                                     _("1 or more"),
                                                     sl_count)
 
@@ -118,15 +118,15 @@ class SparkProvider(p.ProvisioningPluginBase):
             run.start_processes(r, "namenode")
 
     def start_spark(self, cluster):
-        sm_instance = utils.get_instance(cluster, "master")
+        sm_instance = utils.get_instance(cluster, "main")
         if sm_instance:
             self._start_spark(cluster, sm_instance)
 
     @cpo.event_wrapper(
-        True, step=utils.start_process_event_message("SparkMasterNode"))
+        True, step=utils.start_process_event_message("SparkMainNode"))
     def _start_spark(self, cluster, sm_instance):
         with remote.get_remote(sm_instance) as r:
-            run.start_spark_master(r, self._spark_home(cluster))
+            run.start_spark_main(r, self._spark_home(cluster))
             LOG.info(_LI("Spark service has been started"))
 
     def start_cluster(self, cluster):
@@ -160,22 +160,22 @@ class SparkProvider(p.ProvisioningPluginBase):
                                                  cluster)
 
     def _extract_configs_to_extra(self, cluster):
-        sp_master = utils.get_instance(cluster, "master")
-        sp_slaves = utils.get_instances(cluster, "slave")
+        sp_main = utils.get_instance(cluster, "main")
+        sp_subordinates = utils.get_instances(cluster, "subordinate")
 
         extra = dict()
 
-        config_master = config_slaves = ''
-        if sp_master is not None:
-            config_master = c_helper.generate_spark_env_configs(cluster)
+        config_main = config_subordinates = ''
+        if sp_main is not None:
+            config_main = c_helper.generate_spark_env_configs(cluster)
 
-        if sp_slaves is not None:
-            slavenames = []
-            for slave in sp_slaves:
-                slavenames.append(slave.hostname())
-            config_slaves = c_helper.generate_spark_slaves_configs(slavenames)
+        if sp_subordinates is not None:
+            subordinatenames = []
+            for subordinate in sp_subordinates:
+                subordinatenames.append(subordinate.hostname())
+            config_subordinates = c_helper.generate_spark_subordinates_configs(subordinatenames)
         else:
-            config_slaves = "\n"
+            config_subordinates = "\n"
 
         # Any node that might be used to run spark-submit will need
         # these libs for swift integration
@@ -183,8 +183,8 @@ class SparkProvider(p.ProvisioningPluginBase):
 
         extra['job_cleanup'] = c_helper.generate_job_cleanup_config(cluster)
 
-        extra['sp_master'] = config_master
-        extra['sp_slaves'] = config_slaves
+        extra['sp_main'] = config_main
+        extra['sp_subordinates'] = config_subordinates
         extra['sp_defaults'] = config_defaults
 
         if c_helper.is_data_locality_enabled(cluster):
@@ -262,8 +262,8 @@ class SparkProvider(p.ProvisioningPluginBase):
 
         sp_home = self._spark_home(cluster)
         files_spark = {
-            os.path.join(sp_home, 'conf/spark-env.sh'): extra['sp_master'],
-            os.path.join(sp_home, 'conf/slaves'): extra['sp_slaves'],
+            os.path.join(sp_home, 'conf/spark-env.sh'): extra['sp_main'],
+            os.path.join(sp_home, 'conf/subordinates'): extra['sp_subordinates'],
             os.path.join(sp_home,
                          'conf/spark-defaults.conf'): extra['sp_defaults']
         }
@@ -321,7 +321,7 @@ class SparkProvider(p.ProvisioningPluginBase):
                 )
 
             self._write_topology_data(r, cluster, extra)
-            self._push_master_configs(r, cluster, extra, instance)
+            self._push_main_configs(r, cluster, extra, instance)
             self._push_cleanup_job(r, cluster, extra, instance)
 
     @cpo.event_wrapper(mark_successful_on_exit=True)
@@ -329,15 +329,15 @@ class SparkProvider(p.ProvisioningPluginBase):
         node_processes = instance.node_group.node_processes
         need_update_hadoop = (c_helper.is_data_locality_enabled(cluster) or
                               'namenode' in node_processes)
-        need_update_spark = ('master' in node_processes or
-                             'slave' in node_processes)
+        need_update_spark = ('main' in node_processes or
+                             'subordinate' in node_processes)
 
         if need_update_spark:
             sp_home = self._spark_home(cluster)
             files = {
                 os.path.join(sp_home,
-                             'conf/spark-env.sh'): extra['sp_master'],
-                os.path.join(sp_home, 'conf/slaves'): extra['sp_slaves'],
+                             'conf/spark-env.sh'): extra['sp_main'],
+                os.path.join(sp_home, 'conf/subordinates'): extra['sp_subordinates'],
                 os.path.join(
                     sp_home,
                     'conf/spark-defaults.conf'): extra['sp_defaults']
@@ -348,21 +348,21 @@ class SparkProvider(p.ProvisioningPluginBase):
         if need_update_hadoop:
             with remote.get_remote(instance) as r:
                 self._write_topology_data(r, cluster, extra)
-                self._push_master_configs(r, cluster, extra, instance)
+                self._push_main_configs(r, cluster, extra, instance)
 
     def _write_topology_data(self, r, cluster, extra):
         if c_helper.is_data_locality_enabled(cluster):
             topology_data = extra['topology_data']
             r.write_file_to('/etc/hadoop/topology.data', topology_data)
 
-    def _push_master_configs(self, r, cluster, extra, instance):
+    def _push_main_configs(self, r, cluster, extra, instance):
         node_processes = instance.node_group.node_processes
         if 'namenode' in node_processes:
             self._push_namenode_configs(cluster, r)
 
     def _push_cleanup_job(self, r, cluster, extra, instance):
         node_processes = instance.node_group.node_processes
-        if 'master' in node_processes:
+        if 'main' in node_processes:
             if extra['job_cleanup']['valid']:
                 r.write_file_to('/etc/hadoop/tmp-cleanup.sh',
                                 extra['job_cleanup']['script'])
@@ -381,7 +381,7 @@ class SparkProvider(p.ProvisioningPluginBase):
 
     def _set_cluster_info(self, cluster):
         nn = utils.get_instance(cluster, "namenode")
-        sp_master = utils.get_instance(cluster, "master")
+        sp_main = utils.get_instance(cluster, "main")
         info = {}
 
         if nn:
@@ -393,12 +393,12 @@ class SparkProvider(p.ProvisioningPluginBase):
             }
             info['HDFS']['NameNode'] = 'hdfs://%s:8020' % nn.hostname()
 
-        if sp_master:
+        if sp_main:
             port = utils.get_config_value_or_default(
-                'Spark', 'Master webui port', cluster)
+                'Spark', 'Main webui port', cluster)
             if port is not None:
                 info['Spark'] = {
-                    'Web UI': 'http://%s:%s' % (sp_master.management_ip, port)
+                    'Web UI': 'http://%s:%s' % (sp_main.management_ip, port)
                 }
         ctx = context.ctx()
         conductor.cluster_update(ctx, cluster, {'info': info})
@@ -410,7 +410,7 @@ class SparkProvider(p.ProvisioningPluginBase):
         self._validate_additional_ng_scaling(cluster, additional)
 
     def decommission_nodes(self, cluster, instances):
-        sls = utils.get_instances(cluster, "slave")
+        sls = utils.get_instances(cluster, "subordinate")
         dns = utils.get_instances(cluster, "datanode")
         decommission_dns = False
         decommission_sls = False
@@ -419,23 +419,23 @@ class SparkProvider(p.ProvisioningPluginBase):
             if 'datanode' in i.node_group.node_processes:
                 dns.remove(i)
                 decommission_dns = True
-            if 'slave' in i.node_group.node_processes:
+            if 'subordinate' in i.node_group.node_processes:
                 sls.remove(i)
                 decommission_sls = True
 
         nn = utils.get_instance(cluster, "namenode")
-        spark_master = utils.get_instance(cluster, "master")
+        spark_main = utils.get_instance(cluster, "main")
 
         if decommission_sls:
-            sc.decommission_sl(spark_master, instances, sls)
+            sc.decommission_sl(spark_main, instances, sls)
         if decommission_dns:
             sc.decommission_dn(nn, instances, dns)
 
     def scale_cluster(self, cluster, instances):
-        master = utils.get_instance(cluster, "master")
-        r_master = remote.get_remote(master)
+        main = utils.get_instance(cluster, "main")
+        r_main = remote.get_remote(main)
 
-        run.stop_spark(r_master, self._spark_home(cluster))
+        run.stop_spark(r_main, self._spark_home(cluster))
 
         self._setup_instances(cluster, instances)
         nn = utils.get_instance(cluster, "namenode")
@@ -445,11 +445,11 @@ class SparkProvider(p.ProvisioningPluginBase):
         self._start_datanode_processes(dn_instances)
 
         swift_helper.install_ssl_certs(instances)
-        run.start_spark_master(r_master, self._spark_home(cluster))
-        LOG.info(_LI("Spark master service has been restarted"))
+        run.start_spark_main(r_main, self._spark_home(cluster))
+        LOG.info(_LI("Spark main service has been restarted"))
 
     def _get_scalable_processes(self):
-        return ["datanode", "slave"]
+        return ["datanode", "subordinate"]
 
     def _validate_additional_ng_scaling(self, cluster, additional):
         scalable_processes = self._get_scalable_processes()
@@ -524,14 +524,14 @@ class SparkProvider(p.ProvisioningPluginBase):
         ports_map = {
             'namenode': [8020, 50070, 50470],
             'datanode': [50010, 1004, 50075, 1006, 50020],
-            'master': [
-                int(utils.get_config_value_or_default("Spark", "Master port",
+            'main': [
+                int(utils.get_config_value_or_default("Spark", "Main port",
                                                       cluster)),
                 int(utils.get_config_value_or_default("Spark",
-                                                      "Master webui port",
+                                                      "Main webui port",
                                                       cluster)),
             ],
-            'slave': [
+            'subordinate': [
                 int(utils.get_config_value_or_default("Spark",
                                                       "Worker webui port",
                                                       cluster))

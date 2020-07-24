@@ -149,7 +149,7 @@ def _finish_cluster_starting(cluster):
     if CU.pu.get_hive_metastore(cluster):
         CU.pu.put_hive_hdfs_xml(cluster)
 
-    server = CU.pu.get_hbase_master(cluster)
+    server = CU.pu.get_hbase_main(cluster)
     if CU.pu.c_helper.is_hbase_common_lib_enabled(cluster) and server:
         with server.remote() as r:
             h.create_hbase_common_lib(r)

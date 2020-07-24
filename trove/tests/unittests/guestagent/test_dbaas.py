@@ -1220,7 +1220,7 @@ class MySqlAppTest(trove_testtools.TestCase):
         args, _ = self.mock_execute.call_args_list[0]
         expected = ("SHOW MASTER STATUS")
         self.assertEqual(expected, args[0],
-                         "Master status queries are not the same")
+                         "Main status queries are not the same")
 
     @patch.object(dbaas, 'get_engine',
                   return_value=MagicMock(name='get_engine'))
@@ -1235,11 +1235,11 @@ class MySqlAppTest(trove_testtools.TestCase):
 
     @patch.object(dbaas, 'get_engine',
                   return_value=MagicMock(name='get_engine'))
-    @patch.object(dbaas.MySqlApp, '_wait_for_slave_status')
-    def test_start_slave(self, *args):
+    @patch.object(dbaas.MySqlApp, '_wait_for_subordinate_status')
+    def test_start_subordinate(self, *args):
         with patch.object(dbaas.MySqlApp, 'local_sql_client',
                           return_value=self.mock_client):
-            self.mySqlApp.start_slave()
+            self.mySqlApp.start_subordinate()
         args, _ = self.mock_execute.call_args_list[0]
         expected = ("START SLAVE")
         self.assertEqual(expected, args[0],
@@ -1247,13 +1247,13 @@ class MySqlAppTest(trove_testtools.TestCase):
 
     @patch.object(dbaas, 'get_engine',
                   return_value=MagicMock(name='get_engine'))
-    @patch.object(dbaas.MySqlApp, '_wait_for_slave_status')
-    def test_stop_slave_with_failover(self, *args):
+    @patch.object(dbaas.MySqlApp, '_wait_for_subordinate_status')
+    def test_stop_subordinate_with_failover(self, *args):
         self.mock_execute.return_value.first = Mock(
-            return_value={'Master_User': 'root'})
+            return_value={'Main_User': 'root'})
         with patch.object(dbaas.MySqlApp, 'local_sql_client',
                           return_value=self.mock_client):
-            result = self.mySqlApp.stop_slave(True)
+            result = self.mySqlApp.stop_subordinate(True)
         self.assertEqual('root', result['replication_user'])
 
         expected = ["SHOW SLAVE STATUS", "STOP SLAVE", "RESET SLAVE ALL"]
@@ -1265,13 +1265,13 @@ class MySqlAppTest(trove_testtools.TestCase):
 
     @patch.object(dbaas, 'get_engine',
                   return_value=MagicMock(name='get_engine'))
-    @patch.object(dbaas.MySqlApp, '_wait_for_slave_status')
-    def test_stop_slave_without_failover(self, *args):
+    @patch.object(dbaas.MySqlApp, '_wait_for_subordinate_status')
+    def test_stop_subordinate_without_failover(self, *args):
         self.mock_execute.return_value.first = Mock(
-            return_value={'Master_User': 'root'})
+            return_value={'Main_User': 'root'})
         with patch.object(dbaas.MySqlApp, 'local_sql_client',
                           return_value=self.mock_client):
-            result = self.mySqlApp.stop_slave(False)
+            result = self.mySqlApp.stop_subordinate(False)
         self.assertEqual('root', result['replication_user'])
 
         expected = ["SHOW SLAVE STATUS", "STOP SLAVE", "RESET SLAVE ALL",
@@ -1284,10 +1284,10 @@ class MySqlAppTest(trove_testtools.TestCase):
 
     @patch.object(dbaas, 'get_engine',
                   return_value=MagicMock(name='get_engine'))
-    def test_stop_master(self, *args):
+    def test_stop_main(self, *args):
         with patch.object(dbaas.MySqlApp, 'local_sql_client',
                           return_value=self.mock_client):
-            self.mySqlApp.stop_master()
+            self.mySqlApp.stop_main()
         args, _ = self.mock_execute.call_args_list[0]
         expected = ("RESET MASTER")
         self.assertEqual(expected, args[0],
@@ -1295,33 +1295,33 @@ class MySqlAppTest(trove_testtools.TestCase):
 
     @patch.object(dbaas, 'get_engine',
                   return_value=MagicMock(name='get_engine'))
-    def test__wait_for_slave_status(self, *args):
+    def test__wait_for_subordinate_status(self, *args):
         mock_client = Mock()
         mock_client.execute = Mock()
-        result = ['Slave_running', 'on']
+        result = ['Subordinate_running', 'on']
         mock_client.execute.return_value.first = Mock(return_value=result)
-        self.mySqlApp._wait_for_slave_status('ON', mock_client, 5)
+        self.mySqlApp._wait_for_subordinate_status('ON', mock_client, 5)
         args, _ = mock_client.execute.call_args_list[0]
-        expected = ("SHOW GLOBAL STATUS like 'slave_running'")
+        expected = ("SHOW GLOBAL STATUS like 'subordinate_running'")
         self.assertEqual(expected, args[0],
                          "Sql statements are not the same")
 
     @patch.object(dbaas, 'get_engine',
                   return_value=MagicMock(name='get_engine'))
     @patch.object(utils, 'poll_until', side_effect=PollTimeOut)
-    def test_fail__wait_for_slave_status(self, *args):
+    def test_fail__wait_for_subordinate_status(self, *args):
         self.assertRaisesRegexp(RuntimeError,
                                 "Replication is not on after 5 seconds.",
-                                self.mySqlApp._wait_for_slave_status, 'ON',
+                                self.mySqlApp._wait_for_subordinate_status, 'ON',
                                 Mock(), 5)
 
     @patch.object(dbaas, 'get_engine',
                   return_value=MagicMock(name='get_engine'))
-    def test__get_slave_status(self, *args):
+    def test__get_subordinate_status(self, *args):
         self.mock_execute.return_value.first = Mock(return_value='some_thing')
         with patch.object(dbaas.MySqlApp, 'local_sql_client',
                           return_value=self.mock_client):
-            result = self.mySqlApp._get_slave_status()
+            result = self.mySqlApp._get_subordinate_status()
         self.assertEqual('some_thing', result)
         args, _ = self.mock_execute.call_args_list[0]
         expected = ("SHOW SLAVE STATUS")

@@ -848,10 +848,10 @@ class WhenCreatingSubordinateCAs(database_utils.RepositoryTestCase):
         expiration = (datetime.datetime.utcnow() +
                       datetime.timedelta(minutes=10))
         parsed_ca = {'plugin_name': self.plugin_name,
-                     'plugin_ca_id': 'ca_master',
+                     'plugin_ca_id': 'ca_main',
                      'expiration': expiration.isoformat(),
                      'name': 'Dogtag CA',
-                     'description': 'Master CA for Dogtag plugin',
+                     'description': 'Main CA for Dogtag plugin',
                      'ca_signing_certificate': 'XXXXX',
                      'intermediates': 'YYYYY'}
 

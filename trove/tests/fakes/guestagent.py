@@ -351,11 +351,11 @@ class FakeGuest(object):
                 'snapshot_id': None
             },
             'replication_strategy': 'replication_strategy',
-            'master': '1',
+            'main': '1',
             'log_position': '100'
         }
 
-    def attach_replication_slave(self, snapshot, slave_config):
+    def attach_replication_subordinate(self, snapshot, subordinate_config):
         pass
 
     def backup_required_for_replication(self):

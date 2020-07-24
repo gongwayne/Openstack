@@ -27,17 +27,17 @@ class WhenTestingCertificateAuthorityRepo(database_utils.RepositoryTestCase):
         expiration = (datetime.datetime.utcnow() +
                       datetime.timedelta(minutes=10))
         self.parsed_ca = {'plugin_name': 'dogtag_plugin',
-                          'plugin_ca_id': 'ca_master',
+                          'plugin_ca_id': 'ca_main',
                           'name': 'Dogtag CA',
                           'expiration': expiration.isoformat(),
-                          'description': 'Master CA for Dogtag plugin',
+                          'description': 'Main CA for Dogtag plugin',
                           'ca_signing_certificate': 'XXXXX',
                           'intermediates': 'YYYYY'}
         self.parsed_ca2 = {'plugin_name': 'symantec_plugin',
-                           'plugin_ca_id': 'ca_master_2',
+                           'plugin_ca_id': 'ca_main_2',
                            'name': 'Symantec CA2',
                            'expiration': expiration.isoformat(),
-                           'description': 'Master CA for Dogtag plugin2',
+                           'description': 'Main CA for Dogtag plugin2',
                            'ca_signing_certificate': 'XXXXX',
                            'intermediates': 'YYYYY'}
 
@@ -185,17 +185,17 @@ class WhenTestingProjectCARepo(database_utils.RepositoryTestCase):
         expiration = (datetime.datetime.utcnow() +
                       datetime.timedelta(minutes=10))
         self.parsed_ca = {'plugin_name': 'dogtag_plugin',
-                          'plugin_ca_id': 'ca_master',
+                          'plugin_ca_id': 'ca_main',
                           'expiration': expiration.isoformat(),
                           'name': 'Dogtag CA',
-                          'description': 'Master CA for Dogtag plugin',
+                          'description': 'Main CA for Dogtag plugin',
                           'ca_signing_certificate': 'XXXXX',
                           'intermediates': 'YYYYY'}
         self.parsed_ca2 = {'plugin_name': 'symantec_plugin',
-                           'plugin_ca_id': 'ca_master_2',
+                           'plugin_ca_id': 'ca_main_2',
                            'expiration': expiration.isoformat(),
                            'name': 'Symantec CA2',
-                           'description': 'Master CA for Dogtag plugin2',
+                           'description': 'Main CA for Dogtag plugin2',
                            'ca_signing_certificate': 'XXXXX',
                            'intermediates': 'YYYYY'}
 
@@ -311,27 +311,27 @@ class WhenTestingPreferredCARepo(database_utils.RepositoryTestCase):
         expiration_later = (datetime.datetime.utcnow() +
                             datetime.timedelta(days=10))
         self.parsed_ca = {'plugin_name': 'dogtag_plugin',
-                          'plugin_ca_id': 'ca_master',
+                          'plugin_ca_id': 'ca_main',
                           'expiration': expiration.isoformat(),
                           'name': 'Dogtag CA',
-                          'description': 'Master CA for Dogtag plugin',
+                          'description': 'Main CA for Dogtag plugin',
                           'ca_signing_certificate': 'XXXXX',
                           'intermediates': 'YYYYY'}
 
         self.parsed_ca2 = {'plugin_name': 'symantec_plugin',
-                           'plugin_ca_id': 'ca_master_2',
+                           'plugin_ca_id': 'ca_main_2',
                            'expiration': expiration.isoformat(),
                            'name': 'Symantec CA2',
-                           'description': 'Master CA for Dogtag plugin2',
+                           'description': 'Main CA for Dogtag plugin2',
                            'ca_signing_certificate': 'XXXXX',
                            'intermediates': 'YYYYY'}
 
         self.parsed_modified_ca = {
             'plugin_name': 'dogtag_plugin',
-            'plugin_ca_id': 'ca_master',
+            'plugin_ca_id': 'ca_main',
             'expiration': expiration_later.isoformat(),
             'name': 'Dogtag CA',
-            'description': 'Updated Master CA for Dogtag plugin',
+            'description': 'Updated Main CA for Dogtag plugin',
             'ca_signing_certificate': 'XXXXX-updated-XXXXX',
             'intermediates': 'YYYYY'}
 

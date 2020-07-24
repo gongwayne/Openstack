@@ -160,11 +160,11 @@ class HBSDFCDriver(cinder.volume.driver.FibreChannelDriver):
                 if added_hostgroup:
                     self._delete_hostgroup(port, gid, host_grp_name)
 
-    def add_hostgroup_master(self, hgs, master_wwns, host_ip, security_ports):
+    def add_hostgroup_main(self, hgs, main_wwns, host_ip, security_ports):
         target_ports = self.configuration.hitachi_target_ports
         group_request = self.configuration.hitachi_group_request
         wwns = []
-        for wwn in master_wwns:
+        for wwn in main_wwns:
             wwns.append(wwn.lower())
         if target_ports and group_request:
             host_grp_name = '%s%s' % (basic_lib.NAME_PREFIX, host_ip)
@@ -232,7 +232,7 @@ class HBSDFCDriver(cinder.volume.driver.FibreChannelDriver):
         hostgroups = []
         security_ports = self._get_hostgroup_info(
             hostgroups, properties['wwpns'], login=False)
-        self.add_hostgroup_master(hostgroups, properties['wwpns'],
+        self.add_hostgroup_main(hostgroups, properties['wwpns'],
                                   properties['ip'], security_ports)
         self.add_hostgroup_pair(self.pair_hostgroups)
 
@@ -374,7 +374,7 @@ class HBSDFCDriver(cinder.volume.driver.FibreChannelDriver):
             hostgroups = []
             security_ports = self._get_hostgroup_info(
                 hostgroups, connector['wwpns'], login=True)
-            self.add_hostgroup_master(hostgroups, connector['wwpns'],
+            self.add_hostgroup_main(hostgroups, connector['wwpns'],
                                       connector['ip'], security_ports)
 
         if src_hgs is self.pair_hostgroups:

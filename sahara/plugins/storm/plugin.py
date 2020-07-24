@@ -62,7 +62,7 @@ class StormProvider(p.ProvisioningPluginBase):
         return self.processes
 
     def validate(self, cluster):
-        # validate Storm Master Node and Storm Slaves
+        # validate Storm Main Node and Storm Subordinates
         sm_count = sum([ng.count for ng
                         in utils.get_node_groups(cluster, "nimbus")])
 
@@ -91,12 +91,12 @@ class StormProvider(p.ProvisioningPluginBase):
         # start zookeeper processes
         self._start_zookeeper_processes(zk_instances)
 
-        # start storm master
+        # start storm main
         if sm_instance:
-            self._start_storm_master(sm_instance)
+            self._start_storm_main(sm_instance)
 
-        # start storm slaves
-        self._start_slave_processes(sl_instances)
+        # start storm subordinates
+        self._start_subordinate_processes(sl_instances)
 
         LOG.info(_LI('Cluster {cluster} has been started successfully').format(
                  cluster=cluster.name))
@@ -134,59 +134,59 @@ class StormProvider(p.ProvisioningPluginBase):
         return ports
 
     def _extract_configs_to_extra(self, cluster):
-        st_master = utils.get_instance(cluster, "nimbus")
+        st_main = utils.get_instance(cluster, "nimbus")
         zk_servers = utils.get_instances(cluster, "zookeeper")
 
         extra = dict()
 
         config_instances = ''
-        if st_master is not None:
+        if st_main is not None:
             if zk_servers is not None:
                 zknames = []
                 for zk in zk_servers:
                     zknames.append(zk.hostname())
 
             config_instances = c_helper.generate_storm_config(
-                st_master.hostname(),
+                st_main.hostname(),
                 zknames)
 
         config = self._convert_dict_to_yaml(config_instances)
-        supervisor_conf = c_helper.generate_slave_supervisor_conf()
-        nimbus_ui_conf = c_helper.generate_master_supervisor_conf()
+        supervisor_conf = c_helper.generate_subordinate_supervisor_conf()
+        nimbus_ui_conf = c_helper.generate_main_supervisor_conf()
         zk_conf = c_helper.generate_zookeeper_conf()
 
         for ng in cluster.node_groups:
             extra[ng.id] = {
                 'st_instances': config,
-                'slave_sv_conf': supervisor_conf,
-                'master_sv_conf': nimbus_ui_conf,
+                'subordinate_sv_conf': supervisor_conf,
+                'main_sv_conf': nimbus_ui_conf,
                 'zk_conf': zk_conf
             }
 
         return extra
 
     @cpo.event_wrapper(
-        True, step=utils.start_process_event_message("StormMaster"))
-    def _start_storm_master(self, sm_instance):
+        True, step=utils.start_process_event_message("StormMain"))
+    def _start_storm_main(self, sm_instance):
         with remote.get_remote(sm_instance) as r:
             run.start_storm_nimbus_and_ui(r)
-            LOG.info(_LI("Storm master at {host} has been started").format(
+            LOG.info(_LI("Storm main at {host} has been started").format(
                      host=sm_instance.hostname()))
 
-    def _start_slave_processes(self, sl_instances):
+    def _start_subordinate_processes(self, sl_instances):
         if len(sl_instances) == 0:
             return
         cpo.add_provisioning_step(
             sl_instances[0].cluster_id,
-            utils.start_process_event_message("Slave"), len(sl_instances))
+            utils.start_process_event_message("Subordinate"), len(sl_instances))
 
         with context.ThreadGroup() as tg:
             for i in sl_instances:
                 tg.spawn('storm-start-sl-%s' % i.instance_name,
-                         self._start_slaves, i)
+                         self._start_subordinates, i)
 
     @cpo.event_wrapper(True)
-    def _start_slaves(self, instance):
+    def _start_subordinates(self, instance):
         with instance.remote() as r:
             run.start_storm_supervisor(r)
 
@@ -248,7 +248,7 @@ class StormProvider(p.ProvisioningPluginBase):
         ng_extra = extra[instance.node_group.id]
 
         files_supervisor = {
-            '/etc/supervisor/supervisord.conf': ng_extra['slave_sv_conf']
+            '/etc/supervisor/supervisord.conf': ng_extra['subordinate_sv_conf']
         }
         files_storm = {
             '/usr/local/storm/conf/storm.yaml': ng_extra['st_instances']
@@ -256,8 +256,8 @@ class StormProvider(p.ProvisioningPluginBase):
         files_zk = {
             '/opt/zookeeper/zookeeper/conf/zoo.cfg': ng_extra['zk_conf']
         }
-        files_supervisor_master = {
-            '/etc/supervisor/supervisord.conf': ng_extra['master_sv_conf']
+        files_supervisor_main = {
+            '/etc/supervisor/supervisord.conf': ng_extra['main_sv_conf']
         }
 
         with remote.get_remote(instance) as r:
@@ -266,7 +266,7 @@ class StormProvider(p.ProvisioningPluginBase):
             if 'zookeeper' in node_processes:
                 self._push_zk_configs(r, files_zk)
             if 'nimbus' in node_processes:
-                self._push_supervisor_configs(r, files_supervisor_master)
+                self._push_supervisor_configs(r, files_supervisor_main)
             if 'supervisor' in node_processes:
                 self._push_supervisor_configs(r, files_supervisor)
 
@@ -291,14 +291,14 @@ class StormProvider(p.ProvisioningPluginBase):
             self._push_zk_configs(r, files_zookeeper)
 
     def _set_cluster_info(self, cluster):
-        st_master = utils.get_instance(cluster, "nimbus")
+        st_main = utils.get_instance(cluster, "nimbus")
         info = {}
 
-        if st_master:
+        if st_main:
             port = "8080"
 
             info['Strom'] = {
-                'Web UI': 'http://%s:%s' % (st_master.management_ip, port)
+                'Web UI': 'http://%s:%s' % (st_main.management_ip, port)
             }
         ctx = context.ctx()
         conductor.cluster_update(ctx, cluster, {'info': info})
@@ -312,17 +312,17 @@ class StormProvider(p.ProvisioningPluginBase):
     # Scaling
 
     def _get_running_topologies_names(self, cluster):
-        master = utils.get_instance(cluster, "nimbus")
+        main = utils.get_instance(cluster, "nimbus")
 
         cmd = (
             "%(storm)s -c nimbus.host=%(host)s "
             "list | grep ACTIVE | awk '{print $1}'") % (
             {
                 "storm": "/usr/local/storm/bin/storm",
-                "host": master.hostname()
+                "host": main.hostname()
             })
 
-        with remote.get_remote(master) as r:
+        with remote.get_remote(main) as r:
             ret, stdout = r.execute_command(cmd)
         names = stdout.split('\n')
         topology_names = names[0:len(names)-1]
@@ -332,18 +332,18 @@ class StormProvider(p.ProvisioningPluginBase):
                        param=('cluster', 1))
     def rebalance_topology(self, cluster):
         topology_names = self._get_running_topologies_names(cluster)
-        master = utils.get_instance(cluster, "nimbus")
+        main = utils.get_instance(cluster, "nimbus")
 
         for topology_name in topology_names:
             cmd = (
                 '%(rebalance)s -c nimbus.host=%(host)s %(topology_name)s') % (
                 {
                     "rebalance": "/usr/local/storm/bin/storm rebalance",
-                    "host": master.hostname(),
+                    "host": main.hostname(),
                     "topology_name": topology_name
                 })
 
-            with remote.get_remote(master) as r:
+            with remote.get_remote(main) as r:
                 ret, stdout = r.execute_command(cmd)
 
     def validate_scaling(self, cluster, existing, additional):
@@ -352,8 +352,8 @@ class StormProvider(p.ProvisioningPluginBase):
 
     def scale_cluster(self, cluster, instances):
         self._setup_instances(cluster, instances)
-        # start storm slaves
-        self._start_slave_processes(instances)
+        # start storm subordinates
+        self._start_subordinate_processes(instances)
         self.rebalance_topology(cluster)
         LOG.info(_LI("Storm scaling has been started."))
 

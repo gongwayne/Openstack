@@ -30,7 +30,7 @@ class TestWorkflow(base.BaseTestCase):
 
         source = dict()
         source['repository'] = "https://github.com"
-        source['revision'] = "master"
+        source['revision'] = "main"
 
         workflow = dict()
         workflow["test_cmd"] = "./unit_tests.sh"

@@ -287,7 +287,7 @@ class MySqlManager(manager.Manager):
         LOG.debug("Getting replication snapshot.")
         app = self.mysql_app(self.mysql_app_status.get())
 
-        self.replication.enable_as_master(app, replica_source_config)
+        self.replication.enable_as_main(app, replica_source_config)
 
         snapshot_id, log_position = self.replication.snapshot_for_replication(
             context, app, None, snapshot_info)
@@ -302,16 +302,16 @@ class MySqlManager(manager.Manager):
                 'snapshot_id': snapshot_id
             },
             'replication_strategy': self.replication_strategy,
-            'master': self.replication.get_master_ref(app, snapshot_info),
+            'main': self.replication.get_main_ref(app, snapshot_info),
             'log_position': log_position
         }
 
         return replication_snapshot
 
-    def enable_as_master(self, context, replica_source_config):
-        LOG.debug("Calling enable_as_master.")
+    def enable_as_main(self, context, replica_source_config):
+        LOG.debug("Calling enable_as_main.")
         app = self.mysql_app(self.mysql_app_status.get())
-        self.replication.enable_as_master(app, replica_source_config)
+        self.replication.enable_as_main(app, replica_source_config)
 
     # DEPRECATED: Maintain for API Compatibility
     def get_txn_count(self, context):
@@ -333,7 +333,7 @@ class MySqlManager(manager.Manager):
     def detach_replica(self, context, for_failover=False):
         LOG.debug("Detaching replica.")
         app = self.mysql_app(self.mysql_app_status.get())
-        replica_info = self.replication.detach_slave(app, for_failover)
+        replica_info = self.replication.detach_subordinate(app, for_failover)
         return replica_info
 
     def get_replica_context(self, context):
@@ -342,7 +342,7 @@ class MySqlManager(manager.Manager):
         replica_info = self.replication.get_replica_context(app)
         return replica_info
 
-    def _validate_slave_for_replication(self, context, replica_info):
+    def _validate_subordinate_for_replication(self, context, replica_info):
         if replica_info['replication_strategy'] != self.replication_strategy:
             raise exception.IncompatibleReplicationStrategy(
                 replica_info.update({
@@ -354,16 +354,16 @@ class MySqlManager(manager.Manager):
                 replica_info['dataset']['dataset_size']):
             raise exception.InsufficientSpaceForReplica(
                 replica_info.update({
-                    'slave_volume_size': volume_stats.get('total', 0.0)
+                    'subordinate_volume_size': volume_stats.get('total', 0.0)
                 }))
 
-    def attach_replica(self, context, replica_info, slave_config):
+    def attach_replica(self, context, replica_info, subordinate_config):
         LOG.debug("Attaching replica.")
         app = self.mysql_app(self.mysql_app_status.get())
         try:
             if 'replication_strategy' in replica_info:
-                self._validate_slave_for_replication(context, replica_info)
-            self.replication.enable_as_slave(app, replica_info, slave_config)
+                self._validate_subordinate_for_replication(context, replica_info)
+            self.replication.enable_as_subordinate(app, replica_info, subordinate_config)
         except Exception:
             LOG.exception("Error enabling replication.")
             app.status.set_status(rd_instance.ServiceStatuses.FAILED)
@@ -379,7 +379,7 @@ class MySqlManager(manager.Manager):
         self.replication.cleanup_source_on_replica_detach(self.mysql_admin(),
                                                           replica_info)
 
-    def demote_replication_master(self, context):
-        LOG.debug("Demoting replication master.")
+    def demote_replication_main(self, context):
+        LOG.debug("Demoting replication main.")
         app = self.mysql_app(self.mysql_app_status.get())
-        self.replication.demote_master(app)
+        self.replication.demote_main(app)

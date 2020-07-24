@@ -74,7 +74,7 @@ class BaseDataProcessingTest(manager.ScenarioTest):
             'floating_ip_pool': cls.floating_ip_pool
         }
 
-        cls.master_template = {
+        cls.main_template = {
             'description': 'Test node group template',
             'plugin_name': 'fake',
             'hadoop_version': '0.1',
@@ -110,7 +110,7 @@ class BaseDataProcessingTest(manager.ScenarioTest):
         }
 
         cls.external_hdfs_data_source = {
-            'url': 'hdfs://test-master-node/usr/hadoop/input-source',
+            'url': 'hdfs://test-main-node/usr/hadoop/input-source',
             'description': 'Test data source',
             'type': 'hdfs'
         }

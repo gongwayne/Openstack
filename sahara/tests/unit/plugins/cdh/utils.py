@@ -20,8 +20,8 @@ def get_fake_cluster(**kwargs):
     mng = tu.make_inst_dict('id1', 'manager_inst', management_ip='1.2.3.4')
     mng_ng = tu.make_ng_dict('manager_ng', 1, ['CLOUDERA_MANAGER'], 1, [mng])
 
-    mst = tu.make_inst_dict('id2', 'master_inst', management_ip='1.2.3.5')
-    mst_ng = tu.make_ng_dict('master_ng', 1, ['HDFS_NAMENODE',
+    mst = tu.make_inst_dict('id2', 'main_inst', management_ip='1.2.3.5')
+    mst_ng = tu.make_ng_dict('main_ng', 1, ['HDFS_NAMENODE',
                                               'HDFS_SECONDARYNAMENODE',
                                               'YARN_RESOURCEMANAGER',
                                               'YARN_JOBHISTORY',

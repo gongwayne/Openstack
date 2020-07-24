@@ -41,7 +41,7 @@ def substitute_ng_ids(cl, ng_dict):
     node_group_template_id fields that reference node group templates
     by name, substitute the node group template id for the name.
     The name reference is expected to be a string containing a format
-    specifier of the form "{name}", for example "{master}"
+    specifier of the form "{name}", for example "{main}"
 
     :param cl: a cluster template
     :param ng_dict: a dictionary of node group template ids keyed by

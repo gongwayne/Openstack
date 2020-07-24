@@ -214,7 +214,7 @@ class RedisDriverTest(testing.TestBase):
 
         self.assertRaises(errors.ConfigurationError,
                           driver.ConnectionURI,
-                          'redis://s1:not_an_integer,s2?master=obi-wan')
+                          'redis://s1:not_an_integer,s2?main=obi-wan')
 
         self.assertRaises(errors.ConfigurationError,
                           driver.ConnectionURI,
@@ -256,29 +256,29 @@ class RedisDriverTest(testing.TestBase):
         self.assertEqual(1.5, uri.socket_timeout)
 
     def test_connection_uri_sentinel(self):
-        uri = driver.ConnectionURI('redis://s1?master=dumbledore')
+        uri = driver.ConnectionURI('redis://s1?main=dumbledore')
         self.assertEqual(driver.STRATEGY_SENTINEL, uri.strategy)
         self.assertEqual([('s1', 26379)], uri.sentinels)
-        self.assertEqual('dumbledore', uri.master)
+        self.assertEqual('dumbledore', uri.main)
         self.assertEqual(0.1, uri.socket_timeout)
 
-        uri = driver.ConnectionURI('redis://s1,s2?master=dumbledore')
+        uri = driver.ConnectionURI('redis://s1,s2?main=dumbledore')
         self.assertEqual(driver.STRATEGY_SENTINEL, uri.strategy)
         self.assertEqual([('s1', 26379), ('s2', 26379)], uri.sentinels)
-        self.assertEqual('dumbledore', uri.master)
+        self.assertEqual('dumbledore', uri.main)
         self.assertEqual(0.1, uri.socket_timeout)
 
-        uri = driver.ConnectionURI('redis://s1:26389,s1?master=dumbledore')
+        uri = driver.ConnectionURI('redis://s1:26389,s1?main=dumbledore')
         self.assertEqual(driver.STRATEGY_SENTINEL, uri.strategy)
         self.assertEqual([('s1', 26389), ('s1', 26379)], uri.sentinels)
-        self.assertEqual('dumbledore', uri.master)
+        self.assertEqual('dumbledore', uri.main)
         self.assertEqual(0.1, uri.socket_timeout)
 
         uri = driver.ConnectionURI(
-            'redis://s1?master=dumbledore&socket_timeout=0.5')
+            'redis://s1?main=dumbledore&socket_timeout=0.5')
         self.assertEqual(driver.STRATEGY_SENTINEL, uri.strategy)
         self.assertEqual([('s1', 26379)], uri.sentinels)
-        self.assertEqual('dumbledore', uri.master)
+        self.assertEqual('dumbledore', uri.main)
         self.assertEqual(0.5, uri.socket_timeout)
 
 

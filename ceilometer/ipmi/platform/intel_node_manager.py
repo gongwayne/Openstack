@@ -160,16 +160,16 @@ class NodeManager(object):
             # across all pollsters
             self._inited = True
             self.nm_version = 0
-            self.channel_slave = ''
+            self.channel_subordinate = ''
 
             self.nm_version = self.check_node_manager()
 
     @staticmethod
-    def _parse_slave_and_channel(file_path):
-        """Parse the dumped file to get slave address and channel number.
+    def _parse_subordinate_and_channel(file_path):
+        """Parse the dumped file to get subordinate address and channel number.
 
         :param file_path: file path of dumped SDR file.
-        :return: slave address and channel number of target device.
+        :return: subordinate address and channel number of target device.
         """
         ret = None
         prefix = INTEL_PREFIX
@@ -177,7 +177,7 @@ class NodeManager(object):
         # discovery OEM SDR records are type C0h. It contains manufacture ID
         # and OEM data in the record body.
         # 0-2 bytes are OEM ID, byte 3 is 0Dh and byte 4 is 01h. Byte 5, 6
-        # is Intel NM device slave address and channel number/sensor owner LUN.
+        # is Intel NM device subordinate address and channel number/sensor owner LUN.
         with open(file_path, 'rb') as bin_fp:
             for line in bin_fp.readlines():
                 if line:
@@ -188,7 +188,7 @@ class NodeManager(object):
                         oem_id_index = data_str.index(prefix)
                         ret = data_str[oem_id_index + len(prefix):
                                        oem_id_index + len(prefix) + 4]
-                        # Byte 5 is slave address. [7:4] from byte 6 is channel
+                        # Byte 5 is subordinate address. [7:4] from byte 6 is channel
                         # number, so just pick ret[2] here.
                         ret = (ret[0:2], ret[2])
                         break
@@ -221,7 +221,7 @@ class NodeManager(object):
         Different from IPMI command GET_DEVICE_ID, it contains more information
         of Intel Node Manager.
         """
-        return self.channel_slave + ' ' + IPMIRAWCMD["get_device_id"]
+        return self.channel_subordinate + ' ' + IPMIRAWCMD["get_device_id"]
 
     @ipmitool.execute_ipmi_cmd(NM_GET_VERSION_TEMPLATE)
     def _node_manager_get_version(self):
@@ -234,37 +234,37 @@ class NodeManager(object):
         04h - Intel NM 2.5
         05h - Intel NM 3.0
         """
-        return self.channel_slave + ' ' + IPMIRAWCMD["get_nm_version"]
+        return self.channel_subordinate + ' ' + IPMIRAWCMD["get_nm_version"]
 
     @ipmitool.execute_ipmi_cmd(NM_STATISTICS_TEMPLATE)
     def _read_power_all(self):
         """Get the power consumption of the whole platform."""
-        return self.channel_slave + ' ' + IPMIRAWCMD['read_power_all']
+        return self.channel_subordinate + ' ' + IPMIRAWCMD['read_power_all']
 
     @ipmitool.execute_ipmi_cmd(NM_STATISTICS_TEMPLATE)
     def _read_inlet_temperature(self):
         """Get the inlet temperature info of the whole platform."""
-        return self.channel_slave + ' ' + IPMIRAWCMD['read_inlet_temperature']
+        return self.channel_subordinate + ' ' + IPMIRAWCMD['read_inlet_temperature']
 
     @ipmitool.execute_ipmi_cmd(NM_STATISTICS_TEMPLATE)
     def _read_outlet_temperature(self):
         """Get the outlet temperature info of the whole platform."""
-        return self.channel_slave + ' ' + IPMIRAWCMD['read_outlet_temperature']
+        return self.channel_subordinate + ' ' + IPMIRAWCMD['read_outlet_temperature']
 
     @ipmitool.execute_ipmi_cmd(NM_STATISTICS_TEMPLATE)
     def _read_airflow(self):
         """Get the volumetric airflow of the whole platform."""
-        return self.channel_slave + ' ' + IPMIRAWCMD['read_airflow']
+        return self.channel_subordinate + ' ' + IPMIRAWCMD['read_airflow']
 
     @ipmitool.execute_ipmi_cmd(NM_CUPS_UTILIZATION_TEMPLATE)
     def _read_cups_utilization(self):
         """Get the average CUPS utilization of the whole platform."""
-        return self.channel_slave + ' ' + IPMIRAWCMD['read_cups_utilization']
+        return self.channel_subordinate + ' ' + IPMIRAWCMD['read_cups_utilization']
 
     @ipmitool.execute_ipmi_cmd(NM_CUPS_INDEX_TEMPLATE)
     def _read_cups_index(self):
         """Get the CUPS Index of the whole platform."""
-        return self.channel_slave + ' ' + IPMIRAWCMD['read_cups_index']
+        return self.channel_subordinate + ' ' + IPMIRAWCMD['read_cups_index']
 
     def read_power_all(self):
         return self._read_power_all() if self.nm_version > 0 else {}
@@ -299,29 +299,29 @@ class NodeManager(object):
 
         raise nmexcept.NodeManagerException(_('Node Manager init failed'))
 
-    def discover_slave_channel(self):
-        """Discover target slave address and channel number."""
+    def discover_subordinate_channel(self):
+        """Discover target subordinate address and channel number."""
         file_path = tempfile.mkstemp()[1]
         self._dump_sdr_file(data_file=file_path)
-        ret = self._parse_slave_and_channel(file_path)
-        slave_address = ''.join(['0x', ret[0]])
+        ret = self._parse_subordinate_and_channel(file_path)
+        subordinate_address = ''.join(['0x', ret[0]])
         channel = ''.join(['0x', ret[1]])
-        # String of channel and slave_address
-        self.channel_slave = '-b ' + channel + ' -t ' + slave_address
+        # String of channel and subordinate_address
+        self.channel_subordinate = '-b ' + channel + ' -t ' + subordinate_address
 
     def node_manager_version(self):
         """Intel Node Manager capability checking
 
         This function is used to detect if compute node support Intel Node
         Manager(return version number) or not(return -1) and parse out the
-        slave address and channel number of node manager.
+        subordinate address and channel number of node manager.
         """
         self.manufacturer_id = self.get_device_id()['Manufacturer_ID']
         if MANUFACTURER_ID_INTEL != self.manufacturer_id:
             # If the manufacturer is not Intel, just set False and return.
             return 0
 
-        self.discover_slave_channel()
+        self.discover_subordinate_channel()
         support = self._node_manager_get_device_id()['Implemented_firmware']
         # According to Intel Node Manager spec, return value of GET_DEVICE_ID,
         # bits 3 to 0 shows if Intel NM implemented or not.

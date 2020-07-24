@@ -659,7 +659,7 @@ class AmbariClient(object):
         body_header = ('{"RequestInfo" : { "context": "Decommission DataNode",'
                        ' "command" : "DECOMMISSION", "service_name" : "HDFS",'
                        ' "component_name" : "NAMENODE", '
-                       ' "parameters" : { "slave_type" : "DATANODE", ')
+                       ' "parameters" : { "subordinate_type" : "DATANODE", ')
 
         excluded_hosts_request = '"excluded_hosts" : "{0}"'
 
@@ -693,7 +693,7 @@ class AmbariClient(object):
                   'decommission the DataNode instances that are '
                   'being shut down. '
                   'Please consult the Ambari server logs on the '
-                  'master node for '
+                  'main node for '
                   'more information about the failure.'))
         else:
             LOG.info(_LI('AmbariClient: decommission post request succeeded!'))

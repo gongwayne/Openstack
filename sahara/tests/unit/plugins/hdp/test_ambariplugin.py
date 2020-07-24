@@ -224,7 +224,7 @@ class AmbariPluginTest(sahara_base.SaharaTestCase):
             'default-cluster.template')
 
         test_host = base.TestServer(
-            'host1', 'test-master', '11111', 3, '111.11.1111',
+            'host1', 'test-main', '11111', 3, '111.11.1111',
             '222.11.1111')
 
         node_group = base.TestNodeGroup(
@@ -268,7 +268,7 @@ class AmbariPluginTest(sahara_base.SaharaTestCase):
 
     def test_get_oozie_server(self):
         test_host = base.TestServer(
-            'host1', 'test-master', '11111', 3, '111.11.1111',
+            'host1', 'test-main', '11111', 3, '111.11.1111',
             '222.11.1111')
 
         node_group = base.TestNodeGroup(

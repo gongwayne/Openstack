@@ -34,7 +34,7 @@ class TestHandler(b.SaharaTestCase):
 
     def _get_cluster(self):
         i1 = tu.make_inst_dict('id_1', 'instance_1', '1.1.1.1')
-        master_proc = [
+        main_proc = [
             yarn.RESOURCE_MANAGER.ui_name,
             yarn.NODE_MANAGER.ui_name,
             yarn.HISTORY_SERVER.ui_name,
@@ -44,7 +44,7 @@ class TestHandler(b.SaharaTestCase):
             management.ZOOKEEPER.ui_name,
         ]
 
-        master_ng = tu.make_ng_dict('master', 'large', master_proc, 1, [i1])
+        main_ng = tu.make_ng_dict('main', 'large', main_proc, 1, [i1])
         cluster_configs = {
             'Service': {
                 'key': 'value',
@@ -57,7 +57,7 @@ class TestHandler(b.SaharaTestCase):
             tenant='large',
             plugin='mapr',
             version='5.0.0.mrv2',
-            node_groups=[master_ng],
+            node_groups=[main_ng],
             cluster_configs=cluster_configs,
         )
         self.ng = cluster.node_groups[0]

@@ -20,7 +20,7 @@ from sahara.service.edp.spark import engine as shell_engine
 class ShellEngine(shell_engine.SparkShellJobEngine):
     def __init__(self, cluster):
         super(ShellEngine, self).__init__(cluster)
-        self.master = plugin_utils.get_instance(cluster, "master")
+        self.main = plugin_utils.get_instance(cluster, "main")
 
     @staticmethod
     def job_type_supported(job_type):

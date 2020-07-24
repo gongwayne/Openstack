@@ -747,7 +747,7 @@ IP_OUTPUT = """
        valid_lft forever preferred_lft forever
     inet6 ::1/128 scope host
        valid_lft forever preferred_lft forever
-2: em1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq master
+2: em1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq main
     link/ether 00:25:90:d9:18:08 brd ff:ff:ff:ff:ff:ff
     inet6 fe80::225:90ff:fed9:1808/64 scope link
        valid_lft forever preferred_lft forever
@@ -798,7 +798,7 @@ HGST_HOST_STORAGE = """
         "ipDataProviderLoaded": true,
         "ibDataProviderLoaded": false,
         "driverUptimeSecs": 4800,
-        "rVersion": "20368.d55ec22.master"
+        "rVersion": "20368.d55ec22.main"
       },
       "totalCapacityBytes": 98213822464,
       "totalUsedBytes": 3266781184,
@@ -818,7 +818,7 @@ HGST_HOST_STORAGE = """
         "ipDataProviderLoaded": true,
         "ibDataProviderLoaded": false,
         "driverUptimeSecs": 0,
-        "rVersion": "20368.d55ec22.master"
+        "rVersion": "20368.d55ec22.main"
       },
       "totalCapacityBytes": 0,
       "totalUsedBytes": 0,

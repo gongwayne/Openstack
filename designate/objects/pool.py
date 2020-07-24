@@ -104,14 +104,14 @@ class Pool(base.DictObjectMixin, base.PersistentObjectMixin,
             pool_target = {
                 'id': pool_target_id,
                 'type': CONF[pool_target_group].type,
-                'masters': [],
+                'mains': [],
                 'options': [],
             }
 
-            # Build Pool Target Masters
-            for pool_target_master in CONF[pool_target_group].masters:
-                host, port = utils.split_host_port(pool_target_master)
-                pool_target['masters'].append({
+            # Build Pool Target Mains
+            for pool_target_main in CONF[pool_target_group].mains:
+                host, port = utils.split_host_port(pool_target_main)
+                pool_target['mains'].append({
                     'host': host,
                     'port': port,
                 })

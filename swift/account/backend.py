@@ -184,7 +184,7 @@ class AccountBroker(DatabaseBroker):
         if self._db_version == -1:
             self._db_version = 0
             for row in conn.execute('''
-                    SELECT name FROM sqlite_master
+                    SELECT name FROM sqlite_main
                     WHERE name = 'ix_container_deleted_name' '''):
                 self._db_version = 1
         return self._db_version

@@ -81,10 +81,10 @@ class VerticaClusterTasks(task_models.ClusterTasks):
 
                 LOG.debug("Installing cluster with members: %s." % member_ips)
                 for db_instance in db_instances:
-                    if db_instance['type'] == 'master':
-                        master_instance = Instance.load(context,
+                    if db_instance['type'] == 'main':
+                        main_instance = Instance.load(context,
                                                         db_instance.id)
-                        self.get_guest(master_instance).install_cluster(
+                        self.get_guest(main_instance).install_cluster(
                             member_ips)
                         break
 
@@ -144,11 +144,11 @@ class VerticaClusterTasks(task_models.ClusterTasks):
                     guest.authorize_public_keys(user, pub_key)
 
             for db_instance in db_instances:
-                if db_instance['type'] == 'master':
-                    LOG.debug("Found 'master' instance, calling grow on guest")
-                    master_instance = Instance.load(context,
+                if db_instance['type'] == 'main':
+                    LOG.debug("Found 'main' instance, calling grow on guest")
+                    main_instance = Instance.load(context,
                                                     db_instance.id)
-                    self.get_guest(master_instance).grow_cluster(new_ips)
+                    self.get_guest(main_instance).grow_cluster(new_ips)
                     break
 
             for guest in new_guests:
@@ -191,14 +191,14 @@ class VerticaClusterTasks(task_models.ClusterTasks):
             k = VerticaCluster.k_safety(len(left_instances))
 
             for db_instance in db_instances:
-                if db_instance['type'] == 'master':
-                    master_instance = Instance.load(context,
+                if db_instance['type'] == 'main':
+                    main_instance = Instance.load(context,
                                                     db_instance.id)
-                    if self.get_ip(master_instance) in remove_member_ips:
-                        raise RuntimeError(_("Cannot remove master instance!"))
+                    if self.get_ip(main_instance) in remove_member_ips:
+                        raise RuntimeError(_("Cannot remove main instance!"))
                     LOG.debug(_("Marking cluster k-safety: %s") % k)
-                    self.get_guest(master_instance).mark_design_ksafe(k)
-                    self.get_guest(master_instance).shrink_cluster(
+                    self.get_guest(main_instance).mark_design_ksafe(k)
+                    self.get_guest(main_instance).shrink_cluster(
                         remove_member_ips)
                     break
 

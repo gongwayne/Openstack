@@ -265,7 +265,7 @@ class WhenTestingP11CryptoPlugin(utils.BaseTestCase):
     def test_missing_mkek(self):
         self.pkcs11.get_key_handle.return_value = None
         self.assertRaises(pkcs11.P11CryptoKeyHandleException,
-                          self.plugin._get_master_key,
+                          self.plugin._get_main_key,
                           'bad_key_label')
 
     def test_cached_kek_expired(self):

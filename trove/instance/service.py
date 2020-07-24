@@ -270,9 +270,9 @@ class InstanceController(wsgi.Controller):
         availability_zone = body['instance'].get('availability_zone')
         nics = body['instance'].get('nics')
 
-        slave_of_id = body['instance'].get('replica_of',
+        subordinate_of_id = body['instance'].get('replica_of',
                                            # also check for older name
-                                           body['instance'].get('slave_of'))
+                                           body['instance'].get('subordinate_of'))
         replica_count = body['instance'].get('replica_count')
         modules = body['instance'].get('modules')
         instance = models.Instance.create(context, name, flavor_id,
@@ -280,7 +280,7 @@ class InstanceController(wsgi.Controller):
                                           datastore, datastore_version,
                                           volume_size, backup_id,
                                           availability_zone, nics,
-                                          configuration, slave_of_id,
+                                          configuration, subordinate_of_id,
                                           replica_count=replica_count,
                                           volume_type=volume_type,
                                           modules=modules)
@@ -299,7 +299,7 @@ class InstanceController(wsgi.Controller):
         """Modifies the instance using the specified keyword arguments
         'detach_replica': ignored if not present or False, if True,
         specifies the instance is a replica that will be detached from
-        its master
+        its main
         'configuration_id': Ignored if not present, if None, detaches an
         an attached configuration group, if not None, attaches the
         specified configuration group
@@ -359,7 +359,7 @@ class InstanceController(wsgi.Controller):
 
         args = {}
         args['detach_replica'] = ('replica_of' in body['instance'] or
-                                  'slave_of' in body['instance'])
+                                  'subordinate_of' in body['instance'])
 
         if 'name' in body['instance']:
             args['name'] = body['instance']['name']

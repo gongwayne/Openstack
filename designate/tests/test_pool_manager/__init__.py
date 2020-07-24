@@ -22,7 +22,7 @@ POOL_DICT = {
         {
             'id': 'f278782a-07dc-4502-9177-b5d85c5f7c7e',
             'type': 'fake',
-            'masters': [
+            'mains': [
                 {
                     'host': '127.0.0.1',
                     'port': 5354
@@ -33,7 +33,7 @@ POOL_DICT = {
         {
             'id': 'a38703f2-b71e-4e5b-ab22-30caaed61dfd',
             'type': 'fake',
-            'masters': [
+            'mains': [
                 {
                     'host': '127.0.0.1',
                     'port': 5354

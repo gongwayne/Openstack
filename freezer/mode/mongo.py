@@ -43,13 +43,13 @@ class MongoDbMode(mode.Mode):
             raise ImportError('please install pymongo module')
 
         logging.info('[*] MongoDB backup is being executed...')
-        logging.info('[*] Checking is the localhost is Master/Primary...')
+        logging.info('[*] Checking is the localhost is Main/Primary...')
         # todo unhardcode this
         mongodb_port = '27017'
         local_hostname = conf.hostname
         db_host_port = '{0}:{1}'.format(local_hostname, mongodb_port)
         mongo_client = pymongo.MongoClient(db_host_port)
-        master_dict = dict(mongo_client.admin.command("isMaster"))
-        if master_dict['me'] != master_dict['primary']:
-            raise Exception('[*] localhost {0} is not Master/Primary,\
+        main_dict = dict(mongo_client.admin.command("isMain"))
+        if main_dict['me'] != main_dict['primary']:
+            raise Exception('[*] localhost {0} is not Main/Primary,\
                 exiting...'.format(local_hostname))
